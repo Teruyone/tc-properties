@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TC Capitals — InvestGate⁺ 内製版</title>
+<style>
+:root{--blue:#1a73e8;--blue-light:#e8f0fe;--text:#202124;--muted:#5f6368;--border:#dadce0;--bg:#f8f9fa;--white:#fff;--grade-a:#1e8e3e;--grade-b:#7cb342;--grade-c:#f9a825;--grade-d:#d93025;--grade-a-bg:#e6f4ea;--grade-b-bg:#f0f7e6;--grade-c-bg:#fef7e0;--grade-d-bg:#fce8e6;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Hiragino Sans',sans-serif;font-size:14px;background:var(--bg);color:var(--text);}
+a{color:var(--blue);text-decoration:none;}
+
+/* Header */
+.ig-header{background:var(--white);border-bottom:1px solid var(--border);padding:12px 0;text-align:center;}
+.ig-logo{font-size:26px;font-weight:700;color:var(--blue);letter-spacing:-0.5px;}
+.ig-subtitle{font-size:11px;color:var(--muted);margin-top:2px;}
+.ig-addr{font-size:18px;font-weight:700;color:var(--text);margin-top:10px;}
+.ig-addr-sub{font-size:11px;color:var(--blue);cursor:pointer;}
+
+/* Top metrics bar */
+.metrics-bar{background:var(--white);border-bottom:2px solid var(--border);display:grid;grid-template-columns:repeat(5,1fr);gap:0;}
+.metric-cell{padding:20px 16px;text-align:center;border-right:1px solid var(--border);}
+.metric-cell:last-child{border-right:none;}
+.metric-name{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:6px;}
+.metric-num{font-size:22px;font-weight:700;color:var(--text);}
+.metric-unit{font-size:11px;color:var(--muted);margin-left:2px;}
+.grade-badge{display:inline-block;font-size:28px;font-weight:900;padding:2px 8px;border-radius:4px;line-height:1.2;}
+.grade-sub{font-size:13px;font-weight:600;margin-top:4px;}
+
+.grade-A{background:var(--grade-a-bg);color:var(--grade-a);}
+.grade-B{background:var(--grade-b-bg);color:var(--grade-b);}
+.grade-C{background:var(--grade-c-bg);color:var(--grade-c);}
+.grade-D{background:var(--grade-d-bg);color:var(--grade-d);}
+.text-A{color:var(--grade-a);}
+.text-B{color:var(--grade-b);}
+.text-C{color:var(--grade-c);}
+.text-D{color:var(--grade-d);}
+
+.note-bar{background:#fff8e1;border-bottom:1px solid #ffe082;padding:8px 24px;font-size:11px;color:#795548;line-height:1.8;}
+.note-bar b{color:#5d4037;}
+
+/* Property info */
+.prop-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--white);border-bottom:1px solid var(--border);}
+.prop-cell{padding:16px 24px;border-right:1px solid var(--border);}
+.prop-cell:last-child{border-right:none;}
+.prop-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.prop-val{font-size:20px;font-weight:700;}
+.prop-sub{font-size:11px;color:var(--blue);margin-top:2px;}
+
+/* Main layout */
+.main-wrap{max-width:1100px;margin:0 auto;padding:20px 16px;}
+.section{background:var(--white);border:1px solid var(--border);border-radius:8px;margin-bottom:16px;overflow:hidden;}
+.sec-title{font-size:15px;font-weight:700;color:var(--blue);padding:14px 20px;border-bottom:1px solid var(--border);background:var(--blue-light);}
+.sec-body{padding:20px;}
+
+/* Form rows */
+.row{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--border);}
+.row:last-child{border-bottom:none;}
+.cell{padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-right:1px solid var(--border);}
+.cell:last-child{border-right:none;}
+.cell-label{font-size:12px;color:var(--muted);flex-shrink:0;margin-right:8px;}
+.cell-val{font-size:13px;font-weight:600;text-align:right;}
+.cell-input{display:flex;align-items:center;gap:4px;}
+.cell-input input{
+  width:100px;padding:5px 8px;border:1px solid var(--border);border-radius:4px;
+  font-size:13px;text-align:right;color:var(--text);background:var(--bg);outline:none;
+}
+.cell-input input:focus{border-color:var(--blue);background:var(--white);}
+.cell-unit{font-size:11px;color:var(--muted);white-space:nowrap;}
+
+.repay-toggle{display:flex;gap:0;border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+.repay-btn{padding:5px 14px;font-size:12px;cursor:pointer;background:var(--bg);border:none;color:var(--muted);transition:all .15s;}
+.repay-btn.active{background:var(--blue);color:var(--white);}
+
+/* Negative values */
+.neg{color:var(--grade-d);}
+.pos{color:var(--grade-a);}
+.calc{color:var(--blue);}
+
+/* CF goal */
+.cf-goal{font-size:11px;color:var(--blue);margin-top:2px;}
+
+/* Chart placeholder */
+.chart-wrap{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:12px;margin-top:0;}
+.chart-canvas{width:100%;height:160px;display:block;}
+
+/* Criteria section */
+.criteria-grid{display:grid;gap:8px;}
+.crit-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:6px;border:1px solid var(--border);background:var(--bg);}
+.crit-row.ok{border-color:#a8d5b5;background:#f0faf3;}
+.crit-row.ng{border-color:#f5a49f;background:#fdf3f2;}
+.crit-row.manual{border-color:#aecbfa;background:#e8f0fe;}
+.crit-label{font-size:12px;color:var(--text);}
+.crit-right{display:flex;align-items:center;gap:8px;}
+.crit-num{font-size:12px;font-weight:600;color:var(--muted);}
+.badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;}
+.badge-ok{background:#e6f4ea;color:var(--grade-a);}
+.badge-ng{background:var(--grade-d-bg);color:var(--grade-d);}
+.badge-m{background:var(--blue-light);color:var(--blue);}
+
+/* Reset / Save buttons */
+.btn-reset{margin-top:12px;padding:7px 18px;background:var(--blue-light);color:var(--blue);border:1px solid #aecbfa;border-radius:4px;font-size:12px;cursor:pointer;font-weight:600;}
+.btn-reset:hover{background:#d2e3fc;}
+.btn-save{margin-top:12px;padding:7px 18px;background:#e6f4ea;color:#1e8e3e;border:1px solid #a8d5b5;border-radius:4px;font-size:12px;cursor:pointer;font-weight:600;}
+.btn-save:hover{background:#ceead6;}
+
+/* Summary row at top of income/expense */
+.summary-row{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--blue-light);border-bottom:1px solid var(--border);}
+.summary-label{font-size:12px;color:var(--blue);font-weight:600;}
+.summary-val{font-size:16px;font-weight:700;color:var(--blue);}
+
+.prop-inp{font-size:20px;font-weight:700;width:110px;border:none;border-bottom:2px solid var(--blue);background:transparent;text-align:right;outline:none;color:var(--text);}
+.prop-inp:focus{border-bottom-color:#1557b0;}
+.prop-inp-sm{width:70px;}
+.prop-unit{font-size:13px;color:var(--muted);}
+.prop-sel{font-size:18px;font-weight:700;border:none;border-bottom:2px solid var(--blue);background:transparent;outline:none;cursor:pointer;color:var(--text);width:100%;padding:2px 0;}
+.badge-new{display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;background:#e6f4ea;color:#1e8e3e;vertical-align:middle;margin-left:6px;}
+.yield-toggle{display:flex;gap:0;border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:8px;}
+.yield-tab{flex:1;text-align:center;padding:3px 8px;font-size:11px;font-weight:600;cursor:pointer;background:var(--bg);color:var(--muted);transition:all .15s;}
+.yield-tab.active{background:var(--blue);color:var(--white);}
+
+@media(max-width:700px){
+  .metrics-bar{grid-template-columns:1fr 1fr 1fr;}
+  .row{grid-template-columns:1fr;}
+  .cell{border-right:none;}
+  .prop-grid{grid-template-columns:1fr 1fr;}
+}
+
+/* TC 共有バー */
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-share-url::placeholder{color:rgba(255,255,255,0.55);}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+body{padding-bottom:62px;}
+</style>
+</head>
+<body>
+
+<div class="ig-header">
+  <div class="ig-logo">InvestGate<sup>+</sup></div>
+  <div class="ig-subtitle">TC Capitals 内製版 — 株式会社不動産科学研究所準拠</div>
+  <div class="ig-addr" id="propAddr">物件住所を入力してください</div>
+  <div class="ig-addr-sub">タイトルを編集</div>
+</div>
+
+<!-- Top 4 metrics -->
+<div class="metrics-bar">
+  <div class="metric-cell">
+    <div class="metric-name">キャッシュフロー</div>
+    <div class="metric-num" id="m_cf_num">—</div>
+    <div style="font-size:11px;color:var(--muted)" id="m_cf_unit">[円/年]</div>
+  </div>
+  <div class="metric-cell">
+    <div class="metric-name">CCR（自己資金利回り）</div>
+    <div><span class="grade-badge grade-D" id="m_ccr_grade">D</span></div>
+    <div class="grade-sub" id="m_ccr_val">—%</div>
+  </div>
+  <div class="metric-cell">
+    <div class="metric-name">返済比率</div>
+    <div><span class="grade-badge grade-D" id="m_repay_grade">D</span></div>
+    <div class="grade-sub" id="m_repay_val">—%</div>
+    <div id="breakEvenVacancy" style="font-size:10px;color:var(--muted);margin-top:3px;">—</div>
+  </div>
+  <div class="metric-cell">
+    <div class="metric-name">キャッシュフロー率</div>
+    <div><span class="grade-badge grade-D" id="m_cfrate_grade">D</span></div>
+    <div class="grade-sub" id="m_cfrate_val">—%</div>
+  </div>
+  <div class="metric-cell">
+    <div class="metric-name">積算比率</div>
+    <div><span class="grade-badge grade-D" id="m_ikka_grade">D</span></div>
+    <div class="grade-sub" id="m_ikka_val">—%</div>
+    <div id="m_ikka_diff" style="font-size:10px;color:var(--muted);margin-top:3px;">—</div>
+  </div>
+</div>
+
+<div class="note-bar">
+  ※いずれも初年の評価です<br>
+  ※<b>返済比率</b>の評価は、50.0%以下：A、50.1〜60.0%：B、61.0%〜65.0%：C、65.1%以上：Dです<br>
+  ※<b>キャッシュフロー率</b>の評価は、2%以上：A、1.5%以上：B、1.0%以上：C、1.0%未満：Dです<br>
+  ※<b>CCR（自己資金利回り）</b>の評価は、20%以上：A、15%以上：B、10%以上：C、10%未満：Dです<br>
+  ※<b>積算比率</b>の評価は、物件価格比で100%以上：A、80%以上：B、60%以上：C、60%未満：Dです
+</div>
+
+<!-- Property info -->
+<div class="prop-grid">
+  <div class="prop-cell">
+    <div class="prop-label">物件価格</div>
+    <div style="display:flex;align-items:baseline;gap:4px;">
+      <input type="number" id="pi_price_inp" value="8100" step="10" class="prop-inp"
+        oninput="document.getElementById('price').value=this.value;if(ltvMode==='loan'){onLtvInput();}else if(yieldMode==='income'){onYieldInput();}else{calc();}">
+      <span class="prop-unit">万円</span>
+    </div>
+    <div class="cf-goal" id="pi_cfgoal"></div>
+  </div>
+  <div class="prop-cell">
+    <div class="prop-label">築年数<span id="pi_age_badge"></span></div>
+    <div style="display:flex;align-items:baseline;gap:4px;">
+      <input type="number" id="pi_age_inp" value="13" step="1" min="0" class="prop-inp prop-inp-sm"
+        oninput="document.getElementById('buildAge').value=this.value;calc()">
+      <span class="prop-unit">年</span>
+    </div>
+    <div class="cf-goal" id="pi_remain"></div>
+  </div>
+  <div class="prop-cell">
+    <div class="prop-label">構造</div>
+    <select id="pi_struct_sel" class="prop-sel" onchange="syncStructDown();calc()">
+      <option value="木造" data-life="22">木造</option>
+      <option value="軽量鉄骨造" data-life="27">軽量鉄骨造</option>
+      <option value="重量鉄骨造" data-life="34">重量鉄骨造</option>
+      <option value="RC造" data-life="47">RC造</option>
+    </select>
+  </div>
+  <div class="prop-cell" style="border-top:1px solid var(--border)">
+    <div class="yield-toggle">
+      <div id="tab_yield" class="yield-tab active" onclick="setYieldMode('yield')">表面利回り</div>
+      <div id="tab_income" class="yield-tab" onclick="setYieldMode('income')">総収入</div>
+    </div>
+    <div style="display:flex;align-items:baseline;gap:4px;">
+      <input type="number" id="pi_yield_inp" value="7.45" step="0.01" class="prop-inp" oninput="onYieldInput()">
+      <span id="pi_yield_unit" class="prop-unit">%</span>
+    </div>
+    <div class="cf-goal" id="pi_yield_derived"></div>
+  </div>
+  <div class="prop-cell" style="border-top:1px solid var(--border)">
+    <div class="prop-label">建物面積</div>
+    <div style="display:flex;align-items:baseline;gap:4px;">
+      <input type="number" id="pi_area_inp" value="150" step="5" class="prop-inp"
+        oninput="document.getElementById('floorArea').value=this.value;calc()">
+      <span class="prop-unit">㎡</span>
+      <span id="pi_area_tsubo" style="font-size:11px;color:var(--muted);margin-left:4px;"></span>
+    </div>
+  </div>
+  <div class="prop-cell" style="border-top:1px solid var(--border)">
+    <div class="prop-label">住所</div>
+    <div style="font-size:13px;font-weight:600">
+      <input type="text" id="addrInput" placeholder="例: 神奈川県横浜市西区..."
+        style="width:100%;border:1px solid var(--border);border-radius:4px;padding:4px 8px;font-size:12px;"
+        oninput="document.getElementById('propAddr').textContent=this.value||'物件住所を入力してください'">
+    </div>
+  </div>
+  <div class="prop-cell" style="border-top:1px solid var(--border)">
+    <div class="prop-label">坪単価</div>
+    <div style="display:flex;align-items:baseline;gap:4px;">
+      <span id="pi_tsubo_price" class="prop-val" style="font-size:20px;">—</span>
+      <span class="prop-unit">円/坪/月</span>
+    </div>
+    <div class="cf-goal" id="pi_tsubo_m2">—円/㎡</div>
+  </div>
+  <div class="prop-cell" style="border-top:1px solid var(--border)">
+    <div class="prop-label">部屋数</div>
+    <div style="display:flex;align-items:baseline;gap:4px;">
+      <input type="number" id="pi_rooms_inp" value="8" step="1" min="1" class="prop-inp prop-inp-sm"
+        oninput="calc()">
+      <span class="prop-unit">戸</span>
+      <span id="pi_room_sqm" style="font-size:11px;color:var(--muted);margin-left:6px;"></span>
+    </div>
+  </div>
+  <div class="prop-cell" style="border-top:1px solid var(--border)">
+    <div class="prop-label">部屋当たり平均月収</div>
+    <div style="display:flex;align-items:baseline;gap:4px;">
+      <span id="pi_room_income" class="prop-val" style="font-size:20px;">—</span>
+      <span class="prop-unit">円/月</span>
+    </div>
+    <div class="cf-goal" id="pi_room_income_sub"></div>
+  </div>
+</div>
+
+<div class="main-wrap">
+
+<!-- Loan section -->
+<div class="section">
+  <div class="sec-title">ローン</div>
+  <div class="sec-body" style="padding:12px 0 0 0;">
+    <div style="padding:8px 16px;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:12px;color:var(--muted);">返済方式:</span>
+      <div class="repay-toggle">
+        <button class="repay-btn" id="btn_genko" onclick="setRepay('元利均等')">元利均等</button>
+        <button class="repay-btn active" id="btn_gankin" onclick="setRepay('元金均等')">元金均等</button>
+      </div>
+      <span style="font-size:11px;color:var(--muted)">※元利均等が一般的。元金均等は初期返済が多い</span>
+    </div>
+
+    <div class="row">
+      <div class="cell">
+        <div class="yield-toggle" style="margin-bottom:6px;">
+          <div id="tab_ltv" class="yield-tab active" onclick="setLtvMode('ltv')">融資割合</div>
+          <div id="tab_loan" class="yield-tab" onclick="setLtvMode('loan')">借入金額</div>
+        </div>
+        <div class="cell-input">
+          <input type="number" id="ltvInput" value="100" step="1" oninput="onLtvInput()">
+          <input type="hidden" id="ltvRatio" value="100">
+          <span id="ltv_unit" class="cell-unit">[%]</span>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px" id="ltv_derived"></div>
+      </div>
+      <div class="cell">
+        <span class="cell-label">諸費用率</span>
+        <div class="cell-input">
+          <input type="number" id="costsRate" value="7" step="0.5" oninput="calc()">
+          <span class="cell-unit">[%]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">物件価格</span>
+        <div class="cell-input">
+          <input type="number" id="price" value="8100" step="10" oninput="document.getElementById('pi_price_inp').value=this.value;if(ltvMode==='loan'){onLtvInput();}else if(yieldMode==='income'){onYieldInput();}else{calc();}">
+          <span class="cell-unit">[万円]</span>
+        </div>
+      </div>
+      <div class="cell">
+        <span class="cell-label">借入金額</span>
+        <span class="cell-val calc" id="loanAmt">— [万円]</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">返済期間</span>
+        <div class="cell-input">
+          <input type="number" id="loanTerm" value="28" step="1" oninput="calc()">
+          <span class="cell-unit">[年]</span>
+        </div>
+      </div>
+      <div class="cell">
+        <span class="cell-label">金利</span>
+        <div class="cell-input">
+          <input type="number" id="intRate" value="2.6" step="0.05" oninput="calc()">
+          <span class="cell-unit">[%]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">返済金額（年）</span>
+        <span class="cell-val" id="repayYear">— [円/年]</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">返済金額（月）</span>
+        <span class="cell-val" id="repayMonth">— [円/月]</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">　└ 元金分（年・初年度）</span>
+        <span class="cell-val calc" id="repayPrincipalY1">— [円/年]</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">　└ 金利分（年・初年度）</span>
+        <span class="cell-val calc" style="color:var(--grade-d)" id="repayInterestY1">— [円/年]</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell" style="grid-column:1/-1;border-right:none;">
+        <span class="cell-label">総返済金額</span>
+        <span class="cell-val" id="totalRepay">— [円]</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Income section -->
+<div class="section">
+  <div class="sec-title">収益</div>
+  <div class="sec-body" style="padding:0;">
+    <div class="summary-row">
+      <span class="summary-label">実質利回り</span>
+      <span class="summary-val" id="noiYield">— [%]</span>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">年間純収益</span>
+        <span class="cell-val calc" id="noi_year">— [円/年]</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">月間純収益</span>
+        <span class="cell-val calc" id="noi_month">— [円/月]</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">延床面積</span>
+        <div class="cell-input">
+          <input type="number" id="floorArea" value="150" step="5" oninput="document.getElementById('pi_area_inp').value=this.value;calc()">
+          <span class="cell-unit">[㎡]</span>
+        </div>
+      </div>
+      <div class="cell">
+        <span class="cell-label">賃貸年収合計</span>
+        <span class="cell-val calc" id="rentTotal">— [円/年]</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">賃貸収入</span>
+        <span class="cell-val calc" id="rentIncome">— [円/年]</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">満室時想定賃貸収入</span>
+        <span class="cell-val calc" id="fullRent">— [円/年]</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">賃貸可能面積</span>
+        <span class="cell-val" id="rentArea">— [㎡]</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">有効率</span>
+        <div class="cell-input">
+          <input type="number" id="effectRate" value="100" step="1" min="0" max="100" oninput="calc()">
+          <span class="cell-unit">[%]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">月額賃料坪単価</span>
+        <span class="cell-val calc" id="rentPerTsubo">— [円/坪]</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">表面利回り</span>
+        <div class="cell-input">
+          <input type="number" id="grossYield" value="7.45" step="0.01" oninput="if(yieldMode==='yield'){document.getElementById('pi_yield_inp').value=this.value;}calc()">
+          <span class="cell-unit">[%]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">駐車場収入</span>
+        <div class="cell-input">
+          <input type="number" id="parkingIncome" value="0" step="10000" oninput="calc()">
+          <span class="cell-unit">[円/年]</span>
+        </div>
+      </div>
+      <div class="cell">
+        <span class="cell-label">満室時想定駐車場収入</span>
+        <span class="cell-val calc" id="fullParking">— [円/年]</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">月間駐車場単価</span>
+        <div class="cell-input">
+          <input type="number" id="parkingUnit" value="0" step="1000" oninput="calc()">
+          <span class="cell-unit">[円/月]</span>
+        </div>
+      </div>
+      <div class="cell">
+        <span class="cell-label">駐車可能台数</span>
+        <div class="cell-input">
+          <input type="number" id="parkingCnt" value="0" step="1" oninput="calc()">
+          <span class="cell-unit">[台]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">その他収入</span>
+        <div class="cell-input">
+          <input type="number" id="otherIncome" value="0" step="10000" oninput="calc()">
+          <span class="cell-unit">[円/年]</span>
+        </div>
+      </div>
+      <div class="cell">
+        <span class="cell-label">年間賃料下落率</span>
+        <div class="cell-input">
+          <input type="number" id="rentDecline" value="1" step="0.1" oninput="calc()">
+          <span class="cell-unit">[%]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">空室損失</span>
+        <span class="cell-val neg" id="vacancyLoss">— [円/年]</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">貸室空室率</span>
+        <div class="cell-input">
+          <input type="number" id="vacancyRate" value="5" step="0.5" oninput="calc()">
+          <span class="cell-unit">[%]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell" style="grid-column:1/-1;border-right:none;">
+        <span class="cell-label">駐車場空室率</span>
+        <div class="cell-input">
+          <input type="number" id="parkVacancy" value="5" step="0.5" oninput="calc()">
+          <span class="cell-unit">[%]</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Expenses section -->
+<div class="section">
+  <div class="sec-title">費用</div>
+  <div class="sec-body" style="padding:0;">
+    <div class="summary-row">
+      <span class="summary-label">支出合計</span>
+      <span class="summary-val" id="totalExpense">— [円/年]</span>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">賃貸管理費（税込）</span>
+        <span class="cell-val neg" id="mgmtFee">— [円/年]</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">賃貸管理手数料率</span>
+        <div class="cell-input">
+          <input type="number" id="mgmtRate" value="3.3" step="0.1" oninput="calc()">
+          <span class="cell-unit">[%]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">建物管理費</span>
+        <div class="cell-input">
+          <input type="number" id="bmFeeInp" step="10000" oninput="bmMode='total';calc()">
+          <span class="cell-unit">[円/年]</span>
+        </div>
+      </div>
+      <div class="cell">
+        <span class="cell-label">建物管理費延床坪単価</span>
+        <div class="cell-input">
+          <input type="number" id="bmUnit" value="200" step="10" oninput="bmMode='unit';calc()">
+          <span class="cell-unit">[円/月]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">共用部水光熱費</span>
+        <span class="cell-val neg" id="utilFee">— [円/年]</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">共用部水光熱費延床坪単価</span>
+        <div class="cell-input">
+          <input type="number" id="utilUnit" value="50" step="10" oninput="calc()">
+          <span class="cell-unit">[円/月]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">災害保険</span>
+        <span class="cell-val neg" id="insurFee">— [円/年]</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">建築費坪単価</span>
+        <div class="cell-input">
+          <input type="number" id="buildUnit" value="550000" step="10000" oninput="calc()">
+          <span class="cell-unit">[円]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell" style="border-right:none;grid-column:2/3;">
+        <span class="cell-label">災害保険掛率</span>
+        <div class="cell-input">
+          <input type="number" id="insurRate" value="0.3" step="0.05" oninput="calc()">
+          <span class="cell-unit">[%]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">固定資産税・都市計画税</span>
+        <span class="cell-val neg" id="taxFee">— [円/年]</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">固定資産税・都市計画税率</span>
+        <div class="cell-input">
+          <input type="number" id="taxRate" value="10" step="0.5" oninput="calc()">
+          <span class="cell-unit">[%]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">修繕費</span>
+        <span class="cell-val neg" id="repairFee">— [円/年]</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">修繕費掛率</span>
+        <div class="cell-input">
+          <input type="number" id="repairRate" value="0.5" step="0.1" oninput="calc()">
+          <span class="cell-unit">[%]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">原状回復費</span>
+        <span class="cell-val neg" id="restoreFee">— [円/年]</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">原状回復費坪単価</span>
+        <div class="cell-input">
+          <input type="number" id="restoreUnit" value="10000" step="1000" oninput="calc()">
+          <span class="cell-unit">[円]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell" style="border-right:none;grid-column:2/3;">
+        <span class="cell-label">回転率</span>
+        <div class="cell-input">
+          <input type="number" id="turnover" value="25" step="5" oninput="calc()">
+          <span class="cell-unit">[%]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">募集経費</span>
+        <span class="cell-val neg" id="adFee">— [円/年]</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">募集AD</span>
+        <div class="cell-input">
+          <input type="number" id="adMonths" value="1" step="0.5" oninput="calc()">
+          <span class="cell-unit">（ヶ月分[賃料]）</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell" style="grid-column:1/-1;border-right:none;">
+        <span class="cell-label">その他</span>
+        <div class="cell-input">
+          <input type="number" id="otherExpense" value="0" step="10000" oninput="calc()">
+          <span class="cell-unit">[円/年]</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tax section -->
+<div class="section">
+  <div class="sec-title">税金</div>
+  <div class="sec-body" style="padding:0;">
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">税引き前CF</span>
+        <span class="cell-val" id="preTaxCF">— [円/年]</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">税引き後CF</span>
+        <span class="cell-val" id="afterTaxCF">— [円/年]</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell" style="grid-column:1/-1;border-right:none;">
+        <span class="cell-label">計算過程</span>
+        <div id="taxCalcFlow" style="font-size:12px;color:var(--muted);line-height:2;margin-top:4px;">—</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">税率</span>
+        <div class="cell-input">
+          <input type="number" id="taxRateIncome" value="20" step="5" oninput="calc()">
+          <span class="cell-unit">[%]</span>
+        </div>
+      </div>
+      <div class="cell">
+        <span class="cell-label">建物割合</span>
+        <div class="cell-input">
+          <input type="number" id="buildRatio" value="70" step="5" oninput="calc()">
+          <span class="cell-unit">[%]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">土地</span>
+        <span class="cell-val calc" id="landVal">— [円]</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">建物</span>
+        <span class="cell-val calc" id="buildVal">— [円]</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">単年減価償却</span>
+        <span class="cell-val calc" id="depr">— [円]</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">減価償却後純収益</span>
+        <span class="cell-val calc" id="noiAfterDepr">— [円/年]</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">築年数</span>
+        <div class="cell-input">
+          <input type="number" id="buildAge" value="13" step="1" oninput="document.getElementById('pi_age_inp').value=this.value;calc()">
+          <span class="cell-unit">[年]</span>
+        </div>
+      </div>
+      <div class="cell">
+        <span class="cell-label">構造</span>
+        <select id="buildStruct" onchange="syncStructUp();calc()" style="padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:13px;background:var(--bg);">
+          <option value="木造" data-life="22">木造（22年）</option>
+          <option value="軽量鉄骨造" data-life="27">軽量鉄骨造（27年）</option>
+          <option value="重量鉄骨造" data-life="34">重量鉄骨造（34年）</option>
+          <option value="RC造" data-life="47">RC造（47年）</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 積算評価 section -->
+<div class="section">
+  <div class="sec-title">積算評価</div>
+  <div class="sec-body" style="padding:0;">
+
+    <!-- 土地 -->
+    <div style="padding:8px 16px;font-size:12px;font-weight:700;color:var(--blue);background:var(--blue-light);border-bottom:1px solid var(--border);">土地</div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">A) 土地面積</span>
+        <div class="cell-input">
+          <input type="number" id="ik_land_area" value="100" step="1" oninput="calc()">
+          <span class="cell-unit">[m²]</span>
+        </div>
+      </div>
+      <div class="cell">
+        <span class="cell-label">B) 相続路線価</span>
+        <div class="cell-input">
+          <input type="number" id="ik_route_price" value="0" step="0.01" oninput="calc()">
+          <span class="cell-unit">[万円/㎡]</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">C) 補正率</span>
+        <div class="cell-input">
+          <input type="number" id="ik_correction" value="1.00" step="0.01" oninput="calc()">
+        </div>
+      </div>
+      <div class="cell">
+        <span class="cell-label">D) 掛け目</span>
+        <div class="cell-input">
+          <input type="number" id="ik_multiplier" value="1.00" step="0.01" oninput="calc()">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell" style="grid-column:1/-1;border-right:none;flex-wrap:wrap;gap:8px;">
+        <span class="cell-label">土地評価額 <small style="color:var(--muted)">(= A×B×C×D)</small></span>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="yield-toggle" style="margin-bottom:0;">
+            <div id="tab_landv_calc"   class="yield-tab active" onclick="setLandValMode('calc')">計算する</div>
+            <div id="tab_landv_direct" class="yield-tab"        onclick="setLandValMode('direct')">直接入力</div>
+          </div>
+          <div class="cell-input" id="landv_direct_wrap" style="display:none;">
+            <input type="number" id="ik_land_direct" value="0" step="10" oninput="calc()">
+            <span class="cell-unit">[万円]</span>
+          </div>
+          <span class="cell-val calc" id="ik_land_val">— 万円</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">土地値比率（÷物件価格）</span>
+        <span class="cell-val calc" id="ik_land_ratio">—%</span>
+      </div>
+      <div class="cell"></div>
+    </div>
+
+    <!-- 建物 -->
+    <div style="padding:8px 16px;font-size:12px;font-weight:700;color:var(--blue);background:var(--blue-light);border-bottom:1px solid var(--border);border-top:2px solid var(--border);">建物</div>
+    <div class="row">
+      <div class="cell">
+        <span class="cell-label">A) 建物面積 <small style="color:var(--muted)">(建物欄と連動)</small></span>
+        <div style="display:flex;align-items:center;gap:4px;">
+          <span id="ik_build_area_disp" style="font-size:13px;font-weight:600;color:var(--text);">—</span>
+          <span style="font-size:11px;color:var(--muted);">m²</span>
+        </div>
+      </div>
+      <div class="cell">
+        <span class="cell-label">B) 劣化等級（再建築単価）</span>
+        <select id="ik_deteri_grade" onchange="calc()" style="font-size:12px;padding:4px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg);color:var(--text);cursor:pointer;">
+          <option value="other">等級1・2（21万/m²）</option>
+          <option value="3">等級3（24万/m²）</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell" style="grid-column:1/-1;border-right:none;flex-wrap:wrap;gap:8px;">
+        <span class="cell-label">建物評価額 <small id="ik_build_formula" style="color:var(--muted)"></small></span>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="yield-toggle" style="margin-bottom:0;">
+            <div id="tab_buildv_calc"   class="yield-tab active" onclick="setBuildValMode('calc')">計算する</div>
+            <div id="tab_buildv_direct" class="yield-tab"        onclick="setBuildValMode('direct')">直接入力</div>
+          </div>
+          <div class="cell-input" id="buildv_direct_wrap" style="display:none;">
+            <input type="number" id="ik_build_direct" value="0" step="10" oninput="calc()">
+            <span class="cell-unit">[万円]</span>
+          </div>
+          <span class="cell-val calc" id="ik_build_val">— 万円</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 積算合計 -->
+    <div class="row" style="background:var(--bg);">
+      <div class="cell">
+        <span class="cell-label" style="font-weight:700;color:var(--text);">積算評価額</span>
+        <span class="cell-val calc" id="ik_total_val" style="font-size:15px;">— 万円</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label" style="font-weight:700;color:var(--text);">積算比率（÷物件価格）</span>
+        <span class="cell-val calc" id="ik_ratio_val" style="font-size:15px;">—%</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- キャプテン基準チェック -->
+<div class="section">
+  <div class="sec-title">✅ キャプテン基準チェック</div>
+  <div class="sec-body">
+    <div class="criteria-grid">
+      <div class="crit-row" id="ck_price">
+        <span class="crit-label">物件価格 ≤ 1億円</span>
+        <div class="crit-right">
+          <span class="crit-num" id="ckv_price">—</span>
+          <span class="badge" id="ckb_price">—</span>
+        </div>
+      </div>
+      <div class="crit-row" id="ck_yield">
+        <span class="crit-label">表面利回り ≥ 7.1%（新築基準）</span>
+        <div class="crit-right">
+          <span class="crit-num" id="ckv_yield">—</span>
+          <span class="badge" id="ckb_yield">—</span>
+        </div>
+      </div>
+      <div class="crit-row" id="ck_cfrate">
+        <span class="crit-label">CF率 ≥ 1%（C判定以上）</span>
+        <div class="crit-right">
+          <span class="crit-num" id="ckv_cfrate">—</span>
+          <span class="badge" id="ckb_cfrate">—</span>
+        </div>
+      </div>
+      <div class="crit-row" id="ck_ccr">
+        <span class="crit-label">CCR ≥ 15%（B判定以上）</span>
+        <div class="crit-right">
+          <span class="crit-num" id="ckv_ccr">—</span>
+          <span class="badge" id="ckb_ccr">—</span>
+        </div>
+      </div>
+      <div class="crit-row" id="ck_ikka">
+        <span class="crit-label">積算比率 ≥ 60%（C判定以上）</span>
+        <div class="crit-right">
+          <span class="crit-num" id="ckv_ikka">—</span>
+          <span class="badge" id="ckb_ikka">—</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:12px;text-align:center;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn-save" onclick="saveDefaults()">💾 現在の数字をデフォルトとして保存</button>
+      <button class="btn-reset" onclick="resetDefaults()">↺ キャプテン基準でリセット（1億・7.1%・95%・2.2%・35年）</button>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;padding:16px;color:var(--muted);font-size:11px;">
+  TC Capitals 内製版 — 株式会社不動産科学研究所 InvestGate 準拠 | ※本シミュレーションは情報提供を目的としたものであり、将来の収益を保証するものではありません
+</div>
+
+</div><!-- /main-wrap -->
+
+<script>
+const M2TSUBO = 3.30579;
+let repayMode = '元利均等';
+let yieldMode = 'yield'; // 'yield' = 表面利回り入力, 'income' = 総収入入力
+let ltvMode   = 'ltv';  // 'ltv' = 融資割合(%)入力, 'loan' = 借入金額(万円)入力
+let bmMode       = 'unit'; // 'unit' = 坪単価入力, 'total' = 年額入力
+let landValMode  = 'calc';  // 'calc' = 計算する, 'direct' = 直接入力
+let buildValMode = 'calc';  // 'calc' = 計算する, 'direct' = 直接入力
+
+function setYieldMode(mode) {
+  yieldMode = mode;
+  var inp = document.getElementById('pi_yield_inp');
+  var unit = document.getElementById('pi_yield_unit');
+  var tabY = document.getElementById('tab_yield');
+  var tabI = document.getElementById('tab_income');
+  var price = parseFloat(document.getElementById('pi_price_inp').value) || 0;
+  if (mode === 'yield') {
+    tabY.classList.add('active'); tabI.classList.remove('active');
+    unit.textContent = '%';
+    inp.step = '0.01';
+    // show current grossYield value
+    var gy = parseFloat(document.getElementById('grossYield').value) || 0;
+    inp.value = gy.toFixed(2);
+  } else {
+    tabI.classList.add('active'); tabY.classList.remove('active');
+    unit.textContent = '万円/年';
+    inp.step = '10';
+    // derive 総収入 from current grossYield and price
+    var gy2 = parseFloat(document.getElementById('grossYield').value) || 0;
+    inp.value = price > 0 ? Math.round(price * gy2 / 100) : 0;
+  }
+  calc();
+}
+
+function onYieldInput() {
+  var val = parseFloat(document.getElementById('pi_yield_inp').value) || 0;
+  var price = parseFloat(document.getElementById('pi_price_inp').value) || 0;
+  if (yieldMode === 'yield') {
+    document.getElementById('grossYield').value = val;
+  } else {
+    // 総収入(万円/年) → 表面利回り(%)
+    var gy = price > 0 ? val / price * 100 : 0;
+    document.getElementById('grossYield').value = gy.toFixed(4);
+  }
+  calc();
+}
+
+function setLtvMode(mode) {
+  ltvMode = mode;
+  var inp  = document.getElementById('ltvInput');
+  var unit = document.getElementById('ltv_unit');
+  var tabL = document.getElementById('tab_ltv');
+  var tabA = document.getElementById('tab_loan');
+  var price = parseFloat(document.getElementById('price').value) || 0;
+  var ltvVal = parseFloat(document.getElementById('ltvRatio').value) || 0;
+  if (mode === 'ltv') {
+    tabL.classList.add('active'); tabA.classList.remove('active');
+    unit.textContent = '[%]';
+    inp.step = '1';
+    inp.value = ltvVal.toFixed(1);
+  } else {
+    tabA.classList.add('active'); tabL.classList.remove('active');
+    unit.textContent = '[万円]';
+    inp.step = '10';
+    inp.value = Math.round(price * ltvVal / 100);
+  }
+  calc();
+}
+
+function onLtvInput() {
+  var val   = parseFloat(document.getElementById('ltvInput').value) || 0;
+  var price = parseFloat(document.getElementById('price').value) || 0;
+  if (ltvMode === 'ltv') {
+    document.getElementById('ltvRatio').value = val;
+  } else {
+    var ltv = price > 0 ? val / price * 100 : 0;
+    document.getElementById('ltvRatio').value = ltv.toFixed(4);
+  }
+  calc();
+}
+
+function setLandValMode(mode) {
+  landValMode = mode;
+  document.getElementById('tab_landv_calc').className   = 'yield-tab' + (mode === 'calc'   ? ' active' : '');
+  document.getElementById('tab_landv_direct').className = 'yield-tab' + (mode === 'direct' ? ' active' : '');
+  document.getElementById('landv_direct_wrap').style.display = mode === 'direct' ? 'flex' : 'none';
+  calc();
+}
+
+function setBuildValMode(mode) {
+  buildValMode = mode;
+  document.getElementById('tab_buildv_calc').className   = 'yield-tab' + (mode === 'calc'   ? ' active' : '');
+  document.getElementById('tab_buildv_direct').className = 'yield-tab' + (mode === 'direct' ? ' active' : '');
+  document.getElementById('buildv_direct_wrap').style.display = mode === 'direct' ? 'flex' : 'none';
+  calc();
+}
+
+function syncStructDown(){
+  var top = document.getElementById('pi_struct_sel');
+  var low = document.getElementById('buildStruct');
+  low.value = top.value;
+}
+function syncStructUp(){
+  var low = document.getElementById('buildStruct');
+  var top = document.getElementById('pi_struct_sel');
+  top.value = low.value;
+}
+
+function setRepay(mode) {
+  repayMode = mode;
+  document.getElementById('btn_genko').className  = 'repay-btn' + (mode==='元利均等'?' active':'');
+  document.getElementById('btn_gankin').className = 'repay-btn' + (mode==='元金均等'?' active':'');
+  calc();
+}
+
+function g(id){ return parseFloat(document.getElementById(id).value)||0; }
+function el(id){ return document.getElementById(id); }
+function fmt0(v){ return Math.round(v).toLocaleString(); }
+function fmt2(v){ return v.toFixed(2); }
+function fmt1(v){ return v.toFixed(1); }
+
+// 元利均等PMT
+function pmtKinri(r, n, pv){
+  if(r===0) return pv/n;
+  return pv * r / (1 - Math.pow(1+r, -n));
+}
+
+// 元金均等初年度平均
+function pmtGankin(r, n, pv, year1){
+  const principal = pv / n;
+  const interest  = pv * r - principal * r * (year1-1); // simplification year1=1
+  return principal + pv * r;
+}
+
+function grade_cfrate(v){
+  if(v>=2.0) return 'A';
+  if(v>=1.5) return 'B';
+  if(v>=1.0) return 'C';
+  return 'D';
+}
+function grade_repay(v){
+  if(v<=50.0) return 'A';
+  if(v<=60.0) return 'B';
+  if(v<=65.0) return 'C';
+  return 'D';
+}
+function grade_ccr(v){
+  if(v>=20.0) return 'A';
+  if(v>=15.0) return 'B';
+  if(v>=10.0) return 'C';
+  return 'D';
+}
+
+function applyGrade(badgeId, subId, g, val, unit){
+  const badge = el(badgeId);
+  badge.textContent = g;
+  badge.className = 'grade-badge grade-' + g;
+  el(subId).textContent = val + ' [' + unit + ']';
+  el(subId).className = 'grade-sub text-' + g;
+}
+
+function applyCheck(rowId, valId, badgeId, pass, display){
+  const row = el(rowId);
+  el(valId).textContent = display;
+  const badge = el(badgeId);
+  if(pass){
+    row.className = 'crit-row ok';
+    badge.className = 'badge badge-ok';
+    badge.textContent = 'OK';
+  } else {
+    row.className = 'crit-row ng';
+    badge.className = 'badge badge-ng';
+    badge.textContent = 'NG';
+  }
+}
+
+function calc(){
+  const price       = g('price');          // 万円
+  const ltvRatio    = g('ltvRatio');       // %
+  const costsRate   = g('costsRate');      // %
+  const loanTerm    = g('loanTerm');       // 年
+  const intRate     = g('intRate');        // %
+  const floorArea   = g('floorArea');      // ㎡
+  const effectRate  = g('effectRate');     // %
+  const grossYield  = g('grossYield');     // %
+  const vacRate     = g('vacancyRate');    // %
+  const parkingInc  = g('parkingIncome');  // 円/年
+  const parkingUnit = g('parkingUnit');    // 円/月
+  const parkingCnt  = g('parkingCnt');     // 台
+  const parkVac     = g('parkVacancy');    // %
+  const otherInc    = g('otherIncome');    // 円/年
+  const mgmtRate    = g('mgmtRate');       // %
+  const bmUnit      = g('bmUnit');         // 円/月/坪
+  const utilUnit    = g('utilUnit');       // 円/月/坪
+  const buildUnit   = g('buildUnit');      // 円/坪
+  const insurRate   = g('insurRate');      // %
+  const taxRateVal  = g('taxRate');        // %
+  const repairRate  = g('repairRate');     // %
+  const restoreUnit = g('restoreUnit');    // 円/坪
+  const turnover    = g('turnover');       // %
+  const adMonths    = g('adMonths');       // ヶ月
+  const otherExp    = g('otherExpense');   // 円/年
+  const taxRateInc  = g('taxRateIncome');  // %
+  const buildRatio  = g('buildRatio');     // %
+  const buildAge    = g('buildAge');       // 年
+  const sel         = el('buildStruct');
+  const legalLife   = parseInt(sel.options[sel.selectedIndex].getAttribute('data-life'));
+
+  // 坪数
+  const tsubo = floorArea / M2TSUBO;
+
+  // ローン
+  const loanAmt    = price * ltvRatio / 100;           // 万円
+  const ownCash    = price * (1 - ltvRatio/100) + price * costsRate/100; // 万円
+  const loanYen    = loanAmt * 10000;
+  const rMonthly   = intRate / 100 / 12;
+  const nMonths    = loanTerm * 12;
+
+  let monthlyRepay, annualRepay, totalRepayVal, annualInterestY1, annualPrincipalY1;
+  if (repayMode === '元利均等') {
+    monthlyRepay  = pmtKinri(rMonthly, nMonths, loanYen);
+    annualRepay   = monthlyRepay * 12;
+    totalRepayVal = monthlyRepay * nMonths;
+    // 初年度 元金/金利 内訳（月次ループで正確計算）
+    let bal = loanYen; annualInterestY1 = 0;
+    for (let m = 0; m < 12; m++) {
+      const i = bal * rMonthly;
+      annualInterestY1 += i;
+      bal -= (monthlyRepay - i);
+    }
+    annualPrincipalY1 = annualRepay - annualInterestY1;
+  } else {
+    // 元金均等: 元金は毎月固定、金利は残高×月利
+    const principalMonthFixed = loanYen / nMonths;
+    let bal = loanYen; annualInterestY1 = 0;
+    for (let m = 0; m < 12; m++) {
+      annualInterestY1 += bal * rMonthly;
+      bal -= principalMonthFixed;
+    }
+    annualPrincipalY1 = principalMonthFixed * 12;
+    annualRepay       = annualPrincipalY1 + annualInterestY1;
+    totalRepayVal     = loanYen + loanYen * intRate / 100 * loanTerm / 2;
+    monthlyRepay      = annualRepay / 12;
+  }
+
+  el('loanAmt').textContent         = fmt0(loanAmt) + ' [万円]';
+  el('repayYear').textContent       = fmt0(annualRepay) + ' [円/年]';
+  el('repayMonth').textContent      = fmt0(monthlyRepay) + ' [円/月]';
+  el('repayPrincipalY1').textContent = fmt0(annualPrincipalY1) + ' [円/年]';
+  el('repayInterestY1').textContent  = fmt0(annualInterestY1) + ' [円/年]';
+  el('totalRepay').textContent      = fmt0(totalRepayVal) + ' [円]';
+
+  // 融資割合↔借入金額トグル：派生値表示、ltv モード時は上部入力欄を同期
+  if (ltvMode === 'ltv') {
+    el('ltv_derived').textContent = '借入金額 ' + fmt0(loanAmt) + ' 万円';
+    document.getElementById('ltvInput').value = ltvRatio.toFixed(1);
+  } else {
+    el('ltv_derived').textContent = '融資割合 ' + ltvRatio.toFixed(1) + '%';
+  }
+
+  // 収益計算
+  const fullRentYen     = price * 10000 * grossYield / 100;       // 満室時想定賃貸収入
+  const vacancyLossYen  = fullRentYen * vacRate / 100;            // 空室損失
+  const rentTotalYen    = fullRentYen - vacancyLossYen;           // 賃貸年収合計
+  const fullParkYen     = parkingUnit * parkingCnt * 12;          // 満室時想定駐車場収入
+  const parkingIncReal  = fullParkYen * (1 - parkVac/100);        // 実際の駐車場収入
+
+  const totalGrossInc = rentTotalYen + parkingIncReal + otherInc; // 総実収入
+
+  // 費用計算（全て円）
+  const buildCostYen  = buildUnit * tsubo;                                   // 建築費（新築相当）
+  const mgmtFeeYen    = rentTotalYen * mgmtRate / 100;                        // 賃貸管理費
+  let bmFeeYen;
+  if (bmMode === 'total') {
+    bmFeeYen = parseFloat(document.getElementById('bmFeeInp').value) || 0;
+    document.getElementById('bmUnit').value = tsubo > 0 ? (bmFeeYen / tsubo / 12).toFixed(0) : 0;
+  } else {
+    bmFeeYen = bmUnit * tsubo * 12;
+    document.getElementById('bmFeeInp').value = Math.round(bmFeeYen);
+  }
+  const utilFeeYen    = utilUnit * tsubo * 12;                                // 共用部水光熱費
+  const insurFeeYen   = buildCostYen * insurRate / 100;                       // 災害保険
+  const taxFeeYen     = rentTotalYen * taxRateVal / 100;                      // 固定資産税
+  const repairFeeYen  = buildCostYen * repairRate / 100;                      // 修繕費
+  const restoreFeeYen = restoreUnit * (1 - vacRate/100) * tsubo * turnover/100; // 原状回復費
+  const adFeeYen      = (rentTotalYen / 12) * adMonths * (turnover / 100);   // 募集経費
+
+  const totalExpYen = mgmtFeeYen + bmFeeYen + utilFeeYen + insurFeeYen + taxFeeYen
+                    + repairFeeYen + restoreFeeYen + adFeeYen + otherExp;
+
+  // NOI
+  const noiYen      = totalGrossInc - totalExpYen;
+  const noiMonthYen = noiYen / 12;
+  const noiYieldPct = price > 0 ? noiYen / (price * 10000) * 100 : 0;
+
+  // CF
+  const cfYen     = noiYen - annualRepay;
+  const cfRatePct = price > 0 ? cfYen / (price * 10000) * 100 : 0;
+  const repayPct  = totalGrossInc > 0 ? annualRepay / rentTotalYen * 100 : 0;
+  const ccrPct    = ownCash > 0 ? cfYen / (ownCash * 10000) * 100 : 0;
+
+  // 月額賃料坪単価
+  const rentPerTsuboYen = tsubo > 0 ? (rentTotalYen / 12) / tsubo : 0;
+
+  // 表示更新 - 収益
+  el('noiYield').textContent     = fmt2(noiYieldPct) + ' [%]';
+  el('noi_year').textContent     = fmt0(noiYen) + ' [円/年]';
+  el('noi_month').textContent    = fmt0(noiMonthYen) + ' [円/月]';
+  el('rentTotal').textContent    = fmt0(rentTotalYen) + ' [円/年]';
+  el('rentIncome').textContent   = fmt0(rentTotalYen) + ' [円/年]';
+  el('fullRent').textContent     = fmt0(fullRentYen) + ' [円/年]';
+  el('rentArea').textContent     = (floorArea * effectRate/100).toFixed(0) + ' [㎡]';
+  el('vacancyLoss').textContent  = '-' + fmt0(vacancyLossYen) + ' [円/年]';
+  el('rentPerTsubo').textContent = fmt0(rentPerTsuboYen) + ' [円/坪]';
+  el('fullParking').textContent  = fmt0(fullParkYen) + ' [円/年]';
+
+  // 表示更新 - 費用
+  el('totalExpense').textContent = fmt0(totalExpYen) + ' [円/年]';
+  el('mgmtFee').textContent      = fmt0(mgmtFeeYen) + ' [円/年]';
+  // bmFeeInp は calc() 内で直接更新済み
+  el('utilFee').textContent      = fmt0(utilFeeYen) + ' [円/年]';
+  el('insurFee').textContent     = fmt0(insurFeeYen) + ' [円/年]';
+  el('taxFee').textContent       = fmt0(taxFeeYen) + ' [円/年]';
+  el('repairFee').textContent    = fmt0(repairFeeYen) + ' [円/年]';
+  el('restoreFee').textContent   = fmt0(restoreFeeYen) + ' [円/年]';
+  el('adFee').textContent        = fmt0(adFeeYen) + ' [円/年]';
+
+  // 税金
+  const buildValYen = price * 10000 * buildRatio / 100;
+  const landValYen  = price * 10000 * (1 - buildRatio/100);
+
+  // 残存耐用年数（中古資産・定額法）
+  // 未超過: 法定耐用年数 - 経過年数 + 経過年数×20%（小数点切捨て、最低2年）
+  // 超過:   法定耐用年数 × 20%（小数点切捨て、最低2年）
+  let remainLife;
+  if (buildAge < legalLife) {
+    remainLife = Math.max(2, Math.floor(legalLife - buildAge + buildAge * 0.2));
+  } else {
+    remainLife = Math.max(2, Math.floor(legalLife * 0.2));
+  }
+
+  // 減価償却（定額法）: 建物価格 ÷ 残存耐用年数
+  const deprYen         = remainLife > 0 ? buildValYen / remainLife : 0;
+  const noiAfterDeprYen = noiYen - deprYen;
+
+  // 税引き後CF（課税所得 = NOI − 減価償却 − 金利。金利は経費算入可）
+  const taxableIncome = Math.max(0, noiAfterDeprYen - annualInterestY1);
+  const taxAmt        = taxableIncome * taxRateInc / 100;
+  const afterTaxCF    = cfYen - taxAmt;
+
+  el('landVal').textContent      = fmt0(landValYen) + ' [円]';
+  el('buildVal').textContent     = fmt0(buildValYen) + ' [円]';
+  el('depr').textContent         = fmt0(deprYen) + ' [円]';
+  el('noiAfterDepr').textContent = fmt0(noiAfterDeprYen) + ' [円/年]';
+
+  const ptcEl = el('preTaxCF');
+  ptcEl.textContent = fmt0(cfYen) + ' [円/年]';
+  ptcEl.className = 'cell-val ' + (cfYen >= 0 ? 'pos' : 'neg');
+
+  const atcEl = el('afterTaxCF');
+  atcEl.textContent = fmt0(afterTaxCF) + ' [円/年]';
+  atcEl.className = 'cell-val ' + (afterTaxCF >= 0 ? 'pos' : 'neg');
+
+  // 計算過程
+  const fmtM = function(v){ return fmt0(Math.round(v/10000)) + '万円'; };
+  el('taxCalcFlow').innerHTML =
+    '課税所得 = NOI <b>' + fmtM(noiYen) + '</b> − 減価償却 <b>' + fmtM(deprYen) + '</b> − 金利 <b>' + fmtM(annualInterestY1) + '</b> = <b>' + fmtM(taxableIncome) + '</b><br>' +
+    '税額 = 課税所得 <b>' + fmtM(taxableIncome) + '</b> × <b>' + taxRateInc + '%</b> = <b>' + fmtM(taxAmt) + '</b><br>' +
+    '税引き後CF = 税引き前CF <b>' + fmtM(cfYen) + '</b> − 税額 <b>' + fmtM(taxAmt) + '</b> = <b>' + fmtM(afterTaxCF) + '</b>';
+
+  // Property info display
+  el('pi_cfgoal').textContent = '（CF3%目標 ' + fmt0(noiYen / 0.03 / 10000) + '万円）';
+  el('pi_area_tsubo').textContent = '（' + (floorArea / M2TSUBO).toFixed(1) + '坪）';
+  el('pi_remain').textContent = '（残存耐用年数 ' + remainLife + ' 年）';
+  // 築年数バッジ（5年以内 = 新築・築浅）
+  const ageBadge = el('pi_age_badge');
+  if(buildAge <= 5 && buildAge >= 0){
+    ageBadge.textContent = '新築・築浅';
+    ageBadge.className = 'badge-new';
+  } else {
+    ageBadge.textContent = '';
+    ageBadge.className = '';
+  }
+
+  // 表面利回り ↔ 総収入 トグル：派生値を表示、上部入力欄を同期
+  var grossIncMan = Math.round(totalGrossInc / 10000); // 万円/年
+  if (yieldMode === 'yield') {
+    // 入力: 利回り → 表示: 総収入
+    el('pi_yield_derived').textContent = '総収入 ' + fmt0(grossIncMan) + ' 万円/年';
+    // 上部入力欄を利回り値に同期
+    document.getElementById('pi_yield_inp').value = grossYield.toFixed(2);
+  } else {
+    // 入力: 総収入 → 表示: 表面利回り
+    el('pi_yield_derived').textContent = '表面利回り ' + grossYield.toFixed(2) + '%';
+  }
+
+  // 坪単価（満室想定総収入÷坪÷12）賃料妥当性確認用
+  const fullGrossInc = fullRentYen + fullParkYen + otherInc;
+  const tsuboPrice = tsubo > 0 ? (fullGrossInc / 12 / tsubo) : 0;
+  el('pi_tsubo_price').textContent = tsuboPrice > 0 ? fmt0(tsuboPrice) : '—';
+  el('pi_tsubo_m2').textContent    = tsuboPrice > 0 ? fmt0(tsuboPrice / M2TSUBO) + '円/㎡' : '—';
+
+  // 部屋数・部屋当たり平均月収
+  const rooms = parseFloat(document.getElementById('pi_rooms_inp').value) || 0;
+  const roomMonthlyInc = (rooms > 0 && rentTotalYen > 0) ? rentTotalYen / rooms / 12 : 0;
+  el('pi_room_income').textContent     = roomMonthlyInc > 0 ? fmt0(roomMonthlyInc) : '—';
+  el('pi_room_income_sub').textContent = roomMonthlyInc > 0 ? '（年収 ' + fmt0(rentTotalYen / rooms) + '円/戸）' : '';
+  const roomSqm = (rooms > 0 && floorArea > 0) ? (floorArea / rooms).toFixed(1) : null;
+  el('pi_room_sqm').textContent = roomSqm ? '（1戸 ' + roomSqm + '㎡）' : '';
+
+  // 赤字転落空室数（変動費：管理費・固定資産税・募集経費が rentTotalYen 連動）
+  if (rooms > 0 && fullRentYen > 0) {
+    const variableExpRate = mgmtRate/100 + taxRateVal/100 + adMonths * turnover / 1200;
+    const perRoomCFImpact = (fullRentYen / rooms) * (1 - variableExpRate);
+    if (perRoomCFImpact > 0) {
+      const currentVacantFrac = vacRate / 100 * rooms;
+      const breakEvenRooms = currentVacantFrac + cfYen / perRoomCFImpact;
+      let beText;
+      if (cfYen < 0) {
+        beText = '現在の空室率で赤字';
+      } else if (breakEvenRooms > rooms) {
+        beText = '全空室でも黒字';
+      } else {
+        beText = '空室' + Math.ceil(breakEvenRooms) + '/' + rooms + '部屋で赤字';
+      }
+      el('breakEvenVacancy').textContent = beText;
+    }
+  }
+
+  const cfSign = cfYen >= 0 ? '' : '-';
+  el('m_cf_num').textContent  = cfSign + fmt0(Math.abs(cfYen));
+  el('m_cf_num').className    = 'metric-num ' + (cfYen >= 0 ? 'pos' : 'neg');
+
+  const gCFR   = grade_cfrate(cfRatePct);
+  const gRepay = grade_repay(repayPct);
+  const gCCR   = grade_ccr(ccrPct);
+
+  applyGrade('m_ccr_grade',    'm_ccr_val',    gCCR,   fmt2(ccrPct),    '%');
+  applyGrade('m_repay_grade',  'm_repay_val',  gRepay, fmt2(repayPct),  '%');
+  applyGrade('m_cfrate_grade', 'm_cfrate_val', gCFR,   fmt2(cfRatePct), '%');
+
+  // キャプテン基準
+  applyCheck('ck_price',  'ckv_price',  'ckb_price',  price <= 10000,    price + '万円');
+  applyCheck('ck_yield',  'ckv_yield',  'ckb_yield',  grossYield >= 7.1, fmt2(grossYield) + '%');
+  applyCheck('ck_cfrate', 'ckv_cfrate', 'ckb_cfrate', cfRatePct >= 1.0,  fmt2(cfRatePct) + '%');
+  applyCheck('ck_ccr',    'ckv_ccr',    'ckb_ccr',    ccrPct >= 15.0,    fmt1(ccrPct) + '%');
+
+  // 積算評価
+  const ikkLandArea    = parseFloat(document.getElementById('ik_land_area').value)    || 0;
+  const ikkRoutePrice  = parseFloat(document.getElementById('ik_route_price').value)  || 0; // 万円/㎡
+  const ikkCorrection  = parseFloat(document.getElementById('ik_correction').value)   || 1;
+  const ikkMultiplier  = parseFloat(document.getElementById('ik_multiplier').value)   || 1;
+  const ikkLandCalcYen = ikkLandArea * (ikkRoutePrice * 10000) * ikkCorrection * ikkMultiplier;
+  const ikkLandYen     = landValMode === 'direct'
+    ? (parseFloat(document.getElementById('ik_land_direct').value) || 0) * 10000
+    : ikkLandCalcYen;
+
+  // 建物面積は延床面積と連動
+  const ikkBuildArea   = floorArea;
+  el('ik_build_area_disp').textContent = floorArea;
+
+  const ikkDeterGrade  = document.getElementById('ik_deteri_grade').value;
+  const ikkRebuildUnit = ikkDeterGrade === '3' ? 240000 : 210000; // 円/m²
+  const ikkResidual    = Math.max(0, 1 - buildAge / legalLife);
+  const ikkBuildCalcYen = ikkBuildArea * ikkRebuildUnit * ikkResidual;
+  const ikkBuildYen    = buildValMode === 'direct'
+    ? (parseFloat(document.getElementById('ik_build_direct').value) || 0) * 10000
+    : ikkBuildCalcYen;
+
+  const ikkTotalYen    = ikkLandYen + ikkBuildYen;
+  const ikkRatio       = price > 0 ? ikkTotalYen / (price * 10000) * 100 : 0;
+  const ikkGrade       = ikkRatio >= 100 ? 'A' : ikkRatio >= 80 ? 'B' : ikkRatio >= 60 ? 'C' : 'D';
+  const ikkLandRatio   = price > 0 ? ikkLandYen / (price * 10000) * 100 : 0;
+  const ikkDiffMan     = Math.round((ikkTotalYen - price * 10000) / 10000);
+
+  el('ik_land_val').textContent  = fmt0(Math.round(ikkLandYen  / 10000)) + ' 万円';
+  el('ik_land_ratio').textContent = ikkLandRatio.toFixed(1) + '%';
+  el('ik_build_val').textContent = fmt0(Math.round(ikkBuildYen / 10000)) + ' 万円';
+  el('ik_total_val').textContent = fmt0(Math.round(ikkTotalYen / 10000)) + ' 万円';
+  el('ik_ratio_val').textContent = ikkRatio.toFixed(1) + '%';
+  el('ik_build_formula').textContent =
+    '(= ' + (ikkRebuildUnit / 10000) + '万/m² × 残存' + (ikkResidual * 100).toFixed(1) + '%)';
+
+  applyGrade('m_ikka_grade', 'm_ikka_val', ikkGrade, ikkRatio.toFixed(1), '%');
+  el('m_ikka_diff').textContent = '積算評価: ' + (ikkDiffMan >= 0 ? '+' : '') + fmt0(ikkDiffMan) + '万円';
+  applyCheck('ck_ikka', 'ckv_ikka', 'ckb_ikka', ikkRatio >= 60.0, ikkRatio.toFixed(1) + '%');
+  el('m_ikka_diff').style.color = ikkDiffMan >= 0 ? 'var(--grade-a)' : 'var(--grade-d)';
+}
+
+function resetDefaults(){
+  // キャプテン基準デフォルト値
+  document.getElementById('price').value       = 10000;
+  document.getElementById('ltvRatio').value    = 95;
+  document.getElementById('costsRate').value   = 7;
+  document.getElementById('loanTerm').value    = 35;
+  document.getElementById('intRate').value     = 2.2;
+  document.getElementById('grossYield').value  = 7.10;
+  document.getElementById('floorArea').value   = 150;
+  document.getElementById('vacancyRate').value = 5;
+  document.getElementById('mgmtRate').value    = 3.3;
+  document.getElementById('bmUnit').value      = 200;
+  document.getElementById('utilUnit').value    = 50;
+  document.getElementById('buildUnit').value   = 550000;
+  document.getElementById('insurRate').value   = 0.3;
+  document.getElementById('taxRate').value     = 10;
+  document.getElementById('repairRate').value  = 0.5;
+  document.getElementById('restoreUnit').value = 10000;
+  document.getElementById('turnover').value    = 25;
+  document.getElementById('adMonths').value    = 1;
+  document.getElementById('buildAge').value    = 0;
+  document.getElementById('pi_price_inp').value = 10000;
+  document.getElementById('pi_yield_inp').value = 7.10;
+  document.getElementById('pi_area_inp').value  = 150;
+  document.getElementById('pi_age_inp').value   = 0;
+  document.getElementById('pi_struct_sel').value = '木造';
+  document.getElementById('pi_rooms_inp').value  = 8;
+  document.getElementById('buildRatio').value  = 70;
+  document.getElementById('taxRateIncome').value = 20;
+  setRepay('元利均等');
+  calc();
+}
+
+const SAVE_KEYS = [
+  'price','ltvInput','ltvRatio','costsRate','loanTerm','intRate',
+  'grossYield','floorArea','effectRate','vacancyRate','parkVacancy',
+  'parkingUnit','parkingCnt','otherIncome','rentDecline',
+  'mgmtRate','bmUnit','bmFeeInp','utilUnit','buildUnit','insurRate','taxRate',
+  'repairRate','restoreUnit','turnover','adMonths','otherExpense',
+  'buildAge','buildStruct','taxRateIncome',
+  'pi_price_inp','pi_age_inp','pi_yield_inp','pi_area_inp','pi_rooms_inp','pi_struct_sel',
+  'ik_land_area','ik_route_price','ik_correction','ik_multiplier','ik_land_direct',
+  'ik_deteri_grade','ik_build_direct'
+];
+
+function saveDefaults() {
+  var saved = {};
+  SAVE_KEYS.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) saved[id] = el.value;
+  });
+  saved['_repayMode']    = repayMode;
+  saved['_yieldMode']    = yieldMode;
+  saved['_ltvMode']      = ltvMode;
+  saved['_landValMode']  = landValMode;
+  saved['_buildValMode'] = buildValMode;
+  localStorage.setItem('ig_defaults', JSON.stringify(saved));
+  var btn = event.currentTarget;
+  var orig = btn.textContent;
+  btn.textContent = '✓ 保存しました';
+  setTimeout(function(){ btn.textContent = orig; }, 1500);
+}
+
+function loadDefaults() {
+  var raw = localStorage.getItem('ig_defaults');
+  if (!raw) return;
+  var saved = JSON.parse(raw);
+  SAVE_KEYS.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el && saved[id] !== undefined) el.value = saved[id];
+  });
+  if (saved['_repayMode'])    setRepay(saved['_repayMode']);
+  if (saved['_yieldMode'])   setYieldMode(saved['_yieldMode']);
+  if (saved['_ltvMode'])     setLtvMode(saved['_ltvMode']);
+  if (saved['_landValMode']) setLandValMode(saved['_landValMode']);
+  if (saved['_buildValMode'])setBuildValMode(saved['_buildValMode']);
+}
+
+/* ===== TC 共有バー ===== */
+var TC_IG_BASE = 'https://teruyone.github.io/ccbooster/ig-sheet/';
+var TC_SHARE_EXTRA = ['buildRatio'];
+
+function generateShareUrl() {
+  var params = new URLSearchParams();
+  SAVE_KEYS.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) params.set(id, el.value !== undefined ? el.value : '');
+  });
+  TC_SHARE_EXTRA.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) params.set(id, el.value || '');
+  });
+  params.set('_repayMode', typeof repayMode !== 'undefined' ? repayMode : '元利均等');
+  if (typeof yieldMode !== 'undefined') params.set('_yieldMode', yieldMode);
+  if (typeof ltvMode !== 'undefined') params.set('_ltvMode', ltvMode);
+  if (typeof landValMode !== 'undefined') params.set('_landValMode', landValMode);
+  if (typeof buildValMode !== 'undefined') params.set('_buildValMode', buildValMode);
+  var addr = document.getElementById('propAddr');
+  if (addr) {
+    var addrText = addr.textContent.trim();
+    if (addrText && addrText !== '物件住所を入力してください') params.set('_addr', addrText);
+  }
+  return TC_IG_BASE + '?' + params.toString();
+}
+
+function loadFromUrlParams() {
+  if (!window.location.search || window.location.search.length <= 1) return false;
+  var params = new URLSearchParams(window.location.search);
+  var loaded = false;
+  SAVE_KEYS.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el && params.has(id)) { el.value = params.get(id); loaded = true; }
+  });
+  TC_SHARE_EXTRA.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el && params.has(id)) { el.value = params.get(id); }
+  });
+  if (params.has('_repayMode')) setRepay(params.get('_repayMode'));
+  if (params.has('_yieldMode') && typeof setYieldMode === 'function') setYieldMode(params.get('_yieldMode'));
+  if (params.has('_ltvMode') && typeof setLtvMode === 'function') setLtvMode(params.get('_ltvMode'));
+  if (params.has('_landValMode') && typeof setLandValMode === 'function') setLandValMode(params.get('_landValMode'));
+  if (params.has('_buildValMode') && typeof setBuildValMode === 'function') setBuildValMode(params.get('_buildValMode'));
+  if (params.has('_addr')) {
+    var addrEl = document.getElementById('propAddr');
+    if (addrEl) addrEl.textContent = params.get('_addr');
+  }
+  if (loaded) {
+    var shareInp = document.getElementById('tc-share-url');
+    if (shareInp) shareInp.value = window.location.href;
+  }
+  return loaded;
+}
+
+function tcGenerateAndCopy() {
+  var url = generateShareUrl();
+  var inp = document.getElementById('tc-share-url');
+  if (inp) inp.value = url;
+  tcCopyToClipboard(url);
+}
+
+function tcCopyToClipboard(text) {
+  var btn = document.getElementById('tc-copy-btn');
+  function onCopied() {
+    if (btn) {
+      btn.textContent = '✅ コピー済み';
+      setTimeout(function() { btn.textContent = '📋 URLを生成・コピー'; }, 2500);
+    }
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(onCopied).catch(function() {
+      var i = document.getElementById('tc-share-url');
+      if (i) { i.select(); i.setSelectionRange(0, 99999); document.execCommand('copy'); onCopied(); }
+    });
+  } else {
+    var i = document.getElementById('tc-share-url');
+    if (i) { i.select(); i.setSelectionRange(0, 99999); document.execCommand('copy'); onCopied(); }
+  }
+}
+
+// 初期計算（URL params を優先、なければ localStorage 既定値）
+if (!loadFromUrlParams()) { loadDefaults(); }
+setRepay(repayMode);
+calc();
+</script>
+
+<!-- TC 共有バー: フォームの値をURL paramsに変換してGitHub Pages URLをコピー -->
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" readonly placeholder="「URLを生成・コピー」を押してください">
+  <button id="tc-copy-btn" onclick="tcGenerateAndCopy()">📋 URLを生成・コピー</button>
+</div>
+</body>
+</html>
