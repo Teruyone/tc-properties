@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>リュクスシティー上大岡 — 不動産仕入部 精査レポート</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f0f4f8; color: #1a1a2e; line-height: 1.6; }
+    .header { background: linear-gradient(135deg, #1a3a5c 0%, #0d2137 100%); color: white; padding: 32px 40px; }
+    .header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+    .header .subtitle { font-size: 0.95rem; opacity: 0.85; margin-bottom: 8px; }
+    .header .meta { font-size: 0.85rem; opacity: 0.7; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 24px 20px; }
+    .card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid; }
+    .section-header .icon { font-size: 1.4rem; }
+    .section-header h2 { font-size: 1.15rem; font-weight: 700; }
+    .haruto .section-header { border-color: #e67e22; }
+    .haruto .section-header h2 { color: #e67e22; }
+    .ryo .section-header { border-color: #2980b9; }
+    .ryo .section-header h2 { color: #2980b9; }
+    .aki .section-header { border-color: #27ae60; }
+    .aki .section-header h2 { color: #27ae60; }
+    .murata .section-header { border-color: #8b5e3c; }
+    .murata .section-header h2 { color: #8b5e3c; }
+    .confirm-card .section-header { border-color: #8e44ad; }
+    .confirm-card .section-header h2 { color: #8e44ad; }
+    .verdict .section-header { border-color: #c0392b; }
+    .verdict .section-header h2 { color: #c0392b; }
+    .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+    .summary-item { background: #f8fafc; border-radius: 8px; padding: 12px; }
+    .summary-item .label { font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .summary-item .value { font-size: 1.05rem; font-weight: 700; color: #1a3a5c; }
+    .summary-item .sub { font-size: 0.8rem; color: #888; }
+    .criteria-table { width: 100%; border-collapse: collapse; }
+    .criteria-table th { background: #1a3a5c; color: white; padding: 10px 14px; text-align: left; font-size: 0.85rem; }
+    .criteria-table td { padding: 10px 14px; border-bottom: 1px solid #eef2f7; font-size: 0.9rem; }
+    .criteria-table tr:last-child td { border-bottom: none; }
+    .badge-ok { display: inline-block; background: #d4edda; color: #1e7e34; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+    .badge-ng { display: inline-block; background: #f8d7da; color: #721c24; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+    .badge-check { display: inline-block; background: #fff3cd; color: #856404; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+    .analysis-content { font-size: 0.9rem; line-height: 1.75; }
+    .analysis-content h3 { font-size: 0.95rem; font-weight: 700; margin: 16px 0 8px; padding-left: 8px; border-left: 3px solid; }
+    .haruto .analysis-content h3 { border-color: #e67e22; }
+    .ryo .analysis-content h3 { border-color: #2980b9; }
+    .aki .analysis-content h3 { border-color: #27ae60; }
+    .murata .analysis-content h3 { border-color: #8b5e3c; }
+    .analysis-content p { margin-bottom: 10px; }
+    .analysis-content ul { margin: 8px 0 12px 20px; }
+    .analysis-content li { margin-bottom: 4px; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
+    .metric-box { background: #f8fafc; border-radius: 8px; padding: 14px; }
+    .metric-box .m-label { font-size: 0.75rem; color: #666; margin-bottom: 4px; }
+    .metric-box .m-value { font-size: 1.2rem; font-weight: 700; }
+    .m-ok { color: #27ae60; } .m-ng { color: #c0392b; } .m-neutral { color: #2980b9; }
+    .loan-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.88rem; }
+    .loan-table th { background: #f0f4f8; padding: 8px 12px; text-align: left; }
+    .loan-table td { padding: 8px 12px; border-bottom: 1px solid #eef; }
+    .loan-table tr:last-child td { border-bottom: none; }
+    .confirm-list { list-style: none; }
+    .confirm-list li { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eef2f7; font-size: 0.9rem; }
+    .confirm-list li:last-child { border-bottom: none; }
+    .confirm-num { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; color: white; }
+    .verdict-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+    .verdict-item { background: #f8fafc; border-radius: 8px; padding: 14px; }
+    .verdict-item .v-label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .risk-flag { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 6px; font-size: 0.88rem; font-weight: 700; margin: 4px 4px 4px 0; }
+    .risk-critical { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    .risk-high { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+    .risk-medium { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+    .link-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 8px; font-size: 0.88rem; font-weight: 600; text-decoration: none; margin: 8px 8px 0 0; }
+    .link-btn-blue { background: #2980b9; color: white; }
+    .link-btn-green { background: #27ae60; color: white; }
+    .alert-box { border-radius: 8px; padding: 14px 16px; margin: 12px 0; font-size: 0.9rem; }
+    .alert-danger { background: #f8d7da; border-left: 4px solid #dc3545; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .alert-warning { background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .alert-info { background: #d1ecf1; border-left: 4px solid #17a2b8; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .footer { text-align: center; padding: 24px; color: #999; font-size: 0.8rem; }
+    @media (max-width: 600px) { .summary-grid { grid-template-columns: repeat(2, 1fr); } .metrics-grid { grid-template-columns: 1fr; } .verdict-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🏢 リュクスシティー上大岡</h1>
+  <div class="subtitle">不動産仕入部 — チーム精査レポート</div>
+  <div class="meta">精査日: 2026年5月25日 ／ 精査チーム: ハルト・リョウ・アキ・村田先生</div>
+</div>
+
+<div class="container">
+
+  <!-- 物件サマリー -->
+  <div class="card">
+    <div class="section-header" style="border-color:#1a3a5c">
+      <span class="icon">📋</span>
+      <h2 style="color:#1a3a5c">物件サマリー</h2>
+    </div>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="label">所在地</div>
+        <div class="value" style="font-size:0.9rem">神奈川県横浜市南区大岡4-31-25</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">交通</div>
+        <div class="value" style="font-size:0.9rem">京急本線「上大岡」駅 徒歩9分</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">取引態様</div>
+        <div class="value">仲介</div>
+        <div class="sub">藤仁エステート（工藤恭兵）</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">物件価格</div>
+        <div class="value">11,500万円</div>
+        <div class="sub">1億1,500万円</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">表面利回り</div>
+        <div class="value">7.27%</div>
+        <div class="sub">年収836.4万円（満室実績）</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">構造・竣工</div>
+        <div class="value">木造2階建</div>
+        <div class="sub">2019年7月（築6年10ヶ月）</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">延床面積</div>
+        <div class="value">199.92㎡</div>
+        <div class="sub">60.48坪</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">土地面積</div>
+        <div class="value">558.81㎡</div>
+        <div class="sub">（私道12.36㎡含む）</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">戸数・間取り</div>
+        <div class="value">12戸（1K×12）</div>
+        <div class="sub">全戸満室稼働中</div>
+      </div>
+    </div>
+    <div class="alert-danger">
+      <strong>🚨 レッドゾーン確定（2026年5月25日 ハザードマップ確認済み）:</strong> 横浜市ハザードマップにて敷地に土砂災害特別警戒区域（レッドゾーン）がかかることを確認。融資（オリックス銀行等が忌避）・出口戦略（転売時の買い手プール縮小）の両面でキャプテンの投資戦略と不整合。<strong style="color:#721c24">→ 見送り確定。</strong>
+    </div>
+  </div>
+
+  <!-- キャプテン基準5項目 -->
+  <div class="card">
+    <div class="section-header" style="border-color:#1a3a5c">
+      <span class="icon">🎯</span>
+      <h2 style="color:#1a3a5c">キャプテン基準チェック（5項目）</h2>
+    </div>
+    <table class="criteria-table">
+      <thead>
+        <tr><th>基準</th><th>閾値</th><th>実績値</th><th>判定</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>物件価格</td><td>1億円以下</td>
+          <td>11,500万円（1,500万円超過）</td>
+          <td><span class="badge-ng">❌ NG</span></td>
+        </tr>
+        <tr>
+          <td>表面利回り</td><td>7.1%以上</td>
+          <td>7.27%</td>
+          <td><span class="badge-ok">✅ OK</span></td>
+        </tr>
+        <tr>
+          <td>築年数</td><td>10年以内</td>
+          <td>築6年10ヶ月（2019年7月竣工）</td>
+          <td><span class="badge-ok">✅ OK</span></td>
+        </tr>
+        <tr>
+          <td>エリア</td><td>16号内側</td>
+          <td>横浜市南区（完全に内側）</td>
+          <td><span class="badge-ok">✅ OK</span></td>
+        </tr>
+        <tr>
+          <td>新耐震基準</td><td>1981年6月以降確認申請</td>
+          <td>平成31年1月21日（2000年基準適用）</td>
+          <td><span class="badge-ok">✅ OK</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:12px;font-size:0.9rem;color:#555">
+      <strong>総合: 5項目中4項目OK。価格のみNG（1,500万円超過）。</strong>
+      価格交渉で1億円に近づければ全基準クリアに近づく。ただし土砂災害特別警戒区域フラグが融資条件に影響する可能性あり。
+    </div>
+  </div>
+
+  <!-- ハルト -->
+  <div class="card haruto">
+    <div class="section-header">
+      <span class="icon">🟠</span>
+      <h2>ハルト（エリア・利回り分析）</h2>
+    </div>
+    <div class="analysis-content">
+      <h3>キャプテン基準照合</h3>
+      <p>5項目中4項目クリア。問題は価格のみ。12戸・全室満室の実績は売主側の強気材料だが、土砂災害特別警戒区域フラグが融資審査に影響する可能性が高く、買い手側の選択肢が限られるため売主側も必ずしも強くない。1億円への値引きは厳しいが、<strong>1億500〜1億800万円程度への交渉余地は十分あると見る</strong>。</p>
+
+      <h3>エリアの将来性</h3>
+      <p>上大岡は横浜市内でも特別な位置づけのハブエリア。京急本線で1日平均約12万6,000人（地下鉄ブルーライン合算で約19万人）の乗降客数。京急線内では品川・横浜に次ぐ第3位の交通結節点。</p>
+      <p><strong>再開発：</strong>2025年12月「(仮称)上大岡C北地区第一種市街地再開発事業」（地上43階・約179m・595戸）が環境影響評価書公開。2030年着工・2035年竣工予定。2026年2月に駅西側再開発も始動。今後10年の変容が確実視される。</p>
+      <p><strong>用途地域の希少性：</strong>第一種低層住居専用地域（建蔽率60%・容積率100%）は新規収益アパートが非常に建てにくく、既存物件の希少性が高い。</p>
+
+      <h3>賃貸需要・空室リスク</h3>
+      <p>横浜・品川・羽田・横須賀への直通アクセスから、単身社会人需要が安定。1K相場は7万〜8万円台が中心帯。本物件設定賃料52,000〜59,000円（平均58,083円）は相場下限寄りだが現実的な水準。12戸構成は1〜2戸の空室で年収約70万円減となるため、空室インパクトが大きい点に注意が必要。</p>
+
+      <h3>土砂災害リスクの評価</h3>
+      <div class="alert-danger">
+        <strong>最大懸念点。</strong> 土砂災害特別警戒区域（レッドゾーン）は融資審査（オリックス銀行等が忌避傾向）、重要事項説明義務、転売時の出口戦略制限の3方向でリスクとなる。融資先の目処なしに買付を進めると空振りになる可能性が高い。
+      </div>
+
+      <h3>利回りの相場感</h3>
+      <p>首都圏・神奈川の好立地木造アパート利回りは7〜8%台が相場帯。7.27%は「好立地・新耐震・満室稼働」を加味すると適正〜やや低め。価格交渉で1,000〜1,500万円下がれば実質利回り7.8〜8.4%に改善し、魅力度が大きく上がる。</p>
+
+      <h3>ハルトの率直な評価</h3>
+      <div class="alert-warning">
+        <strong>「よくできた問題物件」。</strong> 良い点（築6年10ヶ月・12戸満室・新耐震・1種低層稀少立地・再開発エリア）と問題点（価格15%超過・土砂災害レッドゾーン）が拮抗。<br><br>
+        <strong>買付を進める条件：</strong>①融資が通る ②価格交渉ができる。この2条件が揃うかが全て。どちらかが欠けたら見送りが妥当。
+      </div>
+
+      <h3>キャプテンへの確認事項（ハルトより）</h3>
+      <ol style="margin-left:20px;line-height:2.2">
+        <li>レッドゾーン物件に使える提携金融機関の目処はありますか？</li>
+        <li>価格交渉のキャプテンラインは？1億500万円台（利回り7.95%前後）なら動けますか？</li>
+        <li>12戸という規模（6〜8戸基準を超過）の評価は？</li>
+        <li>大岡4丁目の現地先行偵察（地形・擁壁確認）をハルトが動いていいですか？</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- リョウ -->
+  <div class="card ryo">
+    <div class="section-header">
+      <span class="icon">🔵</span>
+      <h2>リョウ（デューデリジェンス）</h2>
+    </div>
+    <div class="analysis-content">
+      <div style="margin-bottom:16px">
+        <a href="20260525_kamiooka-luxcity_DD.html" class="link-btn link-btn-blue" target="_blank">📋 入力済みDDリストを開く</a>
+      </div>
+
+      <h3>リスクフラグ</h3>
+      <div style="margin-bottom:12px">
+        <span class="risk-flag risk-critical">🚨 CRITICAL: 土砂災害特別警戒区域（レッドゾーン）</span>
+        <span class="risk-flag risk-high">⚠️ HIGH: 敷地面積乖離（558.81㎡ vs 259.01㎡）</span>
+        <span class="risk-flag risk-high">⚠️ HIGH: 延床面積差異（194㎡ vs 199.92㎡）</span>
+        <span class="risk-flag risk-medium">ℹ️ MEDIUM: 耐震等級1（最低等級）</span>
+        <span class="risk-flag risk-medium">ℹ️ MEDIUM: 配管維持管理等級1（共用・専用ともに最低）</span>
+        <span class="risk-flag risk-medium">ℹ️ MEDIUM: 契約不適合責任免責・現況有姿</span>
+      </div>
+
+      <h3>確認済み事項</h3>
+      <ul>
+        <li>確認済証（第18KAK建確02278号 / H31.1.21）・検査済証（第19KAK建済02165号 / R1.8.22）完備 ✅</li>
+        <li>建蔽率60%・容積率100%（実容積率74.90%）→ 規定内適法 ✅</li>
+        <li>施工: 株式会社中谷工務店（神奈川県知事許可 一般29第45049号）✅</li>
+        <li>設計・監理: アトリエケイズ一級建築士事務所（県知事登録16554号）✅</li>
+        <li>ベタ基礎（RC造）＋小口径鋼管工法地盤改良実施 ✅</li>
+        <li>準耐火建築物（イ-2）認定 ✅</li>
+        <li>接道: 公道 北西側 約6.5m（2項道路ではない）✅</li>
+        <li>年収8,364,000円・表面利回り7.27%の計算整合 ✅</li>
+      </ul>
+
+      <h3>土砂災害特別警戒区域（レッドゾーン）の対処</h3>
+      <div class="alert-danger">
+        <strong>最優先確認事項。</strong> 横浜市GISまたは国土交通省ハザードマップポータルで「横浜市南区大岡4-31-25」を検索（5分で完了）。<br>
+        ・<strong>レッドゾーン確定</strong> → 見送り確定（融資・出口の両面でキャプテン戦略と不整合）<br>
+        ・<strong>イエローゾーンのみ</strong> → 融資機関を広げてCF再計算・継続精査<br>
+        ・<strong>指定なし</strong> → 確認申請記載が安全側記入の可能性。他リスク解消状況に応じて継続
+      </div>
+
+      <h3>未確認・要確認事項</h3>
+      <ul>
+        <li>登記簿謄本（所有権・抵当権・建物床面積の登記値）</li>
+        <li>私道12.36㎡の権利関係（セットバック・通行権・掘削承諾）</li>
+        <li>敷地面積乖離の理由（558.81㎡ vs 確認申請上259.01㎡）</li>
+        <li>賃貸借契約の内容（普通借家/定期借家・入居期間）</li>
+        <li>管理会社名・管理委託費率・業務範囲</li>
+        <li>固都税・都市計画税の実額（公課証明書）</li>
+        <li>独立洗面台の有無（キャプテン必須条件）</li>
+        <li>レッドゾーン許可書類（土砂災害防止法第10条に基づく知事許可）</li>
+      </ul>
+
+      <h3>キャプテンへの確認事項（リョウより）</h3>
+      <ol style="margin-left:20px;line-height:2.2">
+        <li><strong>ハザードマップ確認</strong>（最優先・5分）→ レッドゾーン確定なら即見送り</li>
+        <li><strong>平塚信金の評価内容詳細</strong>（評価額・融資可能額・金利・期間）を工藤さんに確認</li>
+        <li><strong>登記簿謄本の取得</strong>（抵当権・床面積・土地地番の確認）</li>
+        <li><strong>独立洗面台の有無</strong>（全12戸に独立洗面台があるか）</li>
+        <li><strong>敷地面積乖離の理由</strong>（558.81㎡ vs 259.01㎡の差異原因）</li>
+        <li><strong>賃貸借契約の形態</strong>（普通/定期・入居年月のレントロール詳細）</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- アキ -->
+  <div class="card aki">
+    <div class="section-header">
+      <span class="icon">🟢</span>
+      <h2>アキ（IG+収支計算）</h2>
+    </div>
+    <div class="analysis-content">
+      <div style="margin-bottom:16px">
+        <a href="../../knowledge/ig-analysis/20260525_kamiooka-luxcity_IG.html" class="link-btn link-btn-green" target="_blank">📊 入力済みIG+を開く</a>
+      </div>
+
+      <h3>収支サマリー</h3>
+      <div class="metrics-grid">
+        <div class="metric-box">
+          <div class="m-label">満室収入（実績）</div>
+          <div class="m-value m-neutral">836.4万円/年</div>
+        </div>
+        <div class="metric-box">
+          <div class="m-label">実収入（空室5%控除後）</div>
+          <div class="m-value m-neutral">794.6万円/年</div>
+        </div>
+        <div class="metric-box">
+          <div class="m-label">費用合計</div>
+          <div class="m-value m-ng">▲195.6万円/年</div>
+        </div>
+        <div class="metric-box">
+          <div class="m-label">NOI（NOI利回り）</div>
+          <div class="m-value m-neutral">599.0万円（5.21%）</div>
+        </div>
+      </div>
+
+      <h3>費用内訳</h3>
+      <table class="loan-table">
+        <tr><th>費用項目</th><th>計算式</th><th>金額</th></tr>
+        <tr><td>賃貸管理費（5%）</td><td>794.6万×5%</td><td>▲39.7万円</td></tr>
+        <tr><td>建物管理費</td><td>60.48坪×200円×12</td><td>▲14.5万円</td></tr>
+        <tr><td>共用部水光熱費</td><td>60.48坪×50円×12</td><td>▲3.6万円</td></tr>
+        <tr><td>災害保険（建築費×0.3%）</td><td>3,326.4万×0.3%</td><td>▲10.0万円</td></tr>
+        <tr><td>固定資産税（10%）※デフォルト値</td><td>794.6万×10%</td><td>▲79.5万円</td></tr>
+        <tr><td>修繕費（建築費×0.5%）</td><td>3,326.4万×0.5%</td><td>▲16.6万円</td></tr>
+        <tr><td>原状回復費</td><td>60.48坪×10,000×25%</td><td>▲15.1万円</td></tr>
+        <tr><td>募集AD</td><td>賃料66.1万×1ヶ月×25%</td><td>▲16.5万円</td></tr>
+        <tr style="background:#f0f4f8;font-weight:700"><td colspan="2">費用合計</td><td>▲195.6万円</td></tr>
+      </table>
+
+      <h3>ローン試算比較</h3>
+      <table class="loan-table">
+        <tr>
+          <th>項目</th>
+          <th>①オリックス銀行（100%・2.6%・35年）</th>
+          <th>②神奈川銀行（90%・2.25%・35年）</th>
+        </tr>
+        <tr><td>借入額</td><td>11,500万円</td><td>10,350万円</td></tr>
+        <tr><td>自己資金</td><td>805万円（諸費用7%のみ）</td><td>1,955万円（頭金1,150万+諸費用805万）</td></tr>
+        <tr><td>年間返済額</td><td>▲500.6万円</td><td>▲427.5万円</td></tr>
+        <tr><td>CF（税引前）</td><td>98.4万円/年（月8.2万円）</td><td>171.4万円/年（月14.3万円）</td></tr>
+        <tr><td>CF率</td><td style="color:#c0392b;font-weight:700">0.86% ❌NG</td><td style="color:#27ae60;font-weight:700">1.49% ✅OK</td></tr>
+        <tr><td>返済比率</td><td>59.9%</td><td>51.1%</td></tr>
+        <tr><td>CCR</td><td style="color:#c0392b;font-weight:700">12.2% ❌NG</td><td style="color:#c0392b;font-weight:700">8.8% ❌NG</td></tr>
+        <tr><td>税引後CF（初年度）</td><td>98.4万円（税務赤字・節税効果あり）</td><td>171.4万円（税務赤字・節税効果あり）</td></tr>
+      </table>
+
+      <h3>積算評価</h3>
+      <table class="loan-table">
+        <tr><th>項目</th><th>金額</th><th>備考</th></tr>
+        <tr><td>建物評価額</td><td>2,895.2万円</td><td>199.92㎡×21万×0.69（残存16年/法定22年）</td></tr>
+        <tr><td>減価償却費</td><td>503.1万円/年</td><td>建物80.5百万÷残存16年</td></tr>
+        <tr><td>土地評価額</td><td colspan="2">要確認（路線価不明）</td></tr>
+        <tr><td>積算比率</td><td colspan="2">要確認（路線価次第）</td></tr>
+      </table>
+
+      <div class="alert-info">
+        <strong>節税効果：</strong> 初年度は減価償却（503.1万円）＋金利（オリックス296.6万/神奈川230.8万）がNOIを上回るため税務上赤字。給与所得との損益通算が可能なら実質手取りCFは増加する（税理士確認推奨）。
+      </div>
+
+      <h3>キャプテン基準チェック</h3>
+      <table class="criteria-table">
+        <thead>
+          <tr><th>基準</th><th>閾値</th><th>①オリックス</th><th>②神奈川銀行</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>物件価格</td><td>≤1億円</td><td><span class="badge-ng">❌ NG</span></td><td><span class="badge-ng">❌ NG</span></td></tr>
+          <tr><td>表面利回り</td><td>≥7.1%</td><td><span class="badge-ok">✅ OK</span></td><td><span class="badge-ok">✅ OK</span></td></tr>
+          <tr><td>CF率</td><td>≥1.0%</td><td><span class="badge-ng">❌ NG (0.86%)</span></td><td><span class="badge-ok">✅ OK (1.49%)</span></td></tr>
+          <tr><td>CCR</td><td>≥15.0%</td><td><span class="badge-ng">❌ NG (12.2%)</span></td><td><span class="badge-ng">❌ NG (8.8%)</span></td></tr>
+          <tr><td>積算比率</td><td>≥60.0%</td><td><span class="badge-check">❓ 要確認</span></td><td><span class="badge-check">❓ 要確認</span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="alert-warning" style="margin-top:12px">
+        <strong>アキからひとこと：</strong> 5基準中、両行ともクリアできているのは「利回り7.27%」の1項目のみ。価格・CCRは両行NG。CF率はオリックスのみNG（神奈川はOK）。<strong>1,500万円の値引き（→1億円）が実現すれば表面8.36%に改善し、全基準の再計算に値する。</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- 村田先生 -->
+  <div class="card murata">
+    <div class="section-header">
+      <span class="icon">🏗️</span>
+      <h2>村田先生（建築士コメント）</h2>
+    </div>
+    <div class="analysis-content">
+      <p style="font-style:italic;color:#666;margin-bottom:16px">「現場を見ないと断言はできませんが、資料から読み取れることをお伝えします。」— 村田 誠一（一級建築士・経験35年）</p>
+
+      <h3>構造・築年数の評価</h3>
+      <p>木造2階建・軸組工法、築6年10ヶ月。この築年数は建物として最も「安定期」に入った時期。初期不良があれば概ね表面化している時期を過ぎており、目立った問題がなければ施工品質はある程度保証されている。確認済証・検査済証の完備は高評価。施工・設計監理ともに県知事許可・登録の事業者で書類上の信頼性は問題なし。</p>
+
+      <h3>新耐震基準・耐震性能</h3>
+      <p>平成31年1月確認申請 → 2000年基準が全面適用。ただし<strong>耐震等級1（最低等級）</strong>は気になる。地震保険の割引が受けられず（等級2で30%割引、等級3で50%割引）、将来の売却・再融資にも影響し得る。</p>
+
+      <h3>住宅性能評価の評価</h3>
+      <div class="alert-warning">
+        <strong>率直に申し上げます。</strong> 耐震等級1・劣化対策等級2・配管維持管理等級1（共用・専用とも）は「最低ラインを取得した」水準。特に配管維持管理等級1は長期保有コストに直結。将来の配管更新工事で壁や床を大きく解体する必要が生じ、12戸の集合住宅では工事費が膨らむリスクがある。
+      </div>
+
+      <h3>地盤・基礎の評価</h3>
+      <p>ベタ基礎（RC造）＋小口径鋼管工法地盤改良は適切な対処。しかし地盤改良は「建物の沈下防止」であり、<strong>土砂災害（がけ崩れ・土石流）の外力に対する抵抗とは別物</strong>である点を明確に認識してほしい。</p>
+
+      <h3>土砂災害特別警戒区域の建築的評価</h3>
+      <div class="alert-danger">
+        <strong>本物件の最大リスクポイント。</strong> レッドゾーン内の建築物は都道府県知事の許可（土砂災害防止法第10条）が必要で、「土砂・流木の衝撃に耐える構造」が要求される。木造2階建でその条件を満たすには構造補強（RC造外壁・基礎の一体化等）が必要な場合がある。この補強がどのような仕様で実施されたか、構造図・レッドゾーン許可書類の確認が必須。横浜市南区大岡周辺は丘陵地形が多く、急傾斜地・谷地形が入り組むエリア。
+      </div>
+
+      <h3>修繕リスク評価</h3>
+      <table class="loan-table">
+        <tr><th>時期</th><th>修繕項目</th><th>費用概算</th></tr>
+        <tr><td>直近5年（〜2031年）</td><td>給湯器交換（2029〜2031年頃が交換ピーク）</td><td>約144万円（12戸×12万）</td></tr>
+        <tr><td>直近5年（〜2031年）</td><td>外構・共用部の軽微補修</td><td>30〜50万円</td></tr>
+        <tr style="font-weight:700;background:#fafafa"><td>直近5年合計</td><td></td><td>150〜200万円</td></tr>
+        <tr><td>5〜10年（2031〜2036年）</td><td>外壁塗装（初回・外廊下含む）</td><td>240〜320万円</td></tr>
+        <tr><td>5〜10年（2031〜2036年）</td><td>屋根防水（点検・補修）</td><td>80〜150万円</td></tr>
+        <tr><td>5〜10年（2031〜2036年）</td><td>給湯器第2ラウンド</td><td>50〜80万円</td></tr>
+        <tr style="font-weight:700;background:#fafafa"><td>5〜10年合計</td><td></td><td>370〜550万円</td></tr>
+      </table>
+      <p style="font-size:0.85rem;color:#888;margin-top:4px">配管維持管理等級1のため定期配管清掃・点検費（5〜10万円/年）を別途見込む必要あり。将来（築20〜25年）の配管更新時は壁解体を伴う可能性があり、費用が通常の2〜3倍になるリスクを念頭に。</p>
+
+      <h3>法令適合性</h3>
+      <p>第一種低層住居専用地域での12戸木造2階建は用途・高さとも問題なし。実容積率74.90%・制限100%で余裕あり。接道：公道北西側6.5m（接道義務を十分満たす）。検査済証が交付されており申請時点での適合は確認済み。</p>
+
+      <h3>延床面積差異（194㎡ vs 199.92㎡）の解釈</h3>
+      <p>最も可能性が高いのは「マイソクが専有部分の合計面積を記載しており、確認申請の延床には共用廊下・階段等が含まれている」ケース。12戸で割ると1戸あたり約0.49㎡の差で、算入基準の違いで説明できる範囲。登記簿の建物表題と確認申請書を突き合わせれば原因が特定できる。</p>
+
+      <h3>現地で必ず確認してほしいこと</h3>
+      <ol style="margin-left:20px;line-height:2.2">
+        <li>土砂災害特別警戒区域の実際の位置関係と防護構造（擁壁・防護柵・斜面の状態・排水溝の詰まり）</li>
+        <li>外廊下・外階段・バルコニーの防水・腐食状態（木造集合住宅で最も早期劣化が現れる部位）</li>
+        <li>各戸の給湯器設置年・型番と、共用配管の点検口の位置・アクセス性</li>
+      </ol>
+
+      <div class="alert-warning" style="margin-top:12px">
+        <strong>村田先生の総合所感：</strong> 書類の整備状況は及第点。しかし「土砂災害特別警戒区域・耐震等級1・配管維持管理等級1」の三重リスクが重なっている。特にレッドゾーン許可書類の確認と現地での斜面状態の目視は投資判断前に必ず行ってほしい。数字より現場です。
+      </div>
+    </div>
+  </div>
+
+  <!-- キャプテンへの確認事項まとめ -->
+  <div class="card confirm-card">
+    <div class="section-header">
+      <span class="icon">📝</span>
+      <h2>キャプテンへの確認事項まとめ</h2>
+    </div>
+
+    <div style="margin-bottom:20px">
+      <div style="font-size:0.85rem;font-weight:700;color:#2980b9;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px">🔵 リョウより（優先順）</div>
+      <ul class="confirm-list">
+        <li>
+          <div class="confirm-num" style="background:#2980b9">1</div>
+          <div><strong>ハザードマップ確認</strong>（最優先・5分でできる）<br><span style="color:#666">横浜市GISで「横浜市南区大岡4-31-25」を検索。レッドゾーン確定なら以降の確認は不要。</span></div>
+        </li>
+        <li>
+          <div class="confirm-num" style="background:#2980b9">2</div>
+          <div><strong>平塚信金の評価内容詳細</strong><br><span style="color:#666">マイソクに「平塚信金（評価済み）」記載あり。評価額・融資可能額・金利・期間・条件を工藤さんに確認。</span></div>
+        </li>
+        <li>
+          <div class="confirm-num" style="background:#2980b9">3</div>
+          <div><strong>登記簿謄本の取得</strong><br><span style="color:#666">抵当権・床面積の登記値・土地地番・私道権利関係の確認が必要。</span></div>
+        </li>
+        <li>
+          <div class="confirm-num" style="background:#2980b9">4</div>
+          <div><strong>独立洗面台の有無</strong><br><span style="color:#666">キャプテン必須条件。全12戸に独立洗面台があるか確認。</span></div>
+        </li>
+        <li>
+          <div class="confirm-num" style="background:#2980b9">5</div>
+          <div><strong>敷地面積乖離の理由</strong><br><span style="color:#666">558.81㎡ vs 259.01㎡（差異約300㎡）の原因と土地地番・筆数を工藤さんに確認。</span></div>
+        </li>
+        <li>
+          <div class="confirm-num" style="background:#2980b9">6</div>
+          <div><strong>賃貸借契約の内容</strong><br><span style="color:#666">普通借家/定期借家・契約開始日・入居年月のレントロール詳細を確認。</span></div>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <div style="font-size:0.85rem;font-weight:700;color:#27ae60;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px">🟢 アキより</div>
+      <ul class="confirm-list">
+        <li>
+          <div class="confirm-num" style="background:#27ae60">1</div>
+          <div><strong>路線価の確認</strong><br><span style="color:#666">土地評価額と積算比率の算出に必要（固定資産税の土地課税証明書でも可）。</span></div>
+        </li>
+        <li>
+          <div class="confirm-num" style="background:#27ae60">2</div>
+          <div><strong>固都税の実額確認</strong><br><span style="color:#666">公課証明書があれば「実収入×10%」デフォルト値から正確値に更新できる。</span></div>
+        </li>
+        <li>
+          <div class="confirm-num" style="background:#27ae60">3</div>
+          <div><strong>1,500万円の値引き交渉可否</strong><br><span style="color:#666">1億円に近づけば表面8.36%・全基準再計算対象。仲介業者への打診可否を確認。</span></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- チーム総合所見 -->
+  <div class="card verdict">
+    <div class="section-header">
+      <span class="icon">🎯</span>
+      <h2>チーム総合所見</h2>
+    </div>
+
+    <div class="verdict-grid">
+      <div class="verdict-item">
+        <div class="v-label">総合判断</div>
+        <div>
+          <span class="badge-ng" style="font-size:1rem;padding:6px 16px">❌ 見送り確定</span><br>
+          <span style="font-size:0.85rem;color:#c0392b;margin-top:6px;display:block;font-weight:700">レッドゾーン確定（2026/05/25 ハザードマップ確認）</span>
+        </div>
+      </div>
+      <div class="verdict-item">
+        <div class="v-label">最大リスク</div>
+        <div style="font-weight:700;color:#c0392b">
+          🚨 土砂災害特別警戒区域（レッドゾーン）<br>
+          <span style="font-size:0.85rem;font-weight:400;color:#555">融資可否・出口戦略の両面に影響</span>
+        </div>
+      </div>
+      <div class="verdict-item">
+        <div class="v-label">物件スペック評価</div>
+        <div style="font-size:0.9rem;line-height:1.8">
+          ✅ 利回り7.27%・築6年10ヶ月・12戸満室<br>
+          ✅ 新耐震（2000年基準）・検査済証完備<br>
+          ✅ 横浜市南区・上大岡（再開発エリア）<br>
+          ❌ 価格1,500万円超過（交渉余地あり）
+        </div>
+      </div>
+      <div class="verdict-item">
+        <div class="v-label">収支評価（神奈川銀行ベース）</div>
+        <div style="font-size:0.9rem;line-height:1.8">
+          CF: 171.4万円/年（月14.3万円）<br>
+          CF率: 1.49% ✅ / CCR: 8.8% ❌<br>
+          NOI: 599.0万円（NOI利回り5.21%）<br>
+          初年度税務赤字→節税効果あり
+        </div>
+      </div>
+    </div>
+
+    <div class="alert-danger" style="margin-top:16px">
+      <strong>見送り理由（確定）:</strong>
+      <ul style="margin-top:8px;margin-left:20px;line-height:2.2">
+        <li>2026年5月25日、横浜市ハザードマップにて<strong>敷地にレッドゾーン（土砂災害特別警戒区域）がかかることを確認</strong></li>
+        <li>融資：オリックス銀行等の主力金融機関がレッドゾーン物件を明確に忌避。キャプテン目標の融資条件（フルローン or 95%・金利2.2〜2.5%・35年）での調達が困難</li>
+        <li>出口戦略：将来の転売時も同様の融資制約が買い手側に発生し、売却価格の下押し・買い手プール縮小が恒常的に発生</li>
+        <li>物理リスク：「著しい危害が生ずるおそれがある区域」として法的に認定されており、入居者への告知義務も発生</li>
+      </ul>
+      <div style="margin-top:10px;font-weight:700">価格交渉余地・収支スペックの良否にかかわらず、レッドゾーン確定の時点で判断は完結。</div>
+    </div>
+
+    <div class="alert-info" style="margin-top:12px">
+      <strong>次のアクション：</strong> 工藤さん（藤仁エステート）に見送りの旨を丁寧に連絡。今後も物件紹介を継続してもらえるよう、関係を維持すること（「レッドゾーンでなければ積極的に検討したい水準だった」と伝えると良い）。
+    </div>
+  </div>
+
+  <div class="footer">
+    不動産仕入部 チーム精査レポート — リュクスシティー上大岡<br>
+    精査日: 2026年5月25日 ／ ハルト・リョウ・アキ・村田先生 ／ TC Capitals
+  </div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/ccbooster/properties/20260525_kamiooka-luxcity_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/ccbooster/properties/20260525_kamiooka-luxcity_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
