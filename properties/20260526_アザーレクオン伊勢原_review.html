@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精査レポート：アザーレ・クオン伊勢原</title>
+<style>
+  body { font-family: 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif; background: #f5f6fa; margin: 0; padding: 20px; color: #2d3436; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #2d3436, #636e72); color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; }
+  .header h1 { margin: 0 0 8px 0; font-size: 1.6em; }
+  .header .meta { opacity: 0.8; font-size: 0.9em; }
+  .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .summary-card { background: white; border-radius: 10px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center; }
+  .summary-card .label { font-size: 0.75em; color: #636e72; margin-bottom: 4px; }
+  .summary-card .value { font-size: 1.3em; font-weight: bold; color: #2d3436; }
+  .criteria-table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 20px; }
+  .criteria-table th { background: #2d3436; color: white; padding: 12px 16px; text-align: left; font-size: 0.85em; }
+  .criteria-table td { padding: 11px 16px; border-bottom: 1px solid #f0f0f0; font-size: 0.9em; }
+  .criteria-table tr:last-child td { border-bottom: none; }
+  .ok { color: #00b894; font-weight: bold; }
+  .ng { color: #d63031; font-weight: bold; }
+  .agent-section { background: white; border-radius: 10px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .agent-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid #f0f0f0; }
+  .agent-badge { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8em; }
+  .agent-haru { background: #e17055; }
+  .agent-ryo { background: #0984e3; }
+  .agent-aki { background: #00b894; }
+  .agent-murata { background: #a29bfe; }
+  .agent-title { font-weight: bold; font-size: 1em; }
+  .agent-body { font-size: 0.88em; line-height: 1.7; color: #444; }
+  .agent-body h4 { margin: 12px 0 6px 0; color: #2d3436; font-size: 0.95em; }
+  .agent-body table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+  .agent-body table th { background: #f8f9fa; padding: 6px 10px; text-align: left; font-size: 0.85em; border: 1px solid #e0e0e0; }
+  .agent-body table td { padding: 6px 10px; border: 1px solid #e0e0e0; font-size: 0.85em; }
+  .verdict { background: #ffeaea; border-left: 5px solid #d63031; border-radius: 0 8px 8px 0; padding: 16px 20px; margin-bottom: 20px; }
+  .verdict h3 { margin: 0 0 8px 0; color: #d63031; }
+  .verdict p { margin: 0; font-size: 0.9em; color: #555; }
+  .risk-badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75em; font-weight: bold; margin-right: 6px; }
+  .risk-high { background: #ffeaea; color: #d63031; }
+  .risk-mid { background: #fff3cd; color: #d68910; }
+  .footer { text-align: center; color: #b2bec3; font-size: 0.8em; margin-top: 20px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>不動産仕入部 — チーム精査レポート</h1>
+    <div class="meta">物件: アザーレ・クオン伊勢原 | 精査日: 2026年05月26日 | 担当: ハルト・リョウ・アキ・村田先生</div>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-card"><div class="label">販売価格</div><div class="value" style="color:#d63031">17,040万円</div></div>
+    <div class="summary-card"><div class="label">表面利回り（想定）</div><div class="value" style="color:#d63031">6.16%</div></div>
+    <div class="summary-card"><div class="label">構造・築年</div><div class="value" style="font-size:1em">木造3階建・新築</div></div>
+    <div class="summary-card"><div class="label">交通</div><div class="value" style="font-size:0.9em">伊勢原駅 徒歩5分</div></div>
+    <div class="summary-card"><div class="label">戸数・面積</div><div class="value" style="font-size:0.9em">12戸 / 291.12m2</div></div>
+    <div class="summary-card"><div class="label">取引態様</div><div class="value" style="font-size:0.95em">売主（アゼリアホーム）</div></div>
+  </div>
+
+  <table class="criteria-table">
+    <thead><tr><th>キャプテン基準</th><th>判定</th><th>数値</th><th>オリックス100%</th><th>神奈川銀行90%</th></tr></thead>
+    <tbody>
+      <tr><td>物件価格 &le; 1億円</td><td class="ng">NG</td><td>17,040万円</td><td class="ng">NG</td><td class="ng">NG</td></tr>
+      <tr><td>表面利回り &ge; 7.1%</td><td class="ng">NG</td><td>6.16%（-0.94pt）</td><td class="ng">NG</td><td class="ng">NG</td></tr>
+      <tr><td>築10年以内</td><td class="ok">OK</td><td>新築（2026年）</td><td class="ok">OK</td><td class="ok">OK</td></tr>
+      <tr><td>CF率 &ge; 1.0%</td><td class="ng">NG</td><td>—</td><td class="ng">NG 0.34%</td><td class="ng">NG 0.98%</td></tr>
+      <tr><td>CCR &ge; 15%</td><td class="ng">NG</td><td>—</td><td class="ng">NG 8.6%</td><td class="ng">NG 7.0%</td></tr>
+    </tbody>
+  </table>
+  <div style="text-align:right; font-size:0.8em; color:#636e72; margin-top:-12px; margin-bottom:20px;">→ 5項目中1項目クリア（築年数のみ）</div>
+
+  <div class="verdict">
+    <h3>チーム総合判断：見送り推奨</h3>
+    <p>価格1.7倍超・利回り0.94pt未達・CF率全滅・エリア16号外側の四重問題。建物品質は優良だが、投資基準に届かない。<br>
+    買付検討条件（参考）：価格を約14,800万円以下（利回り7.1%以上確保）かつCF率1%達成が条件。</p>
+  </div>
+
+  <div class="agent-section">
+    <div class="agent-header">
+      <div class="agent-badge agent-haru">晴</div>
+      <div class="agent-title">ハルト（朝倉 晴斗）— エリア・利回り分析</div>
+    </div>
+    <div class="agent-body">
+      <h4>エリア将来性</h4>
+      <p>伊勢原市の人口は現在約10.1万人。2050年には8.7万人（▲14.3%）と推計されており、緩やかな縮小局面。ただし<strong>伊勢原駅北口の第一種市街地再開発事業（東京建物・小田急不動産参画、2029年完成予定）</strong>は本物の開発材料。駅勢力は中長期で強化される見込み。</p>
+      <h4>伊勢原駅の特性</h4>
+      <p>乗降客数は1日約47,079人（小田急70駅中22位）。快速急行停車駅で新宿まで直通約1時間。ただし2025年3月のダイヤ改正で本厚木以西の急行が廃止、快速急行のみに集約されており本数面でやや懸念。</p>
+      <h4>賃貸需要・空室リスク</h4>
+      <p>東海大学医学部・付属病院の存在が安定的な需要アンカー。社会人・医療従事者の1K需要は底堅い。ただし12戸規模では空室数戸で収支が一気に悪化。1K新築駅近の伊勢原相場は6.5〜7.5万円帯とみられ、想定賃料（平均約7.3万円/戸）はやや強気の可能性あり。</p>
+      <h4>16号内外判定</h4>
+      <p><strong class="ng">16号外側。</strong>国道16号は厚木市を通過し、伊勢原市は厚木の南西隣。Youth Village北矢名（秦野市）と同じエリア外の判断枠組みとなる。</p>
+      <h4>利回り6.16%の相場感</h4>
+      <p>神奈川県央新築アパートの利回り相場は6.5〜7.0%。今回の6.16%は相場対比でも低く、7.1%到達には<strong>▲2,238万円の価格交渉（約14,800万円）</strong>が必要。売主直販案件でこれだけの値下げは現実的に難しい。</p>
+      <h4>ハルトの率直な評価</h4>
+      <p><strong>見送り推奨。</strong> 理由3点：①数字が全方位アウト（価格・利回り・CF・CCR全滅）、②16号外側エリア、③12戸スケールで価格超過。再開発の2029年完成後に中古で出てきた時にエリアとして再注目する価値はある。今回は1/5でピックアップ見送り。</p>
+    </div>
+  </div>
+
+  <div class="agent-section">
+    <div class="agent-header">
+      <div class="agent-badge agent-ryo">涼</div>
+      <div class="agent-title">リョウ（DD担当）— デューデリジェンス精査</div>
+    </div>
+    <div class="agent-body">
+      <h4>確認済み項目</h4>
+      <ul>
+        <li>建築確認番号: 第KBI-YKH25-10-2603号（取得済み）</li>
+        <li>接道: 南東側6.0m（建築基準法クリア）</li>
+        <li>設備: バストイレ別・独立洗面台・浴室乾燥機（キャプテン必須設備あり）</li>
+        <li>売主取引: 仲介手数料不要</li>
+      </ul>
+      <h4>リスクフラグ</h4>
+      <p><span class="risk-badge risk-high">最大リスク</span><strong>完成予定2026年3月末を2ヶ月超過・引渡時期「相談」</strong><br>
+      工期遅延確定。融資承認有効期限・金利ロック・稼働開始のズレリスク。引渡確定日と遅延違約金条項の明記が必須。</p>
+      <p><span class="risk-badge risk-mid">中リスク</span><strong>J:COM費用11,880円/月の負担区分不明</strong>（12戸で年171万円のインパクト）</p>
+      <p><span class="risk-badge risk-mid">中リスク</span><strong>申込中6/12戸のキャンセルリスク</strong>（正式契約済み戸数の確認が必須）</p>
+      <h4>キャプテンへの確認事項</h4>
+      <ol>
+        <li>引渡確定日と工事進捗報告書（書面）の取得</li>
+        <li>J:COM月11,880円のオーナー/入居者負担区分</li>
+        <li>申込中6戸の正式契約（手付授受）済み戸数</li>
+        <li>検査済証・住宅性能評価書（等級3）の引渡前取得確認</li>
+        <li>管理会社の決定状況と管理費率</li>
+        <li>賃料査定書（伊勢原駅近・1K相場との比較）</li>
+        <li>売主（アゼリアホーム）の施工実績・財務健全性</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="agent-section">
+    <div class="agent-header">
+      <div class="agent-badge agent-aki">亜</div>
+      <div class="agent-title">アキ（IG+収支計算）— 収益性分析</div>
+    </div>
+    <div class="agent-body">
+      <h4>基本数値</h4>
+      <table>
+        <tr><th>項目</th><th>数値</th></tr>
+        <tr><td>満室想定年収（共益費込）</td><td>10,512,000円</td></tr>
+        <tr><td>空室損失（5%）</td><td>▲525,600円</td></tr>
+        <tr><td>賃貸年収合計</td><td>9,986,400円</td></tr>
+        <tr><td>費用合計</td><td>▲186.3万円</td></tr>
+        <tr><td>NOI</td><td>800.1万円（NOI利回り4.70%）</td></tr>
+      </table>
+      <h4>ローン試算</h4>
+      <table>
+        <tr><th>項目</th><th>オリックス（100%・2.6%・35年）</th><th>神奈川銀行（90%・2.25%・35年）</th></tr>
+        <tr><td>年間返済額</td><td>741.8万円</td><td>633.4万円</td></tr>
+        <tr><td>CF（税引き前）</td><td>58.3万円/年（月4.9万）</td><td>166.7万円/年（月13.9万）</td></tr>
+        <tr><td>CF率</td><td class="ng">NG 0.34%</td><td class="ng">NG 0.98%（残り0.02pt）</td></tr>
+        <tr><td>返済比率</td><td>74.3%</td><td>63.4%</td></tr>
+        <tr><td>自己資金</td><td>681.6万円（諸費用4%のみ）</td><td>2,385.6万円（頭金10%+諸費用）</td></tr>
+        <tr><td>CCR</td><td class="ng">NG 8.6%</td><td class="ng">NG 7.0%</td></tr>
+        <tr><td>税引き後CF（減価償却恩恵含む）</td><td>94.5万円/年</td><td>183.4万円/年</td></tr>
+      </table>
+      <h4>積算評価</h4>
+      <p>建物評価額: 291.12m2 x 240,000円（劣化等級3） = 6,986.9万円<br>
+      土地評価額: 要確認（路線価不明）<br>
+      積算比率60%達成には路線価<strong>16.1万円/m2以上</strong>が必要</p>
+      <h4>アキのコメント</h4>
+      <p>神奈川銀行パターンでCF率0.98%と基準まであと0.02pt。見た目は惜しいが、J:COM費用（年171万円）がオーナー負担なら実質大幅マイナス。価格交渉で14,800万円前後まで引き下げられるなら再計算の余地あり。</p>
+    </div>
+  </div>
+
+  <div class="agent-section">
+    <div class="agent-header">
+      <div class="agent-badge agent-murata">村</div>
+      <div class="agent-title">村田先生（建築士）— 構造・修繕・法令コメント</div>
+    </div>
+    <div class="agent-body">
+      <h4>建物品質評価: 4/5点</h4>
+      <p>新築・劣化対策等級3・建築確認取得済みという基本要件をしっかり押さえている。設備仕様（バストイレ別・浴室乾燥機・独立洗面台・J:COM）も入居者ニーズに対応しており、質感は標準以上。</p>
+      <h4>修繕費概算（12戸全体）</h4>
+      <table>
+        <tr><th>時期</th><th>内容</th><th>概算費用</th></tr>
+        <tr><td>0〜5年</td><td>初期不良・シーリング・クロス補修</td><td>50〜150万円</td></tr>
+        <tr><td>5〜10年</td><td>外壁塗装・屋根防水（初回）</td><td>300〜600万円</td></tr>
+        <tr><td>10〜15年</td><td>給湯器・エアコン等設備更新（12戸）</td><td>400〜600万円</td></tr>
+        <tr><td>15〜20年</td><td>外壁2回目・水回りリフォーム</td><td>600〜900万円</td></tr>
+      </table>
+      <h4>法令・建築上の主要確認ポイント</h4>
+      <ul>
+        <li><strong>準防火地域の木造3階建:</strong> 準耐火建築物として施工されているか中間検査・完了検査合格証の確認が必須</li>
+        <li><strong>地盤リスク（最優先）:</strong> 伊勢原市桜台は丘陵地形。地盤調査報告書・地盤改良の有無を必ず確認。地盤保証の有無も確認</li>
+        <li><strong>宅造法:</strong> 造成地であれば擁壁の安全性確認書類を取得すること</li>
+        <li><strong>建築中の工期遅延:</strong> 完成予定超過済み。確定引渡日と遅延違約金条項を契約書に明記させること</li>
+      </ul>
+      <h4>現地必須確認事項</h4>
+      <p>外壁・接道の公道/私道確認 / 地盤高低差・擁壁の有無 / 近隣騒音源（北西側用途の確認） / ホームインスペクター（5〜10万円）の入場を交渉推奨</p>
+    </div>
+  </div>
+
+  <div class="footer">TC Capitals 不動産仕入部 自動精査システム | 2026-05-26</div>
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260526_アザーレクオン伊勢原_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260526_アザーレクオン伊勢原_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
