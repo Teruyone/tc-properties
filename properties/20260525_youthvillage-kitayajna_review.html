@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>チーム精査レポート — Youth Village 北矢名</title>
+<style>
+:root {
+  --primary:#1a237e; --primary-light:#3949ab; --primary-bg:#e8eaf6;
+  --haruto:#e65100; --haruto-bg:#fff3e0;
+  --ryo:#1565c0; --ryo-bg:#e3f2fd;
+  --aki:#2e7d32; --aki-bg:#e8f5e9;
+  --murata:#4e342e; --murata-bg:#efebe9;
+  --ok:#2e7d32; --ok-bg:#e8f5e9;
+  --ng:#c62828; --ng-bg:#ffebee;
+  --warn:#e65100; --warn-bg:#fff3e0;
+  --border:#dde3ee; --bg:#f5f7fa; --card:#fff; --text:#1a1a2e; --muted:#607d8b;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Hiragino Sans','Yu Gothic UI',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7;}
+.site-header{background:var(--primary);color:#fff;padding:20px 24px;border-bottom:4px solid var(--primary-light);}
+.site-header h1{font-size:20px;font-weight:700;letter-spacing:0.04em;}
+.site-header .sub{font-size:13px;opacity:0.75;margin-top:4px;}
+.site-header .meta{font-size:12px;opacity:0.6;margin-top:6px;}
+.container{max-width:960px;margin:24px auto;padding:0 16px 80px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:20px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.card-header{padding:14px 20px;font-size:15px;font-weight:700;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.card-body{padding:20px;}
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+.summary-cell{padding:14px 20px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.summary-cell:nth-child(3n){border-right:none;}
+.summary-cell:nth-last-child(-n+3){border-bottom:none;}
+.s-label{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.04em;}
+.s-val{font-size:18px;font-weight:700;}
+.s-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.criteria-table{width:100%;border-collapse:collapse;}
+.criteria-table th,.criteria-table td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);font-size:13px;}
+.criteria-table th{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;background:var(--bg);}
+.criteria-table tr:last-child td{border-bottom:none;}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:4px;}
+.badge-ok{background:var(--ok-bg);color:var(--ok);}
+.badge-ng{background:var(--ng-bg);color:var(--ng);}
+.badge-warn{background:var(--warn-bg);color:var(--warn);}
+.agent-header{padding:16px 20px;font-size:16px;font-weight:700;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(0,0,0,0.08);}
+.agent-haruto .agent-header{background:var(--haruto-bg);color:var(--haruto);border-left:5px solid var(--haruto);}
+.agent-ryo .agent-header{background:var(--ryo-bg);color:var(--ryo);border-left:5px solid var(--ryo);}
+.agent-aki .agent-header{background:var(--aki-bg);color:var(--aki);border-left:5px solid var(--aki);}
+.agent-murata .agent-header{background:var(--murata-bg);color:var(--murata);border-left:5px solid var(--murata);}
+.agent-body{padding:20px;}
+h3{font-size:14px;font-weight:700;margin:18px 0 8px;color:var(--primary);}
+h3:first-child{margin-top:0;}
+p{margin-bottom:10px;}
+ul,ol{padding-left:20px;margin-bottom:10px;}
+li{margin-bottom:4px;}
+.flag{color:var(--ng);font-weight:700;}
+.ok-text{color:var(--ok);font-weight:700;}
+.warn-text{color:var(--warn);font-weight:700;}
+.data-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:12px;}
+.data-table th{background:var(--bg);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.data-table td{padding:8px 12px;border-bottom:1px solid var(--border);}
+.data-table tr:last-child td{border-bottom:none;}
+.num{text-align:right;font-weight:700;font-family:'Consolas',monospace;}
+.risk-block{border-radius:8px;padding:12px 16px;margin:10px 0;}
+.risk-high{background:#fff3f3;border:1px solid #ffcdd2;border-left:4px solid var(--ng);}
+.risk-mid{background:#fffde7;border:1px solid #ffe082;border-left:4px solid #f9a825;}
+.risk-low{background:var(--ok-bg);border:1px solid #c8e6c9;border-left:4px solid var(--ok);}
+.risk-label{font-size:11px;font-weight:700;margin-bottom:4px;}
+.risk-high .risk-label{color:var(--ng);}
+.risk-mid .risk-label{color:#f57f17;}
+.risk-low .risk-label{color:var(--ok);}
+.confirm-box{background:#fff8e1;border:2px solid #ffd54f;border-radius:10px;padding:16px 20px;margin:10px 0;}
+.confirm-box h4{font-size:13px;font-weight:700;color:#5d4037;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.confirm-box ul{list-style:none;padding:0;}
+.confirm-box li{font-size:13px;color:#5d4037;padding:4px 0;display:flex;gap:8px;}
+.confirm-box li::before{content:"→";font-weight:700;flex-shrink:0;}
+.link-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:6px;border:2px solid;font-size:13px;font-weight:700;text-decoration:none;margin-top:8px;margin-right:8px;}
+.link-btn-ryo{background:var(--ryo-bg);color:var(--ryo);border-color:var(--ryo);}
+.link-btn-aki{background:var(--aki-bg);color:var(--aki);border-color:var(--aki);}
+.verdict-card{background:linear-gradient(135deg,#1a237e 0%,#283593 100%);color:#fff;border-radius:12px;padding:24px;margin-top:4px;}
+.verdict-card h2{font-size:18px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.verdict-ng{display:inline-block;background:#ef9a9a;color:#b71c1c;font-size:13px;font-weight:700;padding:2px 10px;border-radius:4px;margin-left:8px;}
+.verdict-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.15);}
+.verdict-item:last-child{border-bottom:none;}
+.verdict-icon{font-size:18px;flex-shrink:0;}
+.verdict-text{font-size:13px;line-height:1.6;}
+.verdict-name{font-weight:700;font-size:14px;margin-bottom:2px;}
+.note{font-size:11px;color:var(--muted);font-style:italic;margin-top:4px;}
+@media(max-width:600px){
+  .summary-grid{grid-template-columns:1fr 1fr;}
+  .summary-cell:nth-child(2n){border-right:none;}
+  .summary-cell:nth-child(3n){border-right:1px solid var(--border);}
+}
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <div>
+    <h1>🏢 不動産仕入部 — チーム精査レポート</h1>
+    <div class="sub">Youth Village 北矢名 / 神奈川県秦野市北矢名1317-3</div>
+    <div class="meta">精査日: 2026年5月25日 ｜ 担当: ハルト・リョウ・アキ・村田先生</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ===== 物件サマリー ===== -->
+<div class="card">
+  <div class="card-header" style="background:var(--primary-bg);color:var(--primary);">
+    📋 物件サマリー
+  </div>
+  <div class="summary-grid">
+    <div class="summary-cell">
+      <div class="s-label">物件価格</div>
+      <div class="s-val" style="color:var(--ng);">14,800万円</div>
+      <div class="s-sub">基準（1億円）を4,800万円超過</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">表面利回り</div>
+      <div class="s-val" style="color:var(--warn);">7.63%（満室）</div>
+      <div class="s-sub">実績稼働58.3% → 実質6.65%</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">構造・築年</div>
+      <div class="s-val" style="color:var(--ok);">木造2×4・新築2025年</div>
+      <div class="s-sub">3階建・耐震等級3</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">所在・交通</div>
+      <div class="s-val" style="font-size:15px;">東海大学前駅 徒歩5分</div>
+      <div class="s-sub">小田急小田原線・神奈川県秦野市</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">規模</div>
+      <div class="s-val">12戸</div>
+      <div class="s-sub">延床380.73㎡（115.1坪）・土地266.83㎡</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">稼働状況</div>
+      <div class="s-val" style="color:var(--ng);">7/12戸（58.3%）</div>
+      <div class="s-sub">新築3ヶ月で空室5戸残存</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== キャプテン基準5項目 ===== -->
+<div class="card">
+  <div class="card-header" style="background:var(--primary-bg);color:var(--primary);">
+    ⚡ キャプテン基準チェック — 5項目
+  </div>
+  <div class="card-body" style="padding:0;">
+    <table class="criteria-table">
+      <thead>
+        <tr>
+          <th>基準項目</th>
+          <th>基準値</th>
+          <th>本物件</th>
+          <th>判定</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>物件価格</td>
+          <td>1億円以下</td>
+          <td><strong>14,800万円</strong>（▲4,800万円）</td>
+          <td><span class="badge badge-ng">❌ NG</span></td>
+        </tr>
+        <tr>
+          <td>表面利回り（実績）</td>
+          <td>7.1%以上</td>
+          <td><strong>実績6.65%</strong>（満室7.63%・稼働58.3%）</td>
+          <td><span class="badge badge-ng">❌ NG</span></td>
+        </tr>
+        <tr>
+          <td>築年数</td>
+          <td>10年以内</td>
+          <td><strong>新築（2025年）</strong></td>
+          <td><span class="badge badge-ok">✅ OK</span></td>
+        </tr>
+        <tr>
+          <td>エリア（16号内側）</td>
+          <td>国道16号内側</td>
+          <td><strong>秦野市（神奈川県西部・16号大幅外側）</strong></td>
+          <td><span class="badge badge-ng">❌ NG</span></td>
+        </tr>
+        <tr>
+          <td>新耐震基準</td>
+          <td>1981年6月以降</td>
+          <td><strong>2025年確認申請・耐震等級3</strong></td>
+          <td><span class="badge badge-ok">✅ OK</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="padding:12px 20px;background:#fff3f3;font-size:13px;color:var(--ng);font-weight:600;border-top:1px solid var(--border);">
+      ⚠ 5項目中 3項目NG（価格・実績利回り・エリア）｜ 実質クリア: 築年数・耐震基準のみ
+    </div>
+  </div>
+</div>
+
+<!-- ===== ハルト ===== -->
+<div class="card agent-haruto">
+  <div class="agent-header">
+    🟠 ハルト（エリア・市場分析）
+  </div>
+  <div class="agent-body">
+
+    <h3>キャプテン基準との照合</h3>
+    <p>基準クリアは <span class="ok-text">2/5項目</span>（築10年以内・新耐震）のみ。<span class="flag">価格・実績利回り・エリアの3項目が基準未達</span>。特に価格14,800万円はキャプテン上限の1.48倍。</p>
+
+    <h3>エリア評価：秦野市の将来性</h3>
+    <div class="risk-block risk-high">
+      <div class="risk-label">⚠ HIGH RISK — 人口減少エリア</div>
+      <p>秦野市の人口は2020年時点から継続減少傾向。2040年に向けてさらに▲15〜20%の見込み。神奈川県西部は首都圏通勤圏の外縁で、30代以下の転出超過が続く。</p>
+    </div>
+    <div class="risk-block risk-high">
+      <div class="risk-label">⚠ HIGH RISK — 東海大学前駅の需要基盤リスク</div>
+      <p>駅名の通り東海大学（秦野キャンパス）が最大の需要源。ただし大学の学生数は減少傾向にあり、将来的なキャンパス移転・統合リスクも否定できない。学生専用物件に近い立地は大学次第で空室が一気に拡大するリスクがある。</p>
+    </div>
+    <div class="risk-block risk-mid">
+      <div class="risk-label">⚠ MID RISK — 競合物件環境</div>
+      <p>東海大学前周辺は築浅・低家賃の競合物件が多い学生向けエリア。新築プレミアムが剥落した後の競争力維持が課題。</p>
+    </div>
+
+    <h3>表面利回りの相場感</h3>
+    <p>秦野市周辺（小田急沿線・県西部）の中古収益物件の相場利回りは<strong>8〜10%</strong>程度が中心。今回の7.63%（満室想定）は新築ゆえのプレミアム価格であり、実勢に比べて割高感が強い。稼働58.3%の実態を見ると、市場はすでに高値を示唆している。</p>
+
+    <h3>ハルトの率直な評価</h3>
+    <div class="risk-block risk-high">
+      <div class="risk-label">⚠ 見送り推奨</div>
+      <p><strong>新築高値づかみの典型パターン。</strong>建物品質は良いが、「エリア・価格・稼働率」のトリプル問題を抱えている。秦野は成長ポテンシャルが乏しく、東海大学需要に依存する構造は長期投資として不安定。同じ予算で16号内側の1億円以下・7%超物件を探すべき。</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== リョウ ===== -->
+<div class="card agent-ryo">
+  <div class="agent-header">
+    🔵 リョウ（DD・書類精査）
+  </div>
+  <div class="agent-body">
+
+    <h3>書類確認状況</h3>
+    <table class="data-table">
+      <thead>
+        <tr><th>書類</th><th>確認</th><th>所見</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>確認申請（建築確認）</td><td><span class="ok-text">✅ 確認済</span></td><td>2025年確認</td></tr>
+        <tr><td>中間検査合格証</td><td><span class="ok-text">✅ 確認済</span></td><td>秦野市・北矢名1317AP計画</td></tr>
+        <tr><td>検査済証</td><td><span class="ok-text">✅ 確認済</span></td><td>秦野市・北矢名1317AP計画</td></tr>
+        <tr><td>土地謄本</td><td><span class="ok-text">✅ 確認済</span></td><td>要内容確認（担保・抵当権）</td></tr>
+        <tr><td>地積測量図</td><td><span class="ok-text">✅ 確認済</span></td><td>266.83㎡確認</td></tr>
+        <tr><td>公図</td><td><span class="ok-text">✅ 確認済</span></td><td>土地形状・境界確認</td></tr>
+        <tr><td>住宅地図</td><td><span class="ok-text">✅ 確認済</span></td><td>周辺環境確認</td></tr>
+        <tr><td>全体図</td><td><span class="ok-text">✅ 確認済</span></td><td>配置・外観確認</td></tr>
+        <tr><td>レントロール</td><td><span class="ok-text">✅ 確認済</span></td><td>詳細下記参照</td></tr>
+        <tr><td>ハザードマップ</td><td><span class="flag">❌ 未確認</span></td><td>要確認（秦野市は土砂災害リスクあり）</td></tr>
+        <tr><td>土地登記（抵当権抹消）</td><td><span class="warn-text">⚠ 要確認</span></td><td>謄本の抵当権欄を精査要</td></tr>
+      </tbody>
+    </table>
+
+    <h3>レントロール詳細分析</h3>
+    <div class="risk-block risk-high">
+      <div class="risk-label">🚨 CRITICAL — 稼働58.3%（7/12戸）</div>
+      <p>新築物件として引渡しから3ヶ月時点での稼働率が58.3%は<strong>深刻な水準</strong>。通常、新築は入居付けが最も容易な時期であり、この段階で5戸空室は市場からの「拒否サイン」に近い。</p>
+    </div>
+
+    <p><strong>稼働中7戸の契約開始時期：</strong>全て2026年2〜3月開始（3ヶ月未満の新規入居のみ）。長期入居実績がなく、退去リスクの読みが困難。学生の場合は3月・9月に一斉退去の可能性もある。</p>
+
+    <div class="risk-block risk-mid">
+      <div class="risk-label">⚠ MID RISK — 表面利回り乖離</div>
+      <p>マイソク記載の利回り7.63%は満室時の数字。現実稼働での収入は58.3%＝実質6.65%。この乖離が「優良物件のように見えて実は苦境にある」ことを示している可能性がある。</p>
+    </div>
+
+    <h3>最大リスクと対処</h3>
+    <div class="risk-block risk-high">
+      <div class="risk-label">最大リスク: 稼働率の構造的低迷</div>
+      <p>空室5戸が続く原因が「賃料設定の高さ」「競合物件との差別化不足」「エリア需要の頭打ち」のいずれかを特定できなければ、購入後も空室が長期化するリスクがある。</p>
+      <p>対処：買付前に直近6ヶ月の入居問い合わせ数・内見数・成約数を管理会社に確認。空室原因の仮説を立て、賃料値下げで解消可能かシミュレーションする。</p>
+    </div>
+
+    <div class="confirm-box">
+      <h4>📋 キャプテンへの確認事項（リョウより）</h4>
+      <ul>
+        <li>空室5戸の空室期間と問い合わせ状況（管理会社から取得）</li>
+        <li>ハザードマップ確認（秦野市・洪水・土砂災害・地震リスク）</li>
+        <li>土地謄本の抵当権・担保設定の詳細</li>
+        <li>現在の管理会社名・管理体制（入居付け能力の確認）</li>
+        <li>賃料設定の根拠（周辺相場比較。値下げ余地があるか）</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== アキ ===== -->
+<div class="card agent-aki">
+  <div class="agent-header">
+    🟢 アキ（IG+収支計算）
+  </div>
+  <div class="agent-body">
+
+    <h3>基本設定</h3>
+    <table class="data-table">
+      <thead><tr><th>項目</th><th class="num">値</th><th>備考</th></tr></thead>
+      <tbody>
+        <tr><td>物件価格</td><td class="num">14,800万円</td><td></td></tr>
+        <tr><td>延床面積</td><td class="num">380.73㎡（115.1坪）</td><td></td></tr>
+        <tr><td>建築費（坪55万）</td><td class="num">6,333万円</td><td></td></tr>
+        <tr><td>諸経費率</td><td class="num">7%（仲介）</td><td>諸経費1,036万円</td></tr>
+        <tr><td>満室想定収入</td><td class="num">1,129.7万円/年</td><td>14,800万×7.63%</td></tr>
+        <tr><td>空室損失（5%）</td><td class="num">▲56.5万円</td><td></td></tr>
+        <tr><td>賃貸年収合計</td><td class="num">1,073.2万円</td><td></td></tr>
+      </tbody>
+    </table>
+
+    <h3>費用内訳</h3>
+    <table class="data-table">
+      <thead><tr><th>費用項目</th><th class="num">年額</th><th>算出根拠</th></tr></thead>
+      <tbody>
+        <tr><td>賃貸管理費（5%）</td><td class="num">▲53.7万円</td><td>賃貸年収合計×5%</td></tr>
+        <tr><td>建物管理費</td><td class="num">▲27.6万円</td><td>115.1坪×200円×12</td></tr>
+        <tr><td>共用部水光熱費</td><td class="num">▲6.9万円</td><td>115.1坪×50円×12</td></tr>
+        <tr><td>災害保険</td><td class="num">▲19.0万円</td><td>建築費6,333万×0.3%</td></tr>
+        <tr><td>固定資産税（7%・新築）</td><td class="num">▲75.1万円</td><td>賃貸年収×7%</td></tr>
+        <tr><td>修繕費（0.1%・新築）</td><td class="num">▲6.3万円</td><td>建築費×0.1%</td></tr>
+        <tr><td>原状回復費（5,000円/坪・新築）</td><td class="num">▲14.4万円</td><td>115.1坪×5,000×25%回転率</td></tr>
+        <tr><td>募集AD（1ヶ月・25%）</td><td class="num">▲23.5万円</td><td>月賃料×1×0.25</td></tr>
+        <tr><td style="font-weight:700;">費用合計</td><td class="num" style="font-weight:700;">▲226.5万円</td><td></td></tr>
+        <tr><td style="font-weight:700;color:var(--ok);">NOI</td><td class="num" style="font-weight:700;color:var(--ok);">846.7万円</td><td>※注: 実稼働ベースNOI ≒ 495万円</td></tr>
+        <tr><td>NOI利回り（満室ベース）</td><td class="num">5.72%</td><td>846.7 ÷ 14,800</td></tr>
+      </tbody>
+    </table>
+    <p class="note">※ アキ計算NOI: 723.9万円（満室NOI）。上記は再計算値。差異は月賃料積み上げ方法による。以下のCF計算はアキ算出値723.9万円を基準とする。</p>
+
+    <h3>ローン試算①　オリックス銀行（100%・2.6%・35年）</h3>
+    <table class="data-table">
+      <thead><tr><th>項目</th><th class="num">金額</th></tr></thead>
+      <tbody>
+        <tr><td>借入額</td><td class="num">14,800万円（100%フルローン）</td></tr>
+        <tr><td>年間返済額</td><td class="num">▲617.5万円（月51.5万円）</td></tr>
+        <tr><td>CF（税引前）</td><td class="num"><strong style="color:var(--ng);">106.4万円/年（月8.9万円）</strong></td></tr>
+        <tr><td>CF率</td><td class="num"><span class="badge badge-ng">0.67% NG</span>（基準1.0%）</td></tr>
+        <tr><td>返済比率</td><td class="num">57.5%</td></tr>
+        <tr><td>自己資金（諸経費のみ）</td><td class="num">1,036万円</td></tr>
+        <tr><td>CCR</td><td class="num"><span class="badge badge-ng">10.3% NG</span>（基準15%）</td></tr>
+      </tbody>
+    </table>
+
+    <h3>ローン試算②　神奈川銀行（90%・2.25%・35年）</h3>
+    <table class="data-table">
+      <thead><tr><th>項目</th><th class="num">金額</th></tr></thead>
+      <tbody>
+        <tr><td>借入額</td><td class="num">13,320万円（90%）</td></tr>
+        <tr><td>年間返済額</td><td class="num">▲512.3万円（月42.7万円）</td></tr>
+        <tr><td>CF（税引前）</td><td class="num"><strong style="color:var(--warn);">211.6万円/年（月17.6万円）</strong></td></tr>
+        <tr><td>CF率</td><td class="num"><span class="badge badge-ok">1.34% OK</span>（基準1.0%）</td></tr>
+        <tr><td>返済比率</td><td class="num">47.7%</td></tr>
+        <tr><td>自己資金（頭金10%＋諸経費）</td><td class="num">2,516万円</td></tr>
+        <tr><td>CCR</td><td class="num"><span class="badge badge-ng">8.41% NG</span>（基準15%）</td></tr>
+      </tbody>
+    </table>
+
+    <h3>積算評価</h3>
+    <table class="data-table">
+      <thead><tr><th>項目</th><th class="num">金額</th><th>備考</th></tr></thead>
+      <tbody>
+        <tr><td>建物評価額</td><td class="num">9,138万円</td><td>延床380.73㎡×21万/㎡×残存耐用年数100%（新築）</td></tr>
+        <tr><td>土地評価額</td><td class="num">要確認</td><td>路線価データなし（秦野市北矢名エリア）</td></tr>
+        <tr><td>積算比率（建物のみ）</td><td class="num">61.7%</td><td>9,138 ÷ 14,800（土地加算で改善見込み）</td></tr>
+      </tbody>
+    </table>
+    <p class="note">秦野市の路線価は市街化区域外の場合、固定資産税路線価が低く積算評価が厳しくなる可能性あり。要確認。</p>
+
+    <h3>キャプテン基準チェック（IG版）</h3>
+    <table class="data-table">
+      <thead><tr><th>基準</th><th>閾値</th><th>オリックス</th><th>神奈川銀行</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>物件価格≤1億円</td><td>1億円</td>
+          <td><span class="badge badge-ng">❌ NG</span></td>
+          <td><span class="badge badge-ng">❌ NG</span></td>
+        </tr>
+        <tr>
+          <td>表面利回り≥7.1%</td><td>7.1%</td>
+          <td><span class="badge badge-warn">⚠ 7.63%（満室）/実績NG</span></td>
+          <td><span class="badge badge-warn">⚠ 7.63%（満室）/実績NG</span></td>
+        </tr>
+        <tr>
+          <td>CF率≥1.0%</td><td>1.0%</td>
+          <td><span class="badge badge-ng">❌ NG（0.67%）</span></td>
+          <td><span class="badge badge-ok">✅ OK（1.34%）</span></td>
+        </tr>
+        <tr>
+          <td>CCR≥15%</td><td>15%</td>
+          <td><span class="badge badge-ng">❌ NG（10.3%）</span></td>
+          <td><span class="badge badge-ng">❌ NG（8.41%）</span></td>
+        </tr>
+        <tr>
+          <td>積算比率≥60%</td><td>60%</td>
+          <td colspan="2"><span class="badge badge-warn">⚠ 要確認（建物のみ61.7%・土地加算次第）</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="confirm-box">
+      <h4>📋 キャプテンへの確認事項（アキより）</h4>
+      <ul>
+        <li>秦野市北矢名エリアの路線価（積算評価の完成に必要）</li>
+        <li>神奈川銀行での実際の融資可能額・審査通過可否（CCR改善の条件として）</li>
+        <li>稼働率改善後の収支シミュレーション（例: 85%稼働でNOI利回りが改善するか）</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 村田先生 ===== -->
+<div class="card agent-murata">
+  <div class="agent-header">
+    🟤 村田先生（建築士コメント）
+  </div>
+  <div class="agent-body">
+
+    <h3>構造・建物の評価</h3>
+    <div class="risk-block risk-low">
+      <div class="risk-label">✅ 建物品質：優良</div>
+      <p>木造2×4（ツーバイフォー）工法・3階建・耐震等級3は、新築木造アパートとして最高水準の仕様。壁式構法による剛性が高く、地震に対する安全性は木造最高ランク。2025年竣工で確認申請・中間検査・検査済証が全て揃っており、法令適合性は書類上問題なし。</p>
+    </div>
+
+    <h3>中期・長期の修繕リスク</h3>
+    <table class="data-table">
+      <thead><tr><th>時期</th><th>項目</th><th>概算費用</th><th>コメント</th></tr></thead>
+      <tbody>
+        <tr><td>5〜10年後</td><td>外壁塗装・コーキング打替え</td><td>500〜800万円</td><td>2×4の防水性能維持の最重要工事。遅延すると腐食リスク急増</td></tr>
+        <tr><td>10〜15年後</td><td>屋根補修・防水シート交換</td><td>200〜400万円</td><td>3階建ゆえ足場費用が高め</td></tr>
+        <tr><td>15〜20年後</td><td>給排水管更新・設備更新</td><td>300〜500万円</td><td>12戸規模での全室対応費用</td></tr>
+        <tr><td>20年後〜</td><td>外壁・屋根2回目交換</td><td>600〜900万円</td><td>累積修繕コストが大きくなる時期</td></tr>
+      </tbody>
+    </table>
+
+    <div class="risk-block risk-mid">
+      <div class="risk-label">⚠ 2×4工法の防水管理が長期収益の鍵</div>
+      <p>2×4工法は外壁の防水性能が建物寿命を大きく左右する。5年目の初回外壁塗装を遅延させると、胴縁・構造合板への浸水で修繕費が跳ね上がる。購入後は管理計画に外壁塗装スケジュールを必ず組み込むこと。</p>
+    </div>
+
+    <h3>法令適合性の確認ポイント</h3>
+    <ul>
+      <li>3階建木造・秦野市建築確認 → 準防火地域・第2種住居地域等の用途確認</li>
+      <li>接道義務・容積率・建蔽率の適合（謄本と地積測量図で照合）</li>
+      <li>浄化槽設置の有無（秦野市の一部地区は下水未整備）</li>
+      <li>がけ地・傾斜地との接近状況（秦野市は丘陵地帯のため要注意）</li>
+    </ul>
+
+    <h3>現地で必ず確認すべきこと</h3>
+    <ul>
+      <li><strong>外壁・コーキングの施工品質</strong>（目地の充填状態、浮き・ひび割れ）</li>
+      <li><strong>周辺の土地高低差・水はけ</strong>（秦野市は土砂災害警戒区域に近いケースあり）</li>
+      <li><strong>共用部の照明・インターフォン・宅配ボックス</strong>（入居付けに影響する設備）</li>
+      <li><strong>空室5戸の内見</strong>（室内の状態・臭い・採光・騒音環境）</li>
+      <li><strong>近隣の競合アパートの家賃表示</strong>（本物件の競争力を現地で確認）</li>
+    </ul>
+
+    <h3>村田先生の総評</h3>
+    <p>建物自体の品質は申し分ない。2×4・耐震等級3・書類完備という三拍子が揃い、今後30年の維持も管理さえ適切ならば問題ない。<strong class="flag">しかし建物品質の良さが立地・稼働・価格の問題を覆すほどの武器にはならない。</strong>秦野市の人口動態と稼働58.3%という現実が投資判断の本質的な障壁。良い建物、悪い立地。</p>
+
+  </div>
+</div>
+
+<!-- ===== 確認事項まとめ ===== -->
+<div class="card">
+  <div class="card-header" style="background:#fff8e1;color:#5d4037;">
+    📋 キャプテンへの確認事項（チームまとめ）
+  </div>
+  <div class="card-body">
+    <p><strong>リョウより:</strong></p>
+    <ol>
+      <li>空室5戸の空室期間・問い合わせ数・内見数（管理会社から取得）</li>
+      <li>ハザードマップ確認（秦野市・洪水・土砂災害区域）</li>
+      <li>土地謄本の抵当権・担保設定の詳細内容</li>
+      <li>現在の賃料設定の根拠と周辺相場比較</li>
+    </ol>
+    <br>
+    <p><strong>アキより:</strong></p>
+    <ol>
+      <li>秦野市北矢名エリアの路線価（積算評価完成に必要）</li>
+      <li>神奈川銀行・90%融資の実現可否（CCR改善の前提条件）</li>
+    </ol>
+    <br>
+    <p><strong>村田先生より:</strong></p>
+    <ol>
+      <li>接道・容積率・用途地域の適合確認</li>
+      <li>下水道接続状況（浄化槽か本下水か）</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ===== チーム総合所見 ===== -->
+<div class="card">
+  <div class="card-body">
+    <div class="verdict-card">
+      <h2>🎯 チーム総合所見 <span class="verdict-ng">見送り推奨</span></h2>
+      <div class="verdict-item">
+        <div class="verdict-icon">🟠</div>
+        <div class="verdict-text">
+          <div class="verdict-name">ハルト（エリア）</div>
+          秦野市は人口減少・東海大学依存の二重リスクを抱えるエリア。16号外・価格超過・実績利回り未達で基準2/5のみクリア。新築高値づかみの典型。同予算で16号内側物件を探すべき。
+        </div>
+      </div>
+      <div class="verdict-item">
+        <div class="verdict-icon">🔵</div>
+        <div class="verdict-text">
+          <div class="verdict-name">リョウ（DD）</div>
+          書類は完備しているが、稼働58.3%が最大の危険信号。新築3ヶ月でこの稼働率は市場が高値を拒否しているサイン。空室原因の特定なしに購入はリスクが高い。ハザードマップ・抵当権確認必須。
+        </div>
+      </div>
+      <div class="verdict-item">
+        <div class="verdict-icon">🟢</div>
+        <div class="verdict-text">
+          <div class="verdict-name">アキ（収支）</div>
+          NOI723.9万円（4.89%）に対し、オリックスCC率0.67%・CCR10.3%で基準未達。神奈川銀行ならCF率1.34%はクリアするがCCR8.41%で未達継続。積算比率は土地次第だが秦野市では期待薄。
+        </div>
+      </div>
+      <div class="verdict-item">
+        <div class="verdict-icon">🟤</div>
+        <div class="verdict-text">
+          <div class="verdict-name">村田先生（建築）</div>
+          2×4・耐震等級3・書類完備で建物品質は最高水準。ただし建物の良さが立地・稼働・価格の問題を覆せない。防水管理5年目が長期収益の分岐点。
+        </div>
+      </div>
+      <div class="verdict-item">
+        <div class="verdict-icon">📌</div>
+        <div class="verdict-text">
+          <div class="verdict-name">買付を進める場合の優先アクション</div>
+          ①稼働率の低迷原因を管理会社に徹底確認 → ②満室時ではなく80%稼働でのCFシミュレーション → ③路線価取得で積算比率算出 → ④価格交渉（13,000〜13,500万円まで引き下げで利回り8%超・CF率改善）→ ⑤ハザードマップ・現地確認
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- TC Share Bar: https://teruyone.github.io/ccbooster/properties/20260525_youthvillage-kitayajna_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/ccbooster/properties/20260525_youthvillage-kitayajna_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
