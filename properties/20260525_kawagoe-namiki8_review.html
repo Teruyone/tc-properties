@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>チーム精査レポート — キャメル川越並木8</title>
+<style>
+:root {
+  --primary:#1a237e; --primary-light:#3949ab; --primary-bg:#e8eaf6;
+  --haruto:#e65100; --haruto-bg:#fff3e0;
+  --ryo:#1565c0; --ryo-bg:#e3f2fd;
+  --aki:#2e7d32; --aki-bg:#e8f5e9;
+  --murata:#4e342e; --murata-bg:#efebe9;
+  --ok:#2e7d32; --ok-bg:#e8f5e9;
+  --ng:#c62828; --ng-bg:#ffebee;
+  --warn:#e65100; --warn-bg:#fff3e0;
+  --border:#dde3ee; --bg:#f5f7fa; --card:#fff; --text:#1a1a2e; --muted:#607d8b;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Hiragino Sans','Yu Gothic UI',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7;}
+
+/* HEADER */
+.site-header{background:var(--primary);color:#fff;padding:20px 24px;border-bottom:4px solid var(--primary-light);}
+.site-header h1{font-size:20px;font-weight:700;letter-spacing:0.04em;}
+.site-header .sub{font-size:13px;opacity:0.75;margin-top:4px;}
+.site-header .meta{font-size:12px;opacity:0.6;margin-top:6px;}
+
+/* CONTAINER */
+.container{max-width:960px;margin:24px auto;padding:0 16px 80px;}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:20px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.card-header{padding:14px 20px;font-size:15px;font-weight:700;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.card-body{padding:20px;}
+
+/* SUMMARY CARD */
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+.summary-cell{padding:14px 20px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.summary-cell:nth-child(3n){border-right:none;}
+.summary-cell:nth-last-child(-n+3){border-bottom:none;}
+.s-label{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.04em;}
+.s-val{font-size:18px;font-weight:700;}
+.s-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+
+/* CRITERIA TABLE */
+.criteria-table{width:100%;border-collapse:collapse;}
+.criteria-table th,.criteria-table td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);font-size:13px;}
+.criteria-table th{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;background:var(--bg);}
+.criteria-table tr:last-child td{border-bottom:none;}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:4px;}
+.badge-ok{background:var(--ok-bg);color:var(--ok);}
+.badge-ng{background:var(--ng-bg);color:var(--ng);}
+.badge-warn{background:var(--warn-bg);color:var(--warn);}
+
+/* AGENT SECTIONS */
+.agent-header{padding:16px 20px;font-size:16px;font-weight:700;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(0,0,0,0.08);}
+.agent-haruto .agent-header{background:var(--haruto-bg);color:var(--haruto);border-left:5px solid var(--haruto);}
+.agent-ryo .agent-header{background:var(--ryo-bg);color:var(--ryo);border-left:5px solid var(--ryo);}
+.agent-aki .agent-header{background:var(--aki-bg);color:var(--aki);border-left:5px solid var(--aki);}
+.agent-murata .agent-header{background:var(--murata-bg);color:var(--murata);border-left:5px solid var(--murata);}
+.agent-body{padding:20px;}
+
+/* TEXT STYLES */
+h3{font-size:14px;font-weight:700;margin:18px 0 8px;color:var(--primary);}
+h3:first-child{margin-top:0;}
+p{margin-bottom:10px;}
+ul,ol{padding-left:20px;margin-bottom:10px;}
+li{margin-bottom:4px;}
+.flag{color:var(--ng);font-weight:700;}
+.ok-text{color:var(--ok);font-weight:700;}
+.warn-text{color:var(--warn);font-weight:700;}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:12px;}
+.data-table th{background:var(--bg);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.data-table td{padding:8px 12px;border-bottom:1px solid var(--border);}
+.data-table tr:last-child td{border-bottom:none;}
+.num{text-align:right;font-weight:700;font-family:'Consolas',monospace;}
+
+/* RISK FLAGS */
+.risk-block{border-radius:8px;padding:12px 16px;margin:10px 0;}
+.risk-high{background:#fff3f3;border:1px solid #ffcdd2;border-left:4px solid var(--ng);}
+.risk-mid{background:#fffde7;border:1px solid #ffe082;border-left:4px solid #f9a825;}
+.risk-low{background:var(--ok-bg);border:1px solid #c8e6c9;border-left:4px solid var(--ok);}
+.risk-label{font-size:11px;font-weight:700;margin-bottom:4px;}
+.risk-high .risk-label{color:var(--ng);}
+.risk-mid .risk-label{color:#f57f17;}
+.risk-low .risk-label{color:var(--ok);}
+
+/* CONFIRM BOX */
+.confirm-box{background:#fff8e1;border:2px solid #ffd54f;border-radius:10px;padding:16px 20px;margin:10px 0;}
+.confirm-box h4{font-size:13px;font-weight:700;color:#5d4037;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.confirm-box ul{list-style:none;padding:0;}
+.confirm-box li{font-size:13px;color:#5d4037;padding:4px 0;display:flex;gap:8px;}
+.confirm-box li::before{content:"→";font-weight:700;flex-shrink:0;}
+
+/* LINK BUTTON */
+.link-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:6px;border:2px solid;font-size:13px;font-weight:700;text-decoration:none;margin-top:8px;margin-right:8px;}
+.link-btn-ryo{background:var(--ryo-bg);color:var(--ryo);border-color:var(--ryo);}
+.link-btn-aki{background:var(--aki-bg);color:var(--aki);border-color:var(--aki);}
+
+/* TOTAL VERDICT */
+.verdict-card{background:linear-gradient(135deg,#1a237e 0%,#283593 100%);color:#fff;border-radius:12px;padding:24px;margin-top:4px;}
+.verdict-card h2{font-size:18px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.verdict-ng{display:inline-block;background:#ef9a9a;color:#b71c1c;font-size:13px;font-weight:700;padding:2px 10px;border-radius:4px;margin-left:8px;}
+.verdict-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.15);}
+.verdict-item:last-child{border-bottom:none;}
+.verdict-icon{font-size:18px;flex-shrink:0;}
+.verdict-text{font-size:13px;line-height:1.6;}
+.verdict-name{font-weight:700;font-size:14px;margin-bottom:2px;}
+
+/* NOTE */
+.note{font-size:11px;color:var(--muted);font-style:italic;margin-top:4px;}
+
+@media(max-width:600px){
+  .summary-grid{grid-template-columns:1fr 1fr;}
+  .summary-cell:nth-child(2n){border-right:none;}
+  .summary-cell:nth-child(3n){border-right:1px solid var(--border);}
+}
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <div>
+    <h1>🏢 不動産仕入部 — チーム精査レポート</h1>
+    <div class="sub">（仮称）キャメル川越並木8 / 埼玉県川越市並木新町14番8</div>
+    <div class="meta">精査日: 2026年5月25日 ｜ 担当: ハルト・リョウ・アキ・村田先生</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ===== 物件サマリー ===== -->
+<div class="card">
+  <div class="card-header" style="background:var(--primary-bg);color:var(--primary);">
+    📋 物件サマリー
+  </div>
+  <div class="summary-grid">
+    <div class="summary-cell">
+      <div class="s-label">物件価格</div>
+      <div class="s-val" style="color:var(--ng);">10,160万円</div>
+      <div class="s-sub">土地4,000万・建物6,160万（税込）</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">表面利回り</div>
+      <div class="s-val" style="color:var(--ng);">6.80%</div>
+      <div class="s-sub">借上利回り 6.12%</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">構造・築年</div>
+      <div class="s-val" style="color:var(--ok);">木造3階建・新築</div>
+      <div class="s-sub">2026年2月完成予定・令和7年確認申請</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">所在・交通</div>
+      <div class="s-val" style="font-size:15px;">南古谷駅 徒歩6分</div>
+      <div class="s-sub">JR川越線・埼玉県川越市並木新町14番8</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">規模</div>
+      <div class="s-val">1K × 9戸</div>
+      <div class="s-sub">延床291.46㎡（88.16坪）・土地169.28㎡</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">取引態様</div>
+      <div class="s-val">売主（諸費用4%）</div>
+      <div class="s-sub">三光ソフラン㈱・サブリース20年付</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== キャプテン基準5項目 ===== -->
+<div class="card">
+  <div class="card-header" style="background:var(--primary-bg);color:var(--primary);">
+    ⚡ キャプテン基準チェック — 5項目
+  </div>
+  <div class="card-body" style="padding:0;">
+    <table class="criteria-table">
+      <thead>
+        <tr>
+          <th>基準項目</th>
+          <th>基準値</th>
+          <th>本物件</th>
+          <th>判定</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>物件価格</td>
+          <td>1億円以下</td>
+          <td><strong>10,160万円</strong></td>
+          <td><span class="badge badge-ng">❌ NG</span></td>
+        </tr>
+        <tr>
+          <td>表面利回り</td>
+          <td>7.1%以上</td>
+          <td><strong>6.80%</strong>（▲0.30%未達）</td>
+          <td><span class="badge badge-ng">❌ NG</span></td>
+        </tr>
+        <tr>
+          <td>築年数</td>
+          <td>10年以内</td>
+          <td><strong>新築（0年）</strong></td>
+          <td><span class="badge badge-ok">✅ OK</span></td>
+        </tr>
+        <tr>
+          <td>エリア（16号内側）</td>
+          <td>国道16号内側</td>
+          <td><strong>川越市（埼玉県・16号外側）</strong></td>
+          <td><span class="badge badge-ng">❌ NG</span></td>
+        </tr>
+        <tr>
+          <td>新耐震基準</td>
+          <td>1981年6月以降</td>
+          <td><strong>2025年確認申請</strong></td>
+          <td><span class="badge badge-ok">✅ OK</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="padding:12px 20px;background:#fff3f3;font-size:13px;color:var(--ng);font-weight:600;border-top:1px solid var(--border);">
+      ⚠ 5項目中 3項目NG（価格・利回り・エリア）
+    </div>
+  </div>
+</div>
+
+<!-- ===== ハルト ===== -->
+<div class="card agent-haruto">
+  <div class="agent-header">
+    🟠 ハルト（エリア・利回り分析）
+    <span style="font-size:12px;font-weight:400;margin-left:auto;">朝倉 晴斗</span>
+  </div>
+  <div class="agent-body">
+
+    <h3>エリア評価 — 南古谷駅・川越市</h3>
+    <p><strong>南古谷駅の駅力:</strong> 1日乗降者数 約4,700人（2023年度）。川越の住宅需要の中心は本川越・川越・霞ヶ関の3駅エリアであり、南古谷は準郊外ポジション。大宮・高崎線へのアクセスには乗り換えが必要で利便性は限定的。</p>
+    <p><strong>人口動態:</strong> 川越市全体の人口は微減トレンド（2020→2025年で約1%減）。南古谷エリアは市内でも人口集積が薄い地区。大学・専門学校・大型工場等の需要源が周辺に少ない。</p>
+    <p><strong>賃料設定の懸念:</strong> 周辺相場調査（スマサテ・HOME'S）では南古谷新築1Kは55,000〜62,000円前後が実態に近い。売主想定の64,000〜65,000円は強気設定の可能性あり。竣工後の実際の賃料水準との乖離確認が必須。</p>
+
+    <h3>利回り相場感</h3>
+    <p>今週の類似案件比較:</p>
+    <table class="data-table">
+      <thead><tr><th>物件</th><th>価格</th><th>利回り</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><td>愛知県刈谷市（新築1K×9戸）</td><td class="num">12,465万</td><td class="num">6.80%</td><td><span class="badge badge-ng">05-23 即見送り</span></td></tr>
+        <tr><td>川崎市多摩区（新築木造8戸）</td><td class="num">9,030万</td><td class="num">6.80%</td><td><span class="badge badge-ng">05-18 見送り</span></td></tr>
+        <tr><td>グランツ押上A・B（三光ソフラン）</td><td class="num">—</td><td class="num">6.50%</td><td><span class="badge badge-ng">05-25 即見送り</span></td></tr>
+        <tr><td><strong>キャメル川越並木8（今回）</strong></td><td class="num">10,160万</td><td class="num">6.80%</td><td><span class="badge badge-ng">同一パターン</span></td></tr>
+      </tbody>
+    </table>
+    <p>南古谷エリアで成立する適正利回りは最低でも <strong>7.5〜8%</strong> が必要。6.80%は業者利益が乗った新築価格を反映しており、投資家側の取り分が薄い。</p>
+
+    <h3>空室リスク</h3>
+    <ul>
+      <li><strong class="flag">LPGプロパンガス</strong>: 都市ガス比約2倍のランニングコスト。近隣に都市ガス物件が競合する場合、LPG物件は選択肢の下位に置かれる</li>
+      <li><strong>サブリース2年見直しリスク</strong>: 2年ごとの賃料見直しで長期的に実質利回りが5.5〜5.8%水準まで低下する可能性</li>
+      <li><strong>駅力の弱さ</strong>: 乗降4,700人の駅では満室維持にAD積み増し・賃料値下げが長期的に必要</li>
+    </ul>
+
+    <h3>三光ソフランのパターン認識</h3>
+    <p>今週だけでグランツ押上（06-25即見送り）・川越（今回）の2件。同社案件は「新築安心感・サブリース付き・利回り低め（6.5〜6.9%）」で一貫している。継続して同パターンが来る場合、即見送りを定型化することを推奨。</p>
+
+    <div class="risk-block risk-high">
+      <div class="risk-label">🟠 ハルトの率直な評価: 見送り推奨</div>
+      5項目中3項目NG・エリア内で7.5%以上が必要・今週2件目の三光ソフラン案件。千三つ万八の観点では、この物件にキャプテンの時間を使う案件ではない。
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== リョウ ===== -->
+<div class="card agent-ryo">
+  <div class="agent-header">
+    🔵 リョウ（DD）
+    <span style="font-size:12px;font-weight:400;margin-left:auto;">黒沢 涼</span>
+  </div>
+  <div class="agent-body">
+
+    <h3>確認済み ✅</h3>
+    <ul>
+      <li><span class="ok-text">✅ 新耐震基準</span>: 令和7年（2025年）確認申請 → クリア</li>
+      <li><span class="ok-text">✅ 登記簿・権利関係</span>: 現所有者 三光ソフラン㈱・差押解除済み・抵当権全抹消 → クリーン</li>
+      <li><span class="ok-text">✅ 取引態様</span>: 売主取引（諸費用4%）</li>
+      <li><span class="ok-text">✅ 土砂災害リスク</span>: 並木新町は平坦な氾濫低地・崖・擁壁なし → 土砂災害リスク実質ゼロ</li>
+      <li><span class="ok-text">✅ 建物スペック</span>: 劣化対策等級3・60分準耐火・一級建築士設計</li>
+    </ul>
+
+    <h3>リスクフラグ 🚩</h3>
+
+    <div class="risk-block risk-high">
+      <div class="risk-label">🚩【重大】洪水・浸水リスク — 要精査</div>
+      並木新町は荒川低地（沖積平野）に位置する低地エリア。2019年台風19号で新河岸川が氾濫し南古谷駅周辺の東側エリアで広範囲浸水被害が発生。2024年8月も高齢者等避難（警戒レベル3）が発令。浸水深1m超が確認された場合、融資謝絶または保証料割増のリスクあり。
+    </div>
+
+    <div class="risk-block risk-mid">
+      <div class="risk-label">🚩【中程度】液状化リスク</div>
+      荒川低地の沖積平野で地下水位が高く、液状化危険度は「中〜高」と推定。木造3階建のため倒壊リスクは低いが、基礎沈下・不同沈下リスクは存在。
+    </div>
+
+    <div class="risk-block risk-mid">
+      <div class="risk-label">🚩【要確認】サブリース契約リスク</div>
+      2年ごと見直し条項の下限値設定が不明。賃料逓減パターン（90%→85%→80%…）が懸念。解約条件・免責期間・修繕義務の所在が未確認。
+    </div>
+
+    <div class="risk-block risk-mid">
+      <div class="risk-label">🚩【確認必須】前面道路幅員・再建築可否</div>
+      川越市並木新町14番8の前面道路幅員・道路種別が未確認。セットバック義務がある場合、将来の建て替えで敷地が狭くなる可能性。
+    </div>
+
+    <h3>未確認・要入手 ❓</h3>
+    <ul>
+      <li>川越市「浸水ナビ」による並木新町14番8の浸水深確定値</li>
+      <li>液状化危険度マップ上の当該地番の判定値</li>
+      <li>レントロール（新築のため内定状況も含む）</li>
+      <li>サブリース契約書の詳細（下限値・解約条件・免責期間・修繕義務）</li>
+      <li>建築確認済証・配置図（前面道路幅員・道路種別）</li>
+      <li>固定資産税・都市計画税の試算額</li>
+      <li>施工会社名・建設業許可番号</li>
+    </ul>
+
+    <div class="confirm-box">
+      <h4>🔵 リョウより — キャプテンへの確認事項</h4>
+      <ul>
+        <li>【最優先】川越市「浸水ナビ」で並木新町14番8を検索し、洪水浸水深（想定最大規模）を確認してください<br><span class="note">0.5m未満→許容範囲 ／ 0.5〜1.0m→中リスク ／ 1.0m超→融資謝絶リスクあり再検討推奨</span></li>
+        <li>サブリース契約書を取り寄せ「2年ごとの賃料見直し」に下限設定があるか確認してください</li>
+        <li>竣工・検査済証の取得状況を売主に確認してください（融資付きの必要条件）</li>
+        <li>施工業者名・建設業許可番号を売主から取り寄せてください（新築で不明は異例）</li>
+      </ul>
+    </div>
+
+    <a href="20260525_kawagoe-namiki8_DD.html" class="link-btn link-btn-ryo" target="_blank">
+      📋 入力済みDDリストを開く
+    </a>
+
+    <div style="margin-top:12px;padding:10px 14px;background:var(--bg);border-radius:6px;font-size:12px;color:var(--muted);">
+      <strong>総合判定: リスクレベル「中〜中高」</strong><br>
+      権利関係・新耐震・建物品質はクリーン。洪水リスクの確定値と、サブリース下限保証の確認が判断のカギ。現時点は「条件付き継続調査」。
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== アキ ===== -->
+<div class="card agent-aki">
+  <div class="agent-header">
+    🟢 アキ（IG+収支計算）
+    <span style="font-size:12px;font-weight:400;margin-left:auto;">三宅 亜紀</span>
+  </div>
+  <div class="agent-body">
+
+    <h3>計算前提</h3>
+    <p>延床: 291.46㎡ = 88.16坪 ／ 建築費: 4,848.8万円（坪×55万円）<br>
+    満室収入: 9戸×64,000円×12 = 691.2万円 ／ 実収入（空室5%控除）: 656.6万円<br>
+    諸費用率: 4%（売主取引）</p>
+
+    <h3>費用内訳</h3>
+    <table class="data-table">
+      <thead><tr><th>項目</th><th class="num">金額</th><th>備考</th></tr></thead>
+      <tbody>
+        <tr><td>賃貸管理費（5.275%）</td><td class="num">▲34.6万円</td><td>※デフォルト値使用</td></tr>
+        <tr><td>建物管理費（坪×200×12）</td><td class="num">▲21.2万円</td><td>※デフォルト値使用</td></tr>
+        <tr><td>共用部水光熱費（坪×50×12）</td><td class="num">▲5.3万円</td><td>※デフォルト値使用</td></tr>
+        <tr><td>災害保険（建築費×0.3%）</td><td class="num">▲14.5万円</td><td>※デフォルト値使用</td></tr>
+        <tr><td>固定資産税（実収入×7%）</td><td class="num">▲46.0万円</td><td>※新築デフォルト</td></tr>
+        <tr><td>修繕費（建築費×0.1%）</td><td class="num">▲4.8万円</td><td>※新築デフォルト</td></tr>
+        <tr><td>原状回復費（坪×5,000×25%）</td><td class="num">▲11.0万円</td><td>※新築デフォルト</td></tr>
+        <tr><td>募集AD（月額×1ヶ月×25%）</td><td class="num">▲14.4万円</td><td>※デフォルト値使用</td></tr>
+        <tr><td>保全管理費（13,200×12）</td><td class="num">▲15.8万円</td><td>物件資料明記</td></tr>
+        <tr style="background:var(--bg);"><td><strong>費用合計</strong></td><td class="num"><strong>▲167.7万円</strong></td><td></td></tr>
+      </tbody>
+    </table>
+
+    <div style="background:var(--primary-bg);border-radius:8px;padding:12px 16px;margin:12px 0;font-size:15px;font-weight:700;color:var(--primary);">
+      NOI: 488.9万円（NOI利回り 4.81%）
+    </div>
+
+    <h3>ローン試算</h3>
+    <table class="data-table">
+      <thead><tr><th>パターン</th><th class="num">年間返済額</th><th class="num">CF</th><th class="num">CF率</th><th class="num">返済比率</th><th class="num">CCR</th><th class="num">自己資金</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>①オリックス銀行<br><small style="color:var(--muted)">100%・2.6%・35年</small></td>
+          <td class="num">▲442.4万円</td>
+          <td class="num"><span class="flag">46.5万円</span></td>
+          <td class="num"><span class="flag">0.46%</span></td>
+          <td class="num">67.4%</td>
+          <td class="num">11.4%</td>
+          <td class="num">406.4万円</td>
+        </tr>
+        <tr>
+          <td>②神奈川銀行<br><small style="color:var(--muted)">90%・2.25%・35年</small></td>
+          <td class="num">▲377.7万円</td>
+          <td class="num"><span class="ok-text">111.2万円</span></td>
+          <td class="num"><span class="ok-text">1.10%</span></td>
+          <td class="num">57.5%</td>
+          <td class="num">7.8%</td>
+          <td class="num">1,422.4万円</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>積算評価</h3>
+    <table class="data-table">
+      <thead><tr><th>項目</th><th class="num">金額</th><th>備考</th></tr></thead>
+      <tbody>
+        <tr><td>建物評価額</td><td class="num">6,120.7万円</td><td>291.46㎡×21万円/㎡×残存比率1.0（新築）</td></tr>
+        <tr><td>土地評価額</td><td class="num">要確認</td><td>路線価不明</td></tr>
+        <tr><td>建物単独の物件価格比</td><td class="num">60.2%</td><td>路線価次第で70〜80%台の可能性</td></tr>
+      </tbody>
+    </table>
+
+    <h3>税引後CF試算（初年度・税率20%想定）</h3>
+    <table class="data-table">
+      <thead><tr><th>パターン</th><th class="num">初年度利払い</th><th class="num">課税所得</th><th class="num">税額</th><th class="num">税引後CF</th></tr></thead>
+      <tbody>
+        <tr><td>①オリックス</td><td class="num">262.0万円</td><td class="num"><span class="ok-text">▲53.1万円（損失）</span></td><td class="num">0円（損益通算可）</td><td class="num">46.5万円</td></tr>
+        <tr><td>②神奈川銀行</td><td class="num">204.0万円</td><td class="num">4.9万円</td><td class="num">0.99万円</td><td class="num">110.2万円</td></tr>
+      </tbody>
+    </table>
+
+    <h3>キャプテン基準チェック</h3>
+    <table class="data-table">
+      <thead><tr><th>基準</th><th>閾値</th><th>①オリックス</th><th>②神奈川銀行</th></tr></thead>
+      <tbody>
+        <tr><td>物件価格</td><td>≤ 1億円</td><td><span class="badge badge-ng">❌ NG</span></td><td><span class="badge badge-ng">❌ NG</span></td></tr>
+        <tr><td>表面利回り</td><td>≥ 7.1%</td><td><span class="badge badge-ng">❌ NG</span></td><td><span class="badge badge-ng">❌ NG</span></td></tr>
+        <tr><td>CF率</td><td>≥ 1.0%</td><td><span class="badge badge-ng">❌ 0.46%</span></td><td><span class="badge badge-ok">✅ 1.10%</span></td></tr>
+        <tr><td>CCR</td><td>≥ 15.0%</td><td><span class="badge badge-ng">❌ 11.4%</span></td><td><span class="badge badge-ng">❌ 7.8%</span></td></tr>
+        <tr><td>積算比率</td><td>≥ 60.0%</td><td><span class="badge badge-warn">❓ 要確認</span></td><td><span class="badge badge-warn">❓ 要確認</span></td></tr>
+      </tbody>
+    </table>
+
+    <div style="background:var(--aki-bg);border-radius:8px;padding:12px 16px;margin:12px 0;font-size:13px;border:1px solid #c8e6c9;">
+      <strong>アキからひとこと:</strong><br>
+      価格・利回りは確定NG。CCRも両パターンで15%未達。①オリックスは初年度に損益通算で節税メリットが生じる構造。建物積算6,120.7万円は物件価格比60.2%で路線価次第で大幅改善の可能性もある。「節税物件」として別軸で再評価するなら実効税率が必要。
+    </div>
+
+    <div class="confirm-box">
+      <h4>🟢 アキより — キャプテンへの確認事項</h4>
+      <ul>
+        <li>路線価（並木新町14番周辺）が不明。積算比率の確定に必要です</li>
+        <li>神奈川銀行90%融資の事前打診は済んでいますか？</li>
+        <li>節税目的（損益通算）を加味した実質手取りベースの再評価を行う場合、キャプテンの実効税率を教えていただければ追加試算します</li>
+        <li>サブリース（518,400円/月）採用前提の収支試算も必要ですか？</li>
+      </ul>
+    </div>
+
+    <a href="../../knowledge/ig-analysis/20260525_kawagoe-namiki8_IG.html" class="link-btn link-btn-aki" target="_blank">
+      📊 入力済みIG+を開く
+    </a>
+
+  </div>
+</div>
+
+<!-- ===== 村田先生 ===== -->
+<div class="card agent-murata">
+  <div class="agent-header">
+    🟤 村田先生（建築士コメント）
+    <span style="font-size:12px;font-weight:400;margin-left:auto;">村田 誠一（一級建築士・経験35年）</span>
+  </div>
+  <div class="agent-body">
+
+    <p style="color:var(--muted);font-style:italic;margin-bottom:16px;">※現場を見ないと断言はできませんが、資料から読み取れることをお伝えします。</p>
+
+    <h3>構造・築年数の評価</h3>
+    <p><strong>木造3階建・新築（2026年2月完成予定）。法定耐用年数22年。</strong></p>
+    <p>「劣化対策等級3」は長期優良住宅水準の最高等級。「60分準耐火建築物」という仕様は木造としては高い火災安全性。適切なメンテナンスで法定耐用年数超の使用が期待できる。</p>
+    <div class="risk-block risk-high">
+      <div class="risk-label">⚠ 気になる点: 施工業者が不明</div>
+      新築物件で施工者が明示されないのは異例。設計・施工監理・瑕疵担保責任の所在が不明確になるリスクがある。売主経由で施工会社名・建設業許可番号を必ず入手すること。
+    </div>
+
+    <h3>新耐震基準</h3>
+    <p>令和7年（2025年）確認申請 → <span class="ok-text">✅ 最新の耐震基準に完全適合</span><br>
+    木造3階建は構造計算（許容応力度計算）＋構造計算適合性判定（ピアチェック）が義務付け。これを経ていることはプラス。確認済証・検査済証・構造計算書の写しを入手推奨。</p>
+
+    <h3>修繕リスク評価</h3>
+    <table class="data-table">
+      <thead><tr><th>時期</th><th>項目</th><th class="num">費用概算</th></tr></thead>
+      <tbody>
+        <tr><td>直近5年以内</td><td>通常メンテ・初期不良対応のみ</td><td class="num">軽微</td></tr>
+        <tr><td rowspan="3">5〜15年以内</td><td>外壁塗装（10〜15年周期）</td><td class="num">約180万円</td></tr>
+        <tr><td>屋根防水</td><td class="num">100〜200万円</td></tr>
+        <tr><td>給湯器交換（LPG・各戸個別）</td><td class="num">約108万円</td></tr>
+        <tr style="background:var(--warn-bg);"><td>小計（5〜15年）</td><td>合計見込み</td><td class="num"><strong>約400〜500万円</strong></td></tr>
+        <tr><td rowspan="2">20〜30年後</td><td>給水管更新</td><td class="num">約360万円</td></tr>
+        <tr><td>排水管更新</td><td class="num">約270万円</td></tr>
+      </tbody>
+    </table>
+    <p>住宅瑕疵担保履行法に基づく10年保証の付保状況を確認すること。</p>
+
+    <h3>法令・規制上の留意点</h3>
+    <p>容積率の逆算: 291.46㎡ ÷ 169.28㎡ ≒ <strong>172%</strong><br>
+    川越市の低層系住居地域であれば容積率80〜150%が多く、オーバーの可能性あり。商業系地域（200〜300%）であれば問題なし。<strong>用途地域・指定容積率の確認が必須。</strong></p>
+    <p>確認申請は令和7年申請だが、検査済証の取得状況が重要。<strong>検査済証取得を契約条件とすることを強く推奨。</strong></p>
+
+    <h3>LPGについて（建築士視点）</h3>
+    <p>LPGは都市ガス比約2倍のランニングコスト。川越市並木新町エリアへの東京ガス本管の有無を確認推奨。都市ガス転換が可能であれば配管工事費<strong>200〜400万円程度</strong>が必要だが、入居率・賃料設定への好影響も期待できる。現状のLPG設備はプロパン業者との契約条件（無償提供設備・解約条件）の確認も必要。</p>
+
+    <h3>現地で必ず確認してほしいこと</h3>
+    <ol>
+      <li><strong>接道・前面道路の幅員と権利関係</strong><br>
+      <span class="note">理由: 木造3階建に必要な前面道路4m以上の充足確認。私道・位置指定道路の場合は通行・掘削同意書の取得状況も確認</span></li>
+      <li><strong>外壁・基礎・屋根の仕上がりと施工精度</strong><br>
+      <span class="note">理由: 施工業者不明のため、現場の仕上がりが施工品質の唯一の証拠。外壁クラック・コーキング・基礎養生跡から施工レベルが読める</span></li>
+      <li><strong>各戸の玄関前・階段・共用廊下の広さと避難経路</strong><br>
+      <span class="note">理由: 木造3階建9戸は消防法上の避難設備の設置義務がある場合がある。消防検査済みの確認と合わせて目視確認</span></li>
+    </ol>
+
+    <div style="background:var(--murata-bg);border-radius:8px;padding:12px 16px;margin:12px 0;font-size:13px;border:1px solid #d7ccc8;font-style:italic;">
+      <strong>村田先生の総合所感:</strong><br>
+      建物スペックは木造新築アパートとして水準以上。しかし「施工業者不明」・「LPG」・「木造22年の法定耐用年数」の三点が将来の出口戦略（売却・融資）に影響するリスクとして残る。これらをクリアにした上で最終判断を。<br>
+      <span style="font-weight:700;">建物は正直者です。資料に出ないことを、現場が必ず教えてくれます。</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== キャプテンへの確認事項まとめ ===== -->
+<div class="card">
+  <div class="card-header" style="background:#fff8e1;color:#5d4037;">
+    📋 キャプテンへの確認事項（チームまとめ）
+  </div>
+  <div class="card-body">
+
+    <div class="confirm-box" style="margin-bottom:16px;">
+      <h4>🔵 リョウより</h4>
+      <ul>
+        <li>【最優先】川越市「浸水ナビ」で並木新町14番8を検索し、洪水浸水深（想定最大規模）を確認</li>
+        <li>サブリース契約書の「2年ごとの賃料見直し」に下限設定があるか確認</li>
+        <li>竣工・検査済証の取得状況を売主に確認（融資付きの必要条件）</li>
+        <li>施工業者名・建設業許可番号を売主から取り寄せ</li>
+      </ul>
+    </div>
+
+    <div class="confirm-box">
+      <h4>🟢 アキより</h4>
+      <ul>
+        <li>路線価（並木新町14番周辺）が不明。積算比率の確定に必要</li>
+        <li>神奈川銀行90%融資の事前打診は済んでいますか？</li>
+        <li>節税目的（損益通算）を加味した再評価を行う場合、キャプテンの実効税率を教えてください</li>
+        <li>サブリース（518,400円/月）採用前提の収支試算も必要ですか？</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== チーム総合所見 ===== -->
+<div class="verdict-card">
+  <h2>🎯 チーム総合所見 <span class="verdict-ng">現時点: 見送り推奨</span></h2>
+
+  <div class="verdict-item">
+    <div class="verdict-icon">🟠</div>
+    <div>
+      <div class="verdict-name">ハルト（エリア・利回り分析）</div>
+      <div class="verdict-text">見送り推奨。5項目中3項目NG（価格・利回り・エリア）。三光ソフランは今週2件目の同一パターン案件。南古谷の適正利回りは7.5〜8%が必要。千三つ万八の観点では、この物件にキャプテンの時間を使う案件ではない。</div>
+    </div>
+  </div>
+
+  <div class="verdict-item">
+    <div class="verdict-icon">🔵</div>
+    <div>
+      <div class="verdict-name">リョウ（DD）</div>
+      <div class="verdict-text">条件付き継続調査。登記はクリーンだが洪水リスクが最大の懸念（2019年台風19号で被害実績あり）。浸水深0.5m未満かつサブリース下限保証ありならば「継続調査」に変わる可能性。</div>
+    </div>
+  </div>
+
+  <div class="verdict-item">
+    <div class="verdict-icon">🟢</div>
+    <div>
+      <div class="verdict-name">アキ（IG+収支計算）</div>
+      <div class="verdict-text">CF率0.46%（オリックス）/ 1.10%（神奈川）。CCR両パターンで15%未達。初年度は損益通算で節税メリットあり。建物積算60.2%で路線価次第で改善余地あり。「節税物件」として別軸の再評価が可能ならキャプテンの実効税率を教えてほしい。</div>
+    </div>
+  </div>
+
+  <div class="verdict-item">
+    <div class="verdict-icon">🟤</div>
+    <div>
+      <div class="verdict-name">村田先生（建築士コメント）</div>
+      <div class="verdict-text">劣化等級3・準耐火・一級建築士設計は水準以上。ただし施工業者不明が異例。LPG・木造22年・施工者不明の三点が出口戦略に影響するリスクとして残る。検査済証を契約条件とすること。</div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;padding:16px;background:rgba(255,255,255,0.1);border-radius:8px;font-size:13px;line-height:1.8;">
+    <strong>継続調査の余地:</strong><br>
+    ①浸水深が0.5m未満かつ ②サブリース下限保証あり の両条件が揃った場合、「節税物件」として別軸での再評価の余地あり。路線価確認で積算比率が改善すれば担保評価は良好になる可能性。<br><br>
+    <strong>次のアクション（優先順）:</strong><br>
+    1. 川越市「浸水ナビ」で並木新町14番8の浸水深を確認（10分で完了）<br>
+    2. 浸水深が中〜高リスクなら即見送り確定<br>
+    3. 軽微であればサブリース契約書の下限保証を確認してから最終判断
+  </div>
+</div>
+
+<!-- ===== 成果物リンク ===== -->
+<div class="card" style="margin-top:20px;">
+  <div class="card-header" style="background:var(--primary-bg);color:var(--primary);">
+    📁 関連ファイル
+  </div>
+  <div class="card-body">
+    <a href="20260525_kawagoe-namiki8_DD.html" class="link-btn link-btn-ryo" target="_blank">
+      📋 入力済みDDリスト（リョウ作成）
+    </a>
+    <a href="../../knowledge/ig-analysis/20260525_kawagoe-namiki8_IG.html" class="link-btn link-btn-aki" target="_blank">
+      📊 入力済みIG+（アキ作成）
+    </a>
+    <p class="note" style="margin-top:12px;">各ファイルはブラウザで開いてチェック・編集してください。IG+はページ読み込み後に自動計算されます。</p>
+  </div>
+</div>
+
+<div style="text-align:center;padding:20px;color:var(--muted);font-size:11px;">
+  精査日: 2026年5月25日 ／ 不動産仕入部チーム（ハルト・リョウ・アキ・村田先生）
+</div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/ccbooster/properties/20260525_kawagoe-namiki8_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/ccbooster/properties/20260525_kawagoe-namiki8_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
