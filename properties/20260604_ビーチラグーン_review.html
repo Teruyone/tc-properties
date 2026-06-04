@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Beach Lagoon磯子台 精査レポート｜TC Capitals</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Hiragino Sans','Yu Gothic UI',sans-serif;font-size:14px;line-height:1.7;color:#1a1a2e;background:#f5f7fa}
+a{color:#1a73e8;text-decoration:none}
+.hdr{background:#1a237e;color:#fff;padding:20px 32px}
+.hdr h1{font-size:22px;font-weight:700;letter-spacing:.05em}
+.hdr p{font-size:12px;opacity:.8;margin-top:4px}
+.summary{background:#fff;border-bottom:3px solid #1a237e;padding:24px 32px}
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid #dde;border-radius:6px;overflow:hidden}
+.summary-cell{padding:14px 20px;border-right:1px solid #dde;text-align:center}
+.summary-cell:last-child{border-right:none}
+.s-label{font-size:11px;color:#607d8b;margin-bottom:4px}
+.s-val{font-size:20px;font-weight:700;color:#1a237e}
+.s-sub{font-size:11px;color:#1a73e8;margin-top:2px}
+.criteria-bar{background:#fff;padding:20px 32px;border-bottom:1px solid #dde}
+.crit-title{font-size:13px;font-weight:700;color:#1a237e;margin-bottom:12px}
+.crit-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.crit-item{padding:10px;border-radius:6px;text-align:center}
+.crit-ok{background:#e6f4ea;border:1px solid #a8d5b5}
+.crit-ng{background:#fde8e8;border:1px solid #f5a49f}
+.crit-mark{font-size:20px;font-weight:900}
+.crit-name{font-size:10px;color:#555;margin-top:4px}
+.crit-num{font-size:11px;font-weight:600;color:#333;margin-top:2px}
+.sections{max-width:1000px;margin:0 auto;padding:20px 24px}
+.card{background:#fff;border:1px solid #dde;border-radius:8px;margin-bottom:18px;overflow:hidden}
+.card-hdr{padding:14px 20px;font-size:15px;font-weight:700;color:#fff}
+.card-body{padding:20px}
+.haruto .card-hdr{background:#e65100}
+.ryo .card-hdr{background:#1565c0}
+.aki .card-hdr{background:#2e7d32}
+.murata .card-hdr{background:#4e342e}
+.captain .card-hdr{background:#6a1b9a}
+.summary-card .card-hdr{background:#1a237e}
+table{width:100%;border-collapse:collapse;margin:10px 0}
+th{background:#f0f4ff;padding:8px 12px;text-align:left;font-size:12px;border:1px solid #dde;color:#1a237e}
+td{padding:7px 12px;font-size:12px;border:1px solid #dde;vertical-align:top}
+tr:nth-child(even){background:#fafafa}
+.risk-high{color:#c62828;font-weight:700}
+ul{padding-left:18px;margin:8px 0}
+li{margin:4px 0}
+.confirm-item{background:#fff8e1;border-left:3px solid #f9a825;padding:8px 12px;margin:6px 0;border-radius:0 4px 4px 0;font-size:13px}
+.next-action{background:#e8f0fe;border-left:3px solid #1a73e8;padding:12px 16px;margin:8px 0;border-radius:0 6px 6px 0}
+.tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:3px;margin-right:4px;font-weight:700}
+.tag-ng{background:#fde8e8;color:#c62828}
+.tag-ok{background:#e6f4ea;color:#2e7d32}
+.tag-warn{background:#fff8e1;color:#e65100}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <h1>Beach Lagoon磯子台 — チーム精査レポート</h1>
+  <p>精査日: 2026年6月4日｜チーム: ハルト・リョウ・アキ・村田先生｜TC Capitals 不動産仕入部</p>
+</div>
+
+<div class="summary">
+  <div class="summary-grid">
+    <div class="summary-cell"><div class="s-label">物件価格</div><div class="s-val" style="color:#c62828">10,810万円</div><div class="s-sub">基準1億円超 ❌</div></div>
+    <div class="summary-cell"><div class="s-label">表面利回り（賃料のみ）</div><div class="s-val" style="color:#c62828">6.67%</div><div class="s-sub">基準7.1%未達 ❌</div></div>
+    <div class="summary-cell"><div class="s-label">構造・築年</div><div class="s-val" style="font-size:16px">木造・新築</div><div class="s-sub">2026年8月竣工予定</div></div>
+    <div class="summary-cell"><div class="s-label">エリア・交通</div><div class="s-val" style="font-size:14px">横浜市磯子区</div><div class="s-sub">JR根岸線 徒歩14分</div></div>
+    <div class="summary-cell"><div class="s-label">延床・戸数</div><div class="s-val" style="font-size:16px">199.05㎡</div><div class="s-sub">10戸（1R×2＋1K×8）</div></div>
+    <div class="summary-cell"><div class="s-label">取引態様</div><div class="s-val" style="font-size:14px">売主直販</div><div class="s-sub">トラストライフ㈱</div></div>
+    <div class="summary-cell"><div class="s-label">積算評価（概要書）</div><div class="s-val" style="color:#2e7d32">100%</div><div class="s-sub">IG+計算では85%</div></div>
+    <div class="summary-cell"><div class="s-label">敷地面積</div><div class="s-val" style="font-size:16px">280.12㎡</div><div class="s-sub">建蔽40% 容積80%</div></div>
+  </div>
+</div>
+
+<div class="criteria-bar">
+  <div class="crit-title">📋 キャプテン基準チェック（オリックス100%・2.6% / 神奈川90%・2.25%）</div>
+  <div class="crit-grid">
+    <div class="crit-item crit-ng"><div class="crit-mark">❌</div><div class="crit-name">価格≤1億円</div><div class="crit-num">10,810万円</div></div>
+    <div class="crit-item crit-ng"><div class="crit-mark">❌</div><div class="crit-name">利回り≥7.1%</div><div class="crit-num">6.67%（賃料ベース）</div></div>
+    <div class="crit-item crit-ng"><div class="crit-mark">❌/✅</div><div class="crit-name">CF率≥1%</div><div class="crit-num">0.84% / 1.48%</div></div>
+    <div class="crit-item crit-ng"><div class="crit-mark">❌</div><div class="crit-name">CCR≥15%</div><div class="crit-num">12.1% / 8.7%</div></div>
+    <div class="crit-item crit-ok"><div class="crit-mark">✅</div><div class="crit-name">積算≥60%</div><div class="crit-num">85〜100%</div></div>
+  </div>
+</div>
+
+<div class="sections">
+
+<!-- ハルト -->
+<div class="card haruto">
+  <div class="card-hdr">🔍 ハルト（エリア・市場性分析）</div>
+  <div class="card-body">
+    <table>
+      <tr><th width="180">項目</th><th width="100">評価</th><th>詳細</th></tr>
+      <tr><td>16号内側エリア</td><td><span class="tag tag-ok">✅ OK</span></td><td>横浜市磯子区は16号内側。エリア基準クリア。</td></tr>
+      <tr><td>表面利回り</td><td><span class="tag tag-ng">❌ NG</span></td><td>管理費込み7.0%→賃料のみ6.67%。基準7.1%に未達。</td></tr>
+      <tr><td>徒歩距離</td><td><span class="tag tag-warn">⚠️ 注意</span></td><td>JR根岸線 徒歩14分・1,100m。台地地形なら実質15〜18分の可能性。単身者の許容限界に近い。</td></tr>
+      <tr><td>自己資金</td><td><span class="tag tag-ng">❌ NG</span></td><td>現状自己資金270万→1億810万の仕入れに約800万円不足。資金計画の再整備が必要。</td></tr>
+      <tr><td>エリア賃貸需要</td><td><span class="tag tag-warn">⚠️ 注意</span></td><td>磯子区は根岸線沿線単身者需要があるが、新築供給増加中。5年後の賃料維持が課題。</td></tr>
+    </table>
+    <div class="next-action">
+      <strong>ハルト総合評価: 現時点は見送り推奨。</strong><br>
+      価格と利回りが基準から外れており、現時点での仕入れはリスクが高い。価格交渉で<strong>9,800〜9,900万円以下</strong>に引き下げられれば再検討の余地あり。エリア自体（横浜市磯子区）は悪くないため、価格次第では化ける案件。
+    </div>
+  </div>
+</div>
+
+<!-- リョウ -->
+<div class="card ryo">
+  <div class="card-hdr">📋 リョウ（DDチェック）<a href="https://teruyone.github.io/tc-properties/properties/20260604_ビーチラグーン_DD.html" style="float:right;color:#adf;font-size:12px;font-weight:400">入力済みDDリスト →</a></div>
+  <div class="card-body">
+    <table>
+      <tr><th width="180">チェック項目</th><th width="100">ステータス</th><th>内容</th></tr>
+      <tr><td>接道・敷地面積</td><td><span class="tag tag-ok">✅ 確認済</span></td><td>接道・面積ともに問題なし。</td></tr>
+      <tr><td>取引態様</td><td><span class="tag tag-ok">✅ 確認済</span></td><td>売主直販（トラストライフ㈱）。諸費用4%。</td></tr>
+      <tr><td><strong>根抵当権（静岡中央銀行）</strong></td><td><span class="tag tag-ng">❌ 要対応</span></td><td><strong class="risk-high">3,560万円の根抵当権が現存。決済時の抹消確約が必須。抹消条件・スケジュールの書面確認が必要。</strong></td></tr>
+      <tr><td>土砂災害警戒区域</td><td><span class="tag tag-warn">⚠️ 要確認</span></td><td>土砂災害警戒区域・宅地造成等工事規制区域の記載あり。警戒区域か特別警戒区域かの確認が必須（特別警戒区域なら融資・売却に大きな影響）。</td></tr>
+      <tr><td>土地先行決済リスク</td><td><span class="tag tag-warn">⚠️ 要確認</span></td><td>竣工前物件のため土地先行決済の可能性あり。売主倒産時の保全措置（保証協会or手付金保証保険）確認必須。</td></tr>
+      <tr><td>完了検査済証</td><td><span class="tag tag-warn">⚠️ 未取得</span></td><td>竣工前のため未取得。融資実行条件に「完了検査済証の取得」を明記させること。</td></tr>
+      <tr><td>1R（17.39㎡）担保評価</td><td><span class="tag tag-warn">⚠️ 注意</span></td><td>17〜18㎡の1Rは一部金融機関の担保評価に影響する可能性あり。融資打診前に確認。</td></tr>
+      <tr><td>建物謄本</td><td><span class="tag tag-warn">⚠️ 未取得</span></td><td>竣工前のため建物謄本は存在しない。竣工後・引渡し前に取得確認。</td></tr>
+    </table>
+    <p style="margin-top:10px;font-size:12px;color:#607d8b">最大リスク: 根抵当権3,560万円の抹消確約 ＋ 土砂災害区域種別（警戒 vs 特別警戒）の確認</p>
+  </div>
+</div>
+
+<!-- アキ -->
+<div class="card aki">
+  <div class="card-hdr">📊 アキ（IG+収支計算）<a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8100&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=28&intRate=2.6&grossYield=7.45&floorArea=150&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=3.3&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=13&taxRateIncome=20&pi_price_inp=10810&pi_age_inp=0&pi_yield_inp=6.67&pi_area_inp=199.05&pi_rooms_inp=10&ik_land_area=280.12&ik_route_price=0&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E6%A8%AA%E6%B5%9C%E5%B8%82%E7%A3%AF%E5%AD%90%E5%8C%BA%EF%BC%881077-47%EF%BC%89" style="float:right;color:#adf;font-size:12px;font-weight:400">入力済みIG+ →</a></div>
+  <div class="card-body">
+    <table>
+      <tr><th>項目</th><th>オリックス（100%・2.6%・35年）</th><th>神奈川銀行（90%・2.25%・35年）</th></tr>
+      <tr><td>賃貸年収（実効）</td><td colspan="2">685.1万円/年（空室5%控除後）</td></tr>
+      <tr><td>NOI</td><td colspan="2">561.8万円/年（NOI利回り5.20%）</td></tr>
+      <tr><td>年間返済額</td><td>▲470.6万円</td><td>▲401.8万円</td></tr>
+      <tr><td>CF（税引前）</td><td>91.2万円/年（月7.6万）</td><td>160.0万円/年（月13.3万）</td></tr>
+      <tr><td>CF率</td><td><span class="tag tag-ng">❌ 0.84%</span></td><td><span class="tag tag-ok">✅ 1.48%</span></td></tr>
+      <tr><td>返済比率</td><td>68.7%</td><td>58.6%</td></tr>
+      <tr><td>自己資金</td><td>756.7万円（諸費用4%のみ）</td><td>1,837.7万円（頭金＋諸費用）</td></tr>
+      <tr><td>CCR</td><td><span class="tag tag-ng">❌ 12.1%</span>（売主4%なら15.3%）</td><td><span class="tag tag-ng">❌ 8.7%</span></td></tr>
+      <tr><td>積算比率</td><td colspan="2"><span class="tag tag-ok">✅ 概要書100% / IG+計算85%</span></td></tr>
+      <tr><td>税引後CF（初年度）</td><td>91.2万円（減価償却343.9万で課税所得ゼロ）</td><td>160.0万円（課税所得ほぼゼロ）</td></tr>
+    </table>
+    <div class="confirm-item">① 売主諸費用4%でCCR計算: オリックス100%で <strong>15.3%（基準15%クリア！）</strong></div>
+    <div class="confirm-item">② 価格を1億円以下に交渉できれば CF率・CCR・利回りが全基準に近づく</div>
+    <div class="confirm-item">③ 管理費30,000円/月（年36万）の扱い確認 → 収益に含む場合はCF改善の余地あり</div>
+    <div class="confirm-item">④ 固定資産税実額（現在は収益7%のデフォルト計算）</div>
+  </div>
+</div>
+
+<!-- 村田先生 -->
+<div class="card murata">
+  <div class="card-hdr">🏗 村田先生（一級建築士コメント）</div>
+  <div class="card-body">
+    <table>
+      <tr><th width="180">項目</th><th width="100">評価</th><th>詳細</th></tr>
+      <tr><td>構造・耐震基準</td><td><span class="tag tag-ok">✅ 問題なし</span></td><td>2026年竣工・2000年基準適用。設計上の耐震懸念なし。施工品質は別途確認要。</td></tr>
+      <tr><td>完了検査済証</td><td><span class="tag tag-ng">❌ 最大リスク</span></td><td>竣工前のため未取得。今の購入判断は「設計図面上の建物」に対してのもの。<strong>完了検査済証取得を融資実行条件に必ず組み込む。</strong></td></tr>
+      <tr><td>施工品質リスク</td><td><span class="tag tag-warn">⚠️ 要対策</span></td><td>資材高騰環境下で仕様割れリスクあり。<strong>引渡し前にホームインスペクター（第三者）による検査を実施する。</strong></td></tr>
+      <tr><td>高台（磯子台）地形</td><td><span class="tag tag-warn">⚠️ 要現地確認</span></td><td>「台」は高台・台地を示す。傾斜地・擁壁・盛土リスクの可能性。駅まで14分が「平坦」か「急坂」かで賃貸需要が大きく変わる。<strong>現地での坂道確認が必須。</strong></td></tr>
+      <tr><td>建蔽率・容積率</td><td><span class="tag tag-ok">✅ 適法</span></td><td>容積率71.1%（上限80%）で余力あり。建蔽率は図面で要確認（ギリギリの可能性）。</td></tr>
+      <tr><td>将来修繕費（目安）</td><td><span class="tag tag-ok">✅ 少ない（5年内）</span></td><td>5〜10年後: 外壁塗装150〜200万、給湯器10台×10〜15万=100〜150万。22年後にデッドクロス到来→出口戦略は「築10〜15年での売却」を想定しておく。</td></tr>
+      <tr><td>住宅瑕疵担保保険</td><td><span class="tag tag-warn">⚠️ 要確認</span></td><td>施工業者に法律上の加入義務あり。保険証明書を必ず取得すること。</td></tr>
+    </table>
+    <div style="margin-top:12px;background:#f9f5f2;padding:12px;border-radius:6px;font-size:12px;color:#4e342e">
+      <strong>村田先生より:</strong> 「現場を見ないと断言はできませんが、建物より立地の懸念の方が大きい案件です。磯子台という高台の駅まで14分が、坂道の急さ次第で物件の価値を左右します。自分の足で確かめてから判断してください。」
+    </div>
+  </div>
+</div>
+
+<!-- キャプテンへの確認事項 -->
+<div class="card captain">
+  <div class="card-hdr">🎯 キャプテンへの確認事項まとめ</div>
+  <div class="card-body">
+    <div class="confirm-item"><strong>【最優先①】</strong> 土砂災害区域の種別確認: <strong>警戒区域 or 特別警戒区域</strong>（横浜市ハザードマップで即確認可能）。特別警戒区域なら事実上購入不可。</div>
+    <div class="confirm-item"><strong>【最優先②】</strong> 根抵当権3,560万円（静岡中央銀行）の<strong>抹消スケジュールと書面確認</strong>。決済時に確実に消えるか。</div>
+    <div class="confirm-item">売主倒産リスクへの保全措置（手付金保証保険等）の確認。</div>
+    <div class="confirm-item">取引態様（売主）の最終確認 → 諸費用4%でCCRがオリックスで15.3%に改善。</div>
+    <div class="confirm-item"><strong>価格交渉:</strong> 9,800〜10,000万円以下への指値が可能か担当者に打診。</div>
+    <div class="confirm-item"><strong>現地確認必須:</strong> 駅からの坂道・高低差。急坂なら賃貸需要に直接影響。</div>
+    <div class="confirm-item">売買契約書の特約条項に<strong>「完了検査済証の取得を融資実行条件とする」</strong>旨を明記させる。</div>
+    <div class="confirm-item">施工業者の住宅瑕疵担保保険加入証明書の取得。引渡し前にホームインスペクターの第三者検査を実施する。</div>
+  </div>
+</div>
+
+<!-- 総合所見 -->
+<div class="card summary-card">
+  <div class="card-hdr">💬 チーム総合所見</div>
+  <div class="card-body">
+    <table>
+      <tr><th width="140">総合判断</th><td><strong style="color:#c62828">現時点: 見送り推奨</strong>（価格・利回りが基準未達）</td></tr>
+      <tr><th>最大ボトルネック</th><td>物件価格10,810万円（基準1億円を810万超）＋実質利回り6.67%（基準7.1%未達）</td></tr>
+      <tr><th>最大リスク</th><td>①竣工前購入リスク（完了検査済証未取得） ②根抵当権3,560万円の残存 ③高台・急坂による賃貸需要低下の可能性</td></tr>
+      <tr><th>ポジティブ</th><td>積算評価85〜100%（担保力は高い）・初年度は減価償却節税で課税所得ゼロ・横浜市内16号内側エリア・新築のため当面の修繕コストなし</td></tr>
+      <tr><th>再検討ライン</th><td>価格が<strong>9,800万円以下</strong>になれば利回り7.35%超→全基準クリアに近づく</td></tr>
+      <tr><th>次のアクション</th><td>
+        ① 横浜市ハザードマップで土砂災害区域種別を確認（5分で可能）<br>
+        ② 担当者に価格交渉の打診（9,800万円の指値）<br>
+        ③ 現地に行って駅からの坂道を確認<br>
+        ④ 根抵当権の抹消条件を書面で取る（①②がクリアなら次ステップ）
+      </td></tr>
+    </table>
+  </div>
+</div>
+
+</div>
+<div style="text-align:center;padding:20px;font-size:11px;color:#999">TC Capitals 不動産仕入部 | 精査日 2026年6月4日</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260604_ビーチラグーン_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260604_ビーチラグーン_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
