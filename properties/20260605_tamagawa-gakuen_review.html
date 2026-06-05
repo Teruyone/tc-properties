@@ -2,357 +2,300 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>精査レポート: 玉川学園前 新築AP — 2026-06-05</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>玉川学園前 新築AP 精査レポート｜TC Capitals</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif;background:#f5f6fa;color:#222;font-size:14px;}
-header{background:#1a237e;color:#fff;padding:20px 24px;}
-header h1{font-size:22px;font-weight:700;}
-header .sub{font-size:13px;opacity:.85;margin-top:4px;}
-.container{max-width:960px;margin:0 auto;padding:20px 16px 60px;}
-.card{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08);padding:20px;margin-bottom:20px;}
-.section-title{font-size:16px;font-weight:700;padding:8px 14px;border-radius:4px;margin-bottom:14px;}
-.haruto .section-title{background:#fff3e0;color:#e65100;}
-.ryo .section-title{background:#e3f2fd;color:#1565c0;}
-.aki .section-title{background:#e8f5e9;color:#2e7d32;}
-.murata .section-title{background:#efebe9;color:#4e342e;}
-.captain .section-title{background:#fce4ec;color:#880e4f;}
-.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-.summary-item{background:#f8f9ff;border-radius:6px;padding:12px;}
-.summary-item .label{font-size:11px;color:#666;margin-bottom:4px;}
-.summary-item .value{font-size:16px;font-weight:700;color:#1a237e;}
-.summary-item .sub{font-size:11px;color:#888;}
-table{width:100%;border-collapse:collapse;font-size:13px;}
-th,td{border:1px solid #e0e0e0;padding:8px 10px;text-align:left;}
-th{background:#f5f6fa;font-weight:600;}
-.ok{color:#2e7d32;font-weight:700;}
-.ng{color:#c62828;font-weight:700;}
-.warn{color:#e65100;font-weight:700;}
-.badge-ok{background:#e8f5e9;color:#2e7d32;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700;}
-.badge-ng{background:#ffebee;color:#c62828;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700;}
-.badge-warn{background:#fff3e0;color:#e65100;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700;}
-.risk-high{border-left:4px solid #c62828;padding:10px 14px;background:#fff8f8;border-radius:0 4px 4px 0;margin-bottom:8px;}
-.risk-mid{border-left:4px solid #e65100;padding:10px 14px;background:#fffbf5;border-radius:0 4px 4px 0;margin-bottom:8px;}
-.risk-low{border-left:4px solid #2e7d32;padding:10px 14px;background:#f9fff9;border-radius:0 4px 4px 0;margin-bottom:8px;}
-.risk-label{font-size:11px;font-weight:700;margin-bottom:4px;}
-.btn-bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
-.btn{padding:7px 16px;border-radius:4px;font-size:13px;font-weight:700;text-decoration:none;display:inline-block;}
-.btn-blue{background:#1a237e;color:#fff;}
-.btn-green{background:#2e7d32;color:#fff;}
-.verdict{font-size:20px;font-weight:700;padding:14px;border-radius:6px;text-align:center;margin-top:10px;}
-.verdict-pass{background:#e8f5e9;color:#2e7d32;}
-.verdict-ng{background:#ffebee;color:#c62828;}
-.verdict-hold{background:#fff3e0;color:#e65100;}
-ul{padding-left:18px;}
-li{margin-bottom:6px;line-height:1.6;}
-p{line-height:1.7;margin-bottom:8px;}
-.cf-table td:first-child{font-weight:600;width:220px;}
-.note{font-size:12px;color:#666;font-style:italic;}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-@media(max-width:640px){.summary-grid{grid-template-columns:repeat(2,1fr);}.two-col{grid-template-columns:1fr;}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Hiragino Sans','Yu Gothic UI',sans-serif;font-size:14px;line-height:1.7;color:#1a1a2e;background:#f5f7fa}
+a{color:#1a73e8;text-decoration:none}
+.hdr{background:#1a237e;color:#fff;padding:20px 32px}
+.hdr h1{font-size:22px;font-weight:700;letter-spacing:.05em}
+.hdr p{font-size:12px;opacity:.8;margin-top:4px}
+.summary{background:#fff;border-bottom:3px solid #1a237e;padding:24px 32px}
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid #dde;border-radius:6px;overflow:hidden}
+.summary-cell{padding:14px 20px;border-right:1px solid #dde;text-align:center}
+.summary-cell:last-child{border-right:none}
+.s-label{font-size:11px;color:#607d8b;margin-bottom:4px}
+.s-val{font-size:20px;font-weight:700;color:#1a237e}
+.s-sub{font-size:11px;color:#1a73e8;margin-top:2px}
+.criteria-bar{background:#fff;padding:20px 32px;border-bottom:1px solid #dde}
+.crit-title{font-size:13px;font-weight:700;color:#1a237e;margin-bottom:12px}
+.crit-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.crit-item{padding:10px;border-radius:6px;text-align:center}
+.crit-ok{background:#e6f4ea;border:1px solid #a8d5b5}
+.crit-ng{background:#fde8e8;border:1px solid #f5a49f}
+.crit-warn{background:#fff8e1;border:1px solid #ffe082}
+.crit-mark{font-size:20px;font-weight:900}
+.crit-name{font-size:10px;color:#555;margin-top:4px}
+.crit-num{font-size:11px;font-weight:600;color:#333;margin-top:2px}
+.sections{max-width:1000px;margin:0 auto;padding:20px 24px}
+.card{background:#fff;border:1px solid #dde;border-radius:8px;margin-bottom:18px;overflow:hidden}
+.card-hdr{padding:14px 20px;font-size:15px;font-weight:700;color:#fff}
+.card-body{padding:20px}
+.haruto .card-hdr{background:#e65100}
+.ryo .card-hdr{background:#1565c0}
+.aki .card-hdr{background:#2e7d32}
+.murata .card-hdr{background:#4e342e}
+.captain .card-hdr{background:#6a1b9a}
+.summary-card .card-hdr{background:#1a237e}
+table{width:100%;border-collapse:collapse;margin:10px 0}
+th{background:#f0f4ff;padding:8px 12px;text-align:left;font-size:12px;border:1px solid #dde;color:#1a237e}
+td{padding:7px 12px;font-size:12px;border:1px solid #dde;vertical-align:top}
+tr:nth-child(even){background:#fafafa}
+.risk-high{color:#c62828;font-weight:700}
+ul{padding-left:18px;margin:8px 0}
+li{margin:4px 0}
+.confirm-item{background:#fff8e1;border-left:3px solid #f9a825;padding:8px 12px;margin:6px 0;border-radius:0 4px 4px 0;font-size:13px}
+.next-action{background:#e8f0fe;border-left:3px solid #1a73e8;padding:12px 16px;margin:8px 0;border-radius:0 6px 6px 0}
+.tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:3px;margin-right:4px;font-weight:700}
+.tag-ng{background:#fde8e8;color:#c62828}
+.tag-ok{background:#e6f4ea;color:#2e7d32}
+.tag-warn{background:#fff8e1;color:#e65100}
+.ng-banner{background:#fde8e8;border:2px solid #c62828;border-radius:6px;padding:14px 18px;margin-bottom:16px;font-size:13px;color:#c62828;font-weight:700}
+.ng-banner span{font-size:12px;font-weight:400;color:#555;display:block;margin-top:4px}
 </style>
 </head>
 <body>
-<header>
-  <h1>📋 チーム精査レポート — 玉川学園前 新築AP（町田市）</h1>
-  <div class="sub">精査日: 2026-06-05 ／ 担当: ハルト・リョウ・アキ・村田先生（TC Capitals 不動産仕入部）</div>
-</header>
-<div class="container">
 
-<!-- 物件サマリー -->
-<div class="card">
-  <div class="section-title" style="background:#1a237e;color:#fff;">🏠 物件サマリー</div>
+<div class="hdr">
+  <h1>玉川学園前 新築AP — チーム精査レポート</h1>
+  <p>精査日: 2026年6月5日｜チーム: ハルト・リョウ・アキ・村田先生｜TC Capitals 不動産仕入部</p>
+</div>
+
+<div class="summary">
   <div class="summary-grid">
-    <div class="summary-item"><div class="label">物件名</div><div class="value" style="font-size:14px;">玉川学園前 新築AP</div></div>
-    <div class="summary-item"><div class="label">所在地</div><div class="value" style="font-size:13px;">東京都町田市玉川学園（番地未定）</div></div>
-    <div class="summary-item"><div class="label">最寄り駅</div><div class="value" style="font-size:13px;">小田急「玉川学園前」駅</div><div class="sub">徒歩12分</div></div>
-    <div class="summary-item"><div class="label">物件価格</div><div class="value">8,180万円</div></div>
-    <div class="summary-item"><div class="label">表面利回り</div><div class="value">7.63%</div><div class="sub">6.5万円×8戸・キャプテン指定賃料ベース</div></div>
-    <div class="summary-item"><div class="label">想定利回り（概要書）</div><div class="value" style="color:#e65100;">6.81%</div><div class="sub">概要書想定賃料（5.6〜6.0万円）ベース</div></div>
-    <div class="summary-item"><div class="label">構造・築年数</div><div class="value">木造2階建て・新築</div><div class="sub">完成予定2026年9月末</div></div>
-    <div class="summary-item"><div class="label">間取り・戸数</div><div class="value">1K×8戸</div><div class="sub">各戸18.63㎡</div></div>
-    <div class="summary-item"><div class="label">延床 / 土地</div><div class="value">149.04㎡ / 207.02㎡</div></div>
-    <div class="summary-item"><div class="label">取引態様</div><div class="value" style="font-size:13px;">仲介（ブリックス株式会社）</div><div class="sub">担当: 澤井 洋介</div></div>
-    <div class="summary-item"><div class="label">接道</div><div class="value" style="font-size:13px;">西側 私道 法42条1項5号</div><div class="sub">幅員4m</div></div>
-    <div class="summary-item"><div class="label">融資想定（auじぶん）</div><div class="value">95%・2.4%・35年</div><div class="sub">担当変更で審査再取組み可</div></div>
-  </div>
-  <div style="margin-top:12px;padding:10px 14px;background:#e3f2fd;border-radius:4px;font-size:13px;">
-    ℹ️ <strong>経緯:</strong> 以前断念した物件。前申込者が融資額不足でキャンセル→ auじぶん銀行の担当者・審査基準変更により再取組み可能に（92〜95%・2.4%・35年）。ブリックス澤井さん経由での再提案。
+    <div class="summary-cell">
+      <div class="s-label">物件価格</div>
+      <div class="s-val" style="color:#2e7d32">8,180万円</div>
+      <div class="s-sub">基準1億円以内 ✅</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">表面利回り</div>
+      <div class="s-val" style="color:#c62828">6.81%</div>
+      <div class="s-sub">基準7.1%未達 ❌（▲338万指値で達成）</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">構造・築年</div>
+      <div class="s-val" style="font-size:16px">木造・新築</div>
+      <div class="s-sub">2026年9月末完成予定（未完成）</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">エリア・交通</div>
+      <div class="s-val" style="font-size:14px">東京都町田市</div>
+      <div class="s-sub">小田急「玉川学園前」駅 徒歩12分</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">延床・戸数</div>
+      <div class="s-val" style="font-size:16px">149.04㎡</div>
+      <div class="s-sub">1K×8戸（各18.63㎡）</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">取引態様</div>
+      <div class="s-val" style="font-size:14px">仲介</div>
+      <div class="s-sub">ブリックス㈱（担当: 澤井）</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">積算比率（概算）</div>
+      <div class="s-val" style="color:#c62828">51〜59%</div>
+      <div class="s-sub">路線価次第・いずれも60%未達 ❌</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">土地面積</div>
+      <div class="s-val" style="font-size:16px">207.02㎡</div>
+      <div class="s-sub">建蔽40%・容積80%</div>
+    </div>
   </div>
 </div>
 
-<!-- キャプテン基準 -->
-<div class="card captain">
-  <div class="section-title">⚡ キャプテン基準チェック</div>
-  <table>
-    <tr><th>基準</th><th>判定</th><th>根拠</th></tr>
-    <tr><td>築10年以内</td><td><span class="badge-ok">OK</span></td><td>新築（2026年9月完成予定）</td></tr>
-    <tr><td>表面利回り7.1%以上</td><td><span class="badge-ok">OK</span></td><td>7.63%（キャプテン指定6.5万円/戸ベース）／概要書想定は6.81%（<span class="ng">NG</span>）</td></tr>
-    <tr><td>価格1億円以内</td><td><span class="badge-ok">OK</span></td><td>8,180万円</td></tr>
-    <tr><td>国道16号内側（都心側）</td><td><span class="badge-ng">NG</span></td><td>玉川学園前は16号より西・北西側（外側）。新宿まで約37km</td></tr>
-    <tr><td>積算比率70%以上</td><td><span class="badge-warn">要確認</span></td><td>建物評価3,130万円（38.3%）。土地評価は路線価要確認（12.5万円/㎡以上で70%クリア見込み）</td></tr>
-  </table>
-  <div style="margin-top:10px;padding:10px 14px;background:#fff3e0;border-radius:4px;font-size:13px;">
-    ⚠️ <strong>16号外側基準NG・利回りは賃料設定次第:</strong> 概要書賃料（5.6〜6.0万円）では利回り6.81%でNG。キャプテン指定6.5万円で7.63%になるが、徒歩12分・18.63㎡での6.5万円は強気設定。賃料根拠の確認が必須。
+<div class="criteria-bar">
+  <div class="crit-title">📋 キャプテン基準チェック（P1: オリックス100%・2.6%・35年 / P2: 神奈川銀行90%・2.25%・35年）</div>
+  <div class="crit-grid">
+    <div class="crit-item crit-ok"><div class="crit-mark">✅</div><div class="crit-name">価格≤1億円</div><div class="crit-num">8,180万円</div></div>
+    <div class="crit-item crit-ng"><div class="crit-mark">❌</div><div class="crit-name">利回り≥7.1%</div><div class="crit-num">6.81%（▲338万指値で達成）</div></div>
+    <div class="crit-item crit-ng"><div class="crit-mark">❌/✅</div><div class="crit-name">CF率≥1%</div><div class="crit-num">P1: 0.91% / P2: 1.55%</div></div>
+    <div class="crit-item crit-ng"><div class="crit-mark">❌</div><div class="crit-name">CCR≥15%</div><div class="crit-num">P1: 13.0% / P2: 9.1%</div></div>
+    <div class="crit-item crit-ng"><div class="crit-mark">❌</div><div class="crit-name">積算≥60%</div><div class="crit-num">51〜59%（路線価次第）</div></div>
   </div>
+</div>
+
+<div class="sections">
+
+<div class="ng-banner">
+  ⚠️ キャプテン基準 2項目NG：「表面利回り6.81%（基準7.1%）」「国道16号外側エリア（グレーゾーン）」
+  <span>P1では基準5項目中4項目NG・P2では3項目NG。▲338万指値（7,842万円）を前提に、キャプテンの基準緩和判断を確認してから精査継続を判断してください。</span>
 </div>
 
 <!-- ハルト -->
 <div class="card haruto">
-  <div class="section-title">🔍 ハルト — エリア・利回り分析</div>
-  <div class="two-col">
-    <div>
-      <p><strong>エリア特性</strong></p>
-      <ul>
-        <li>玉川大学・玉川学園（幼〜大学院、約1万人）が徒歩圏内に立地。学生・教員・教育系住民の安定需要</li>
-        <li>小田急線「玉川学園前」駅 乗降客数: <strong>約41,185人/日</strong>（2024年度、小田急70駅中27位）。中規模駅として安定</li>
-        <li>急坂・狭隘道路が多く大規模再開発には不向き。需要は安定的だが急激な地価上昇も期待薄</li>
-        <li>町田市の人口は横ばい〜微減傾向</li>
-      </ul>
+  <div class="card-hdr">🔍 ハルト（エリア・市場性分析）</div>
+  <div class="card-body">
+    <table>
+      <tr><th width="180">項目</th><th width="100">評価</th><th>詳細</th></tr>
+      <tr><td>16号内側エリア</td><td><span class="tag tag-ng">❌ NG</span></td><td>玉川学園前駅は国道16号のほぼ直上〜わずかに内側のグレーゾーン。「16号内側」と言い切れる立地ではない。町田市は国道16号が横浜側から相模原・八王子方面へ抜けるルート上にあり、玉川学園前はその近傍。</td></tr>
+      <tr><td>表面利回り</td><td><span class="tag tag-ng">❌ NG</span></td><td>6.81%は基準7.1%に▲0.29%未達。7.1%達成には7,842万円が必要（現値から▲337.7万円・約4.1%引き）。</td></tr>
+      <tr><td>徒歩距離</td><td><span class="tag tag-warn">⚠️ 注意</span></td><td>徒歩12分は許容圏内だが強みにはならない。玉川学園大学キャンパスが駅直結のため、駅近5〜8分帯の競合物件に需要が流れやすい。</td></tr>
+      <tr><td>エリア賃貸需要</td><td><span class="tag tag-ok">△ 可</span></td><td>玉川学園大学在学生約7,200名が最大の需要下支え。駅乗降客41,185人（2024年度）で安定推移。ただし競合掲載物件918件超（SUUMO）で供給多め。</td></tr>
+      <tr><td>想定賃料の妥当性</td><td><span class="tag tag-warn">⚠️ 要確認</span></td><td>56,000〜60,000円は新築プレミアムでの上限設定。スマサテ査定では52,000〜55,000円程度に落ちる可能性あり。賃料が下落した場合、実質利回りはさらに低下。</td></tr>
+      <tr><td>人口動態・将来性</td><td><span class="tag tag-warn">⚠️ 注意</span></td><td>町田市人口は2015年ピーク後に減少局面（2040年に40万人割れ予測）。玉川学園前エリアに大規模再開発計画なし。成長エリアとは言えない。</td></tr>
+    </table>
+    <div class="next-action">
+      <b>ハルトの率直な評価: 見送り推奨（ダブルNG）</b><br>
+      利回り・16号エリアの2項目NG。想定賃料の楽観リスクを加味すると実質的なリターンはさらに下がる可能性がある。▲338万円指値が通れば利回りは達成できるが、新築売主（ブリックス）が応じる確率は低い。16号外側という地理基準は交渉で覆せない。スマサテ賃料査定の実施を優先推奨。
     </div>
-    <div>
-      <p><strong>賃料相場・空室リスク</strong></p>
-      <ul>
-        <li>玉川学園前1K平均: <strong>約7.48万円</strong>（ホームズ調べ）、新築・駅近で7.6万円前後の相場も</li>
-        <li>概要書の想定賃料5.6〜6.0万円 vs キャプテン指定6.5万円 → <span class="warn">乖離あり。徒歩12分・18.63㎡では6.5万円は強気</span></li>
-        <li><strong>安全賃料の目安: 6.0〜6.2万円</strong>（長期保有前提では保守的に計算推奨）</li>
-        <li>徒歩12分は許容ギリギリライン。玉川大学生の通学圏として一定の需要あり</li>
-      </ul>
-    </div>
-  </div>
-  <div class="verdict verdict-hold" style="margin-top:14px;">
-    ハルト評価: <strong>要確認後判断（条件付き検討）</strong><br>
-    <span style="font-size:14px;font-weight:400;">16号外側はNG。ただし玉川大学の安定需要・新築品質は強み。賃料根拠と私道持分確認後に判断。</span>
   </div>
 </div>
 
 <!-- リョウ -->
 <div class="card ryo">
-  <div class="section-title">📋 リョウ — デューデリジェンス</div>
-
-  <p style="margin-bottom:10px;"><strong>🟢 確認済み・問題なし</strong></p>
-  <div class="risk-low"><div class="risk-label">新耐震・構造</div>新築（2026年確認申請）→ 新耐震基準完全適合。融資耐用年数22年フル使用可</div>
-  <div class="risk-low"><div class="risk-label">最高高さ制限（10m）</div>木造2階建ては通常6〜7m → 適合見込み（竣工後の検査済証で最終確認必須）</div>
-  <div class="risk-low"><div class="risk-label">前申込キャンセル事由</div>先方の与信問題（融資額不足）→ 物件自体の融資適格性とは別問題</div>
-  <div class="risk-low"><div class="risk-label">第一種文教地区</div>カラオケ・パチンコ等が制限されるが、賃貸APとしての実害はほぼなし</div>
-
-  <p style="margin-bottom:10px;margin-top:14px;"><strong>🔴 リスクフラグ・要確認</strong></p>
-  <div class="risk-high">
-    <div class="risk-label">【最大リスク】私道（法42条1項5号 幅員4m）権利関係</div>
-    私道持分の有無・通行掘削同意書の取得状況が未確認。持分なし・同意書なしの場合、再建築時に隣地所有者の協力が得られずNG。融資行によっては私道接道で否決されるケースあり。<strong>→ 私道持分の登記・通行掘削同意書をブリックスに即座に取り寄せ依頼</strong>
-  </div>
-  <div class="risk-high">
-    <div class="risk-label">完成前物件リスク（引渡し2026年9月末）</div>
-    ①手付金保全措置（宅建業法41条）の確認必須。②完成遅延時の解除条件・違約金条項を重要事項説明書で確認。<strong>手付金保全措置の方法（保証委託・保険・供託の別）を明確に。</strong>
-  </div>
-  <div class="risk-mid">
-    <div class="risk-label">売主指定司法書士</div>
-    買主側を守る立場にない可能性あり。<strong>キャプテン側でも独立した司法書士を並走させるか要交渉</strong>
-  </div>
-  <div class="risk-mid">
-    <div class="risk-label">番地未定</div>
-    融資申込時に地番特定が必要。auじぶん銀行が「番地未定物件」の申込を受け付けるタイミング確認要
-  </div>
-  <div class="risk-mid">
-    <div class="risk-label">管理・火災保険のブリックス指定拘束</div>
-    解除可否・縛り期間・管理費率（2.75%との確認）を明確化
-  </div>
-
-  <div class="btn-bar">
-    <a href="https://teruyone.github.io/tc-properties/properties/20260605_tamagawa-gakuen_DD.html" class="btn btn-blue">📋 入力済みDDリストを開く</a>
+  <div class="card-hdr">📋 リョウ（DDチェック）<a href="https://teruyone.github.io/tc-properties/properties/20260605_tamagawa-gakuen_DD.html" style="float:right;color:#adf;font-size:12px;font-weight:400">入力済みDDリスト →</a></div>
+  <div class="card-body">
+    <table>
+      <tr><th width="200">リスク項目</th><th width="80">レベル</th><th>内容</th></tr>
+      <tr>
+        <td class="risk-high">①私道持分・掘削承諾</td>
+        <td><span class="tag tag-ng">高</span></td>
+        <td>接道が「法42条1項5号道路（位置指定道路・私道）幅員4m」。私道所有者の持分取得状況・通行掘削承諾書の有無が未確認。承諾書なしだと将来の給排水管更新工事で身動き不可。オリックス・神奈川銀行ともに私道案件は審査厳化傾向あり。即確認が必要。</td>
+      </tr>
+      <tr>
+        <td class="risk-high">②未完成物件リスク</td>
+        <td><span class="tag tag-ng">高</span></td>
+        <td>2026年9月末完成予定・現時点で番地未定。手付金保全措置（宅建業法）の確認が必須。竣工遅延リスク・引渡し前インスペクション実施可否・ローン特約期日の設定（3〜4ヶ月確保）に要注意。売主属性（個人/法人）・品確法10年保証の対象可否も要確認。</td>
+      </tr>
+      <tr>
+        <td>③ブリックス管理・保険指定縛り</td>
+        <td><span class="tag tag-warn">中</span></td>
+        <td>仲介料（約275万円）＋管理費（年額）＋保険料の三重取り構造。想定賃料の信頼性をブリックスが担保しており独立検証ができない利益相反構造。管理費率・内容の事前見積もりを取得し、他社比較資料を用意した上で交渉すべき。</td>
+      </tr>
+      <tr>
+        <td>④収支数字の精度</td>
+        <td><span class="tag tag-warn">中</span></td>
+        <td>想定賃料56,000〜60,000円の根拠資料（成約事例）が未入手。固都税の実額・土地建物割合の売主設定値・修繕積立計画が未確認。スマサテ査定を先行実施すること。</td>
+      </tr>
+    </table>
+    <div style="margin-top:12px;font-size:13px"><b>リスク総評:</b> 中（利回り基準の整合確認が最優先。私道問題解消と手付金保全確認が精査継続の前提）</div>
   </div>
 </div>
 
 <!-- アキ -->
 <div class="card aki">
-  <div class="section-title">💹 アキ — IG+収支計算</div>
-
-  <div class="two-col">
-    <div>
-      <p><strong>パターン①: auじぶん銀行（キャプテン指示）</strong></p>
-      <table class="cf-table">
-        <tr><td>賃料（キャプテン指定）</td><td>6.5万円×8戸=年収624万円</td></tr>
-        <tr><td>表面利回り</td><td>7.63%</td></tr>
-        <tr><td>融資額 / 自己資金</td><td>7,771万円 / <strong>981.6万円</strong></td></tr>
-        <tr><td>月返済額</td><td>273,662円</td></tr>
-        <tr><td>年間CF</td><td class="ok">+159.4万円</td></tr>
-        <tr><td>CF率</td><td class="warn">1.95%（Bグレード）</td></tr>
-        <tr><td>返済比率</td><td class="warn">55.39%</td></tr>
-        <tr><td>CCR</td><td class="ok">16.24%（OK ≥10%）</td></tr>
-        <tr><td>NOI利回り</td><td class="ok">5.96%（OK ≥5%）</td></tr>
-        <tr><td>税引後CF（初年度）</td><td>+151万円（減価償却節税大）</td></tr>
-      </table>
-    </div>
-    <div>
-      <p><strong>パターン②: オリックス銀行（比較）</strong></p>
-      <table class="cf-table">
-        <tr><td>賃料（同上）</td><td>6.5万円×8戸=年収624万円</td></tr>
-        <tr><td>表面利回り</td><td>7.63%</td></tr>
-        <tr><td>融資額 / 自己資金</td><td>8,180万円 / <strong>572.6万円</strong></td></tr>
-        <tr><td>月返済額</td><td>296,834円</td></tr>
-        <tr><td>年間CF</td><td class="ok">+131.6万円</td></tr>
-        <tr><td>CF率</td><td class="warn">1.61%（Bグレード）</td></tr>
-        <tr><td>返済比率</td><td class="warn">60.07%</td></tr>
-        <tr><td>CCR</td><td class="ok">22.98%（OK ≥10%）</td></tr>
-        <tr><td>NOI利回り</td><td class="ok">5.96%（OK ≥5%）</td></tr>
-        <tr><td>税引後CF（初年度）</td><td>+128万円</td></tr>
-      </table>
-    </div>
-  </div>
-
-  <div style="margin-top:12px;">
-    <p><strong>キャプテン基準5指標チェック（auじぶん銀行）</strong></p>
+  <div class="card-hdr">📊 アキ（IG+収支計算）<a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8180&ltvInput=95&ltvRatio=95&costsRate=7&loanTerm=35&intRate=2.6&grossYield=6.81&floorArea=149.04&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=2.75&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1.5&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=8180&pi_age_inp=0&pi_yield_inp=6.81&pi_area_inp=149.04&pi_rooms_inp=8&ik_land_area=207.02&ik_route_price=0&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E7%94%BA%E7%94%B0%E5%B8%82%E7%8E%89%E5%B7%9D%E5%AD%A6%E5%9C%92" style="float:right;color:#adf;font-size:12px;font-weight:400">入力済みIG+ →</a></div>
+  <div class="card-body">
     <table>
-      <tr><th>指標</th><th>基準</th><th>実績</th><th>判定</th></tr>
-      <tr><td>物件価格</td><td>≤1億円</td><td>8,180万円</td><td><span class="badge-ok">OK</span></td></tr>
-      <tr><td>表面利回り</td><td>≥7.1%</td><td>7.63%（6.5万円ベース）</td><td><span class="badge-ok">OK</span></td></tr>
-      <tr><td>CF率</td><td>≥0%</td><td>1.95%</td><td><span class="badge-ok">OK</span></td></tr>
-      <tr><td>CCR</td><td>≥10%</td><td>16.24%</td><td><span class="badge-ok">OK</span></td></tr>
-      <tr><td>NOI利回り</td><td>≥5%</td><td>5.96%</td><td><span class="badge-ok">OK</span></td></tr>
-      <tr><td>積算比率</td><td>≥70%</td><td>路線価確認後算出（建物のみ38.3%）</td><td><span class="badge-warn">要確認</span></td></tr>
-      <tr><td>自己資金</td><td>≤1,500万円</td><td>981.6万円</td><td><span class="badge-ok">OK</span></td></tr>
+      <tr><th>指標</th><th>P1 オリックス（100%・2.6%・35年）</th><th>P2 神奈川銀行（90%・2.25%・35年）</th><th>基準</th></tr>
+      <tr><td>NOI</td><td>430.91万円</td><td>430.91万円</td><td>—</td></tr>
+      <tr><td>NOI利回り</td><td>5.27%</td><td>5.27%</td><td>—</td></tr>
+      <tr><td>年間CF（税引前）</td><td>74.71万円</td><td>126.79万円</td><td>—</td></tr>
+      <tr><td>CF率</td><td class="risk-high">0.91% ❌</td><td style="color:#2e7d32;font-weight:700">1.55% ✅</td><td>≥1.0%</td></tr>
+      <tr><td>CCR</td><td class="risk-high">13.0% ❌</td><td class="risk-high">9.1% ❌</td><td>≥15.0%</td></tr>
+      <tr><td>返済比率</td><td>67.3%</td><td>57.5%</td><td>参考値</td></tr>
+      <tr><td>自己資金</td><td>572.60万円（諸費用7%のみ）</td><td>1,390.60万円（頭金10%+諸費用7%）</td><td>—</td></tr>
+      <tr><td>積算比率</td><td colspan="2" class="risk-high">51〜59%（路線価次第）❌ ※路線価8万/㎡でも58.5% 60%未達</td><td>≥60%</td></tr>
+      <tr><td>表面利回り</td><td colspan="2" class="risk-high">6.81% ❌</td><td>≥7.1%</td></tr>
     </table>
-  </div>
-
-  <div style="margin-top:10px;padding:10px 14px;background:#fff3e0;border-radius:4px;font-size:13px;">
-    ⚠️ <strong>アキ注記:</strong> ①固定資産税は年収7%設定（41.5万円）だが、新築軽減3年適用後の実額は10〜15万円台になる可能性あり。実額が15万円なら年間CFがさらに約26万円改善する。②路線価12.5万円/㎡以上で積算比率70%クリア見込み（国税庁路線価図で確認要）。③賃料を概要書想定5.8万円で計算するとCF率が下がる点に注意。
-  </div>
-
-  <div class="btn-bar">
-    <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8180&ltvInput=95&ltvRatio=95&costsRate=7&loanTerm=35&intRate=2.6&grossYield=6.81&floorArea=149.04&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=2.75&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1.5&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=8180&pi_age_inp=0&pi_yield_inp=6.81&pi_area_inp=149.04&pi_rooms_inp=8&ik_land_area=207.02&ik_route_price=0&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E7%94%BA%E7%94%B0%E5%B8%82%E7%8E%89%E5%B7%9D%E5%AD%A6%E5%9C%92" class="btn btn-green">📊 入力済みIG+を開く</a>
+    <table style="margin-top:10px">
+      <tr><th colspan="2">キャプテン基準チェック（5項目）</th><th>P1</th><th>P2</th></tr>
+      <tr><td>価格≤1億円</td><td>8,180万円</td><td style="color:#2e7d32">✅</td><td style="color:#2e7d32">✅</td></tr>
+      <tr><td>利回り≥7.1%</td><td>6.81%</td><td style="color:#c62828">❌</td><td style="color:#c62828">❌</td></tr>
+      <tr><td>CF率≥1.0%</td><td>P1:0.91% / P2:1.55%</td><td style="color:#c62828">❌</td><td style="color:#2e7d32">✅</td></tr>
+      <tr><td>CCR≥15.0%</td><td>P1:13.0% / P2:9.1%</td><td style="color:#c62828">❌</td><td style="color:#c62828">❌</td></tr>
+      <tr><td>積算≥60%</td><td>51〜59%</td><td style="color:#c62828">❌</td><td style="color:#c62828">❌</td></tr>
+      <tr><td colspan="2"><b>合格数</b></td><td style="color:#c62828"><b>1/5</b></td><td style="color:#e65100"><b>2/5</b></td></tr>
+    </table>
+    <div class="next-action" style="margin-top:12px">
+      <b>7.1%達成のための指値逆算:</b> 7,842万円（▲337.7万円・約4.1%引き）が必要。<br>
+      仮に指値が通った場合: P2 CF率約1.7%（改善）・積算比率は依然NG・CCRも依然NG。<br>
+      <b>デッドクロス注意: 木造22年・築15〜18年目頃に課税所得が急増。出口計画の早期設計が重要。</b>
+    </div>
   </div>
 </div>
 
 <!-- 村田先生 -->
 <div class="card murata">
-  <div class="section-title">🏗️ 村田先生 — 建築士コメント</div>
-  <div class="two-col">
-    <div>
-      <p><strong>構造・品質評価</strong></p>
-      <p>木造2階建て・劣化対策等級3（最高等級）。通気工法・防腐防蟻処理が義務的に施工される水準。法定耐用年数22年だが、設計・施工が伴えば40年超の物理的寿命も十分狙える。現場を見ないと断言はできませんが、等級3取得予定は評価できます。</p>
-
-      <p style="margin-top:10px;"><strong>修繕計画（費用概算）</strong></p>
-      <table>
-        <tr><th>時期</th><th>部位</th><th>費用概算</th></tr>
-        <tr><td>築10〜12年</td><td>外壁塗装・シーリング打ち替え</td><td>150〜200万円</td></tr>
-        <tr><td>築10〜15年</td><td>屋根防水・塗装</td><td>50〜100万円</td></tr>
-        <tr><td>築15年前後</td><td>給湯器全戸交換（8戸×12万円）</td><td>約96万円</td></tr>
-        <tr><td>築20〜25年</td><td>給排水管更新（8戸×50万円）</td><td>約400万円</td></tr>
-      </table>
-      <p class="note" style="margin-top:6px;">⚡ 木造22年法定耐用年数から、<strong>築15〜18年でのデッドクロス前売却</strong>を出口基準として修繕計画を組むことを推奨。</p>
-    </div>
-    <div>
-      <p><strong>法令・制限の評価</strong></p>
-      <ul>
-        <li><strong>法第22条区域:</strong> 屋根・外壁に不燃/準不燃材料が義務。新築なので仕様書で確認を。確認申請書で裏取り必須</li>
-        <li><strong>高さ制限（第１種高度地区・最高10m）:</strong> 木造2階建ての棟高は通常7〜8m → 適合見込み。確認申請書の「建物高さ」欄を要確認</li>
-        <li><strong>私道接道（法42条1項5号）:</strong> <span class="warn">私道持分の有無・通行掘削同意書の存否が再建築可否の分岐点</span>。測量図で実際の幅員も確認</li>
-      </ul>
-
-      <p style="margin-top:10px;"><strong>設計評価</strong></p>
-      <p>各戸18.63㎡（約5.6坪）は1Kとして最低限の広さ。独立洗面台・浴室乾燥機・宅配BOX・エアコン標準は入居者ニーズに合致。ただし各戸の廊下・水回り動線は設計図で要確認。</p>
-
-      <p style="margin-top:10px;"><strong>現地確認必須チェック</strong></p>
-      <ul>
-        <li>私道の実際の状態と持分登記（将来の売却時の融資審査影響）</li>
-        <li>基礎・土台の高さと通気口（床下通気の確保状況）</li>
-        <li>隣地境界とセットバックライン（越境・未セットバックの有無）</li>
-        <li>施工業者・竣工検査報告書の提示要求</li>
-      </ul>
+  <div class="card-hdr">🏗️ 村田先生（建築士コメント）</div>
+  <div class="card-body">
+    <table>
+      <tr><th width="200">項目</th><th width="80">評価</th><th>コメント</th></tr>
+      <tr>
+        <td>構造・設計</td>
+        <td><span class="tag tag-ok">✅ 良好</span></td>
+        <td>木造2階建て2026年新築。2000年基準完全適合（接合部金物・基礎配筋強化）。土地207㎡に容積率80%をほぼ使い切った（89.9%使用）コンパクト設計。建築的問題なし。</td>
+      </tr>
+      <tr>
+        <td>劣化対策等級</td>
+        <td><span class="tag tag-ok">✅ 評価</span></td>
+        <td>3等級取得予定（法定耐用年数22年の1.5〜2倍≒33〜44年の耐久性想定）。ただし「取得予定」→完成後に住宅性能評価書で実際の取得を確認必須。</td>
+      </tr>
+      <tr>
+        <td>私道接道リスク</td>
+        <td><span class="tag tag-ng">❌ 要確認</span></td>
+        <td>法42条1項5号道路（位置指定道路）。私道持分・通行掘削承諾書の確認が最重要。承諾書なしでは将来の給排水管更新工事が実施不能になるリスクあり。現地で道路幅員実測（4mあるか）・位置指定道路認定標識の確認も実施すること。</td>
+      </tr>
+      <tr>
+        <td>10年目修繕スケジュール</td>
+        <td><span class="tag tag-warn">⚠️ 要積立</span></td>
+        <td>外壁塗装+コーキング100〜150万円・屋根塗装50〜80万円・給湯器8台96万円・エアコン8台80万円＝合計330〜430万円（複数年分散で年換算33〜43万円）。収支計算への修繕積立組み込みを推奨。</td>
+      </tr>
+      <tr>
+        <td>法令適合性</td>
+        <td><span class="tag tag-ok">✅ 問題なし</span></td>
+        <td>第一種文教地区（賃貸APに影響なし）・法第22条区域（外壁準不燃化・新築で対応済み）・第1種高度地区（木造2階=高さ7〜8m・10m規制に余裕）。いずれも問題なし。</td>
+      </tr>
+      <tr>
+        <td>未完成物件の建築リスク</td>
+        <td><span class="tag tag-warn">⚠️ 注意</span></td>
+        <td>手付金保全措置の書面確認が必須（宅建業法）。完成引渡し時に第三者インスペクション（3〜5万円）の実施を強く推奨。番地未定のため登記スケジュールも要確認。</td>
+      </tr>
+      <tr>
+        <td>木造デッドクロス</td>
+        <td><span class="tag tag-warn">⚠️ 要注意</span></td>
+        <td>法定耐用年数22年のため築15〜18年目にデッドクロス到来（課税所得急増）。出口は築15〜18年目の売却を軸に計画。積算価値は建物がほぼゼロになるため土地価格が出口判断の軸となる。</td>
+      </tr>
+    </table>
+    <div style="margin-top:12px;padding:10px 14px;background:#efebe9;border-radius:6px;font-size:13px">
+      <b>現場を見ないと断言はできませんが—</b><br>
+      建築的観点では新築・劣化対策等級3等級・2000年基準適合と申し分ない仕様です。最大の懸念は①私道の掘削同意書、②未完成物件の手付金保全措置の2点。これらが解消されれば建物リスクは低位に収まります。完成引渡し時の第三者インスペクションは3〜5万円で実施できます。ぜひ実施してください。
     </div>
   </div>
 </div>
 
 <!-- キャプテンへの確認事項 -->
 <div class="card captain">
-  <div class="section-title">❓ キャプテンへの確認事項まとめ（リョウ・アキより）</div>
-  <table>
-    <tr><th>#</th><th>確認事項</th><th>担当</th><th>優先度</th></tr>
-    <tr>
-      <td>1</td>
-      <td><strong>私道持分の登記確認・通行掘削同意書の取り寄せ依頼</strong><br>
-      <span class="note">融資否決リスク・再建築リスクの根幹。ブリックス澤井さんへ即座に依頼を</span></td>
-      <td>リョウ</td>
-      <td><span class="badge-ng">最優先</span></td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td><strong>路線価の確認（国税庁路線価図で町田市玉川学園の路線価を確認）</strong><br>
-      <span class="note">積算比率70%クリアには12.5万円/㎡以上が必要。実際の路線価額をお知らせください</span></td>
-      <td>アキ</td>
-      <td><span class="badge-ng">最優先</span></td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td><strong>手付金保全措置の種類確認</strong>（重要事項説明書で確認：保証委託・保険・供託の別）</td>
-      <td>リョウ</td>
-      <td><span class="badge-warn">高</span></td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td><strong>賃料6.5万円の根拠資料</strong>（澤井さんから近隣賃料相場データを取り寄せ）<br>
-      <span class="note">概要書の5.6〜6.0万円との乖離が大きい。6.5万円を採用する根拠が必要</span></td>
-      <td>ハルト</td>
-      <td><span class="badge-warn">高</span></td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td><strong>ブリックスの管理費率・保険指定解除条件の確認</strong>（何年縛りか・途中解除コスト）</td>
-      <td>リョウ</td>
-      <td><span class="badge-warn">中</span></td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td><strong>番地確定・登記スケジュールの確認</strong>（auじぶん銀行申込タイミングとの整合）</td>
-      <td>リョウ</td>
-      <td><span class="badge-warn">中</span></td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td><strong>前回断念の経緯</strong>（ファイルに記録なし。キャプテンの記憶で補足があればDD更新）</td>
-      <td>リョウ</td>
-      <td><span class="note">参考</span></td>
-    </tr>
-  </table>
+  <div class="card-hdr">📌 キャプテンへの確認事項まとめ</div>
+  <div class="card-body">
+    <div class="confirm-item">① <b>【最優先・判断待ち】利回り基準の適用方針</b> — 表面利回り6.81%は基準7.1%を▲0.29%下回っています。「新築・所有権・東京都町田市」という条件で基準を緩和する判断がある場合はその根拠を。判断がない場合はこの時点で見送り確定となります。（リョウ・アキ）</div>
+    <div class="confirm-item">② <b>【最優先・判断待ち】16号エリア基準の適用方針</b> — 玉川学園前はグレーゾーン（16号直上〜わずかに内側）。「16号内側」として扱うかどうかの判断が必要です。（ハルト）</div>
+    <div class="confirm-item">③ <b>私道（法42条1項5号）の確認状況</b> — 澤井さんから私道持分・掘削承諾書について既に説明を受けていますか。未確認なら即確認が必要です。（リョウ・村田先生）</div>
+    <div class="confirm-item">④ <b>ブリックス管理・保険指定縛りの評価</b> — 澤井さんへの信頼関係を前提に、管理縛りを受け入れるか・外す交渉をするか方針をご指示ください。（リョウ）</div>
+    <div class="confirm-item">⑤ <b>路線価の実額確認</b> — 国税庁路線価（rosenka.nta.go.jp）で玉川学園周辺を確認。積算比率が融資可否を左右します。（アキ）</div>
+    <div class="confirm-item">⑥ <b>▲338万円指値交渉の可否</b> — 7,842万円まで下げれば利回り7.1%達成。ブリックスへの指値打診を試みますか。（アキ）</div>
+    <div class="confirm-item">⑦ <b>スマサテ賃料査定の実施</b> — 想定賃料56,000〜60,000円の妥当性確認。実勢賃料が下落した場合、実質利回りはさらに悪化します。（ハルト）</div>
+    <div class="confirm-item">⑧ <b>神奈川銀行90%融資の承認可否</b> — 新築・木造・町田市エリアで90%融資が実際に通るか事前確認推奨。P2のCF率1.55%はP1より大幅に改善します。（アキ）</div>
+  </div>
 </div>
 
 <!-- チーム総合所見 -->
-<div class="card">
-  <div class="section-title" style="background:#37474f;color:#fff;">🎯 チーム総合所見</div>
-  <div class="two-col">
-    <div>
-      <p><strong>強み</strong></p>
-      <ul>
-        <li>新築・劣化対策等級3・設備充実（独立洗面台・浴乾・宅配BOX等）</li>
-        <li>玉川大学という強い安定需要源が徒歩圏</li>
-        <li>auじぶん銀行 95%・2.4%・35年が取組み可能（担当者変更で再浮上）</li>
-        <li>CF+159.4万円・CCR16.24%・NOI利回り5.96%と数字は良好（6.5万円ベース）</li>
-        <li>8,180万円で自己資金981.6万円の範囲内</li>
-        <li>木造新築の節税メリット（初年度税引後CF+151万円）</li>
-      </ul>
+<div class="card summary-card">
+  <div class="card-hdr">🏢 チーム総合所見</div>
+  <div class="card-body">
+    <table>
+      <tr><th width="160">観点</th><th>評価</th></tr>
+      <tr><td>総合判定</td><td><span class="tag tag-ng">現時点: 見送り推奨</span>（キャプテンの基準緩和判断後に再判断）</td></tr>
+      <tr><td>最大リスク</td><td>①利回りNG（6.81% vs 基準7.1%） ②16号外側エリア ③積算比率60%未達（全路線価シナリオ）</td></tr>
+      <tr><td>評価できる点</td><td>新築・所有権・劣化対策等級3等級（予定）・1億円以内・玉川学園大学の安定学生需要・BRICKSとの既存実績</td></tr>
+      <tr><td>ポジティブシナリオ</td><td>▲338万指値（7,842万円）＋神奈川銀行90%融資 → CF率1.7%台・CF126万円/年超。利回り7.1%達成。ただし積算・CCRは依然NG。</td></tr>
+      <tr><td>ネガティブシナリオ</td><td>想定賃料が52,000〜55,000円に落ちると実質利回り6.2〜6.5%台・CF率はさらに悪化。私道問題が解消されない場合は融資拒否リスク。</td></tr>
+    </table>
+    <div class="next-action" style="margin-top:14px">
+      <b>次のアクション（優先順）</b>
+      <ol style="padding-left:20px;margin-top:8px">
+        <li><b>キャプテン判断:</b> 「利回り基準緩和なし・16号外側NG」→ 見送り確定。澤井さんには不通知（基準未達として記録）。</li>
+        <li><b>キャプテン判断:</b> 「指値交渉・再検討可」→ 路線価確認＋スマサテ査定＋私道確認を並行実施。7,842万円の指値を澤井さんに打診。</li>
+        <li><b>指値承諾後:</b> 神奈川銀行90%融資の事前打診・DD継続（私道承諾書・手付金保全・インスペクション条件化）へ進む。</li>
+      </ol>
     </div>
-    <div>
-      <p><strong>懸念点</strong></p>
-      <ul>
-        <li>16号外側でキャプテン基準NG（エリア基準の例外判断が必要）</li>
-        <li>賃料6.5万円の根拠不明確（概要書は5.6〜6.0万円、安全賃料は6.0〜6.2万円）</li>
-        <li>私道持分・通行掘削同意書の未確認（融資否決リスクあり）</li>
-        <li>積算比率未確定（路線価次第でNG）</li>
-        <li>完成前物件（2026年9月末）のリスク</li>
-        <li>各戸18.63㎡は1Kとして最低限の広さ</li>
-      </ul>
+    <div style="margin-top:12px;font-size:12px;color:#607d8b;text-align:right">
+      精査: ハルト（朝倉晴斗）・リョウ（黒沢涼）・アキ（三宅亜紀）・村田先生（村田誠一）｜TC Capitals 不動産仕入部
     </div>
-  </div>
-
-  <div style="margin-top:14px;padding:12px 16px;background:#f5f6fa;border-radius:6px;font-size:13px;">
-    <strong>最大リスク:</strong> 私道持分・通行掘削同意書の未確認。これが確認できない場合、auじぶん銀行の融資自体が否決される可能性あり。<br>
-    <strong>次のアクション:</strong> ①私道持分の登記確認を澤井さんへ即依頼 → ②路線価確認 → ③賃料根拠資料の取り寄せ → 全て問題なければGO判断可能。
-  </div>
-
-  <div class="verdict verdict-hold">
-    チーム総合判定: <strong>HOLD（要確認事項3点クリア後 再判断）</strong><br>
-    <span style="font-size:14px;font-weight:400;">数字は6.5万円賃料前提でOK圏。ただし16号外側・賃料根拠・私道持分の3点確認が先決。</span>
   </div>
 </div>
 
