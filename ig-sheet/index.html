@@ -423,7 +423,7 @@ body{padding-bottom:62px;}
       <div class="cell">
         <span class="cell-label">表面利回り</span>
         <div class="cell-input">
-          <input type="number" id="grossYield" value="7.45" step="0.01" oninput="if(yieldMode==='yield'){document.getElementById('pi_yield_inp').value=this.value;}calc()">
+          <input type="number" id="grossYield" value="7.45" step="0.01" oninput="onGrossYieldInput()">
           <span class="cell-unit">[%]</span>
         </div>
       </div>
@@ -932,6 +932,17 @@ function onYieldInput() {
   calc();
 }
 
+function onGrossYieldInput() {
+  var gy = parseFloat(document.getElementById('grossYield').value) || 0;
+  if (yieldMode === 'yield') {
+    document.getElementById('pi_yield_inp').value = gy;
+  } else {
+    var price = parseFloat(document.getElementById('price').value) || 0;
+    document.getElementById('pi_yield_inp').value = price > 0 ? Math.round(price * gy / 100) : 0;
+  }
+  calc();
+}
+
 function setLtvMode(mode) {
   ltvMode = mode;
   var inp  = document.getElementById('ltvInput');
@@ -1289,9 +1300,9 @@ function calc(){
 
   // 部屋数・部屋当たり平均月収
   const rooms = parseFloat(document.getElementById('pi_rooms_inp').value) || 0;
-  const roomMonthlyInc = (rooms > 0 && rentTotalYen > 0) ? rentTotalYen / rooms / 12 : 0;
+  const roomMonthlyInc = (rooms > 0 && fullGrossInc > 0) ? fullGrossInc / 12 / rooms : 0;
   el('pi_room_income').textContent     = roomMonthlyInc > 0 ? fmt0(roomMonthlyInc) : '—';
-  el('pi_room_income_sub').textContent = roomMonthlyInc > 0 ? '（年収 ' + fmt0(rentTotalYen / rooms) + '円/戸）' : '';
+  el('pi_room_income_sub').textContent = roomMonthlyInc > 0 ? '（年収 ' + fmt0(fullGrossInc / rooms) + '円/戸）' : '';
   const roomSqm = (rooms > 0 && floorArea > 0) ? (floorArea / rooms).toFixed(1) : null;
   el('pi_room_sqm').textContent = roomSqm ? '（1戸 ' + roomSqm + '㎡）' : '';
 
