@@ -1,0 +1,1902 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>物件DDリスト｜TC Capitals</title>
+<style>
+  :root {
+    --primary: #1a237e;
+    --primary-light: #3949ab;
+    --accent: #e65100;
+    --ok: #2e7d32;
+    --ng: #c62828;
+    --warn: #e65100;
+    --pending: #1565c0;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --border: #dde3ee;
+    --text: #1a1a2e;
+    --muted: #607d8b;
+    --section-a: #e8eaf6;
+    --section-b: #e8f5e9;
+    --section-c: #fff3e0;
+    --section-d: #fce4ec;
+    --section-e: #e0f7fa;
+    --section-f: #f3e5f5;
+    --section-g: #e1f5fe;
+    --section-h: #f9fbe7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ===== HEADER ===== */
+  .site-header {
+    background: var(--primary);
+    color: white;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .site-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .site-header h1 {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .prop-name-display {
+    font-size: 14px;
+    opacity: 0.85;
+    font-weight: 400;
+    font-style: italic;
+  }
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 200px;
+  }
+  .progress-bar-bg {
+    flex: 1;
+    height: 8px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: #69f0ae;
+    border-radius: 4px;
+    transition: width 0.3s;
+  }
+  .progress-text {
+    font-size: 12px;
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  /* ===== MAIN LAYOUT ===== */
+  .container {
+    max-width: 960px;
+    margin: 24px auto;
+    padding: 0 16px 60px;
+  }
+
+  /* ===== CRITERIA BADGE ===== */
+  .criteria-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    background: var(--primary);
+    color: white;
+    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .criteria-badge {
+    background: rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 3px 10px;
+    white-space: nowrap;
+  }
+
+  /* ===== PROPERTY INFO CARD ===== */
+  .prop-info-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    border: 1px solid var(--border);
+  }
+  .prop-info-card h2 {
+    font-size: 15px;
+    color: var(--primary);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--section-a);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .info-field label {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .info-field input, .info-field select, .info-field textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 7px 10px;
+    font-size: 13px;
+    background: #fafbfc;
+    color: var(--text);
+    transition: border 0.2s;
+    font-family: inherit;
+  }
+  .info-field input:focus, .info-field select:focus, .info-field textarea:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    background: white;
+  }
+  .info-field textarea {
+    resize: vertical;
+    min-height: 60px;
+  }
+  .info-field.wide { grid-column: span 2; }
+  .info-field.full { grid-column: 1 / -1; }
+
+  /* ===== SCREENING RESULT ===== */
+  .screening-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .screen-item {
+    border-radius: 8px;
+    padding: 10px 12px;
+    border: 2px solid transparent;
+    text-align: center;
+  }
+  .screen-item .s-label { font-size: 11px; color: var(--muted); font-weight: 600; }
+  .screen-item .s-value { font-size: 16px; font-weight: 700; margin: 2px 0; }
+  .screen-item .s-bench { font-size: 11px; opacity: 0.7; }
+  .screen-item.ok { background: #e8f5e9; border-color: var(--ok); color: var(--ok); }
+  .screen-item.ng { background: #ffebee; border-color: var(--ng); color: var(--ng); }
+  .screen-item.pending { background: #e3f2fd; border-color: var(--pending); color: var(--pending); }
+
+  /* ===== SECTION ===== */
+  .section {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 0;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .section-header:hover { filter: brightness(0.97); }
+  .section-header h3 {
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+  .section-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec-progress {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .toggle-icon { font-size: 12px; color: var(--muted); }
+  .section-body { padding: 0 20px 16px; }
+
+  /* Section colors */
+  .sec-a .section-header { background: var(--section-a); }
+  .sec-a .section-number { background: #3949ab; }
+  .sec-b .section-header { background: var(--section-b); }
+  .sec-b .section-number { background: #2e7d32; }
+  .sec-c .section-header { background: var(--section-c); }
+  .sec-c .section-number { background: #e65100; }
+  .sec-d .section-header { background: var(--section-d); }
+  .sec-d .section-number { background: #ad1457; }
+  .sec-e .section-header { background: var(--section-e); }
+  .sec-e .section-number { background: #00838f; }
+  .sec-f .section-header { background: var(--section-f); }
+  .sec-f .section-number { background: #6a1b9a; }
+  .sec-g .section-header { background: var(--section-g); }
+  .sec-g .section-number { background: #0277bd; }
+  .sec-h .section-header { background: var(--section-h); }
+  .sec-h .section-number { background: #558b2f; }
+
+  /* ===== CHECK ITEM ===== */
+  .check-group {
+    margin-top: 12px;
+  }
+  .check-group-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 14px 0 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: 6px;
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+  .check-item:hover { background: #f0f4ff; }
+  .check-item.checked { opacity: 0.6; }
+  .check-item.checked .item-text { text-decoration: line-through; }
+
+  .check-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    cursor: pointer;
+    accent-color: var(--primary);
+  }
+  .item-content { flex: 1; }
+  .item-text { font-size: 13px; }
+  .item-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .item-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+  }
+  .tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 7px;
+    border-radius: 10px;
+    letter-spacing: 0.02em;
+  }
+  .tag-doc { background: #e3f2fd; color: #1565c0; }
+  .tag-calc { background: #e8f5e9; color: #2e7d32; }
+  .tag-visit { background: #fff3e0; color: #bf360c; }
+  .tag-legal { background: #fce4ec; color: #ad1457; }
+  .tag-ask { background: #ffe082; color: #5d4037; border: 1px solid #ffca28; }
+  .tag-critical { background: #ffebee; color: #b71c1c; border: 1px solid #ef9a9a; }
+  .tag-auto { background: #e8eaf6; color: #3949ab; }
+
+  /* ===== NOTE FIELD ===== */
+  .note-field {
+    margin-top: 6px;
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 12px;
+    background: #fafbfc;
+    color: var(--text);
+    resize: vertical;
+    min-height: 48px;
+    font-family: inherit;
+    transition: border 0.2s;
+  }
+  .note-field:focus { outline: none; border-color: var(--primary-light); background: white; }
+  .note-label {
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 600;
+    margin-top: 8px;
+    display: block;
+  }
+
+  /* ===== CALC RESULT BOX ===== */
+  .calc-box {
+    background: #f8faff;
+    border: 1px solid #c5cae9;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin: 12px 0;
+  }
+  .calc-box h4 {
+    font-size: 12px;
+    color: var(--primary-light);
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .calc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    border-bottom: 1px solid #e8eaf6;
+    gap: 8px;
+  }
+  .calc-row:last-child { border-bottom: none; }
+  .calc-row .c-label { font-size: 12px; color: var(--text); flex: 1; }
+  .calc-row .c-input {
+    width: 130px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 4px 8px;
+    font-size: 12px;
+    text-align: right;
+    background: white;
+    font-family: 'Consolas', monospace;
+  }
+  .calc-row .c-result {
+    font-size: 13px;
+    font-weight: 700;
+    min-width: 100px;
+    text-align: right;
+    color: var(--primary);
+  }
+  .calc-divider {
+    border-top: 2px solid var(--primary-light);
+    margin: 6px 0;
+  }
+
+  /* ===== RYO QUESTION BOX ===== */
+  .ryo-box {
+    background: linear-gradient(135deg, #fff8e1 0%, #fffde7 100%);
+    border: 2px solid #ffd54f;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 12px 0 4px;
+  }
+  .ryo-box-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .ryo-icon {
+    width: 28px;
+    height: 28px;
+    background: #ff8f00;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .ryo-box-header span {
+    font-size: 12px;
+    font-weight: 700;
+    color: #5d4037;
+  }
+  .ryo-questions { list-style: none; }
+  .ryo-questions li {
+    font-size: 12px;
+    color: #5d4037;
+    padding: 3px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .ryo-questions li::before { content: "→"; font-weight: 700; flex-shrink: 0; }
+
+  /* ===== ALERT BOX ===== */
+  .alert-box {
+    background: #ffebee;
+    border: 2px solid #ef9a9a;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 12px;
+    color: #b71c1c;
+    font-weight: 600;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  /* ===== STATUS STAMP ===== */
+  .status-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .status-select {
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    background: white;
+    cursor: pointer;
+    color: var(--text);
+    font-family: inherit;
+  }
+  .judge-stamp {
+    display: flex;
+    gap: 8px;
+  }
+  .stamp-btn {
+    padding: 8px 20px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .stamp-go { background: #e8f5e9; color: var(--ok); border-color: var(--ok); }
+  .stamp-go:hover, .stamp-go.active { background: var(--ok); color: white; }
+  .stamp-ng { background: #ffebee; color: var(--ng); border-color: var(--ng); }
+  .stamp-ng:hover, .stamp-ng.active { background: var(--ng); color: white; }
+  .stamp-hold { background: #fff3e0; color: var(--warn); border-color: var(--warn); }
+  .stamp-hold:hover, .stamp-hold.active { background: var(--warn); color: white; }
+
+  /* ===== FOOTER ===== */
+  .footer-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid var(--border);
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    z-index: 90;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.07);
+  }
+  .footer-bar .save-hint { font-size: 11px; color: var(--muted); }
+  .btn-save {
+    padding: 8px 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .btn-save:hover { background: var(--primary-light); }
+  .btn-print {
+    padding: 8px 16px;
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .btn-print:hover { background: var(--section-a); }
+
+  @media (max-width: 600px) {
+    .info-grid { grid-template-columns: 1fr; }
+    .info-field.wide { grid-column: 1; }
+    .screening-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media print {
+    .site-header, .footer-bar { position: static; }
+    .section-body { display: block !important; }
+    .check-item:hover { background: none; }
+  }
+
+  .collapsed { display: none; }
+
+  .broker-tag {
+    display: inline-block;
+    background: #e0e0e0;
+    color: #424242;
+    font-size: 10px;
+    padding: 1px 7px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 8px 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== STICKY HEADER ===== -->
+<header class="site-header">
+  <div class="criteria-bar">
+    <span>キャプテン基準</span>
+    <span class="criteria-badge">📍 16号内側</span>
+    <span class="criteria-badge">🏗️ 築10年以内</span>
+    <span class="criteria-badge">💴 1億円以下</span>
+    <span class="criteria-badge">📈 利回り7.1%+</span>
+    <span class="criteria-badge">🏛️ 新耐震（1981/6以降）</span>
+  </div>
+  <div class="site-header-inner">
+    <div>
+      <h1>🔍 物件DDリスト <span style="font-weight:400;opacity:0.7;font-size:13px;">TC Capitals / リョウ作成</span></h1>
+      <div class="prop-name-display" id="prop-name-display">三ツ境 二ツ橋中古AP</div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+      <div class="progress-text" id="progress-text">0 / 0</div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ===== 物件基本情報 ===== -->
+  <div class="prop-info-card">
+    <h2>📋 物件基本情報</h2>
+    <div class="info-grid">
+      <div class="info-field wide">
+        <label>物件名・通称</label>
+        <input type="text" id="prop-name" placeholder="例: ○○アパート 上大岡" oninput="updatePropName(this.value)"></div>
+      <div class="info-field wide">
+        <label>所在地（住所）</label>
+        <input type="text" id="prop-addr" placeholder="例: 横浜市南区大岡4丁目〇〇"></div>
+      <div class="info-field">
+        <label>交通アクセス</label>
+        <input type="text" id="prop-access" placeholder="例: 京急 上大岡駅 徒歩9分"></div>
+      <div class="info-field">
+        <label>構造</label>
+        <select id="prop-struct">木造3階建（2×4工法）<option value="">選択</option>
+          <option value="木造">木造（耐用22年）</option>
+          <option value="軽量鉄骨">軽量鉄骨（耐用19年）</option>
+          <option value="重量鉄骨">重量鉄骨（耐用34年）</option>
+          <option value="RC">RC造（耐用47年）</option>
+        </select>
+      </div>
+      <div class="info-field">
+        <label>築年月（確認申請日）</label>
+        <input type="text" id="prop-age" placeholder="例: 2019年3月（築6年）"></div>
+      <div class="info-field">
+        <label>物件価格（万円）</label>
+        <input type="number" id="prop-price" placeholder="例: 8500"></div>
+      <div class="info-field">
+        <label>表面利回り（%）</label>
+        <input type="number" step="0.01" id="prop-yield" placeholder="例: 7.27"></div>
+      <div class="info-field">
+        <label>部屋数・間取り</label>
+        <input type="text" id="prop-rooms" placeholder="例: 1K×12戸"></div>
+      <div class="info-field">
+        <label>延床面積（㎡）</label>
+        <input type="number" id="prop-floor" placeholder="例: 194"></div>
+      <div class="info-field">
+        <label>土地面積（㎡）</label>
+        <input type="number" id="prop-land" placeholder="例: 558"></div>
+      <div class="info-field">
+        <label>取引態様</label>
+        <select id="prop-torihiki">仲介（BRICKS）<option value="">選択</option>
+          <option value="仲介">仲介（諸費用7%）</option>
+          <option value="売主">売主（諸費用4%）</option>
+        </select>
+      </div>
+      <div class="info-field">
+        <label>仲介業者・担当者</label>
+        <input type="text" id="prop-broker" placeholder="例: 藤仁エステート 工藤"></div>
+      <div class="info-field">
+        <label>情報入手日</label>
+        <input type="date" id="prop-date">2026-06-06</div>
+      <div class="info-field full">
+        <label>初見メモ・特記事項</label>
+        <textarea id="prop-memo" placeholder="例: 路線価180千円/㎡・積算108%・静岡銀行Aプランで融資打診可能…">医療法人一括借上（2029年3月19日満期）・契約不適合免責・LPガス継承必要・Jcom9,801円/月オーナー負担・宅地造成等工事規制区域</textarea>
+      </div>
+    </div>
+
+    <!-- 一次スクリーニング -->
+    <div style="margin-top:20px;">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">⚡ 一次スクリーニング（即判断）</div>
+      <div class="screening-grid" id="screening-grid">
+        <div class="screen-item pending" id="sc-price">
+          <div class="s-label">物件価格</div>
+          <div class="s-value" id="sc-price-val">—</div>
+          <div class="s-bench">基準: 1億円以下</div>
+        </div>
+        <div class="screen-item pending" id="sc-yield">
+          <div class="s-label">表面利回り</div>
+          <div class="s-value" id="sc-yield-val">—</div>
+          <div class="s-bench">基準: 7.1%以上</div>
+        </div>
+        <div class="screen-item pending" id="sc-age">
+          <div class="s-label">築年数</div>
+          <div class="s-value" id="sc-age-val">—</div>
+          <div class="s-bench">基準: 10年以内</div>
+        </div>
+        <div class="screen-item pending" id="sc-shintar">
+          <div class="s-label">新耐震基準</div>
+          <div class="s-value">手動確認</div>
+          <div class="s-bench">1981/6以降</div>
+        </div>
+        <div class="screen-item pending" id="sc-area">
+          <div class="s-label">エリア</div>
+          <div class="s-value">手動確認</div>
+          <div class="s-bench">16号内側</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 判定スタンプ -->
+    <div class="status-row">
+      <div>
+        <label style="font-size:11px;color:var(--muted);font-weight:700;">DD進捗ステータス</label><br>
+        <select class="status-select" id="dd-status">
+          <option value="検討中">🔍 検討中</option>
+          <option value="資料収集">📂 資料収集</option>
+          <option value="現地調査">🚶 現地調査</option>
+          <option value="融資打診">🏦 融資打診</option>
+          <option value="買付提出">📝 買付提出</option>
+          <option value="契約済">✅ 契約済</option>
+          <option value="見送り">❌ 見送り</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:11px;color:var(--muted);font-weight:700;">最終判断</label><br>
+        <div class="judge-stamp">
+          <button class="stamp-btn stamp-go" onclick="setJudge('GO')">✅ GO</button>
+          <button class="stamp-btn stamp-hold" onclick="setJudge('HOLD')">⏸ HOLD</button>
+          <button class="stamp-btn stamp-ng" onclick="setJudge('NG')">❌ NG</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 1: 書類確認 ===== -->
+  <div class="section sec-b" id="sec-1">
+    <div class="section-header" onclick="toggleSection('sec-1')">
+      <h3>
+        <span class="section-number">1</span>
+        📂 書類確認 DD
+      </h3>
+      <div class="section-meta">
+        <span class="sec-progress" id="sec-1-prog">0/0</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+    </div>
+    <div class="section-body" id="sec-1-body">
+      <div class="ryo-box">
+        <div class="ryo-box-header"><div class="ryo-icon">涼</div><span>リョウより確認したいこと</span></div>
+        <ul class="ryo-questions">
+          <li>レントロールはもらっていますか？現況の空室・賃料を確認したいです</li>
+          <li>公課証明書 or 納税通知書は入手済みですか？（固都税実額確認のため）</li>
+          <li>修繕履歴はありますか？特に屋根・外壁・給排水の修繕状況を知りたいです</li>
+          <li>確認済証・検査済証の有無を仲介に確認してもらえますか？</li>
+        </ul>
+      </div>
+
+      <div class="check-group">
+        <div class="check-group-title">基礎資料</div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">📄 レントロール（賃貸借条件一覧）を入手</div>
+            <div class="item-sub">全戸の賃料・共益費・契約期間・空室状況・長期空室の有無を確認</div>
+            <div class="item-tags">
+              <span class="tag tag-doc">書類</span>
+              <span class="tag tag-critical">必須</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 確認内容・メモ</span>
+        <textarea class="note-field" placeholder="例: 全12戸満室・賃料均一7.5万・長期空室なし…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">📄 公課証明書 または 納税通知書を入手</div>
+            <div class="item-sub">固定資産税・都市計画税の実額確認（概算は年収の10%、実額で精緻計算に使用）</div>
+            <div class="item-tags">
+              <span class="tag tag-doc">書類</span>
+              <span class="tag tag-critical">必須</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 固都税実額（円/年）</span>
+        <textarea class="note-field" placeholder="例: 固定資産税 ○○万円 / 都市計画税 ○万円 / 合計 ○万円"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">📄 登記簿謄本（土地・建物）を確認</div>
+            <div class="item-sub">築年月日・所有権・抵当権・差押え・仮差押えの有無を確認</div>
+            <div class="item-tags">
+              <span class="tag tag-doc">書類</span>
+              <span class="tag tag-critical">必須</span>
+              <span class="tag tag-legal">法務</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 確認内容（抵当権・差押えの有無など）</span>
+        <textarea class="note-field" placeholder="例: 抵当権あり（残債○○万円・○○銀行）、差押なし…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">📄 確認済証 または 検査済証を確認</div>
+            <div class="item-sub">新耐震基準の確認申請日を必ず確認（1981年6月1日以降が必須条件）</div>
+            <div class="item-tags">
+              <span class="tag tag-doc">書類</span>
+              <span class="tag tag-critical">必須</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 確認申請日</span>
+        <textarea class="note-field" placeholder="例: 確認申請 2019年1月15日 → 新耐震OK"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">📄 過去3年分の修繕履歴を入手</div>
+            <div class="item-sub">大規模修繕（外壁・屋根・給排水・電気系統）が直近に控えていないか確認</div>
+            <div class="item-tags">
+              <span class="tag tag-doc">書類</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 修繕履歴サマリー</span>
+        <textarea class="note-field" placeholder="例: 2023年 外壁塗装実施済・2024年 給湯器全戸交換済・大規模修繕の予定なし…"></textarea>
+
+        <div class="check-group-title">法的関係</div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🗺️ ハザードマップ確認（洪水・土砂・液状化）</div>
+            <div class="item-sub">国土交通省・各自治体ハザードマップポータルで確認。融資NGになる可能性を事前チェック</div>
+            <div class="item-tags">
+              <span class="tag tag-legal">法務</span>
+              <span class="tag tag-ask">要確認</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 ハザードマップ結果</span>
+        <textarea class="note-field" placeholder="例: 洪水リスク低・土砂災害区域外・液状化リスク低…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🛣️ 前面道路の幅員・種別確認</div>
+            <div class="item-sub">建築基準法上の道路か・幅員4m以上か・位置指定道路・再建築可否</div>
+            <div class="item-tags">
+              <span class="tag tag-legal">法務</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 道路状況</span>
+        <textarea class="note-field" placeholder="例: 前面道路幅員6m・公道・再建築可…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">⛰️ 擁壁・崖・高低差の確認</div>
+            <div class="item-sub">擁壁がある場合は検査済み・適法かを確認。オリックスはNGが多い。神奈川銀行は実績あり</div>
+            <div class="item-tags">
+              <span class="tag tag-legal">法務</span>
+              <span class="tag tag-ask">要確認</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 擁壁・高低差状況</span>
+        <textarea class="note-field" placeholder="例: 擁壁なし・平地…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🏘️ 用途地域・建蔽率・容積率の確認</div>
+            <div class="item-sub">現状の建物が法規制内に収まっているか。将来増築・建替えのポテンシャルも確認</div>
+            <div class="item-tags">
+              <span class="tag tag-legal">法務</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 用途地域・建蔽容積率</span>
+        <textarea class="note-field" placeholder="例: 第一種住居地域・建蔽60%・容積200%…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">📏 境界確認（隣地との越境・境界標）</div>
+            <div class="item-sub">越境物・境界標の有無・越境協定の有無</div>
+            <div class="item-tags">
+              <span class="tag tag-legal">法務</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 境界状況</span>
+        <textarea class="note-field" placeholder="例: 境界明示済み・越境なし・境界標確認済み…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">📜 管理規約・議事録の確認（区分所有の場合のみ）</div>
+            <div class="item-sub">修繕積立金残高・大規模修繕の計画・ペット可否・民泊禁止規定</div>
+            <div class="item-tags">
+              <span class="tag tag-doc">書類</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 2: 収支シミュレーション ===== -->
+  <div class="section sec-c" id="sec-2">
+    <div class="section-header" onclick="toggleSection('sec-2')">
+      <h3>
+        <span class="section-number">2</span>
+        📊 収支シミュレーション DD
+      </h3>
+      <div class="section-meta">
+        <span class="sec-progress" id="sec-2-prog">0/0</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+    </div>
+    <div class="section-body" id="sec-2-body">
+      <div class="ryo-box">
+        <div class="ryo-box-header"><div class="ryo-icon">涼</div><span>リョウより確認したいこと</span></div>
+        <ul class="ryo-questions">
+          <li>公課証明書の実額が入手できたら教えてください。NOIの精度が上がります</li>
+          <li>提携融資先・金利・期間の条件を教えてください。CF計算に使います</li>
+          <li>路線価はわかりますか？（国税庁HPで確認できます）積算評価に必要です</li>
+          <li>IGシート（InvestGate+）での計算結果があれば共有してください</li>
+        </ul>
+      </div>
+
+      <div class="check-group">
+        <div class="check-group-title">収益計算</div>
+
+        <div class="calc-box">
+          <h4>📐 簡易収支入力（75%ルール）</h4>
+          <div class="calc-row">
+            <span class="c-label">満室時年間収入（万円）</span>
+            <input class="c-input" type="number" id="c-income" placeholder="例: 1080" oninput="calcCF()">
+            <span class="c-result" id="r-income">—</span>
+          </div>
+          <div class="calc-row">
+            <span class="c-label">空室率（%）</span>
+            <input class="c-input" type="number" id="c-vacancy" value="5" oninput="calcCF()">
+          </div>
+          <div class="calc-row">
+            <span class="c-label">年間実収入（空室控除後）</span>
+            <span class="c-result" id="r-net-income" style="font-size:14px;color:var(--ok);">—</span>
+          </div>
+          <div class="calc-divider"></div>
+          <div class="calc-row">
+            <span class="c-label">固都税（万円/年）※公課証明書実額</span>
+            <input class="c-input" type="number" id="c-tax" placeholder="実額入力" oninput="calcCF()">
+          </div>
+          <div class="calc-row">
+            <span class="c-label">管理費（実収の5%）</span>
+            <span class="c-result" id="r-mgmt">—</span>
+          </div>
+          <div class="calc-row">
+            <span class="c-label">修繕費概算（万円/年）</span>
+            <input class="c-input" type="number" id="c-repair" placeholder="例: 20" oninput="calcCF()">
+          </div>
+          <div class="calc-row">
+            <span class="c-label">その他費用（万円/年）</span>
+            <input class="c-input" type="number" id="c-other" placeholder="例: 10" oninput="calcCF()">
+          </div>
+          <div class="calc-divider"></div>
+          <div class="calc-row">
+            <span class="c-label"><strong>NOI（年間純収益）</strong></span>
+            <span class="c-result" id="r-noi" style="font-size:15px;color:var(--primary);font-weight:700;">—</span>
+          </div>
+          <div class="calc-row">
+            <span class="c-label">NOI利回り</span>
+            <span class="c-result" id="r-noi-yield">—</span>
+          </div>
+          <div class="calc-divider"></div>
+          <div class="calc-row">
+            <span class="c-label">ローン金額（万円）</span>
+            <input class="c-input" type="number" id="c-loan" placeholder="例: 8500" oninput="calcCF()">
+          </div>
+          <div class="calc-row">
+            <span class="c-label">金利（%）</span>
+            <input class="c-input" type="number" step="0.1" id="c-rate" value="2.6" oninput="calcCF()">
+          </div>
+          <div class="calc-row">
+            <span class="c-label">返済期間（年）</span>
+            <input class="c-input" type="number" id="c-term" value="35" oninput="calcCF()">
+          </div>
+          <div class="calc-divider"></div>
+          <div class="calc-row">
+            <span class="c-label">年間返済額</span>
+            <span class="c-result" id="r-repay">—</span>
+          </div>
+          <div class="calc-row">
+            <span class="c-label">返済比率</span>
+            <span class="c-result" id="r-repay-ratio">—</span>
+          </div>
+          <div class="calc-row">
+            <span class="c-label"><strong>税引前CF（年間）</strong></span>
+            <span class="c-result" id="r-cf" style="font-size:16px;font-weight:700;">—</span>
+          </div>
+          <div class="calc-row">
+            <span class="c-label"><strong>CF率</strong></span>
+            <span class="c-result" id="r-cf-rate" style="font-size:15px;font-weight:700;">—</span>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">📊 InvestGate+（IGシート）で詳細シミュレーション実施</div>
+            <div class="item-sub">管理手数料・空室率・修繕費率・固都税を実態値に合わせてカスタマイズ。CF率A〜D判定を確認</div>
+            <div class="item-tags">
+              <span class="tag tag-calc">計算</span>
+              <span class="tag tag-critical">必須</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 IGシート判定結果</span>
+        <textarea class="note-field" placeholder="例: CF率 B判定（1.52%）・CCR 18.3%・返済比率 61.2%…"></textarea>
+
+        <div class="check-group-title">積算評価</div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🗺️ 路線価確認（国税庁WEBサイト）</div>
+            <div class="item-sub">路線価（円/㎡）× 土地面積 = 土地評価額。積算価格・融資評価の土台</div>
+            <div class="item-tags">
+              <span class="tag tag-calc">計算</span>
+              <span class="tag tag-ask">要確認</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 路線価・土地評価額</span>
+        <textarea class="note-field" placeholder="例: 路線価 180千円/㎡ × 土地558㎡ = 土地評価額1億44万円…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🏗️ 積算価格（建物評価額）の計算</div>
+            <div class="item-sub">再調達原価 × 残存価値率。RC=20万/㎡、木造=15万/㎡目安。「積算評価額 ÷ 物件価格 ≥ 60%」をチェック</div>
+            <div class="item-tags">
+              <span class="tag tag-calc">計算</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 積算評価額・積算比率</span>
+        <textarea class="note-field" placeholder="例: 土地1億44万 + 建物1,200万 = 積算評価額1億1,244万（積算比率108%）…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">📉 デッドクロス時期の試算</div>
+            <div class="item-sub">減価償却費の消滅タイミング＝課税所得が急増するポイント。出口戦略に組み込む</div>
+            <div class="item-tags">
+              <span class="tag tag-calc">計算</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 デッドクロス年・税引後CF試算</span>
+        <textarea class="note-field" placeholder="例: 残存耐用年数○年 → 減価償却費○万/年 → デッドクロス○年後…"></textarea>
+
+        <div class="check-group-title">CCR（自己資金回収率）</div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">💰 自己資金・CCR（自己資金利回り）の計算</div>
+            <div class="item-sub">CCR = 年間CF ÷ 自己資金。首都圏目標10%以上。LTV90%なら頭金10%+諸費用が自己資金</div>
+            <div class="item-tags">
+              <span class="tag tag-calc">計算</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 自己資金額・CCR</span>
+        <textarea class="note-field" placeholder="例: 自己資金=頭金850万+諸費用595万=1,445万 / CF○万÷1,445万=CCR○%…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🧾 税理士と税引後CFを確認</div>
+            <div class="item-sub">課税所得・実効税率・減価償却メリット・デッドクロス後の税負担を試算してもらう</div>
+            <div class="item-tags">
+              <span class="tag tag-calc">計算</span>
+              <span class="tag tag-ask">要確認</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 税理士確認結果</span>
+        <textarea class="note-field" placeholder="例: 実効税率○%・初年度税引後CF○万…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 3: 現地調査 ===== -->
+  <div class="section sec-d" id="sec-3">
+    <div class="section-header" onclick="toggleSection('sec-3')">
+      <h3>
+        <span class="section-number">3</span>
+        🚶 現地調査 DD
+      </h3>
+      <div class="section-meta">
+        <span class="sec-progress" id="sec-3-prog">0/0</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+    </div>
+    <div class="section-body" id="sec-3-body">
+      <div class="ryo-box">
+        <div class="ryo-box-header"><div class="ryo-icon">涼</div><span>リョウより確認したいこと</span></div>
+        <ul class="ryo-questions">
+          <li>現地に行く前に写真・Googleストリートビューで外観は確認しましたか？</li>
+          <li>空室がある場合は必ず内見してください。私が聞きたいのは「雨漏り・カビ・水回りの状態」です</li>
+          <li>現地近隣の仲介業者に立ち寄って賃料相場を確認してもらえますか？</li>
+          <li>実際に駅まで歩いて時間を計ってみてください（不動産表示との差異確認のため）</li>
+        </ul>
+      </div>
+
+      <div class="check-group">
+        <div class="check-group-title">建物・外観</div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🧱 外壁の状態確認（クラック・剥離・防水劣化）</div>
+            <div class="item-sub">ひび割れ・チョーキング・塗装剥がれ・シーリング劣化。大規模修繕のコスト見積もりに影響</div>
+            <div class="item-tags"><span class="tag tag-visit">現地</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 外壁状態</span>
+        <textarea class="note-field" placeholder="例: 外壁良好・ひびなし・2022年塗装済みの痕跡あり…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🏠 屋上・屋根の防水状態確認</div>
+            <div class="item-sub">膨れ・剥がれ・排水口の詰まり。防水シートの状態。陸屋根は特に注意</div>
+            <div class="item-tags"><span class="tag tag-visit">現地</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 屋上・屋根状態</span>
+        <textarea class="note-field" placeholder="例: 陸屋根・防水シート良好・排水口清掃済み…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🧹 共用部の清掃・管理状態確認</div>
+            <div class="item-sub">廊下・エントランス・ゴミ置き場・自転車置き場の清潔感。管理の質が入居率に直結</div>
+            <div class="item-tags"><span class="tag tag-visit">現地</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 共用部状態</span>
+        <textarea class="note-field" placeholder="例: エントランス清潔・ゴミ置き場整理済み・共用廊下の電球切れなし…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🔧 給排水・電気設備の目視確認</div>
+            <div class="item-sub">共用配管の状態・電気メーターの設置数・受水槽の有無</div>
+            <div class="item-tags"><span class="tag tag-visit">現地</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 設備状況</span>
+        <textarea class="note-field" placeholder="例: 各戸ガス・電気メーター設置・配管外観問題なし…"></textarea>
+
+        <div class="check-group-title">空室内見（必須）</div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🚪 空室を必ず内見（雨漏り跡・カビ・水回り・床の状態）</div>
+            <div class="item-sub">天井の雨漏り跡（黄ばみ）・壁面カビ・水回りの排水・床の傷み・臭い</div>
+            <div class="item-tags">
+              <span class="tag tag-visit">現地</span>
+              <span class="tag tag-critical">必須</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 空室内見結果（部屋番号・状態）</span>
+        <textarea class="note-field" placeholder="例: 101号室（空室）内見：雨漏りなし・水回り良好・フローリング若干傷…"></textarea>
+
+        <div class="check-group-title">立地・周辺環境</div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🚶 最寄り駅まで実際に歩いて時間計測</div>
+            <div class="item-sub">不動産広告との差異確認。信号待ち・坂道・距離感を自分の足で確認</div>
+            <div class="item-tags"><span class="tag tag-visit">現地</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 実測徒歩時間</span>
+        <textarea class="note-field" placeholder="例: 上大岡駅まで実測11分（広告値9分）・坂あり・信号3つ…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🏪 周辺環境（スーパー・コンビニ・病院・学校）の確認</div>
+            <div class="item-sub">生活利便性が賃貸需要に直結。ターゲット入居者層（会社員・家族等）に合っているか</div>
+            <div class="item-tags"><span class="tag tag-visit">現地</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 周辺環境メモ</span>
+        <textarea class="note-field" placeholder="例: 徒歩2分にスーパー・コンビニ2軒・近隣病院あり・静かな住宅地…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🏢 近隣仲介業者に「エリア賃料相場・空室状況」をヒアリング</div>
+            <div class="item-sub">現況賃料が適正か、今後の賃料下落リスクはないかを第三者目線で確認</div>
+            <div class="item-tags">
+              <span class="tag tag-visit">現地</span>
+              <span class="tag tag-critical">必須</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 仲介業者ヒアリング結果</span>
+        <textarea class="note-field" placeholder="例: エイブル○○店：1K7万前後が妥当・エリア空室率約5%・需要は安定…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🏗️ 周辺に新築競合物件の建設予定がないか確認</div>
+            <div class="item-sub">近くで大型マンション・アパートが建設中の場合、賃料相場が下がる可能性あり</div>
+            <div class="item-tags"><span class="tag tag-visit">現地</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 競合物件状況</span>
+        <textarea class="note-field" placeholder="例: 周辺300m以内に建設中物件なし・空き地なし…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 4: 融資 DD ===== -->
+  <div class="section sec-e" id="sec-4">
+    <div class="section-header" onclick="toggleSection('sec-4')">
+      <h3>
+        <span class="section-number">4</span>
+        🏦 融資 DD
+      </h3>
+      <div class="section-meta">
+        <span class="sec-progress" id="sec-4-prog">0/0</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+    </div>
+    <div class="section-body" id="sec-4-body">
+      <div class="ryo-box">
+        <div class="ryo-box-header"><div class="ryo-icon">涼</div><span>リョウより確認したいこと</span></div>
+        <ul class="ryo-questions">
+          <li>この物件の取得は法人名義・個人名義、どちらで検討していますか？（神奈川銀行は法人必須です）</li>
+          <li>打診する金融機関の優先順位を教えてください（オリックス・神奈川銀行・その他地銀）</li>
+          <li>擁壁・ハザード等の懸念がある場合、オリックスはNGになりやすいです。神奈川銀行を優先しますか？</li>
+          <li>前回使った融資枠の状況（残高・他行との並走状況）を教えてください</li>
+        </ul>
+      </div>
+
+      <div class="check-group">
+        <div class="check-group-title">融資計画</div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🏦 融資打診先の優先順位を決定</div>
+            <div class="item-sub">オリックス銀行（2.6%・フルローン）/ 神奈川銀行（2.25%・90%・法人必須）/ その他地銀を並走</div>
+            <div class="item-tags"><span class="tag tag-ask">要確認</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 打診先・優先順位</span>
+        <textarea class="note-field" placeholder="例: ①オリックス（フルローン狙い）②神奈川銀行（擁壁NGなら）③スルガ…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">📋 自己アピール資料（事業計画書）を最新化して提出準備</div>
+            <div class="item-sub">定量資産（現金・投信・不動産）・定性資産（職歴・ノウハウ）・今後の事業計画を更新</div>
+            <div class="item-tags"><span class="tag tag-doc">書類</span></div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">💼 属性資料の準備（源泉・確定申告・通帳コピー）</div>
+            <div class="item-sub">源泉徴収票3年・確定申告書3年・通帳コピー3〜6カ月・投資信託の評価証明書</div>
+            <div class="item-tags">
+              <span class="tag tag-doc">書類</span>
+              <span class="tag tag-critical">必須</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🔢 融資可否の事前照会（担当者レベルの打診）</div>
+            <div class="item-sub">物件概要・自己属性を伝えて融資意向を確認。本申込前に複数行に並走打診</div>
+            <div class="item-tags"><span class="tag tag-ask">要確認</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 各行の融資可否・条件回答</span>
+        <textarea class="note-field" placeholder="例: オリックス：擁壁理由でNG / 神奈川銀行：90%・2.25%で前向き回答 / 香川銀行：2.6%で検討可…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">📊 自己資本比率が10%以上を維持できるか確認</div>
+            <div class="item-sub">（総資産 − 総負債）÷ 総資産 ≥ 10%。信用毀損リスクの事前チェック</div>
+            <div class="item-tags"><span class="tag tag-calc">計算</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 取得後の自己資本比率試算</span>
+        <textarea class="note-field" placeholder="例: 取得後：総資産○億・負債○万・自己資本比率○%…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">⚠️ 積算価格 ＞ 残債（信用毀損なし）を確認</div>
+            <div class="item-sub">積算評価額が借入残債を上回っているか。担保余力がないと次の融資が止まる</div>
+            <div class="item-tags">
+              <span class="tag tag-calc">計算</span>
+              <span class="tag tag-critical">必須</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 積算評価 vs 融資額</span>
+        <textarea class="note-field" placeholder="例: 積算1億1,200万 > 融資残債8,500万 → 担保余力2,700万…"></textarea>
+
+        <div class="check-group-title">滋賀銀行 無担保枠の検討（必要に応じて）</div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🏦 滋賀銀行 無担保ローン枠の活用可否を確認</div>
+            <div class="item-sub">1,000〜1,500万円・最大3回利用。他行アパートローンとの併用時は事前照会必須</div>
+            <div class="item-tags"><span class="tag tag-ask">要確認</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 滋賀銀行の活用可否・残枠</span>
+        <textarea class="note-field" placeholder="例: 残枠○万円・他行との併用確認済み…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 5: 管理会社確認 ===== -->
+  <div class="section sec-f" id="sec-5">
+    <div class="section-header" onclick="toggleSection('sec-5')">
+      <h3>
+        <span class="section-number">5</span>
+        🏘️ 管理会社 DD
+      </h3>
+      <div class="section-meta">
+        <span class="sec-progress" id="sec-5-prog">0/0</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+    </div>
+    <div class="section-body" id="sec-5-body">
+      <div class="ryo-box">
+        <div class="ryo-box-header"><div class="ryo-icon">涼</div><span>リョウより確認したいこと</span></div>
+        <ul class="ryo-questions">
+          <li>今の管理会社はどこですか？そのまま引き継ぐ予定ですか？それとも変更を検討していますか？</li>
+          <li>管理手数料の率は何%ですか？（5%以内が目安、BRICKS案件の場合は2.75%）</li>
+          <li>現管理会社のリーシング（客付け）力はどう評価していますか？</li>
+        </ul>
+      </div>
+
+      <div class="check-group">
+        <div class="check-group-title">現管理会社の評価</div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🏢 現管理会社の管理戸数・入居率を確認</div>
+            <div class="item-sub">管理戸数1万戸以上・入居率95%前後が優良管理会社の目安</div>
+            <div class="item-tags"><span class="tag tag-ask">要確認</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 管理会社名・管理戸数・入居率</span>
+        <textarea class="note-field" placeholder="例: エイブル○○店・管理戸数2万戸・エリア入居率97%…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">📞 リーシング体制の確認（自社仲介か外部依頼か）</div>
+            <div class="item-sub">自社で客付けまで完結できるか。外部仲介依存だとAD費用がかかる</div>
+            <div class="item-tags"><span class="tag tag-ask">要確認</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 リーシング体制</span>
+        <textarea class="note-field" placeholder="例: 自社仲介で完結・SUUMOでの集客力あり…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">💰 管理手数料率の確認（目安: 3〜5%）</div>
+            <div class="item-sub">BRICKSは2.75%・通常は5%・10%超は要交渉。何に対して何%かを明確に確認</div>
+            <div class="item-tags"><span class="tag tag-ask">要確認</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 管理手数料率・計算基準</span>
+        <textarea class="note-field" placeholder="例: 月額賃料の5%・共益費除外・送金は翌月15日…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">📋 管理委託契約書の5項目チェック</div>
+            <div class="item-sub">①報酬規定 ②賃料収受先 ③送金スケジュール ④費用支払い取り決め（3〜5万以下裁量） ⑤解約予告期間（1ヶ月）</div>
+            <div class="item-tags">
+              <span class="tag tag-doc">書類</span>
+              <span class="tag tag-critical">必須</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 契約書チェック結果</span>
+        <textarea class="note-field" placeholder="例: ①5%（賃料+共益費の合計）②オーナー口座直接 ③翌月10日 ④5万以下裁量 ⑤1ヶ月前…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">👤 担当者・責任者（上司）の連絡先を把握</div>
+            <div class="item-sub">緊急時に担当者不在でも責任者に連絡できる体制を確認</div>
+            <div class="item-tags"><span class="tag tag-ask">要確認</span></div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🛡️ 保証会社への加入が全入居者に義務付けられているか確認</div>
+            <div class="item-sub">家賃保証会社の加入状況。未加入の入居者がいる場合は滞納リスクが高い</div>
+            <div class="item-tags"><span class="tag tag-ask">要確認</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 保証会社加入状況</span>
+        <textarea class="note-field" placeholder="例: 全入居者 フォーシーズ保証に加入済み…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 6: 出口戦略 ===== -->
+  <div class="section sec-g" id="sec-6">
+    <div class="section-header" onclick="toggleSection('sec-6')">
+      <h3>
+        <span class="section-number">6</span>
+        🚀 出口戦略 DD
+      </h3>
+      <div class="section-meta">
+        <span class="sec-progress" id="sec-6-prog">0/0</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+    </div>
+    <div class="section-body" id="sec-6-body">
+      <div class="check-group">
+        <div class="check-group-title">売却シミュレーション</div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">📉 10年後の出口価格を試算</div>
+            <div class="item-sub">出口価格 = NOI ÷ 出口還元利回り（8〜9%）。デッドクロス前の売却タイミングを計画</div>
+            <div class="item-tags"><span class="tag tag-calc">計算</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 出口試算（10年後）</span>
+        <textarea class="note-field" placeholder="例: 10年後NOI○万 ÷ 還元利回り8% = 売却想定価格○万円…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🏷️ レインズへの掲載（ラッキー価格での常時出口準備）</div>
+            <div class="item-sub">取得後すぐに高値で出し続けて出口意識を習慣化。好条件の買主が現れたら即対応</div>
+            <div class="item-tags"></div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🏗️ 次の買主への融資が付くか確認（新耐震・エリア・積算）</div>
+            <div class="item-sub">売却時に次の買主が融資を使えないと売れない。新耐震・16号内側・積算評価が鍵</div>
+            <div class="item-tags">
+              <span class="tag tag-critical">必須</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 出口時の流動性評価</span>
+        <textarea class="note-field" placeholder="例: 新耐震・上大岡駅徒歩9分・積算108%→流動性高い…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 7: 売買契約 ===== -->
+  <div class="section sec-h" id="sec-7">
+    <div class="section-header" onclick="toggleSection('sec-7')">
+      <h3>
+        <span class="section-number">7</span>
+        📝 売買契約 DD
+      </h3>
+      <div class="section-meta">
+        <span class="sec-progress" id="sec-7-prog">0/0</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+    </div>
+    <div class="section-body" id="sec-7-body">
+      <div class="alert-box">
+        ⚠️ ローン特約なしで契約締結は絶対禁止。手付金没収リスクがあります
+      </div>
+
+      <div class="check-group">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🛡️ ローン特約（融資特約）が必ず入っているか確認</div>
+            <div class="item-sub">融資承認が得られなかった場合、白紙解除・手付金返還の特約。期日は4〜6週間以上</div>
+            <div class="item-tags">
+              <span class="tag tag-critical">必須</span>
+              <span class="tag tag-doc">書類</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 融資特約の期日・条件</span>
+        <textarea class="note-field" placeholder="例: 融資特約あり・期日：契約から6週間後・金額全額を条件…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">💴 手付金の金額と条件を確認</div>
+            <div class="item-sub">手付金は物件価格の5〜10%が相場。買主解除なら手付放棄・売主解除なら倍返しが原則</div>
+            <div class="item-tags"><span class="tag tag-doc">書類</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 手付金額・解除条件</span>
+        <textarea class="note-field" placeholder="例: 手付金100万円・買主解除=放棄・売主解除=200万返還…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">⚖️ 契約不適合責任の内容・免責期間を確認</div>
+            <div class="item-sub">雨漏り・シロアリ・設備不具合等の隠れた欠陥。免責になっている場合は価格交渉の余地あり</div>
+            <div class="item-tags"><span class="tag tag-doc">書類</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 契約不適合責任の内容</span>
+        <textarea class="note-field" placeholder="例: 引渡し後3ヶ月以内の告知事項のみ責任あり・設備免責…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🏗️ 土地建物割合の交渉（建物割合を最大化）</div>
+            <div class="item-sub">建物割合が高いほど減価償却費が増え、節税効果が大きい。固定資産税評価額を参考に交渉</div>
+            <div class="item-tags">
+              <span class="tag tag-calc">計算</span>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 合意した土地建物割合</span>
+        <textarea class="note-field" placeholder="例: 土地40%・建物60%で合意 → 建物価格5,100万・減価償却○万/年…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">📅 決済日・引渡日のスケジュール確認</div>
+            <div class="item-sub">融資承認→決済まで通常2〜4週間。神奈川銀行はスピード対応可</div>
+            <div class="item-tags"><span class="tag tag-doc">書類</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 決済日・引渡日</span>
+        <textarea class="note-field" placeholder="例: 決済日：2026年○月○日 / 引渡し：即日…"></textarea>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">💰 買付証明書に指値（希望購入価格）を記載して提出</div>
+            <div class="item-sub">CF率1%以上になる価格を逆算して根拠とともに指値。長期売り出し物件は交渉余地大</div>
+            <div class="item-tags"><span class="tag tag-doc">書類</span></div>
+          </div>
+        </div>
+        <span class="note-label">📝 指値額・交渉経緯</span>
+        <textarea class="note-field" placeholder="例: 売値8,500万 → 指値8,000万提出・理由：CF率確保のため…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 8: 取得後 ===== -->
+  <div class="section sec-a" id="sec-8">
+    <div class="section-header" onclick="toggleSection('sec-8')">
+      <h3>
+        <span class="section-number">8</span>
+        ✅ 取得後・クロージング
+      </h3>
+      <div class="section-meta">
+        <span class="sec-progress" id="sec-8-prog">0/0</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+    </div>
+    <div class="section-body" id="sec-8-body">
+      <div class="check-group">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🔑 全戸の設備動作確認（引渡し後2〜3ヶ月以内）</div>
+            <div class="item-sub">給湯器・エアコン・インターホン・照明・換気扇・水回り全戸チェック</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">💳 毎月の送金確認を習慣化（期日通り入金確認）</div>
+            <div class="item-sub">管理会社からの送金は翌月10〜15日が標準。遅延があれば即確認</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">📊 レインズへの高値出し（ラッキー価格での出口準備開始）</div>
+            <div class="item-sub">買ったら即出口戦略を常時意識。NOI ÷ 6〜7%で出し続ける</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">🧾 確定申告の準備・税理士への情報提供</div>
+            <div class="item-sub">土地建物割合・減価償却費・ローン利息・管理費等の経費整理</div>
+          </div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-text">📈 次の物件購入に向けた担保余力・融資余力の再計算</div>
+            <div class="item-sub">積算評価額 − 残債 = 担保余力。自己資本比率10%以上を維持できているか確認</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- ===== FOOTER ===== -->
+<div class="footer-bar">
+  <div class="save-hint">💾 入力内容はブラウザに自動保存されます（localStorageを使用）</div>
+  <div style="display:flex;gap:8px;">
+    <button class="btn-print" onclick="window.print()">🖨️ 印刷</button>
+    <button class="btn-save" onclick="saveToStorage()">💾 保存</button>
+  </div>
+</div>
+
+<script>
+// ===== SECTION TOGGLE =====
+function toggleSection(id) {
+  const body = document.getElementById(id + '-body');
+  const header = document.querySelector('#' + id + ' .section-header');
+  const icon = header.querySelector('.toggle-icon');
+  if (body.classList.contains('collapsed')) {
+    body.classList.remove('collapsed');
+    icon.textContent = '▼';
+  } else {
+    body.classList.add('collapsed');
+    icon.textContent = '▶';
+  }
+}
+
+// ===== CHECKBOX TOGGLE =====
+function toggleCheck(el) {
+  const cb = el.querySelector('input[type="checkbox"]');
+  if (event.target === cb) return;
+  cb.checked = !cb.checked;
+  el.classList.toggle('checked', cb.checked);
+  updateProgress();
+  autoSave();
+}
+
+document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
+  cb.addEventListener('change', () => {
+    const item = cb.closest('.check-item');
+    item.classList.toggle('checked', cb.checked);
+    updateProgress();
+    autoSave();
+  });
+});
+
+// ===== PROGRESS UPDATE =====
+function updateProgress() {
+  const allCbs = document.querySelectorAll('.check-item input[type="checkbox"]');
+  const checkedCbs = document.querySelectorAll('.check-item input[type="checkbox"]:checked');
+  const total = allCbs.length;
+  const done = checkedCbs.length;
+  const pct = total > 0 ? Math.round(done / total * 100) : 0;
+
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = done + ' / ' + total;
+
+  // Per-section
+  document.querySelectorAll('.section').forEach(sec => {
+    const secId = sec.id;
+    const sAll = sec.querySelectorAll('.check-item input[type="checkbox"]');
+    const sDone = sec.querySelectorAll('.check-item input[type="checkbox"]:checked');
+    const prog = document.getElementById(secId + '-prog');
+    if (prog) prog.textContent = sDone.length + '/' + sAll.length;
+  });
+}
+
+// ===== JUDGE STAMP =====
+function setJudge(val) {
+  document.querySelectorAll('.stamp-btn').forEach(b => b.classList.remove('active'));
+  const map = { GO: '.stamp-go', HOLD: '.stamp-hold', NG: '.stamp-ng' };
+  document.querySelector(map[val])?.classList.add('active');
+  autoSave();
+}
+
+// ===== PROP NAME DISPLAY =====
+function updatePropName(val) {
+  document.getElementById('prop-name-display').textContent = val || '物件名を入力してください';
+}
+
+// ===== SCREENING AUTO-CALC =====
+function updateScreening() {
+  const price = parseFloat(document.getElementById('prop-price').value);
+  const yld = parseFloat(document.getElementById('prop-yield').value);
+
+  if (!isNaN(price)) {
+    const el = document.getElementById('sc-price');
+    document.getElementById('sc-price-val').textContent = price.toLocaleString() + '万円';
+    el.className = 'screen-item ' + (price <= 10000 ? 'ok' : 'ng');
+  }
+
+  if (!isNaN(yld)) {
+    const el = document.getElementById('sc-yield');
+    document.getElementById('sc-yield-val').textContent = yld.toFixed(2) + '%';
+    el.className = 'screen-item ' + (yld >= 7.1 ? 'ok' : 'ng');
+  }
+
+  const ageText = document.getElementById('prop-age').value;
+  const match = ageText.match(/築(\d+)年/);
+  if (match) {
+    const age = parseInt(match[1]);
+    const el = document.getElementById('sc-age');
+    document.getElementById('sc-age-val').textContent = '築' + age + '年';
+    el.className = 'screen-item ' + (age <= 10 ? 'ok' : 'ng');
+  }
+}
+
+['prop-price', 'prop-yield', 'prop-age'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateScreening);
+});
+
+// ===== CF CALCULATION =====
+function calcCF() {
+  const income = parseFloat(document.getElementById('c-income').value) || 0;
+  const vacancy = parseFloat(document.getElementById('c-vacancy').value) / 100 || 0.05;
+  const taxCost = parseFloat(document.getElementById('c-tax').value) || 0;
+  const repair = parseFloat(document.getElementById('c-repair').value) || 0;
+  const other = parseFloat(document.getElementById('c-other').value) || 0;
+  const loan = parseFloat(document.getElementById('c-loan').value) || 0;
+  const rate = parseFloat(document.getElementById('c-rate').value) / 100 || 0.026;
+  const term = parseInt(document.getElementById('c-term').value) || 35;
+  const price = parseFloat(document.getElementById('prop-price').value) || 0;
+
+  const netIncome = income * (1 - vacancy);
+  const mgmt = netIncome * 0.05;
+  const noi = netIncome - mgmt - taxCost - repair - other;
+  const noiyield = price > 0 ? noi / price * 100 : 0;
+
+  const monthRate = rate / 12;
+  const months = term * 12;
+  let annualRepay = 0;
+  if (loan > 0 && rate > 0) {
+    const pmt = loan * monthRate / (1 - Math.pow(1 + monthRate, -months));
+    annualRepay = pmt * 12;
+  }
+
+  const cf = noi - annualRepay;
+  const cfRate = price > 0 ? cf / price * 100 : 0;
+  const repayRatio = netIncome > 0 ? annualRepay / netIncome * 100 : 0;
+
+  const fmt = v => isNaN(v) || !isFinite(v) ? '—' : (v >= 0 ? '' : '▲') + Math.abs(v).toFixed(1) + '万円';
+  const fmtPct = v => isNaN(v) || !isFinite(v) ? '—' : v.toFixed(2) + '%';
+
+  document.getElementById('r-net-income').textContent = fmt(netIncome);
+  document.getElementById('r-mgmt').textContent = '▲' + mgmt.toFixed(1) + '万円';
+  document.getElementById('r-noi').textContent = fmt(noi);
+  document.getElementById('r-noi-yield').textContent = fmtPct(noiyield);
+  document.getElementById('r-repay').textContent = '▲' + annualRepay.toFixed(1) + '万円';
+  document.getElementById('r-repay-ratio').textContent = fmtPct(repayRatio) + (repayRatio > 50 ? ' ⚠️' : ' ✅');
+  document.getElementById('r-cf').textContent = fmt(cf);
+
+  const cfEl = document.getElementById('r-cf');
+  cfEl.style.color = cf >= 0 ? 'var(--ok)' : 'var(--ng)';
+
+  const cfRateEl = document.getElementById('r-cf-rate');
+  cfRateEl.textContent = fmtPct(cfRate);
+  cfRateEl.style.color = cfRate >= 1.0 ? 'var(--ok)' : cfRate >= 0 ? 'var(--warn)' : 'var(--ng)';
+}
+
+// ===== AUTO SAVE =====
+let saveTimer;
+function autoSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveToStorage, 2000);
+}
+
+function saveToStorage() {
+  try {
+    const data = {
+      propInfo: {},
+      checks: {},
+      notes: {},
+      calcFields: {},
+      status: document.getElementById('dd-status').value,
+      judge: document.querySelector('.stamp-btn.active')?.textContent?.trim() || null,
+      savedAt: new Date().toISOString()
+    };
+
+    ['prop-name','prop-addr','prop-access','prop-struct','prop-age','prop-price',
+     'prop-yield','prop-rooms','prop-floor','prop-land','prop-torihiki',
+     'prop-broker','prop-date','prop-memo'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) data.propInfo[id] = el.value;
+    });
+
+    ['c-income','c-vacancy','c-tax','c-repair','c-other','c-loan','c-rate','c-term'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) data.calcFields[id] = el.value;
+    });
+
+    document.querySelectorAll('.check-item input[type="checkbox"]').forEach((cb, i) => {
+      data.checks[i] = cb.checked;
+    });
+
+    document.querySelectorAll('.note-field').forEach((t, i) => {
+      data.notes[i] = t.value;
+    });
+
+    const propId = data.propInfo['prop-name'] || 'dd_data';
+    localStorage.setItem('tcdd_' + propId, JSON.stringify(data));
+
+    const btn = document.querySelector('.btn-save');
+    btn.textContent = '✅ 保存完了';
+    setTimeout(() => { btn.textContent = '💾 保存'; }, 2000);
+  } catch(e) { console.warn('Save failed:', e); }
+}
+
+function loadFromStorage() {
+  const propName = new URLSearchParams(location.search).get('prop');
+  const key = propName ? 'tcdd_' + propName : null;
+  if (!key) return;
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    Object.entries(data.propInfo || {}).forEach(([id, val]) => {
+      const el = document.getElementById(id);
+      if (el) { el.value = val; if (id === 'prop-name') updatePropName(val); }
+    });
+    Object.entries(data.calcFields || {}).forEach(([id, val]) => {
+      const el = document.getElementById(id);
+      if (el) el.value = val;
+    });
+    document.querySelectorAll('.check-item input[type="checkbox"]').forEach((cb, i) => {
+      if (data.checks[i] !== undefined) {
+        cb.checked = data.checks[i];
+        cb.closest('.check-item').classList.toggle('checked', cb.checked);
+      }
+    });
+    document.querySelectorAll('.note-field').forEach((t, i) => {
+      if (data.notes[i] !== undefined) t.value = data.notes[i];
+    });
+    if (data.status) document.getElementById('dd-status').value = data.status;
+    calcCF(); updateProgress(); updateScreening();
+  } catch(e) {}
+}
+
+// Auto-save on all inputs
+document.querySelectorAll('input, select, textarea').forEach(el => {
+  el.addEventListener('input', autoSave);
+  el.addEventListener('change', autoSave);
+});
+
+// Init
+updateProgress();
+loadFromStorage();
+</script>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260606_mitsukyo_DD.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260606_mitsukyo_DD.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
