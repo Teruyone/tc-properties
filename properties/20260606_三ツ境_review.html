@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>物件精査レポート｜二ツ橋中古AP（三ツ境）｜TC Capitals</title>
+<style>
+:root{
+  --primary:#1a237e;--primary-light:#3949ab;--accent:#e65100;
+  --ok:#2e7d32;--ng:#c62828;--warn:#f57f17;
+  --bg:#f5f7fa;--card:#ffffff;--border:#dde3ee;--text:#1a1a2e;--muted:#607d8b;
+  --haruto:#e65100;--ryo:#1565c0;--aki:#2e7d32;--murata:#5d4037;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Hiragino Sans','Yu Gothic UI',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7;}
+
+/* HEADER */
+.site-header{background:var(--primary);color:white;padding:16px 24px;box-shadow:0 2px 8px rgba(0,0,0,.3);}
+.site-header h1{font-size:20px;font-weight:700;letter-spacing:.05em;}
+.site-header .meta{font-size:12px;opacity:.75;margin-top:4px;}
+
+/* SUMMARY CARD */
+.summary-card{background:var(--card);border-left:6px solid var(--primary);margin:20px 24px;border-radius:8px;padding:20px 24px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.summary-card h2{font-size:22px;font-weight:700;color:var(--primary);margin-bottom:12px;}
+.prop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:12px;}
+.prop-item{background:#f0f4ff;border-radius:6px;padding:10px 14px;}
+.prop-item .label{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:3px;}
+.prop-item .val{font-size:15px;font-weight:700;color:var(--primary);}
+.prop-item .val.lg{font-size:20px;}
+.badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700;}
+.badge-ok{background:#e8f5e9;color:var(--ok);}
+.badge-ng{background:#ffebee;color:var(--ng);}
+.badge-warn{background:#fff8e1;color:var(--warn);}
+
+/* CAPTAIN CRITERIA */
+.criteria-table{width:100%;border-collapse:collapse;margin-top:8px;}
+.criteria-table th{background:#e8eaf6;color:var(--primary);padding:8px 12px;text-align:left;font-size:12px;}
+.criteria-table td{padding:8px 12px;border-bottom:1px solid var(--border);font-size:13px;}
+.criteria-table tr:last-child td{border-bottom:none;}
+.status-ok{color:var(--ok);font-weight:700;}
+.status-ng{color:var(--ng);font-weight:700;}
+.status-warn{color:var(--warn);font-weight:700;}
+
+/* SECTION */
+.section{background:var(--card);border-radius:8px;margin:16px 24px;box-shadow:0 1px 4px rgba(0,0,0,.08);overflow:hidden;}
+.sec-header{padding:14px 20px;display:flex;align-items:center;gap:10px;}
+.sec-header .icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.sec-header h3{font-size:15px;font-weight:700;}
+.sec-header .role{font-size:11px;font-weight:400;opacity:.8;margin-left:4px;}
+.sec-body{padding:16px 20px;}
+
+/* Haruto */
+.sec-haruto .sec-header{background:#fff3e0;border-bottom:3px solid var(--haruto);}
+.sec-haruto .sec-header h3{color:var(--haruto);}
+.sec-haruto .icon{background:var(--haruto);color:white;}
+
+/* Ryo */
+.sec-ryo .sec-header{background:#e3f2fd;border-bottom:3px solid var(--ryo);}
+.sec-ryo .sec-header h3{color:var(--ryo);}
+.sec-ryo .icon{background:var(--ryo);color:white;}
+
+/* Aki */
+.sec-aki .sec-header{background:#e8f5e9;border-bottom:3px solid var(--aki);}
+.sec-aki .sec-header h3{color:var(--aki);}
+.sec-aki .icon{background:var(--aki);color:white;}
+
+/* Murata */
+.sec-murata .sec-header{background:#efebe9;border-bottom:3px solid var(--murata);}
+.sec-murata .sec-header h3{color:var(--murata);}
+.sec-murata .icon{background:var(--murata);color:white;}
+
+/* Confirm / Risk */
+.confirm-section{background:var(--card);border-radius:8px;margin:16px 24px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-left:5px solid #c62828;}
+.confirm-section .sec-header{background:#ffebee;border-bottom:2px solid #ef9a9a;padding:14px 20px;}
+.confirm-section .sec-header h3{color:#c62828;font-size:15px;font-weight:700;}
+
+/* Overall */
+.overall-section{background:var(--primary);color:white;border-radius:8px;margin:16px 24px;padding:20px 24px;box-shadow:0 2px 8px rgba(0,0,0,.2);}
+.overall-section h3{font-size:18px;font-weight:700;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:8px;}
+.overall-verdict{font-size:22px;font-weight:900;padding:8px 16px;border-radius:8px;display:inline-block;margin:8px 0;}
+.verdict-hold{background:#ffd54f;color:#5d4037;}
+.verdict-buy{background:#69f0ae;color:#1b5e20;}
+.verdict-pass{background:#ef9a9a;color:#7f0000;}
+
+/* Risk tags */
+.risk-list{list-style:none;padding:0;}
+.risk-list li{padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:8px;}
+.risk-list li:last-child{border-bottom:none;}
+.risk-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;flex-shrink:0;margin-top:2px;}
+.risk-h{background:#ffebee;color:#c62828;}
+.risk-m{background:#fff8e1;color:#f57f17;}
+.risk-l{background:#e8f5e9;color:#2e7d32;}
+
+/* CF Table */
+.cf-table{width:100%;border-collapse:collapse;margin-top:8px;}
+.cf-table th{background:#e8f5e9;color:var(--aki);padding:8px 12px;text-align:right;font-size:12px;}
+.cf-table th:first-child{text-align:left;}
+.cf-table td{padding:8px 12px;border-bottom:1px solid var(--border);font-size:13px;text-align:right;}
+.cf-table td:first-child{text-align:left;font-weight:600;}
+.cf-table .highlight{background:#f1f8e9;font-weight:700;}
+.grade-a{color:var(--ok);font-weight:900;}
+.grade-b{color:#558b2f;font-weight:900;}
+.grade-c{color:#f57f17;font-weight:900;}
+.grade-d{color:var(--ng);font-weight:900;}
+
+/* Links */
+.tool-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;}
+.tool-link{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;border:2px solid;}
+.tool-link-dd{color:var(--ryo);border-color:var(--ryo);background:#e3f2fd;}
+.tool-link-ig{color:var(--aki);border-color:var(--aki);background:#e8f5e9;}
+
+/* Footer */
+footer{text-align:center;padding:24px;color:var(--muted);font-size:12px;}
+
+/* Notes */
+.note{background:#fff8e1;border-left:4px solid #ffd54f;padding:10px 14px;border-radius:0 6px 6px 0;margin:8px 0;font-size:13px;}
+.note strong{color:#5d4037;}
+
+ul,ol{padding-left:20px;}
+li{margin-bottom:4px;}
+p{margin-bottom:8px;}
+h4{margin:12px 0 6px;font-size:14px;color:var(--text);}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="site-header">
+  <h1>TC Capitals 不動産仕入部 — 物件精査レポート</h1>
+  <div class="meta">精査日: 2026年6月6日 ／ チーム: ハルト・リョウ・アキ・村田先生</div>
+</div>
+
+<!-- SUMMARY CARD -->
+<div class="summary-card">
+  <h2>二ツ橋中古AP（三ツ境）</h2>
+  <p style="color:var(--muted);font-size:13px;">横浜市瀬谷区二ツ橋町352-18 ／ 相鉄線 三ツ境駅 徒歩9分</p>
+  <div class="prop-grid" style="margin-top:16px;">
+    <div class="prop-item"><div class="label">物件価格</div><div class="val lg">9,680万円</div></div>
+    <div class="prop-item"><div class="label">表面利回り</div><div class="val lg">7.10%</div></div>
+    <div class="prop-item"><div class="label">構造・築年数</div><div class="val">木造2×4 ／ 築10年（2016年10月）</div></div>
+    <div class="prop-item"><div class="label">規模</div><div class="val">3階建・9室（1K 各11.41㎡）</div></div>
+    <div class="prop-item"><div class="label">延床面積</div><div class="val">196.56㎡（59.46坪）</div></div>
+    <div class="prop-item"><div class="label">敷地面積</div><div class="val">128.73㎡</div></div>
+    <div class="prop-item"><div class="label">現況</div><div class="val">医療法人による一括借上中（満室）</div></div>
+    <div class="prop-item"><div class="label">取引態様</div><div class="val">仲介（ブリックス株式会社）</div></div>
+    <div class="prop-item"><div class="label">融資想定</div><div class="val">オリックス銀行 95%・30年・2.6%</div></div>
+  </div>
+
+  <div class="tool-links" style="margin-top:16px;">
+    <a href="https://teruyone.github.io/tc-properties/properties/20260606_三ツ境_DD.html" class="tool-link tool-link-dd">📋 DDチェックリスト</a>
+    <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=9680&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=30&intRate=2.6&grossYield=7.10&floorArea=196.56&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=10&taxRateIncome=20&pi_price_inp=9680&pi_age_inp=10&pi_yield_inp=7.10&pi_area_inp=196.56&pi_rooms_inp=9&ik_land_area=128.73&ik_route_price=0&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E6%A8%AA%E6%B5%9C%E5%B8%82%E7%80%AC%E8%B0%B7%E5%8C%BA%E4%BA%8C%E3%83%84%E6%A9%8B%E7%94%BA352-18" class="tool-link tool-link-ig">📊 InvestGate+ 収支試算</a>
+  </div>
+</div>
+
+<!-- CAPTAIN CRITERIA -->
+<div class="section">
+  <div class="sec-header" style="background:#e8eaf6;border-bottom:3px solid var(--primary);">
+    <div class="icon" style="background:var(--primary);color:white;font-size:18px;">✓</div>
+    <h3 style="color:var(--primary);">キャプテン基準チェック（7項目）</h3>
+  </div>
+  <div class="sec-body">
+    <table class="criteria-table">
+      <thead><tr><th>基準項目</th><th>条件</th><th>結果</th><th>実測値 / コメント</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>築年数</td><td>築10年以内</td>
+          <td class="status-ok">✅ OK</td>
+          <td>2016年10月完成・築9年10ヶ月</td>
+        </tr>
+        <tr>
+          <td>表面利回り</td><td>7.1%以上</td>
+          <td class="status-warn">⚠️ ギリギリ</td>
+          <td>7.10%（基準ライン上・1bp余裕）</td>
+        </tr>
+        <tr>
+          <td>物件価格</td><td>1億円以内</td>
+          <td class="status-ok">✅ OK</td>
+          <td>9,680万円</td>
+        </tr>
+        <tr>
+          <td>エリア（16号内側）</td><td>国道16号線内側</td>
+          <td class="status-ng">❌ 要確認</td>
+          <td>三ツ境は16号の外側（郊外側）の可能性が高い。キャプテン判断必要</td>
+        </tr>
+        <tr>
+          <td>戸当たり面積</td><td>16㎡以上</td>
+          <td class="status-ng">❌ NG</td>
+          <td>11.41㎡（過去ルール「16㎡以下即除外」に抵触）</td>
+        </tr>
+        <tr>
+          <td>CF率（IG+ベース）</td><td>1.0%以上（C以上）</td>
+          <td class="status-warn">⚠️ 条件付き</td>
+          <td>30年: 0.71%（D判定）／ 35年: 1.14%（C判定）</td>
+        </tr>
+        <tr>
+          <td>CCR（IG+ベース）</td><td>15%以上</td>
+          <td class="status-ng">❌ NG</td>
+          <td>30年: 6.30% ／ 35年: 10.08%（基準15%に未達）</td>
+        </tr>
+        <tr>
+          <td>積算比率</td><td>60%以上（C以上）</td>
+          <td class="status-ng">❌ NG</td>
+          <td>推定41.9%（路線価試算14万円/㎡）。60%到達には路線価28万/㎡超が必要</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:12px;">
+      <strong>【重要】</strong> 正式判断の前に「16号内側基準の適用可否」と「11.41㎡の扱い」をキャプテンに確認する必要があります。
+      この2点がNGならば、以降の詳細検討は不要です。
+    </div>
+  </div>
+</div>
+
+<!-- HARUTO -->
+<div class="section sec-haruto">
+  <div class="sec-header">
+    <div class="icon">H</div>
+    <h3>朝倉 晴斗（ハルト）<span class="role">— エリア・利回り分析</span></h3>
+  </div>
+  <div class="sec-body">
+    <h4>三ツ境駅エリアの将来性</h4>
+    <ul>
+      <li><strong>乗降客数:</strong> 約51,433人（2024年度）、コロナ後に順調回復・増加傾向。相鉄27駅中7位の堅実な規模</li>
+      <li><strong>相鉄・東急直通線（2023年開業）:</strong> 渋谷・新宿・目黒・二子玉川への直通アクセス向上。賃貸需要の下支え材料</li>
+      <li><strong>GREEN×EXPO 2027（旧上瀬谷通信施設）:</strong> 三ツ境がシャトルバス拠点に。一時的な注目度上昇あり</li>
+      <li><strong>人口動態（最大リスク）:</strong> 瀬谷区は2005年ピーク約127,400人→減少傾向。横浜市長期推計「70年後に半減」区のひとつ</li>
+    </ul>
+
+    <h4 style="margin-top:16px;">賃料相場と利回り評価</h4>
+    <ul>
+      <li>三ツ境駅周辺1K相場（徒歩5分圏内・約20㎡）: 6〜7万円台</li>
+      <li>今回物件の単室換算賃料: 月約63,700円（687万÷9室÷12ヶ月）</li>
+      <li><strong class="status-ng">懸念点: 11.41㎡は1K物件としてきわめて狭い（一般的な20㎡の約半分）。医療法人借上解消後の一般賃貸への転換リスクあり</strong></li>
+      <li>利回り7.1%は三ツ境エリアで築10年以内としてはやや高め → 一括借上プレミアムが価格に織り込まれている可能性</li>
+    </ul>
+
+    <h4 style="margin-top:16px;">医療法人一括借上の評価</h4>
+    <div class="note">
+      <strong>プラス:</strong> 現時点で満室・組織的借主で家賃滞納リスク低・管理負荷小<br>
+      <strong>マイナス:</strong> 解約→一般賃貸転換リスク、11.41㎡での一般賃貸需要の不透明感、契約内容未確認
+    </div>
+
+    <h4 style="margin-top:16px;">ハルト総評</h4>
+    <p><strong>判定: 条件付き・要精査（積極的には推しにくい）</strong></p>
+    <p>数字面は基準を満たしているが、①16号内側基準、②11.41㎡の面積問題、③医療法人契約内容 — この3点が揃わない段階での深追いは非推奨。
+    キャプテンに①②を先確認してからIG+・DD本格精査に進む順序が適切。</p>
+  </div>
+</div>
+
+<!-- RYO -->
+<div class="section sec-ryo">
+  <div class="sec-header">
+    <div class="icon">R</div>
+    <h3>黒沢 涼（リョウ）<span class="role">— DD・法務リスク確認</span></h3>
+  </div>
+  <div class="sec-body">
+    <h4>確認済み項目</h4>
+    <ul>
+      <li><span class="badge badge-ok">確認済</span> 新耐震基準: 2016年築 → 問題なし</li>
+      <li><span class="badge badge-ok">確認済</span> 接道: 42条1項1号道路（公道）→ 接道義務充足</li>
+      <li><span class="badge badge-ok">確認済</span> アスベスト: 2016年築 → 法的問題なし</li>
+      <li><span class="badge badge-ok">確認済</span> 建蔽率・容積率: 59%／153%（許容60%／176%）→ 適法範囲内</li>
+      <li><span class="badge badge-ok">確認済</span> 融資設計（オリックス95%・30年）: 既存実績と整合</li>
+    </ul>
+
+    <h4 style="margin-top:16px;">リスクフラグ</h4>
+    <ul class="risk-list">
+      <li>
+        <span class="risk-tag risk-h">高</span>
+        <div><strong>医療法人一括借上の契約内容が未確認</strong><br>
+        サブリースか直接借上か・契約期間・賃料改定条項・解除条件・違約金が一切不明。収益の根幹が見えないまま1億円を動かすことと同義。<strong>契約書の全文入手が必須。</strong></div>
+      </li>
+      <li>
+        <span class="risk-tag risk-h">高</span>
+        <div><strong>擁壁・高低差の未公式確認</strong><br>
+        ブリックスの「確認はしていませんが擁壁なし」は根拠のある確認ではない。横浜市瀬谷区は丘陵地形が多く、オリックスは擁壁物件に審査NGを出す実績あり。現地確認必須。</div>
+      </li>
+      <li>
+        <span class="risk-tag risk-m">中</span>
+        <div><strong>建築確認済証・検査済証の有無が不明</strong><br>
+        木造3階建ては構造計算書提出が求められる特殊な扱い。検査済証がない物件は融資NGとなる金融機関が増加している。実物コピーを入手すること。</div>
+      </li>
+      <li>
+        <span class="risk-tag risk-m">中</span>
+        <div><strong>レントロール未入手</strong><br>
+        医療法人への一括借上のため、エンドユーザーの実入居状況（賃料・空室・契約期間）が不透明。一括賃料の計算根拠と市場賃料の乖離確認が必要。</div>
+      </li>
+      <li>
+        <span class="risk-tag risk-m">中</span>
+        <div><strong>ハザードマップ未確認</strong><br>
+        横浜市瀬谷区は洪水・液状化リスクエリアが混在。オリックスは浸水区域3m超NGの場合あり。横浜市ハザードマップポータルで「二ツ橋町352-18」を検索する必要あり。</div>
+      </li>
+      <li>
+        <span class="risk-tag risk-m">中</span>
+        <div><strong>各室11.41㎡ → 出口売却時の融資付け困難リスク</strong><br>
+        戸当たり11㎡台は担保評価が低下し、買い手側の融資がつきにくい金融機関が存在。出口での売却先が限定される可能性。</div>
+      </li>
+    </ul>
+
+    <h4 style="margin-top:16px;">絶対に確認すべき事項 TOP3</h4>
+    <ol>
+      <li><strong>医療法人一括借上の契約書全文入手</strong> — 解除条件・賃料改定・違約金を確認</li>
+      <li><strong>擁壁・高低差の現地目視確認</strong> — 融資審査に直結</li>
+      <li><strong>建築確認済証・検査済証の現物確認</strong> — 3階建て木造は必須条件</li>
+    </ol>
+
+    <div style="margin-top:12px;">
+      <a href="https://teruyone.github.io/tc-properties/properties/20260606_三ツ境_DD.html" class="tool-link tool-link-dd">📋 入力済みDDチェックリストを開く</a>
+    </div>
+  </div>
+</div>
+
+<!-- AKI -->
+<div class="section sec-aki">
+  <div class="sec-header">
+    <div class="icon">A</div>
+    <h3>三宅 亜紀（アキ）<span class="role">— IG+収支計算</span></h3>
+  </div>
+  <div class="sec-body">
+    <h4>収支サマリー</h4>
+    <table class="cf-table">
+      <thead>
+        <tr>
+          <th style="text-align:left;">項目</th>
+          <th>パターンA<br>（30年・2.6%）</th>
+          <th>パターンB<br>（35年・2.6%）</th>
+          <th>参考C<br>（フルキャッシュ）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>満室年収</td><td>687.0万円</td><td>687.0万円</td><td>687.0万円</td></tr>
+        <tr><td>実収入（空室5%）</td><td>652.7万円</td><td>652.7万円</td><td>652.7万円</td></tr>
+        <tr><td>NOI</td><td>510.8万円</td><td>510.8万円</td><td>510.8万円</td></tr>
+        <tr><td>NOI利回り</td><td>5.28%</td><td>5.28%</td><td>5.28%</td></tr>
+        <tr><td>年間返済額</td><td>442.0万円</td><td>400.6万円</td><td>0円</td></tr>
+        <tr class="highlight">
+          <td>CF（年）</td>
+          <td class="grade-d">68.8万円</td>
+          <td class="grade-c">110.3万円</td>
+          <td class="grade-a">510.8万円</td>
+        </tr>
+        <tr class="highlight">
+          <td>CF率</td>
+          <td class="grade-d">0.71%（D）</td>
+          <td class="grade-c">1.14%（C）</td>
+          <td class="grade-a">5.28%（A）</td>
+        </tr>
+        <tr><td>返済比率（満室比）</td><td>64.3%</td><td>58.3%</td><td>—</td></tr>
+        <tr class="highlight">
+          <td>CCR</td>
+          <td class="grade-d">6.30%</td>
+          <td class="grade-d">10.08%</td>
+          <td>4.96%</td>
+        </tr>
+        <tr><td>自己資金（概算）</td><td colspan="2">1,094万円（頭金484万+諸費用610万）</td><td>10,290万円</td></tr>
+        <tr><td>積算比率（試算）</td><td colspan="3">約41.9%（路線価14万/㎡想定。実際の路線価要確認）</td></tr>
+        <tr>
+          <td>税引後実質手残り</td>
+          <td>約111.3万円/年<br><span style="font-size:11px;color:var(--muted);">（+節税効果42.5万含む）</span></td>
+          <td>約152.7万円/年<br><span style="font-size:11px;color:var(--muted);">（+節税効果42.5万含む）</span></td>
+          <td>510.8万円</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note" style="margin-top:12px;">
+      <strong>ブリックスCCR 13.85%との乖離について:</strong>
+      ブリックスは①空室控除なし（満室ベース）②管理費2.75%（IG+は5%）③修繕費・原状回復費・募集ADを省略 — 計年間約94万円の費用過少計上が原因。
+      IG+ベースの税引後実質手残りCCR（35年）は約13.9%でブリックス値に近接する。
+    </div>
+
+    <h4 style="margin-top:16px;">重要注意事項</h4>
+    <ul>
+      <li><strong>木造35年融資の可否:</strong> 残存耐用年数12年に対して35年融資は要打診確認。30年が上限の場合CF率0.71%（D判定）に下落</li>
+      <li><strong>積算比率約42%:</strong> キャプテン基準60%に大幅未達。2棟目以降の融資枠・信用毀損リスクを考慮する必要あり</li>
+      <li><strong>デッドクロス:</strong> 減価償却14年で切れた後、手残りが急減。14年以内の売却戦略を今から設計することが重要</li>
+    </ul>
+
+    <div style="margin-top:12px;">
+      <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=9680&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=30&intRate=2.6&grossYield=7.10&floorArea=196.56&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=10&taxRateIncome=20&pi_price_inp=9680&pi_age_inp=10&pi_yield_inp=7.10&pi_area_inp=196.56&pi_rooms_inp=9&ik_land_area=128.73&ik_route_price=0&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E6%A8%AA%E6%B5%9C%E5%B8%82%E7%80%AC%E8%B0%B7%E5%8C%BA%E4%BA%8C%E3%83%84%E6%A9%8B%E7%94%BA352-18" class="tool-link tool-link-ig">📊 入力済みIG+を開く（数値変更で自動再計算）</a>
+    </div>
+  </div>
+</div>
+
+<!-- MURATA -->
+<div class="section sec-murata">
+  <div class="sec-header">
+    <div class="icon">M</div>
+    <h3>村田 誠一（村田先生）<span class="role">— 建築士コメント（一級建築士・35年）</span></h3>
+  </div>
+  <div class="sec-body">
+    <p style="font-style:italic;color:var(--muted);margin-bottom:12px;">「現場を見ないと断言はできませんが、資料から読み取れることをお伝えします」</p>
+
+    <h4>構造・耐震評価</h4>
+    <ul>
+      <li>木造2×4工法（枠組壁工法）は水平力に強く、面剛性が高い。耐震性能は資料上問題なし</li>
+      <li>2016年築 → 新耐震基準はもちろん、2000年強化基準（金物・基礎緊結・耐力壁配置）にも完全適合</li>
+      <li>二級建築士事務所（マミヤ設計）設計。木造3階建ては計算内容の精度確認が必要 → 確認済証・検査済証で判断</li>
+    </ul>
+
+    <h4 style="margin-top:16px;">修繕費リスク（ブリックス200万/10年は甘い）</h4>
+    <table class="criteria-table">
+      <thead><tr><th>時期</th><th>内容</th><th>概算費用</th></tr></thead>
+      <tbody>
+        <tr><td>直近1〜3年</td><td>給湯器交換（9台、10年目が集中交換期）</td><td>100〜135万円</td></tr>
+        <tr><td>3〜5年後</td><td>外壁シーリング部分補修（2×4は目地劣化注意）</td><td>30〜50万円</td></tr>
+        <tr><td>5〜10年後</td><td>外壁塗装・棟板金交換</td><td>150〜300万円</td></tr>
+        <tr style="background:#fff8e1;font-weight:700;"><td>合計（10年）</td><td>ブリックス試算200万円 vs 現実的な概算</td><td>300〜400万円</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:8px;">
+      <strong>収支計算への推奨値:</strong> 修繕費を年間30〜40万円（10年で300〜400万円）に置き直して再計算してください。ブリックスの200万円/10年は「何も壊れなかった理想ケース」です。
+    </div>
+
+    <h4 style="margin-top:16px;">法令・規制</h4>
+    <ul>
+      <li>建蔽率・容積率・接道・北側斜線: 問題なし（資料上）</li>
+      <li><strong>ロフト適法性:</strong> 303号室（天井高1.13m）は床面積不算入で適法。302号室（天井高2.77m）は居室扱いで床面積算入済みの可能性あり → 確認申請図書との照合が必要</li>
+      <li><strong>確認済証・検査済証: 必須確認。「ない」なら購入再検討レベル。</strong></li>
+    </ul>
+
+    <h4 style="margin-top:16px;">現地で必ず確認すべき事項 TOP5</h4>
+    <ol>
+      <li><strong>外壁状態</strong> — コーキング劣化・変色・膨らみ。2×4工法の透湿防水シートの品質が10年目に影響出やすい</li>
+      <li><strong>303号ロフト天井高の実測</strong> — 1.4mを超えていると容積率オーバーの可能性あり</li>
+      <li><strong>基礎・土台まわりのクラック・腐食確認</strong></li>
+      <li><strong>隣地・道路との高低差（擁壁の有無）</strong> — 周囲を一周して確認</li>
+      <li><strong>共用部バルコニーの排水状況</strong> — ドレン詰まりは将来の雨漏り原因</li>
+    </ol>
+
+    <h4 style="margin-top:16px;">村田先生総合コメント</h4>
+    <p>「構造・法令上の問題は資料を見る限り大きくはありません。ただし3点を申し上げたい。
+    <strong>①修繕費300〜400万/10年が現実的</strong>（シミュレーションの200万は甘すぎる）、
+    <strong>②確認済証・検査済証の確認が絶対条件</strong>（3階建ては書類完備が融資の前提）、
+    <strong>③擁壁の現地裏付け</strong>（横浜の地形では軽視できない）。
+    この3点を確認した上で、数字が合うなら前向きに検討する価値がある物件です。」</p>
+  </div>
+</div>
+
+<!-- CONFIRM SECTION -->
+<div class="confirm-section">
+  <div class="sec-header">
+    <h3>⚠️ キャプテンへの確認事項まとめ（優先度順）</h3>
+  </div>
+  <div style="padding:16px 20px;">
+    <h4>【最優先】判断の前提確認（ハルト・アキより）</h4>
+    <ol>
+      <li style="margin-bottom:8px;"><strong>三ツ境は「16号内側」エリア基準に含まれますか？</strong><br>
+      <span style="color:var(--muted);font-size:13px;">三ツ境は保土ヶ谷バイパスの外側（郊外寄り）に位置する可能性が高い。基準外なら即終了。</span></li>
+      <li style="margin-bottom:8px;"><strong>11.41㎡（6.9帖）の各室面積は許容しますか？</strong><br>
+      <span style="color:var(--muted);font-size:13px;">過去の「16㎡以下即除外」ルールに完全抵触。今回例外扱いとするかキャプテン判断が必要。</span></li>
+    </ol>
+
+    <h4 style="margin-top:16px;">【DD・書類確認】リョウより</h4>
+    <ol start="3">
+      <li style="margin-bottom:8px;"><strong>医療法人一括借上の契約書を入手・確認できますか？</strong><br>
+      <span style="color:var(--muted);font-size:13px;">サブリース/直接借上の区分、契約期間、解除条件、賃料改定条項を確認。収益の根拠。</span></li>
+      <li style="margin-bottom:8px;"><strong>建築確認済証・検査済証を仲介経由で入手できますか？</strong><br>
+      <span style="color:var(--muted);font-size:13px;">3階建て木造は融資審査の前提条件。「ない」なら購入再検討。</span></li>
+      <li style="margin-bottom:8px;"><strong>横浜市ハザードマップ（二ツ橋町352-18）を確認してください。浸水深はどうでしたか？</strong></li>
+      <li style="margin-bottom:8px;"><strong>レントロール（全9室の賃料・空室・契約期間）を取り寄せてください。</strong></li>
+    </ol>
+
+    <h4 style="margin-top:16px;">【収支・融資】アキより</h4>
+    <ol start="7">
+      <li style="margin-bottom:8px;"><strong>オリックス銀行に木造築10年・35年融資の可否を打診してください。</strong><br>
+      <span style="color:var(--muted);font-size:13px;">30年上限の場合CF率0.71%（D判定）となり収支悪化。35年OKが前提の収支計算です。</span></li>
+      <li style="margin-bottom:8px;"><strong>路線価（国税庁路線価図・二ツ橋町352番地周辺）を確認してください。</strong><br>
+      <span style="color:var(--muted);font-size:13px;">積算比率の正確な数値が出ます。60%到達には28万円/㎡超が必要（現実的には困難と見込む）。</span></li>
+    </ol>
+
+    <h4 style="margin-top:16px;">【現地確認】村田先生より</h4>
+    <ol start="9">
+      <li style="margin-bottom:8px;"><strong>現地で高低差・擁壁の有無を目視確認してください。</strong><br>
+      <span style="color:var(--muted);font-size:13px;">ブリックスの口頭確認のみでは不十分。オリックス審査に影響。</span></li>
+      <li style="margin-bottom:8px;"><strong>303号室のロフト天井高を実測してください（1.4m以下の確認）。</strong></li>
+    </ol>
+  </div>
+</div>
+
+<!-- OVERALL -->
+<div class="overall-section">
+  <h3>チーム総合所見</h3>
+  <div class="overall-verdict verdict-hold">⏸ 保留 — 前提2点の確認が先</div>
+  <p style="margin-top:12px;font-size:14px;line-height:1.8;">
+    物件の素性（新耐震・築浅・相鉄沿線・医療法人満室）は悪くない。ただし、<strong>①16号内側基準の適用可否</strong>と<strong>②11.41㎡の面積許容</strong>という
+    「そもそも仕入れ基準を満たすか」の前提が未確定。この2点がNGであれば以降の検討は不要。
+  </p>
+  <p style="margin-top:8px;font-size:14px;line-height:1.8;">
+    IG+ベースの数値では<strong>CCR 10.08%（35年）</strong>でキャプテン基準15%に届かず、<strong>積算比率も約42%</strong>で基準60%に大幅未達。
+    税引後実質手残りで年約153万円（CCR実質13.9%）は医療法人借上中は堅実だが、借上解消後のリスクと修繕費の過少計上が懸念材料。
+  </p>
+  <p style="margin-top:8px;font-size:14px;line-height:1.8;">
+    <strong>次のアクション:</strong> キャプテンが①②をOKとした場合 → 医療法人契約書・建確・検済・路線価・ハザードマップを確認した上で最終判断へ。
+    特に「オリックス35年融資の可否」と「医療法人借上の解除リスク」が最終的な買否を決める。
+  </p>
+
+  <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,.3);font-size:13px;opacity:.8;">
+    精査チーム: ハルト（エリア・利回り）／ リョウ（DD・法務）／ アキ（IG+収支）／ 村田先生（建築士）
+  </div>
+</div>
+
+<footer>TC Capitals 不動産仕入部 ― 精査日 2026-06-06 ― 本レポートの数値は概算です。投資判断は自己責任で行ってください。</footer>
+
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260606_三ツ境_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260606_三ツ境_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
