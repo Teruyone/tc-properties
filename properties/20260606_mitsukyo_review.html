@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三ツ境 二ツ橋中古AP — チーム精査レポート | TC Capitals</title>
+<style>
+:root{--navy:#1a3a5c;--blue:#1a73e8;--blue-light:#e8f0fe;--green:#1e8e3e;--green-bg:#e6f4ea;--red:#d93025;--red-bg:#fce8e6;--orange:#e65c00;--orange-bg:#fff3e0;--yellow:#f9a825;--yellow-bg:#fef7e0;--teal:#1A7D7D;--teal-bg:#e0f0f0;--brown:#5d4037;--brown-bg:#fbe9e7;--text:#202124;--muted:#5f6368;--border:#dadce0;--bg:#f8f9fa;--white:#fff;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Hiragino Sans',sans-serif;font-size:14px;background:var(--bg);color:var(--text);}
+a{color:var(--blue);}
+
+.header{background:var(--navy);color:#fff;padding:20px 32px;}
+.header-title{font-size:22px;font-weight:700;letter-spacing:-0.5px;}
+.header-sub{font-size:12px;color:#aec6e8;margin-top:4px;}
+
+.summary-bar{background:var(--white);border-bottom:2px solid var(--border);display:grid;grid-template-columns:repeat(5,1fr);}
+.sum-cell{padding:16px;text-align:center;border-right:1px solid var(--border);}
+.sum-cell:last-child{border-right:none;}
+.sum-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.sum-val{font-size:20px;font-weight:700;}
+.sum-sub{font-size:11px;color:var(--blue);margin-top:2px;}
+
+.criteria-bar{background:var(--white);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;gap:12px;flex-wrap:wrap;}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:600;}
+.badge-ok{background:var(--green-bg);color:var(--green);}
+.badge-ng{background:var(--red-bg);color:var(--red);}
+.badge-chk{background:var(--yellow-bg);color:#795548;}
+.badge-note{background:#f3e5f5;color:#6a1b9a;}
+
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px;}
+.section{background:var(--white);border:1px solid var(--border);border-radius:8px;margin-bottom:16px;overflow:hidden;}
+.sec-head{padding:14px 20px;font-size:15px;font-weight:700;border-bottom:1px solid var(--border);}
+.sec-body{padding:20px;}
+
+.head-haruto{background:var(--orange-bg);color:var(--orange);}
+.head-ryo{background:var(--blue-light);color:var(--blue);}
+.head-aki{background:var(--green-bg);color:var(--green);}
+.head-murata{background:var(--brown-bg);color:var(--brown);}
+.head-summary{background:var(--navy);color:#fff;}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.card{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:14px;}
+.card-title{font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:600;}
+.card-val{font-size:18px;font-weight:700;}
+.card-sub{font-size:11px;color:var(--muted);margin-top:3px;}
+
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{background:var(--bg);padding:8px 12px;text-align:left;border:1px solid var(--border);font-weight:600;color:var(--muted);}
+td{padding:8px 12px;border:1px solid var(--border);}
+tr:nth-child(even) td{background:#fafafa;}
+
+.ok{color:var(--green);font-weight:700;}
+.ng{color:var(--red);font-weight:700;}
+.chk{color:var(--yellow);font-weight:700;}
+
+ul.checks{list-style:none;padding:0;}
+ul.checks li{padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:13px;}
+ul.checks li:last-child{border-bottom:none;}
+ul.checks li::before{content:"• ";color:var(--muted);}
+
+.risk-high{background:var(--red-bg);border-left:3px solid var(--red);padding:10px 14px;border-radius:4px;margin-bottom:8px;}
+.risk-mid{background:var(--yellow-bg);border-left:3px solid var(--yellow);padding:10px 14px;border-radius:4px;margin-bottom:8px;}
+.risk-low{background:var(--green-bg);border-left:3px solid var(--green);padding:10px 14px;border-radius:4px;margin-bottom:8px;}
+.risk-label{font-size:11px;font-weight:700;margin-bottom:4px;}
+.risk-content{font-size:13px;}
+
+.confirm-list{counter-reset:cnt;}
+.confirm-list li{counter-increment:cnt;list-style:none;padding:8px 0 8px 36px;border-bottom:1px solid var(--border);position:relative;font-size:13px;}
+.confirm-list li:last-child{border-bottom:none;}
+.confirm-list li::before{content:counter(cnt);position:absolute;left:8px;top:8px;background:var(--navy);color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+
+.verdict{background:var(--navy);color:#fff;padding:16px 20px;border-radius:6px;font-size:14px;line-height:1.8;}
+.verdict strong{color:#aec6e8;}
+
+.links{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;}
+.link-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--navy);color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;}
+.link-btn:hover{background:#234e6e;}
+
+.info-note{background:#e3f2fd;border-left:3px solid #1565c0;padding:10px 14px;border-radius:4px;font-size:12px;color:#1565c0;margin-bottom:12px;}
+
+p{margin-bottom:10px;line-height:1.7;}
+h4{font-size:13px;font-weight:700;margin-bottom:6px;margin-top:12px;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title">三ツ境 二ツ橋中古AP — 仕入部チーム精査レポート</div>
+  <div class="header-sub">横浜市瀬谷区二ツ橋町 | 相鉄本線 三ツ境駅 徒歩9分 | 精査日: 2026-06-06 | 担当: BRICKS 澤井さん</div>
+</div>
+
+<div class="summary-bar">
+  <div class="sum-cell">
+    <div class="sum-label">物件価格</div>
+    <div class="sum-val">9,680<span style="font-size:14px">万円</span></div>
+    <div class="sum-sub">≤1億円 ✅</div>
+  </div>
+  <div class="sum-cell">
+    <div class="sum-label">表面利回り</div>
+    <div class="sum-val">7.10<span style="font-size:14px">%</span></div>
+    <div class="sum-sub">基準ギリギリ（7.1%）</div>
+  </div>
+  <div class="sum-cell">
+    <div class="sum-label">構造・築年</div>
+    <div class="sum-val" style="font-size:15px">木造3F・10年</div>
+    <div class="sum-sub">2016年10月築</div>
+  </div>
+  <div class="sum-cell">
+    <div class="sum-label">間取り・面積</div>
+    <div class="sum-val" style="font-size:15px">1K×9戸</div>
+    <div class="sum-sub">21.84㎡/戸 | 延床196.56㎡</div>
+  </div>
+  <div class="sum-cell">
+    <div class="sum-label">取引態様</div>
+    <div class="sum-val" style="font-size:15px">仲介</div>
+    <div class="sum-sub">BRICKS 澤井さん</div>
+  </div>
+</div>
+
+<div class="criteria-bar">
+  <span style="font-size:12px;font-weight:700;color:var(--muted);align-self:center;">キャプテン基準:</span>
+  <span class="badge badge-ok">✅ 物件価格 9,680万円</span>
+  <span class="badge badge-ok">✅ 利回り 7.10%（ギリギリ）</span>
+  <span class="badge badge-ok">✅ 築10年（ギリギリ）</span>
+  <span class="badge badge-note">📌 16号外側（キャプテン裁量OK）</span>
+  <span class="badge badge-ng">❌ CF率 0.25%（オリックス100%）</span>
+  <span class="badge badge-ok">✅ CF率 1.33%（神奈川銀行90%）</span>
+  <span class="badge badge-ng">❌ CCR 両パターンとも未達</span>
+  <span class="badge badge-chk">⚠ 積算比率 路線価待ち</span>
+</div>
+
+<div class="wrap">
+
+  <div class="info-note">
+    💡 キャプテン追加情報（2026-06-06）: ① 1部屋あたり21.84㎡を確認。②16号線外側だが「オリックス銀行は問題なく使える」とキャプテン判断。
+    特記: 医療法人一括借上中（2029年3月19日満期）。
+  </div>
+
+  <!-- IG+ CF サマリー -->
+  <div class="section">
+    <div class="sec-head" style="background:var(--blue-light);color:var(--blue);">📊 アキ（三宅 亜紀）— IG+ 収支サマリー</div>
+    <div class="sec-body">
+      <div class="grid3" style="margin-bottom:16px;">
+        <div class="card">
+          <div class="card-title">満室時年収</div>
+          <div class="card-val">687.0<span style="font-size:13px">万円</span></div>
+          <div class="card-sub">572,500円/月（9戸×63,611円平均）</div>
+        </div>
+        <div class="card">
+          <div class="card-title">NOI</div>
+          <div class="card-val">489.1<span style="font-size:13px">万円</span></div>
+          <div class="card-sub">NOI利回り 5.05%</div>
+        </div>
+        <div class="card">
+          <div class="card-title">費用合計</div>
+          <div class="card-val">163.6<span style="font-size:13px">万円</span></div>
+          <div class="card-sub">賃貸管理2.75%+固都税10%+修繕0.5%+AD1.5M</div>
+        </div>
+      </div>
+
+      <table style="margin-bottom:16px;">
+        <tr>
+          <th>ローン条件</th>
+          <th>借入額</th>
+          <th>年間返済額</th>
+          <th>自己資金</th>
+          <th>CF（年）</th>
+          <th>CF率</th>
+          <th>返済比率</th>
+          <th>CCR</th>
+          <th>CF率基準</th>
+          <th>CCR基準</th>
+        </tr>
+        <tr>
+          <td><strong>オリックス銀行</strong><br><small>100%・2.6%・30年</small></td>
+          <td>9,680万円</td>
+          <td>465.1万円</td>
+          <td>677.6万円<br><small>（諸費用のみ）</small></td>
+          <td>24.0万円<br><small>（月2.0万円）</small></td>
+          <td class="ng">0.25%</td>
+          <td>67.7%</td>
+          <td class="ng">3.5%</td>
+          <td class="ng">❌ D判定</td>
+          <td class="ng">❌</td>
+        </tr>
+        <tr>
+          <td><strong>神奈川銀行（法人）</strong><br><small>90%・2.25%・35年</small></td>
+          <td>8,712万円</td>
+          <td>360.0万円</td>
+          <td>1,645.6万円<br><small>（頭金968+諸費用678）</small></td>
+          <td>129.1万円<br><small>（月10.8万円）</small></td>
+          <td class="ok">1.33%</td>
+          <td>52.4%</td>
+          <td class="ng">7.8%</td>
+          <td class="ok">✅ C判定</td>
+          <td class="ng">❌</td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <th>積算評価</th>
+          <th>建物評価額</th>
+          <th>土地評価（路線価10万/㎡仮定）</th>
+          <th>土地評価（路線価15万/㎡仮定）</th>
+          <th>積算60%クリアに必要な路線価</th>
+        </tr>
+        <tr>
+          <td>2026年6月時点</td>
+          <td>2,251.5万円<br><small>（残存14年/22年）</small></td>
+          <td>1,261.6万円 → 積算比率36.3% <span class="ng">❌</span></td>
+          <td>1,892.4万円 → 積算比率42.8% <span class="ng">❌</span></td>
+          <td><strong>24.7万円/㎡以上</strong></td>
+        </tr>
+      </table>
+
+      <div style="margin-top:12px;padding:10px;background:var(--red-bg);border-radius:4px;font-size:12px;">
+        ⚠️ <strong>金利上昇シナリオ（+1.5% = 4.1%）</strong>:
+        オリックスフルローン → CF <strong>-72.2万円/年（赤字）</strong> |
+        神奈川銀行90% → CF <strong>+41.7万円/年（CF率0.43%）</strong>
+      </div>
+      <div style="margin-top:8px;padding:10px;background:var(--blue-light);border-radius:4px;font-size:12px;">
+        📌 <strong>ブリックスのシミュレーション（参考）</strong>: 95%・2.6%・30年 → 月CF 142,544円（稼働100%時）。
+        空室率0%・費用74万円の楽観試算。アキのデフォルト値（空室5%・費用164万円）との差に注意。
+      </div>
+    </div>
+  </div>
+
+  <!-- ハルト エリア分析 -->
+  <div class="section">
+    <div class="sec-head head-haruto">🗺 ハルト（朝倉 晴斗）— エリア・利回り分析</div>
+    <div class="sec-body">
+      <div class="grid2" style="margin-bottom:16px;">
+        <div>
+          <h4>16号線エリア判定</h4>
+          <p>三ツ境駅・瀬谷区は国道16号の<strong>西側（外側）</strong>に位置。厳密にはキャプテン基準外。ただしキャプテン自身が「オリックス銀行は問題なく使える」と判断済み。</p>
+          <h4>三ツ境駅の交通利便性</h4>
+          <p>相鉄本線は<strong>2019年JR直通・2023年東急新横浜線直通</strong>で沿線価値が大幅向上。横浜直通15分、渋谷・新宿・東京方面へダイレクトアクセス可能。乗降客数51,433人/日（2024）、コロナ前比91%回復中。相鉄27駅中7位の中核駅。</p>
+        </div>
+        <div>
+          <h4>上瀬谷再開発（エリアのジョーカー）</h4>
+          <p>三ツ境駅が旧上瀬谷通信施設（242ha）再開発のシャトルバス拠点に指定。</p>
+          <ul class="checks">
+            <li><strong>GREEN×EXPO 2027（国際園芸博覧会）</strong>: 2027年3月開催</li>
+            <li><strong>KAMISEYA PARK</strong>（三菱地所）: 2031年開業・年間来場1,500万人規模</li>
+            <li>バス専用地下道（約466億円）: 瀬谷駅〜施設2km整備</li>
+          </ul>
+          <p style="color:var(--green);font-weight:600;">一括借上終了（2029年3月）後も開発フォローで賃貸需要が補完される可能性大。</p>
+        </div>
+      </div>
+      <div class="grid2">
+        <div>
+          <h4>賃貸相場・需要</h4>
+          <p>三ツ境周辺1K（中古・徒歩9分）: <strong>60,000〜65,000円</strong>が実勢。本物件63,611円/戸は市場水準内。1戸あたり<strong>21.84㎡</strong>は16㎡以上基準をクリアし需要安定帯。</p>
+          <h4>医療法人借上終了後（2029年3月）</h4>
+          <p>三ツ境病院（医療法人愛生会）が近隣に実在。職員宿舎の可能性。一般賃貸転換時も1K・9戸・21.84㎡の規模感は転換しやすい。</p>
+        </div>
+        <div>
+          <h4>ハルトの総合評価</h4>
+          <div style="background:var(--orange-bg);padding:12px;border-radius:6px;font-size:13px;">
+            「全項目がギリギリの物件だが、相鉄ダブル直通強化×上瀬谷再開発×医療法人安定借上のセットは面白い。
+            21.84㎡という部屋面積が判明したことで需要面の懸念が大幅に軽減。
+            <strong>千三つ万八の中で"光っている1件"</strong>。仕入部チームの精査継続を推奨する。」
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- リョウ DD -->
+  <div class="section">
+    <div class="sec-head head-ryo">📋 リョウ（黒沢 涼）— DDチェックリスト</div>
+    <div class="sec-body">
+      <div class="risk-high">
+        <div class="risk-label">🔴 高リスク①: 医療法人一括借上の契約内容が未確認（最大リスク）</div>
+        <div class="risk-content">2029年3月19日満期と期日は判明。しかし解除条件・違約金・賃料改定条項・更新意向・各室の実入居状況が一切不明。年間687万円の収益根拠がこの1枚の契約に依存。<br><strong>対処</strong>: 澤井さんを通じ契約書全文を入手。更新意向を書面確認。</div>
+      </div>
+      <div class="risk-high">
+        <div class="risk-label">🔴 高リスク②: 宅地造成等工事規制区域の影響不明</div>
+        <div class="risk-content">横浜市瀬谷区は丘陵地形が多く宅造法指定エリアが広範。融資審査でオリックス銀行の担保評価を下げるケースあり。現行建物の適法性確認・将来増改築への制限内容を要確認。</div>
+      </div>
+      <div class="risk-high">
+        <div class="risk-label">🔴 高リスク③: 擁壁・高低差の現地未確認</div>
+        <div class="risk-content">澤井さんの「擁壁なし」は口頭確認のみ。横浜丘陵地では裏面・側面に高低差が潜むケースあり。オリックスは擁壁物件でNG実績あり。現地で四方を自分の目で確認必須。</div>
+      </div>
+      <div class="risk-mid">
+        <div class="risk-label">🟡 中リスク①: LPガス継承の条件不明</div>
+        <div class="risk-content">解約違約金・設備所有権・契約期間が未確認。一般賃貸転換後の競争力に影響。契約書の入手が必要。</div>
+      </div>
+      <div class="risk-mid">
+        <div class="risk-label">🟡 中リスク②: Jcom月額9,801円（年約11.8万円）の継続義務</div>
+        <div class="risk-content">解約可否・ペナルティが不明。解約不可なら恒久的な追加コストとして収支再計算が必要。</div>
+      </div>
+      <div class="risk-mid">
+        <div class="risk-label">🟡 中リスク③: 契約不適合責任免責</div>
+        <div class="risk-content">引渡し後の隠れた瑕疵は全て買主負担。2×4工法は10年目に外壁シーリング劣化・壁体内結露が発生しやすい時期。インスペクション実施を推奨。</div>
+      </div>
+      <div class="risk-mid">
+        <div class="risk-label">🟡 中リスク④: 建築確認済証・検査済証の未確認</div>
+        <div class="risk-content">木造3階建ては構造計算書の提出が義務。検査済証がなければ融資NGになる金融機関が増加中。</div>
+      </div>
+      <div class="risk-mid">
+        <div class="risk-label">🟡 中リスク⑤: ハザードマップ未確認</div>
+        <div class="risk-content">横浜市瀬谷区二ツ橋町の洪水・土砂・液状化リスク未確認。境川沿いに洪水リスクエリアあり。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 村田先生 -->
+  <div class="section">
+    <div class="sec-head head-murata">🏗 村田 誠一（一級建築士）— 建築士コメント</div>
+    <div class="sec-body">
+      <div class="grid2">
+        <div>
+          <h4>構造的評価</h4>
+          <p>2016年築・木造2×4（枠組壁工法）・3階建ては構造的に問題なし。新耐震基準（2000年基準）適合済み。面で水平力を受ける構造で軸組工法より剛性が高い。ただし外壁の透湿防水シートの施工精度が鍵。10年目は目地・シーリング部の劣化確認が重要。</p>
+          <h4>直近修繕費（5年以内）</h4>
+          <table>
+            <tr><th>項目</th><th>時期</th><th>概算費用</th></tr>
+            <tr><td>給湯器交換（9台）</td><td>1〜3年以内</td><td><strong>108〜135万円</strong></td></tr>
+            <tr><td>外壁シーリング補修</td><td>3〜5年以内</td><td>30〜60万円</td></tr>
+            <tr><td>屋根・板金点検補修</td><td>3〜5年以内</td><td>10〜30万円</td></tr>
+            <tr><td>共用部設備消耗品</td><td>随時</td><td>10〜20万円</td></tr>
+            <tr style="background:var(--red-bg);"><td><strong>5年合計</strong></td><td></td><td><strong>158〜245万円</strong></td></tr>
+          </table>
+          <p style="margin-top:8px;font-size:12px;color:var(--muted);">※ブリックス200万円/10年の試算は給湯器だけで超過。年30〜40万円の修繕費を収支に組み込むことを推奨。</p>
+        </div>
+        <div>
+          <h4>中期修繕リスク（10〜20年）</h4>
+          <table>
+            <tr><th>項目</th><th>時期</th><th>概算費用</th></tr>
+            <tr><td>外壁塗装・全面シーリング打替</td><td>10〜15年目</td><td>150〜300万円</td></tr>
+            <tr><td>給排水管洗浄・点検</td><td>10〜15年目</td><td>20〜50万円</td></tr>
+            <tr><td>バルコニー・廊下防水</td><td>10〜15年目</td><td>50〜100万円</td></tr>
+            <tr style="background:var(--yellow-bg);"><td><strong>10〜20年合計（見込み）</strong></td><td></td><td><strong>600〜900万円</strong></td></tr>
+          </table>
+          <h4 style="margin-top:12px;">村田先生の総合所見</h4>
+          <div style="background:var(--brown-bg);padding:12px;border-radius:6px;font-size:13px;line-height:1.7;">
+            「現場を見ないと断言はできませんが、資料上は致命的な問題は見当たりません。
+            ただし<strong>絶対条件が3つ</strong>あります。
+            ①確認済証・検査済証の現物確認（木造3階建てに必須）、
+            ②宅造法区域の擁壁を自分の目で現地確認、
+            ③修繕費を年30〜40万円で収支再計算。
+            この3点が揃った上で数字が合うなら、築10年2×4の素性は悪くない。<br>
+            <em>建物は正直者です。現場が必ず答えを教えてくれます。</em>」
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- キャプテンへの確認事項 -->
+  <div class="section">
+    <div class="sec-head" style="background:#fff8e1;color:#5d4037;">📌 キャプテンへの確認事項（優先度順）</div>
+    <div class="sec-body">
+      <ol class="confirm-list">
+        <li><strong>路線価の確認（積算評価・最重要）</strong>: 国税庁路線価図で「横浜市瀬谷区二ツ橋町」を確認。60%基準クリアには24.7万円/㎡以上が必要。</li>
+        <li><strong>医療法人一括借上の契約書入手</strong>: 澤井さんに全文コピーを依頼。解除条件・違約金・賃料改定・2029年以降の更新意向を確認。</li>
+        <li><strong>建築確認済証・検査済証のコピー入手</strong>: 木造3階建てでは融資審査の必須書類。澤井さんに即依頼。</li>
+        <li><strong>ハザードマップ確認</strong>: 横浜市ポータルで「二ツ橋町352」の洪水・土砂・液状化リスクを確認。</li>
+        <li><strong>宅地造成等工事規制区域の制限内容確認</strong>: 澤井さんに「過去に同エリアでオリックス融資が通った実績があるか」を照会。</li>
+        <li><strong>LPガス業者との契約書確認</strong>: 解約違約金・契約期間。継続義務がある場合は費用を収支に加算。</li>
+        <li><strong>Jcom契約書確認</strong>: 解約可否・ペナルティ。解約不可なら年11.8万円が恒久コスト。</li>
+        <li><strong>現地内見: 建物四方を一周して擁壁・高低差を目視確認</strong>。写真記録。澤井さんの口頭確認を自分で裏付ける。</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- チーム総合所見 -->
+  <div class="section">
+    <div class="sec-head head-summary">📑 チーム総合所見</div>
+    <div class="sec-body">
+      <div class="verdict">
+        <strong>総合判断: 精査継続・確認事項クリア後に再判断</strong><br><br>
+        本物件の素性は「基準ギリギリで通過」の物件です。物件価格・利回り・築年は全て基準を満たし、相鉄ダブル直通強化と上瀬谷再開発（2027博覧会・2031テーマパーク）はエリアの将来性を高める好材料です。21.84㎡という部屋面積が判明したことで需要面の懸念が払拭されました。<br><br>
+        <strong>最大リスク:</strong> 医療法人一括借上（2029年3月満期）の契約内容未確認。年間687万円の収益の全てがこの契約に依存しています。<br><br>
+        <strong>数字面の課題:</strong> オリックスフルローン（100%・30年）ではCF率0.25%でD判定。キャプテンがオリックスフルローンを希望している場合、金利上昇リスクも加味すると収益的に厳しい局面になる可能性があります。路線価確認と積算評価の確定が急務です。<br><br>
+        <strong>次のアクション:</strong> ①路線価確認 ②医療法人契約書入手 ③確認済証・検査済証入手 ④ハザードマップ確認 ⑤現地内見（擁壁目視）の5点を並行して進め、問題なければ買付判断へ。
+      </div>
+
+      <div class="links" style="margin-top:16px;">
+        <a class="link-btn" href="https://teruyone.github.io/tc-properties/properties/20260606_mitsukyo_DD.html">📋 DDチェックリスト</a>
+        <a class="link-btn" href="https://teruyone.github.io/tc-properties/ig-sheet/?price=9680&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=30&intRate=2.6&grossYield=7.10&floorArea=196.56&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=2.75&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=10&taxRateIncome=20&pi_price_inp=9680&pi_age_inp=10&pi_yield_inp=7.10&pi_area_inp=196.56&pi_rooms_inp=9&ik_land_area=126.16&ik_route_price=0&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E6%A8%AA%E6%B5%9C%E5%B8%82%E7%80%AC%E8%B0%B7%E5%8C%BA%E4%BA%8C%E3%83%84%E6%A9%8B%E7%94%BA">📊 InvestGate+ 収支試算</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="text-align:center;padding:16px;font-size:11px;color:var(--muted);">
+  TC Capitals 不動産仕入部 | ハルト・リョウ・アキ・村田先生 | 2026-06-06
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260606_mitsukyo_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260606_mitsukyo_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
