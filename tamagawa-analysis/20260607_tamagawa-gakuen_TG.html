@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>玉川式収益試算 - 玉川学園前 新築AP</title>
+<title>玉川式不動産収益試算シート</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Meiryo","Yu Gothic",sans-serif;font-size:13px;background:#f0f2f5;color:#222}
@@ -811,6 +811,7 @@ function fmt(n) { return Math.round(n).toLocaleString('ja-JP'); }
 function fmtM(n) { return (n/10000).toFixed(1); }
 function pct(n) { return (n*100).toFixed(2)+'%'; }
 function parseNum(id) { var el=document.getElementById(id); return el ? parseFloat(String(el.value).replace(/,/g,'')) : 0; }
+function parseNumD(id, def) { var el=document.getElementById(id); if(!el) return def; var raw=String(el.value).replace(/,/g,''); if(raw.trim()==='') return def; var v=parseFloat(raw); return isNaN(v)?def:v; }
 
 // ---- Loan calculation ----
 function calcMonthlyPayment(principal, annualRate, years) {
@@ -919,7 +920,7 @@ function calcAll() {
   var buildingRatio = parseNum('building_ratio') || 0.3;
   var loanRate = (parseNum('loan_rate') || 1.5) / 100;
   var loanYears = parseInt(document.getElementById('loan_years').value) || 30;
-  var equityRatio = parseNum('equity_ratio') || 15;
+  var equityRatio = parseNumD('equity_ratio', 15);
   var loanAmount = price * (1 - equityRatio/100);
   var equity = price * equityRatio/100;
   var structure = parseInt(document.getElementById('structure').value) || 47;
@@ -927,13 +928,13 @@ function calcAll() {
   var rentFull = parseNum('rent_full') || 21000000;
   var occupancy = (parseNum('occupancy') || 95.49) / 100;
   var pmRate = (parseNum('pm_rate') || 5.4) / 100;
-  var bmMonthly = parseNum('bm_monthly') || 100000;
-  var insurance = parseNum('insurance') || 200000;
-  var otherAnnual = parseNum('other_annual') || 200000;
+  var bmMonthly = parseNumD('bm_monthly', 100000);
+  var insurance = parseNumD('insurance', 200000);
+  var otherAnnual = parseNumD('other_annual', 200000);
   var avgStay = parseNum('avg_stay') || 3;
   var avgVacant = parseNum('avg_vacant') || 1.7;
-  var avgRecruit = parseNum('avg_recruit_cost') || 2;
-  var avgRestore = parseNum('avg_restore_cost') || 2;
+  var avgRecruit = parseNumD('avg_recruit_cost', 2);
+  var avgRestore = parseNumD('avg_restore_cost', 2);
   var landTaxBase = parseNum('land_tax_base') || 15000000;
   var landEval = parseNum('land_eval') || 70000000;
   var bldgEval = parseNum('bldg_eval') || 30000000;
@@ -941,9 +942,9 @@ function calcAll() {
   var salePrice = parseNum('sale_price') || price;
   var ownerType = parseInt(document.getElementById('owner_type').value) || 2;
   var brokerageRate = (parseNum('brokerage_rate') || 3.3) / 100;
-  var shikikin = parseNum('shikikin') || 1000000;
+  var shikikin = parseNumD('shikikin', 1000000);
   var shihoshoshi = parseNum('shihoshoshi') || 150000;
-  var otherPurchase = parseNum('other_purchase_cost') || 50000;
+  var otherPurchase = parseNumD('other_purchase_cost', 50000);
 
   // Auto-calculated purchase cost fields (Excel: B11-B20 are formulas)
   var bldgPriceContract = Math.round(price * buildingRatio);
@@ -1021,7 +1022,7 @@ function calcAll() {
   var buildingBook = buildingCost;
   var prevCFAfterCum = -(equity + purchaseMisc - shikikin);
   var cumRentalCFAfterTax = 0;
-  var initialInvestment = equity - shikikin; // = 44M
+  var initialInvestment = equity + purchaseMisc - shikikin;
   var prevJigyoTax = 0; // 事業税(+特別法人事業税)は翌年損金算入
 
   for (var yr = 1; yr <= 35; yr++) {
@@ -1089,7 +1090,7 @@ function calcAll() {
     prevJigyoTax = (ownerType === 2 && taxableIncome > 0) ? jigyoBiz * 1.432 : 0;
 
     // Cash flow（年1のみ cfInitCosts を控除）
-    var cfBeforeTax = noi - yearPrincipal - yearInterest - (yr === 1 ? cfInitCosts : 0);
+    var cfBeforeTax = noi - yearPrincipal - yearInterest;
     var cfAfterTax = cfBeforeTax - incomeTax;
 
     // Cumulative rental CF
