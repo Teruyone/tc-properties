@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>玉川式不動産収益試算シート</title>
+<title>玉川式 （仮称）キャメル川越並木8 — TC Capitals</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Meiryo","Yu Gothic",sans-serif;font-size:13px;background:#f0f2f5;color:#222}
@@ -84,7 +84,7 @@ thead th.year-hdr{background:#2c5282}
 
 <div class="form-section">
 <h3>購入条件</h3>
-<div class="form-row"><label>物件名</label><input type="text" id="prop_name" value="キャメル川越並木8（埼玉県川越市並木新町14番8）"></div>
+<div class="form-row"><label>物件名</label><input type="text" id="prop_name" value="（仮称）キャメル川越並木8"></div>
 <div class="form-row"><label>購入年</label><input type="number" id="purchase_year" value="2026"><span class="unit">年</span></div>
 <div class="form-row"><label>a.物件価格</label><input type="text" id="price" value="101,600,000"><span class="unit">円</span></div>
 <div class="form-row"><label>（うち消費税10%）</label><input type="text" id="consumption_tax" value="8,181,818" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
@@ -95,7 +95,7 @@ thead th.year-hdr{background:#2c5282}
   <select id="structure">
     <option value="47">RC造(47年)</option>
     <option value="34">重量鉄骨(34年)</option>
-    <option value="22">木造(22年)</option>
+    <option value="22" selected>木造(22年)</option>
   </select>
 </div>
 <div class="form-row"><label>物件築年(西暦)</label><input type="number" id="built_year" value="2026"><span class="unit">年</span></div>
@@ -137,12 +137,12 @@ thead th.year-hdr{background:#2c5282}
 <div class="form-row"><label>募集にかかる平均期間</label><input type="number" id="avg_vacant" value="1.7" step="0.1"><span class="unit">ヶ月</span></div>
 <div class="form-row"><label>平均募集費用(ヶ月)</label><input type="number" id="avg_recruit_cost" value="1"><span class="unit">ヶ月分</span></div>
 <div class="form-row"><label>平均原状回復費用(ヶ月)</label><input type="number" id="avg_restore_cost" value="0.5"><span class="unit">ヶ月分</span></div>
-<div class="form-row"><label>入居率推奨値</label><input type="number" id="occupancy_rec" value="95.49" readonly><span class="unit">%</span><span class="hint">自動計算</span></div>
-<div class="form-row"><label>入居率</label><input type="number" id="occupancy" value="95" step="0.01"><span class="unit">%</span></div>
+<div class="form-row"><label>入居率推奨値</label><input type="number" id="occupancy_rec" value="95.00" readonly><span class="unit">%</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>入居率</label><input type="number" id="occupancy" value="95.00" step="0.01"><span class="unit">%</span></div>
 <div class="form-row"><label>PM管理会社委託費用(対年間現況賃料)</label><input type="number" id="pm_rate" value="2.75" step="0.1"><span class="unit">%</span></div>
 <div class="form-row"><label>BM費用月額</label><input type="text" id="bm_monthly" value="17,632"><span class="unit">円/月</span></div>
-<div class="form-row"><label>火災保険・地震保険等年額</label><input type="text" id="insurance" value="145,464"><span class="unit">円/年</span></div>
-<div class="form-row"><label>毎年発生その他費用</label><input type="text" id="other_annual" value="52,000"><span class="unit">円/年</span></div>
+<div class="form-row"><label>火災保険・地震保険等年額</label><input type="text" id="insurance" value="145,000"><span class="unit">円/年</span></div>
+<div class="form-row"><label>毎年発生その他費用</label><input type="text" id="other_annual" value="210,400"><span class="unit">円/年</span></div>
 </div>
 
 <div class="form-section">
