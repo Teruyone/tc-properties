@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>物件精査レポート｜カインドネス八王子大塚C棟｜TC Capitals</title>
+<style>
+  :root {
+    --primary: #1a237e;
+    --primary-light: #3949ab;
+    --accent: #e65100;
+    --ok: #2e7d32;
+    --ng: #c62828;
+    --warn: #f57f17;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --border: #dde3ee;
+    --text: #1a1a2e;
+    --muted: #607d8b;
+    --haruto: #e65100;
+    --ryo: #1565c0;
+    --aki: #2e7d32;
+    --murata: #4e342e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .site-header {
+    background: var(--primary);
+    color: white;
+    padding: 16px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .site-header h1 { font-size: 17px; font-weight: 700; letter-spacing: 0.05em; }
+  .site-header .sub { font-size: 12px; opacity: 0.75; margin-top: 2px; }
+  .container { max-width: 960px; margin: 0 auto; padding: 24px 16px 80px; }
+
+  /* === CARD === */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title.haruto { border-color: var(--haruto); color: var(--haruto); }
+  .card-title.ryo { border-color: var(--ryo); color: var(--ryo); }
+  .card-title.aki { border-color: var(--aki); color: var(--aki); }
+  .card-title.murata { border-color: var(--murata); color: var(--murata); }
+  .card-title.captain { border-color: var(--primary); color: var(--primary); }
+  .card-title.summary { border-color: #37474f; color: #37474f; }
+
+  /* === SUMMARY TABLE === */
+  .prop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .prop-item { }
+  .prop-label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px; }
+  .prop-value { font-size: 14px; font-weight: 600; color: var(--text); }
+  .prop-value.highlight { font-size: 20px; color: var(--primary); }
+
+  /* === CRITERIA TABLE === */
+  .criteria-table { width: 100%; border-collapse: collapse; }
+  .criteria-table th {
+    background: #f0f2fa;
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .criteria-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .criteria-table tr:last-child td { border-bottom: none; }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    min-width: 50px;
+    text-align: center;
+  }
+  .badge-ok { background: #e8f5e9; color: var(--ok); }
+  .badge-ng { background: #ffebee; color: var(--ng); }
+  .badge-warn { background: #fff8e1; color: var(--warn); }
+  .badge-pending { background: #e3f2fd; color: #1565c0; }
+
+  /* === CF TABLE === */
+  .cf-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 600px) { .cf-grid { grid-template-columns: 1fr; } }
+  .cf-card {
+    background: #f8f9ff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .cf-card h4 { font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 12px; }
+  .cf-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; border-bottom: 1px solid #eef0f8; }
+  .cf-row:last-child { border-bottom: none; }
+  .cf-row.total { font-weight: 700; color: var(--primary); padding-top: 8px; margin-top: 4px; }
+  .cf-label { color: var(--muted); }
+  .cf-value { font-weight: 600; }
+  .cf-value.positive { color: var(--ok); }
+  .cf-value.negative { color: var(--ng); }
+  .cf-value.warn { color: var(--warn); }
+
+  /* === RISK LIST === */
+  .risk-list { list-style: none; }
+  .risk-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .risk-item:last-child { border-bottom: none; }
+  .risk-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .risk-title { font-weight: 700; margin-bottom: 3px; font-size: 13px; }
+  .risk-desc { color: #444; line-height: 1.6; }
+
+  /* === CHECK LIST === */
+  .check-section { margin-bottom: 16px; }
+  .check-section h4 { font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.03em; }
+  .check-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 1px solid #f0f2f5; font-size: 13px; }
+  .check-item:last-child { border-bottom: none; }
+  .check-tag { font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 10px; flex-shrink: 0; white-space: nowrap; }
+  .check-tag.ok { background: #e8f5e9; color: var(--ok); }
+  .check-tag.ng { background: #ffebee; color: var(--ng); }
+  .check-tag.warn { background: #fff8e1; color: var(--warn); }
+  .check-tag.pending { background: #e3f2fd; color: #1565c0; }
+
+  /* === LINK BUTTONS === */
+  .btn-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+  .btn-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+  .btn-link:hover { opacity: 0.8; }
+  .btn-link.ryo { background: #e3f2fd; color: var(--ryo); border: 1px solid #bbdefb; }
+  .btn-link.aki { background: #e8f5e9; color: var(--aki); border: 1px solid #c8e6c9; }
+  .btn-link.tg { background: #e8f5e9; color: #1b5e20; border: 1px solid #a5d6a7; }
+
+  /* === CONFIRM LIST === */
+  .confirm-list { list-style: none; counter-reset: item; }
+  .confirm-item {
+    counter-increment: item;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .confirm-item:last-child { border-bottom: none; }
+  .confirm-num {
+    background: var(--primary);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .confirm-num.urgent { background: var(--ng); }
+  .confirm-body { }
+  .confirm-title { font-weight: 700; margin-bottom: 2px; }
+  .confirm-desc { color: var(--muted); font-size: 12px; }
+
+  /* === FINAL VERDICT === */
+  .verdict-box {
+    background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+    color: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 8px;
+  }
+  .verdict-label { font-size: 11px; opacity: 0.7; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+  .verdict-score { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .verdict-text { font-size: 14px; line-height: 1.8; opacity: 0.92; }
+  .verdict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  .verdict-item h5 { font-size: 12px; opacity: 0.7; margin-bottom: 4px; }
+  .verdict-item p { font-size: 13px; line-height: 1.6; }
+
+  /* === NEXT ACTION === */
+  .action-list { list-style: none; }
+  .action-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .action-item:last-child { border-bottom: none; }
+  .action-badge { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; flex-shrink: 0; white-space: nowrap; }
+  .action-badge.urgent { background: #ffebee; color: var(--ng); }
+  .action-badge.high { background: #fff8e1; color: var(--warn); }
+  .action-badge.medium { background: #e3f2fd; color: #1565c0; }
+
+  section + section { margin-top: 0; }
+  h2.section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 28px 0 10px;
+  }
+  table.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.data-table th { background: #f0f2fa; padding: 7px 10px; text-align: left; font-size: 12px; color: var(--muted); }
+  table.data-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  table.data-table tr:last-child td { border-bottom: none; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>📑 チーム物件精査レポート｜TC Capitals 不動産仕入部</h1>
+  <div class="sub">カインドネス八王子大塚C棟｜精査日: 2026-06-13｜担当: ハルト・リョウ・アキ・村田先生</div>
+</header>
+
+<div class="container">
+
+  <!-- ===== 物件サマリー ===== -->
+  <h2 class="section-label">物件サマリー</h2>
+  <div class="card">
+    <div class="card-title">🏢 物件概要</div>
+    <div class="prop-grid">
+      <div class="prop-item">
+        <div class="prop-label">物件名</div>
+        <div class="prop-value">カインドネス八王子大塚C棟</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">所在地</div>
+        <div class="prop-value">東京都八王子市大塚634番11</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">交通</div>
+        <div class="prop-value">多摩都市モノレール「大塚・帝京大学駅」徒歩8分</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">物件価格</div>
+        <div class="prop-value highlight">9,000万円</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">表面利回り</div>
+        <div class="prop-value highlight">8.20%</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">構造・築年</div>
+        <div class="prop-value">木造陸屋根2階建・2020年3月（築6年）</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">延床面積</div>
+        <div class="prop-value">211.16㎡（63.87坪）</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">土地面積</div>
+        <div class="prop-value">207.93㎡（62.89坪）</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">間取り・戸数</div>
+        <div class="prop-value">1R × 10室（20.08〜20.78㎡）</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">用途地域</div>
+        <div class="prop-value">準工業地域（建蔽60%・容積200%）</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">取引態様</div>
+        <div class="prop-value">仲介（ハウスリンクマネジメント㈱）</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">満室想定賃料</div>
+        <div class="prop-value">7,392,000円/年（月61.6万円）</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">稼働状況</div>
+        <div class="prop-value">8室契約中・1室空室・1室申込中（実態90%）</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">抵当権</div>
+        <div class="prop-value">横浜銀行 6,600万円（要抹消）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== キャプテン基準チェック ===== -->
+  <h2 class="section-label">キャプテン基準チェック（6指標）</h2>
+  <div class="card">
+    <div class="card-title captain">⚖️ TC Capitals 仕入基準</div>
+    <table class="criteria-table">
+      <thead>
+        <tr>
+          <th>基準項目</th>
+          <th>基準値</th>
+          <th>本物件</th>
+          <th>オリックス</th>
+          <th>神奈川銀行</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>価格</td>
+          <td>1億円以下</td>
+          <td>9,000万円</td>
+          <td><span class="badge badge-ok">OK</span></td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>表面利回り</td>
+          <td>7.1%以上</td>
+          <td><strong>8.20%</strong></td>
+          <td><span class="badge badge-ok">OK</span></td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>16号内側</td>
+          <td>内側</td>
+          <td>八王子市大塚（外側の可能性大）</td>
+          <td><span class="badge badge-warn">要確認</span></td>
+          <td><span class="badge badge-warn">要確認</span></td>
+        </tr>
+        <tr>
+          <td>CF率</td>
+          <td>1.0%以上</td>
+          <td>—</td>
+          <td><span class="badge badge-ok">1.40%</span></td>
+          <td><span class="badge badge-ok">2.04%</span></td>
+        </tr>
+        <tr>
+          <td>CCR</td>
+          <td>15%以上</td>
+          <td>—</td>
+          <td><span class="badge badge-ok">20.1%</span></td>
+          <td><span class="badge badge-ng">12.0%</span></td>
+        </tr>
+        <tr>
+          <td>積算比率</td>
+          <td>60%以上</td>
+          <td>路線価次第</td>
+          <td><span class="badge badge-ng">54〜59%</span></td>
+          <td><span class="badge badge-ng">54〜59%</span></td>
+        </tr>
+        <tr>
+          <td>10年目IRR</td>
+          <td>25%以上</td>
+          <td>—</td>
+          <td><span class="badge badge-pending">TGで確認</span></td>
+          <td><span class="badge badge-pending">TGで確認</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== ハルト ===== -->
+  <h2 class="section-label">朝倉ハルト — エリア・利回り分析</h2>
+  <div class="card">
+    <div class="card-title haruto">🔍 朝倉 晴斗（ハルト）｜エリア・市場調査</div>
+
+    <div class="check-section">
+      <h4>エリア評価</h4>
+      <div class="check-item">
+        <span class="check-tag warn">要確認</span>
+        <div><span class="risk-title">16号内外判定</span><br>Google Mapsで八王子市大塚634番地と国道16号を目視確認必須。地理的に<strong>外側の可能性が高い</strong>。キャプテン基準の最重要論点。</div>
+      </div>
+      <div class="check-item">
+        <span class="check-tag ok">プラス</span>
+        <div><span class="risk-title">帝京大学学生需要</span><br>帝京大学八王子キャンパス（約15,500名）の最寄り駅。1R需要の安定した底支えあり。</div>
+      </div>
+      <div class="check-item">
+        <span class="check-tag ok">プラス</span>
+        <div><span class="risk-title">賃貸人気ランキング</span><br>2026年2月 首都圏住みたい街2位・東京都下賃貸人気1位（アットホーム）に急上昇。</div>
+      </div>
+      <div class="check-item">
+        <span class="check-tag ok">プラス</span>
+        <div><span class="risk-title">多摩都市モノレール延伸</span><br>2025年11月認可・2034年度開業予定（上北台〜箱根ケ崎）。沿線価値向上の波及効果あり。</div>
+      </div>
+      <div class="check-item">
+        <span class="check-tag ng">リスク</span>
+        <div><span class="risk-title">八王子市人口減少</span><br>2020年: 57.9万→2040年推計: 47.9万（▲10万人）。長期保有時のエグジット難易度に注意。</div>
+      </div>
+    </div>
+
+    <div class="check-section">
+      <h4>利回り相場感</h4>
+      <table class="data-table">
+        <thead><tr><th>参考物件</th><th>利回り</th></tr></thead>
+        <tbody>
+          <tr><td>大塚・帝京大学駅徒歩6分 木造アパート</td><td>6.24%</td></tr>
+          <tr><td>大塚・帝京大学駅徒歩12分 3階建24戸</td><td>6.50%</td></tr>
+          <tr><td>八王子市内投資物件（一般相場）</td><td>5.5〜6.5%</td></tr>
+          <tr><td><strong>本物件（徒歩8分・築6年）</strong></td><td><strong>8.20% ★+1.5〜2.0ポイント高</strong></td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:10px;padding:10px;background:#fff8e1;border-radius:6px;font-size:13px;">
+        ⚠️ 相場より1.5〜2.0ポイント高い高利回り。ローンブレイク（前買主の融資NG）による再販が原因と推定。「単純な割安」か「理由ある高利回り」かの見極めが最重要。
+      </div>
+    </div>
+
+    <div style="padding:12px;background:#fff3e0;border-left:4px solid var(--haruto);border-radius:4px;font-size:13px;margin-top:8px;">
+      <strong>ハルト総合評価: HOLD（要検討）</strong><br>
+      16号内側であればCF・利回り・学生需要・築年が全て揃う即GO候補。外側であればキャプテン基準外として別途判断が必要。ローンブレイク理由の確認・16号判定・ハザードマップの3点確認で方向性が確定する。
+    </div>
+  </div>
+
+  <!-- ===== リョウ（DD） ===== -->
+  <h2 class="section-label">黒沢リョウ — デューデリジェンス</h2>
+  <div class="card">
+    <div class="card-title ryo">📋 黒沢 涼（リョウ）｜DD・法務リスク精査</div>
+
+    <div class="check-section">
+      <h4>確認済み ✅</h4>
+      <div class="check-item">
+        <span class="check-tag ok">確認済</span>
+        <div>新耐震基準（2000年基準完全適用）— 建築確認H30.12.3取得</div>
+      </div>
+      <div class="check-item">
+        <span class="check-tag ok">確認済</span>
+        <div>検査済証取得 — 令和2年3月19日（第H30SHC323420号）</div>
+      </div>
+      <div class="check-item">
+        <span class="check-tag ok">確認済</span>
+        <div>接道義務充足 — 東側幅員6m公道に2.6m接道（基準2m以上を満たす）</div>
+      </div>
+      <div class="check-item">
+        <span class="check-tag ok">確認済</span>
+        <div>再建築可 — 準工業地域・接道義務充足・検査済証取得済み</div>
+      </div>
+      <div class="check-item">
+        <span class="check-tag ok">確認済</span>
+        <div>横浜銀行抵当権（6,600万円）— 売買時の同時抹消で対応可能（通常手続き）</div>
+      </div>
+    </div>
+
+    <div class="check-section">
+      <h4>リスクフラグ 🔴</h4>
+      <ul class="risk-list">
+        <li class="risk-item">
+          <span class="risk-icon">🚨</span>
+          <div>
+            <div class="risk-title">【最大リスク】土地・建物所有者の不一致</div>
+            <div class="risk-desc">土地甲区: 池田馨（相続取得・H5.1.18）/ 建物甲区: 山口慶子（令和2.3.31保存登記）。借地権状態の可能性あり → 全金融機関NG。登記謄本（全記録事項証明書）で「池田馨→山口慶子への所有権移転」を今すぐ確認必須。</div>
+          </div>
+        </li>
+        <li class="risk-item">
+          <span class="risk-icon">⚠️</span>
+          <div>
+            <div class="risk-title">103号空室が4月需要期を超えて2.5ヶ月継続</div>
+            <div class="risk-desc">2026年3月16日退去→6月5日時点で空室継続。学生需要が強いエリアで4月を超えた空室は賃料設定（58,000円）が高い可能性または部屋固有の問題を示唆。</div>
+          </div>
+        </li>
+        <li class="risk-item">
+          <span class="risk-icon">⚠️</span>
+          <div>
+            <div class="risk-title">104号「申し込み」の詳細不明（申し込みから3ヶ月以上経過）</div>
+            <div class="risk-desc">申し込み日2026/3/11→6月時点で3ヶ月以上未締結。申し込みの実態（申し込み受付開始日か契約予定日か）と現在の進捗確認が必要。</div>
+          </div>
+        </li>
+        <li class="risk-item">
+          <span class="risk-icon">⚠️</span>
+          <div>
+            <div class="risk-title">管理委託条件付き（費率・解除条件不明）</div>
+            <div class="risk-desc">ハウスリンクマネジメントとの管理委託が売買条件。管理費率・縛り期間・解除違約金が未確認。管理に不満でも乗り換え不可の可能性。</div>
+          </div>
+        </li>
+        <li class="risk-item">
+          <span class="risk-icon">⚠️</span>
+          <div>
+            <div class="risk-title">LPガス供給契約条件付き</div>
+            <div class="risk-desc">入居者のガス代が割高になるプロパンガスモデル。縛り期間・解除条件・違約金が不明。入居者の定着に影響する可能性。</div>
+          </div>
+        </li>
+        <li class="risk-item">
+          <span class="risk-icon">⚠️</span>
+          <div>
+            <div class="risk-title">「C棟」→ A棟・B棟の存在と共用設備の関係</div>
+            <div class="risk-desc">A棟・B棟が存在する場合、敷地・共用設備の共有関係・権利関係の複雑化リスクあり。</div>
+          </div>
+        </li>
+        <li class="risk-item">
+          <span class="risk-icon">⚠️</span>
+          <div>
+            <div class="risk-title">準工業地域×現状有姿引渡・契約不適合免責</div>
+            <div class="risk-desc">周辺工場等の騒音・臭気リスクと組み合わさり、引渡後の問題を売主に帰責できない。現地確認必須。</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="btn-links">
+      <a href="https://teruyone.github.io/tc-properties/properties/20260613_kindness-hachioji_DD.html" class="btn-link ryo" target="_blank">📋 入力済みDDチェックリスト</a>
+    </div>
+  </div>
+
+  <!-- ===== アキ（収支計算） ===== -->
+  <h2 class="section-label">三宅アキ — IG+収支計算</h2>
+  <div class="card">
+    <div class="card-title aki">📊 三宅 亜紀（アキ）｜InvestGate+ 収支試算</div>
+
+    <div style="margin-bottom:16px;">
+      <table class="data-table">
+        <thead><tr><th>収益項目</th><th>金額</th></tr></thead>
+        <tbody>
+          <tr><td>満室想定賃料収入</td><td>739.2万円/年</td></tr>
+          <tr><td>実収入（空室5%控除）</td><td>702.2万円/年</td></tr>
+          <tr><td>総費用（管理・修繕・税・保険等）</td><td>184.0万円/年</td></tr>
+          <tr><td><strong>NOI（純収益）</strong></td><td><strong>518.3万円/年（NOI利回り5.76%）</strong></td></tr>
+          <tr><td>減価償却費（年間）</td><td>370.6万円/年（残存17年）</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cf-grid">
+      <div class="cf-card">
+        <h4>① オリックス銀行（フルローン）</h4>
+        <div class="cf-row"><span class="cf-label">借入額</span><span class="cf-value">9,000万円（100%）</span></div>
+        <div class="cf-row"><span class="cf-label">金利・期間</span><span class="cf-value">2.6% / 35年</span></div>
+        <div class="cf-row"><span class="cf-label">月返済額</span><span class="cf-value">326,590円</span></div>
+        <div class="cf-row"><span class="cf-label">年返済額</span><span class="cf-value">391.9万円</span></div>
+        <div class="cf-row"><span class="cf-label">返済比率</span><span class="cf-value warn">55.8%</span></div>
+        <div class="cf-row total"><span class="cf-label">年間CF</span><span class="cf-value positive">+126.4万円</span></div>
+        <div class="cf-row total"><span class="cf-label">CF率</span><span class="cf-value positive">1.40%</span></div>
+        <div class="cf-row total"><span class="cf-label">自己資金</span><span class="cf-value">630万円（諸費用のみ）</span></div>
+        <div class="cf-row total"><span class="cf-label">CCR</span><span class="cf-value positive">20.1%</span></div>
+      </div>
+      <div class="cf-card">
+        <h4>② 神奈川銀行（90%融資）</h4>
+        <div class="cf-row"><span class="cf-label">借入額</span><span class="cf-value">8,100万円（90%）</span></div>
+        <div class="cf-row"><span class="cf-label">金利・期間</span><span class="cf-value">2.25% / 35年</span></div>
+        <div class="cf-row"><span class="cf-label">月返済額</span><span class="cf-value">278,832円</span></div>
+        <div class="cf-row"><span class="cf-label">年返済額</span><span class="cf-value">334.6万円</span></div>
+        <div class="cf-row"><span class="cf-label">返済比率</span><span class="cf-value">47.6%</span></div>
+        <div class="cf-row total"><span class="cf-label">年間CF</span><span class="cf-value positive">+183.7万円</span></div>
+        <div class="cf-row total"><span class="cf-label">CF率</span><span class="cf-value positive">2.04%</span></div>
+        <div class="cf-row total"><span class="cf-label">自己資金</span><span class="cf-value">1,530万円（頭金900万+諸費用）</span></div>
+        <div class="cf-row total"><span class="cf-label">CCR</span><span class="cf-value warn">12.0%（基準15%未達）</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;">
+      <h4 style="font-size:13px;color:var(--muted);font-weight:700;margin-bottom:8px;">積算評価（路線価仮計算）</h4>
+      <table class="data-table">
+        <thead><tr><th>路線価</th><th>土地評価額</th><th>建物評価額</th><th>積算合計</th><th>積算比率</th></tr></thead>
+        <tbody>
+          <tr><td>8万円/㎡</td><td>1,663万円</td><td>3,225万円</td><td>4,888万円</td><td><span class="badge badge-ng">54.3%</span></td></tr>
+          <tr><td>9万円/㎡（仮）</td><td>1,871万円</td><td>3,225万円</td><td>5,096万円</td><td><span class="badge badge-ng">56.6%</span></td></tr>
+          <tr><td>10万円/㎡</td><td>2,079万円</td><td>3,225万円</td><td>5,304万円</td><td><span class="badge badge-ng">58.9%</span></td></tr>
+          <tr><td><strong>11.5万円/㎡（必要値）</strong></td><td>2,393万円</td><td>3,225万円</td><td>5,618万円</td><td><span class="badge badge-warn">62.4%（60%超）</span></td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:8px;padding:8px 12px;background:#fff3e0;border-radius:6px;font-size:12px;">
+        ⚠️ <strong>積算比率60%クリアには路線価11.5万円/㎡以上が必要。</strong>国税庁路線価図（令和7年・八王子市大塚）での実確認が最優先事項。
+      </div>
+    </div>
+
+    <div class="btn-links">
+      <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=9000&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=8.20&floorArea=211.16&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=6&taxRateIncome=20&pi_price_inp=9000&pi_age_inp=6&pi_yield_inp=8.20&pi_area_inp=211.16&pi_rooms_inp=10&ik_land_area=207.93&ik_route_price=9&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E9%87%91%E5%9D%87%E7%AD%89&_addr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%85%AB%E7%8E%8B%E5%AD%90%E5%B8%82%E5%A4%A7%E5%A1%9A634%E7%95%AA11+%E3%82%AB%E3%82%A4%E3%83%B3%E3%83%89%E3%83%8D%E3%82%B9%E5%85%AB%E7%8E%8B%E5%AD%90%E5%A4%A7%E5%A1%9AC%E6%A3%9F" class="btn-link aki" target="_blank">📊 InvestGate+ 収支試算（入力済み）</a>
+      <a href="../../knowledge/tamagawa-analysis/20260613_kindness-hachioji_TG.html" class="btn-link tg" target="_blank">📈 玉川式収益試算シート（入力済み）</a>
+    </div>
+
+    <div style="margin-top:12px;padding:10px 14px;background:#e8f5e9;border-left:4px solid var(--aki);border-radius:4px;font-size:12px;">
+      💡 <strong>アキメモ:</strong> デッドクロスは11年目頃（減価償却17年で切れた後の課税所得急増）。玉川式シートで10年目IRR≥25%の確認を必ずお願いします。神奈川銀行パターンはCCR12.0%で基準未達のため、指値（8,500万以下）交渉でCCR改善を検討。
+    </div>
+  </div>
+
+  <!-- ===== 村田先生 ===== -->
+  <h2 class="section-label">村田誠一先生 — 建築士コメント</h2>
+  <div class="card">
+    <div class="card-title murata">🏗️ 村田 誠一（一級建築士・35年）｜構造・修繕・法令</div>
+
+    <div class="check-section">
+      <h4>構造・法令適合性</h4>
+      <div class="check-item">
+        <span class="check-tag ok">問題なし</span>
+        <div>2000年基準完全適用（建築確認H30.12.3）。木造共同住宅として耐震性の基礎証明あり。</div>
+      </div>
+      <div class="check-item">
+        <span class="check-tag ok">問題なし</span>
+        <div>検査済証取得済み（R2.3.19）。行政の完了検査クリア。再建築不可ではない。</div>
+      </div>
+      <div class="check-item">
+        <span class="check-tag ok">問題なし</span>
+        <div>接道2.6m — 建築基準法上の接道義務（2m以上）を充足。6m公道への接道で2項道路に非当。</div>
+      </div>
+      <div class="check-item">
+        <span class="check-tag warn">注意</span>
+        <div>接道間口2.6mは再建築時の工事車両搬入・資材運搬を制約。建て替えコスト増要因として記録。</div>
+      </div>
+    </div>
+
+    <div class="check-section">
+      <h4>修繕ロードマップ（概算）</h4>
+      <table class="data-table">
+        <thead><tr><th>時期</th><th>修繕項目</th><th>概算費用</th><th>優先度</th></tr></thead>
+        <tbody>
+          <tr><td>〜2031年（5年以内）</td><td>給湯器順次交換（10戸）</td><td>100〜150万円</td><td>中（故障対応型）</td></tr>
+          <tr><td>2030〜2035年（5〜10年）</td><td><strong>陸屋根防水全面更新</strong></td><td><strong>150〜250万円（確実発生）</strong></td><td>🔴 高（最大リスク）</td></tr>
+          <tr><td>2030〜2035年（5〜10年）</td><td>外壁塗装・シーリング打替え</td><td>200〜300万円</td><td>高</td></tr>
+          <tr><td>同時期合計</td><td>修繕費集中期</td><td><strong>350〜550万円</strong></td><td>収支計画に要織込み</td></tr>
+          <tr><td>2040〜2045年（保有20年超）</td><td>給排水管更新</td><td>400〜600万円</td><td>低（売却前到来しない可能性）</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="check-section">
+      <h4>現地で必ず確認すべきこと</h4>
+      <div class="check-item">
+        <span class="check-tag ng">必須</span>
+        <div><strong>屋上防水の状態</strong> — 防水層の艶・ひび割れ・膨れ・ドレン詰まり・パラペットシーリング。防水仕様書・保証書の原本を必ず請求すること。</div>
+      </div>
+      <div class="check-item">
+        <span class="check-tag ng">必須</span>
+        <div><strong>2階居室天井際のシミ・クロス剥がれ</strong> — 雨漏りの痕跡確認</div>
+      </div>
+      <div class="check-item">
+        <span class="check-tag ng">必須</span>
+        <div><strong>基礎外周のクラック確認</strong> — 幅広・斜め方向のひびは不同沈下の可能性</div>
+      </div>
+      <div class="check-item">
+        <span class="check-tag warn">推奨</span>
+        <div>給湯器製造年シール確認（全10戸）— 交換ラッシュの時期を把握</div>
+      </div>
+      <div class="check-item">
+        <span class="check-tag warn">推奨</span>
+        <div>周辺工場・騒音・臭気の確認（平日昼間）— 準工業地域特有リスク</div>
+      </div>
+    </div>
+
+    <div style="padding:12px;background:#efebe9;border-left:4px solid var(--murata);border-radius:4px;font-size:13px;margin-top:8px;">
+      <strong>村田先生所見:</strong> 現場を見ないと断言はできませんが、資料上は「2000年基準・検査済証・築6年」と三拍子揃った信頼できるベースライン。ただし<strong>木造×陸屋根という組み合わせで防水書類が未入手であることが最大の引っかかり</strong>。防水保証書の提出拒否・屋上立入拒否があれば警戒信号。インスペクション（5〜10万円）を契約前に実施することを強く推奨します。
+    </div>
+  </div>
+
+  <!-- ===== キャプテンへの確認事項 ===== -->
+  <h2 class="section-label">キャプテンへの確認事項（優先順位付き）</h2>
+  <div class="card">
+    <div class="card-title captain">📮 確認事項まとめ — 仲介業者：野口さん（ハウスリンクマネジメント）</div>
+    <ul class="confirm-list">
+      <li class="confirm-item">
+        <div class="confirm-num urgent">1</div>
+        <div class="confirm-body">
+          <div class="confirm-title">🚨【最優先】土地の登記謄本（全記録事項証明書）取得</div>
+          <div class="confirm-desc">土地甲区の「池田馨→山口慶子（または現売主）への所有権移転登記」を確認。これが確認できるまで収支計算は参考値。法務局またはオンライン申請（登記ねっと、約1,000円）で即日取得可能。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <div class="confirm-num urgent">2</div>
+        <div class="confirm-body">
+          <div class="confirm-title">🚨【最優先】国税庁路線価図で八王子市大塚の路線価を確認</div>
+          <div class="confirm-desc">積算比率60%クリアには路線価11.5万円/㎡以上が必要。令和7年版路線価図（国税庁）で「八王子市大塚634番」周辺の路線価を確認する。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <div class="confirm-num urgent">3</div>
+        <div class="confirm-body">
+          <div class="confirm-title">🚨【最優先】Google Mapsで国道16号との位置関係を目視確認</div>
+          <div class="confirm-desc">「八王子市大塚634番」と「国道16号」を同時表示して内側か外側かを判定。外側の場合はキャプテン基準外としてキャプテン判断が必要。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <div class="confirm-num">4</div>
+        <div class="confirm-body">
+          <div class="confirm-title">前買主のローンブレイク理由を確認</div>
+          <div class="confirm-desc">物件属性による融資NGか、前買主の個人属性によるNGか。物件側の問題（積算不足・エリア評価）であれば今後の融資打診に影響する。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <div class="confirm-num">5</div>
+        <div class="confirm-body">
+          <div class="confirm-title">屋上防水仕様書・保証書の提出を要請</div>
+          <div class="confirm-desc">防水工事施工会社・仕様（ウレタン/シート）・保証残存期間の確認。書類提出拒否の場合はインスペクション（建物状況調査）を申し入れる。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <div class="confirm-num">6</div>
+        <div class="confirm-body">
+          <div class="confirm-title">管理委託費率・解除条件・LPガス縛り期間の確認</div>
+          <div class="confirm-desc">管理費率が5%以下であればNOI改善。縛り期間・違約金が高額な場合は収支計画に影響。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <div class="confirm-num">7</div>
+        <div class="confirm-body">
+          <div class="confirm-title">103号空室原因・104号申し込み進捗の確認</div>
+          <div class="confirm-desc">103号: 4月需要期超えの空室継続原因（賃料設定/部屋の問題）。104号: 申し込みから3ヶ月以上経過の理由と契約締結見込み日。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <div class="confirm-num">8</div>
+        <div class="confirm-body">
+          <div class="confirm-title">A棟・B棟の存在と敷地・設備の共有関係を確認</div>
+          <div class="confirm-desc">C棟が独立した敷地・登記か、A/B棟と共有部分があるかを確認。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <div class="confirm-num">9</div>
+        <div class="confirm-body">
+          <div class="confirm-title">ハザードマップ確認（洪水・土砂・液状化）</div>
+          <div class="confirm-desc">国土交通省ハザードマップポータルで「八王子市大塚634番11」を確認。八王子市の一部には土砂災害危険区域が存在する。</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ===== チーム総合所見 ===== -->
+  <h2 class="section-label">チーム総合所見</h2>
+  <div class="card">
+    <div class="card-title summary">🎯 総合判断・最大リスク・次のアクション</div>
+
+    <div class="verdict-box">
+      <div class="verdict-label">チーム総合判定</div>
+      <div class="verdict-score">HOLD ⚠️</div>
+      <div class="verdict-text">
+        数字は魅力的（CF率1.40%・CCR20.1%・利回り8.20%・築6年）だが、<strong>①土地建物所有者不一致</strong>・<strong>②16号外側の可能性</strong>・<strong>③積算比率60%未達</strong>の3点が未解消。これらが解消されれば即GO候補に転じる物件。
+      </div>
+      <div class="verdict-grid">
+        <div class="verdict-item">
+          <h5>最大リスク</h5>
+          <p>土地登記で「池田馨→山口慶子」の所有権移転が確認できない場合、全金融機関でNGとなる借地権状態の可能性。これ1点で案件終了。</p>
+        </div>
+        <div class="verdict-item">
+          <h5>最大の魅力</h5>
+          <p>同エリア相場比+1.5〜2.0ポイントの高利回りが、ローンブレイクという「他社の事情」で生まれた可能性。帝京大学学生需要の安定性も底支け。</p>
+        </div>
+        <div class="verdict-item">
+          <h5>次のアクション①（今日中）</h5>
+          <p>登記謄本（全記録）取得 + 国道16号内外のGoogle Maps確認 + 路線価図確認。この3点で投資判断の方向性が確定する。</p>
+        </div>
+        <div class="verdict-item">
+          <h5>次のアクション②（今週中）</h5>
+          <p>仲介業者（野口さん）に防水仕様書・保証書の提出要請 + 管理費率・LPガス縛り条件の回答要請。現地視察（屋上含む）のアポイント。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;color:var(--muted);font-size:12px;margin-top:24px;padding-bottom:20px;">
+    TC Capitals 不動産仕入部｜精査日: 2026-06-13｜担当: 朝倉ハルト・黒沢リョウ・三宅アキ・村田誠一先生
+  </div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260613_kindness-hachioji_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260613_kindness-hachioji_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
