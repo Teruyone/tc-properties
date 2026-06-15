@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>保土ヶ谷区 新築アパート — 不動産仕入部 精査レポート</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f0f4f8; color: #1a1a2e; line-height: 1.6; }
+    .header { background: linear-gradient(135deg, #1a3a5c 0%, #0d2137 100%); color: white; padding: 32px 40px; }
+    .header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+    .header .subtitle { font-size: 0.95rem; opacity: 0.85; margin-bottom: 8px; }
+    .header .meta { font-size: 0.85rem; opacity: 0.7; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 24px 20px; }
+    .card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid; }
+    .section-header .icon { font-size: 1.4rem; }
+    .section-header h2 { font-size: 1.15rem; font-weight: 700; }
+    .haruto .section-header { border-color: #e67e22; }
+    .haruto .section-header h2 { color: #e67e22; }
+    .ryo .section-header { border-color: #2980b9; }
+    .ryo .section-header h2 { color: #2980b9; }
+    .aki .section-header { border-color: #27ae60; }
+    .aki .section-header h2 { color: #27ae60; }
+    .murata .section-header { border-color: #8b5e3c; }
+    .murata .section-header h2 { color: #8b5e3c; }
+    .confirm-card .section-header { border-color: #8e44ad; }
+    .confirm-card .section-header h2 { color: #8e44ad; }
+    .verdict .section-header { border-color: #c0392b; }
+    .verdict .section-header h2 { color: #c0392b; }
+    .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+    .summary-item { background: #f8fafc; border-radius: 8px; padding: 12px; }
+    .summary-item .label { font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .summary-item .value { font-size: 1.05rem; font-weight: 700; color: #1a3a5c; }
+    .summary-item .sub { font-size: 0.8rem; color: #888; }
+    .criteria-table { width: 100%; border-collapse: collapse; }
+    .criteria-table th { background: #1a3a5c; color: white; padding: 10px 14px; text-align: left; font-size: 0.85rem; }
+    .criteria-table td { padding: 10px 14px; border-bottom: 1px solid #eef2f7; font-size: 0.9rem; }
+    .criteria-table tr:last-child td { border-bottom: none; }
+    .badge-ok { display: inline-block; background: #d4edda; color: #1e7e34; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+    .badge-ng { display: inline-block; background: #f8d7da; color: #721c24; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+    .badge-check { display: inline-block; background: #fff3cd; color: #856404; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+    .analysis-content { font-size: 0.9rem; line-height: 1.75; }
+    .analysis-content h3 { font-size: 0.95rem; font-weight: 700; margin: 16px 0 8px; padding-left: 8px; border-left: 3px solid; }
+    .haruto .analysis-content h3 { border-color: #e67e22; }
+    .ryo .analysis-content h3 { border-color: #2980b9; }
+    .aki .analysis-content h3 { border-color: #27ae60; }
+    .murata .analysis-content h3 { border-color: #8b5e3c; }
+    .analysis-content p { margin-bottom: 10px; }
+    .analysis-content ul { margin: 8px 0 12px 20px; }
+    .analysis-content li { margin-bottom: 4px; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
+    .metric-box { background: #f8fafc; border-radius: 8px; padding: 14px; }
+    .metric-box .m-label { font-size: 0.75rem; color: #666; margin-bottom: 4px; }
+    .metric-box .m-value { font-size: 1.2rem; font-weight: 700; }
+    .m-ok { color: #27ae60; } .m-ng { color: #c0392b; } .m-neutral { color: #2980b9; }
+    .loan-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.88rem; }
+    .loan-table th { background: #f0f4f8; padding: 8px 12px; text-align: left; }
+    .loan-table td { padding: 8px 12px; border-bottom: 1px solid #eef; }
+    .loan-table tr:last-child td { border-bottom: none; }
+    .confirm-list { list-style: none; }
+    .confirm-list li { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eef2f7; font-size: 0.9rem; }
+    .confirm-list li:last-child { border-bottom: none; }
+    .confirm-num { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; color: white; }
+    .verdict-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+    .verdict-item { background: #f8fafc; border-radius: 8px; padding: 14px; }
+    .verdict-item .v-label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .risk-flag { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 6px; font-size: 0.88rem; font-weight: 700; margin: 4px 4px 4px 0; }
+    .risk-critical { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    .risk-high { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+    .risk-medium { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+    .link-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 8px; font-size: 0.88rem; font-weight: 600; text-decoration: none; margin: 8px 8px 0 0; }
+    .link-btn-blue { background: #2980b9; color: white; }
+    .link-btn-green { background: #27ae60; color: white; }
+    .link-btn-orange { background: #e67e22; color: white; }
+    .link-btn-brown { background: #8b5e3c; color: white; }
+    .alert-danger { background: #f8d7da; border-left: 4px solid #dc3545; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .alert-warning { background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .alert-info { background: #d1ecf1; border-left: 4px solid #17a2b8; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .alert-success { background: #d4edda; border-left: 4px solid #28a745; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .footer { text-align: center; padding: 24px; color: #999; font-size: 0.8rem; }
+    .repair-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.87rem; }
+    .repair-table th { background: #f0f4f8; padding: 8px 12px; text-align: left; }
+    .repair-table td { padding: 8px 12px; border-bottom: 1px solid #eef; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>保土ヶ谷区 新築アパート — 仕入部 精査レポート</h1>
+  <div class="subtitle">神奈川県横浜市保土ヶ谷区鎌谷町198-7 ｜ 相鉄本線「星川」駅 徒歩21分</div>
+  <div class="meta">精査日: 2026年6月15日 ｜ チーム: ハルト・リョウ・アキ・村田先生</div>
+</div>
+
+<div class="container">
+
+  <!-- 物件サマリーカード -->
+  <div class="card">
+    <div class="section-header" style="border-color:#1a3a5c;">
+      <span class="icon">🏠</span>
+      <h2 style="color:#1a3a5c;">物件サマリー</h2>
+    </div>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="label">物件価格</div>
+        <div class="value">8,400万円</div>
+        <div class="sub">売主: ㈱オーケー（川崎市）</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">表面利回り</div>
+        <div class="value">8.00%</div>
+        <div class="sub">満室年収 672万円</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">構造・築年</div>
+        <div class="value">木造2階・新築</div>
+        <div class="sub">令和8年6月30日竣工予定</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">延床面積 / 土地</div>
+        <div class="value">146.88㎡ / 148.50㎡</div>
+        <div class="sub">約44.4坪 ｜ 登記最終面積</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">戸数 / 賃料</div>
+        <div class="value">8戸 (1K)</div>
+        <div class="sub">70,000円 × 8戸（均一）</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">取引態様 / 仲介</div>
+        <div class="value">要確認</div>
+        <div class="sub">㈱あおば不動産販売（仲介推定）</div>
+      </div>
+    </div>
+    <div class="summary-grid" style="margin-bottom:0;">
+      <div class="summary-item">
+        <div class="label">用途地域</div>
+        <div class="value">第一種低層</div>
+        <div class="sub">建60% 容100%</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">前面道路</div>
+        <div class="value">42条2項（公道）</div>
+        <div class="sub">幅員4.0m（セットバック済み計画）</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">駐車場 / 設備</div>
+        <div class="value">なし</div>
+        <div class="sub">都市ガス・24時間換気・公共下水</div>
+      </div>
+    </div>
+
+    <div class="alert-danger" style="margin-top:16px;">
+      ⚠️ <strong>重大リスク:</strong> 横浜市わいわい防災マップにて物件近傍に<strong>土砂災害特別警戒区域（赤）・警戒区域（黄）</strong>が確認された。建物・敷地が区域内に含まれるか否かの確定が最優先事項。
+    </div>
+  </div>
+
+  <!-- キャプテン基準5項目チェック -->
+  <div class="card">
+    <div class="section-header" style="border-color:#1a3a5c;">
+      <span class="icon">✅</span>
+      <h2 style="color:#1a3a5c;">キャプテン基準チェック</h2>
+    </div>
+    <table class="criteria-table">
+      <thead>
+        <tr>
+          <th>基準項目</th>
+          <th>閾値</th>
+          <th>実績値</th>
+          <th>判定</th>
+          <th>コメント</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>物件価格</td>
+          <td>1億円以内</td>
+          <td>8,400万円</td>
+          <td><span class="badge-ok">OK</span></td>
+          <td>基準内</td>
+        </tr>
+        <tr>
+          <td>表面利回り</td>
+          <td>7.1%以上</td>
+          <td>8.00%</td>
+          <td><span class="badge-ok">OK</span></td>
+          <td>基準を0.9pt上回る</td>
+        </tr>
+        <tr>
+          <td>築年数</td>
+          <td>10年以内</td>
+          <td>新築（2026年）</td>
+          <td><span class="badge-ok">OK</span></td>
+          <td>確認済証取得済み</td>
+        </tr>
+        <tr>
+          <td>エリア（16号内側）</td>
+          <td>国道16号内側</td>
+          <td>保土ヶ谷区鎌谷町</td>
+          <td><span class="badge-ng">NG推定</span></td>
+          <td>16号（保土ヶ谷バイパス）外側の可能性が高い。地図で座標確認が必要</td>
+        </tr>
+        <tr>
+          <td>CF率</td>
+          <td>1.0%以上</td>
+          <td>1.84%（オリックス）</td>
+          <td><span class="badge-ok">OK</span></td>
+          <td>※取引態様・路線価確定後に再計算</td>
+        </tr>
+        <tr>
+          <td>CCR</td>
+          <td>15%以上</td>
+          <td>26.25%（オリックス）</td>
+          <td><span class="badge-ok">OK</span></td>
+          <td>神奈川銀行90%融資は14.55%でNG</td>
+        </tr>
+        <tr>
+          <td>積算比率</td>
+          <td>60%以上</td>
+          <td>要確認</td>
+          <td><span class="badge-check">要確認</span></td>
+          <td>路線価未入手のため算出不可</td>
+        </tr>
+        <tr>
+          <td>10年目税引後IRR</td>
+          <td>25%以上</td>
+          <td>玉川式シートで確認</td>
+          <td><span class="badge-check">要確認</span></td>
+          <td>TGシートをブラウザで開いて確認してください</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ハルト：エリア・利回り分析 -->
+  <div class="card haruto">
+    <div class="section-header">
+      <span class="icon">🌟</span>
+      <h2>ハルト（エリア・利回り分析）</h2>
+    </div>
+    <div class="analysis-content">
+
+      <h3>星川駅エリアの評価</h3>
+      <p>星川駅は相鉄本線急行停車駅で横浜駅まで快速約4分と優秀なアクセスを持つ。「星天qlay（ホシテンクレイ）」と名付けられた高架下再開発（星川〜天王町間1.4km）が進行中で、2023年にゾーンBが商業施設として開業済み。駅直近エリアの魅力は上昇中だが、この恩恵を受けるのは駅近物件であり、<strong>徒歩21分離れた鎌谷町への波及は限定的。</strong></p>
+
+      <h3>徒歩21分の賃貸需要インパクト</h3>
+      <p>キャプテンは過去に「徒歩15分超は空室リスク高い」とフィードバックしており、21分は明確にこの基準を超える。差別化ポイントが「新築」のみで、新築プレミアムは1〜2年で消える。2〜3年目以降は徒歩21分の現実が正面から問われる。</p>
+
+      <h3>賃料70,000円の相場感</h3>
+      <p>星川駅周辺1Kは概ね45,000〜75,000円に分布。上位（65,000〜75,000円）は駅近・設備良・築浅の物件。<strong>徒歩21分で70,000円は相場対比やや強気の設定。</strong>スマサテ（賃料査定）未確認の状態で利回り計算が組まれている点を要注意。</p>
+      <p>仮に65,000円に下がった場合の試算：年収6,240,000円 → 利回り<strong>7.43%</strong>まで低下。空室率・管理費を加味すると7%台も危うい。</p>
+
+      <h3>国道16号内外の判定</h3>
+      <p>鎌谷町198番地は国道16号（保土ヶ谷バイパス）から外側（西側）の可能性が高い。正確な内外判定はGoogleマップまたは国土地理院地図での座標確認が必須。</p>
+
+      <h3>追加リスク要因</h3>
+      <ul>
+        <li><strong>土砂災害警戒区域近傍:</strong> 融資（オリックス・神奈川銀行ともに審査厳化の可能性）・入居者告知義務・出口時の指値リスク</li>
+        <li><strong>第一種低層・駐車場なし:</strong> 21分歩く立地で車が使えないダブルパンチ。生活利便施設も少なくなりやすい</li>
+        <li><strong>人口動態:</strong> 保土ヶ谷区を含む旧来住宅地は2040〜2060年にかけて人口減少が見込まれる</li>
+      </ul>
+
+      <div class="alert-warning">
+        <strong>ハルトの判定：見送り推奨（条件次第で再考余地あり）</strong><br>
+        徒歩21分・賃料未査定・土砂災害フラグ・16号外側濃厚の4点が重なりすぎている。賃料がスマサテで70,000円確認・16号内側確定・土砂災害区域外確定の三拍子が揃えばキャプテンに投げる価値あり。現状の情報では推しにくい。
+      </div>
+    </div>
+  </div>
+
+  <!-- リョウ：DD -->
+  <div class="card ryo">
+    <div class="section-header">
+      <span class="icon">📋</span>
+      <h2>リョウ（デューデリジェンス）</h2>
+    </div>
+    <a href="https://teruyone.github.io/tc-properties/properties/20260615_hodogaya_DD.html" class="link-btn link-btn-blue" target="_blank">📋 入力済みDDリストを開く</a>
+    <div class="analysis-content" style="margin-top:16px;">
+
+      <div class="alert-danger">
+        <strong>「ちょっと待ってください」案件です。</strong>現段階では買付を進めてはいけません。土砂災害リスクの所在確定・乙区確認・工事完了時期確定の3点が揃うまで保留を推奨します。
+      </div>
+
+      <h3>確認済み事項</h3>
+      <ul>
+        <li>確認済証取得済み（第AI建築確認00-2500951号・令和8年2月25日）</li>
+        <li>新耐震基準・準耐火構造・建ぺい率50.34%（制限60%内）・容積率97.94%（100%内）</li>
+        <li>接道義務充足（2項道路4.0m・接道長さ14.857m）</li>
+        <li>鋼管杭打設記録あり（D=114.3mm・関東ローム層）</li>
+        <li>用途地域・第一種高度地区適合</li>
+        <li>消防同意取得（令和8年2月20日）</li>
+      </ul>
+
+      <h3>リスクフラグ（優先順位順）</h3>
+
+      <p><span class="risk-flag risk-critical">🔴 最重要</span> <strong>土砂災害警戒区域の所在確定</strong><br>
+      防災マップで近傍に警戒区域（黄）・特別警戒区域（赤）が確認。敷地が赤区域内に入っている場合は融資NG可能性が高く実質的に取得断念案件。黄区域のみでも融資先が絞られる。横浜市ハザードマップで地番198番7の座標が区域ポリゴンの内側か外側かを正確に確認すること。</p>
+
+      <p><span class="risk-flag risk-critical">🔴 最重要</span> <strong>間知石積み擁壁の確認</strong><br>
+      配置図に「前面間知石積みの高さより安息角45°以内に建物があたる範囲に防護壁を計図」と記載。間知石積みは古い工法でオリックス銀行は融資審査で嫌う。擁壁の所有者・築年・管理主体・構造的健全性の確認が必要。</p>
+
+      <p><span class="risk-flag risk-critical">🔴 最重要</span> <strong>乙区（抵当権）の未確認</strong><br>
+      添付資料に乙区記載なし。登記が令和8年に複数動いており（地目変更・合筆・錯誤分筆）、権利関係整理途中の可能性あり。登記簿謄本（土地全部事項）を法務局で取得して抵当権・根抵当権の有無を確認すること。</p>
+
+      <p><span class="risk-flag risk-high">🟡 要確認</span> <strong>工事完了時期の不整合</strong><br>
+      確認申請書では令和8年6月30日、概要書（6月11日作成）では2026年12月と約6ヶ月のズレ。引渡し時期が確定しないと融資スケジュールが組めない。仲介業者経由で建築主㈱オーケーに直接確認すること。</p>
+
+      <p><span class="risk-flag risk-high">🟡 要確認</span> <strong>土地面積の3者不整合</strong><br>
+      概要書136.38㎡ vs 確認申請146.71㎡ vs 登記148.50㎡（最大差12.12㎡・約8.9%）。確定測量図の有無を仲介業者に確認。なければ境界確定が未完了の可能性がある。</p>
+
+      <p><span class="risk-flag risk-medium">🔵 確認推奨</span> <strong>取引態様の確定</strong><br>
+      仲介か売主かで諸費用が7%vs4%（差額約252万円）。あおば不動産販売に直接確認すること。</p>
+
+      <p><span class="risk-flag risk-medium">🔵 確認推奨</span> <strong>宅地造成等工事規制区域の造成許可・完了検査済証</strong><br>
+      建築確認とは別の許可で、擁壁・盛土の安全性を担保する書類。取得されているか確認すること。</p>
+    </div>
+  </div>
+
+  <!-- アキ：IG+収支計算 -->
+  <div class="card aki">
+    <div class="section-header">
+      <span class="icon">📊</span>
+      <h2>アキ（IG+収支計算 ＋ 玉川式シート）</h2>
+    </div>
+    <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8400&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=8.00&floorArea=146.88&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=8400&pi_age_inp=0&pi_yield_inp=8.00&pi_area_inp=146.88&pi_rooms_inp=8&ik_land_area=146.71&ik_route_price=0&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E4%BF%9D%E5%9C%9F%E3%83%B6%E8%B0%B7%E5%8C%BA%E9%8E%8C%E8%B0%B7%E7%94%BA198-7" class="link-btn link-btn-green" target="_blank">📊 IG+収支試算を開く</a>
+    <a href="../../knowledge/tamagawa-analysis/20260615_hodogaya_TG.html" class="link-btn link-btn-green" target="_blank">📈 玉川式シートを開く</a>
+    <div class="analysis-content" style="margin-top:16px;">
+
+      <h3>前提条件（デフォルト値使用箇所あり）</h3>
+      <ul>
+        <li>取引態様: 仲介と仮定 → 諸費用率7%（※デフォルト値使用・要確認）</li>
+        <li>路線価: 未入手 → 積算評価は「要確認」（※デフォルト値使用）</li>
+        <li>固都税: IG+デフォルト（満室年収×95%×7% = 年約45万円）</li>
+        <li>返済方式: 元利均等</li>
+      </ul>
+
+      <table class="loan-table">
+        <thead>
+          <tr>
+            <th>指標</th>
+            <th>オリックス銀行（100%・2.6%・35年）</th>
+            <th>神奈川銀行（90%・2.25%・35年）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>自己資金</td><td>588万円（諸費用7%のみ）</td><td>1,428万円（10%+諸費用7%）</td></tr>
+          <tr><td>借入額</td><td>8,400万円</td><td>7,560万円</td></tr>
+          <tr><td>年間返済額</td><td>366万円</td><td>312万円</td></tr>
+          <tr><td>NOI（年間）</td><td colspan="2" style="text-align:center;">520万円（NOI利回り6.19%）</td></tr>
+          <tr><td>年間CF（税引前）</td><td><strong>154万円</strong></td><td><strong>208万円</strong></td></tr>
+          <tr><td>CF率</td><td class="m-ok">1.84%</td><td class="m-ok">2.47%</td></tr>
+          <tr><td>返済比率</td><td>57.30%</td><td>48.92%</td></tr>
+          <tr><td>CCR</td><td class="m-ok"><strong>26.25% ✅</strong></td><td class="m-ng"><strong>14.55% ❌</strong>（基準15%未達）</td></tr>
+          <tr><td>積算比率</td><td colspan="2" style="text-align:center;">要確認（路線価未入手）</td></tr>
+          <tr><td>10年目税引後IRR</td><td colspan="2" style="text-align:center;">玉川式シートで確認</td></tr>
+        </tbody>
+      </table>
+
+      <div class="alert-info">
+        <strong>積算評価の目安:</strong> 建物評価額3,084万円（146.88㎡×21万/㎡・劣化等級1・2）。積算比率60%クリアのために必要な路線価の目安は約30万円/㎡以上（土地面積146.71㎡ベース）。保土ヶ谷区鎌谷町の路線価が要確認。
+      </div>
+
+      <h3>アキの確認事項</h3>
+      <ul>
+        <li>路線価の確認（国税庁路線価図で「神奈川県 横浜市保土ヶ谷区 鎌谷町」を検索）</li>
+        <li>取引態様の確定（仲介7% vs 売主4%で諸費用差約252万円）</li>
+        <li>固都税の実額確認（新築で公課証明書がない場合はデフォルト使用）</li>
+        <li>劣化対策等級の確認（等級3取得可能なら建物評価3,084万→3,548万円に上昇）</li>
+        <li>神奈川銀行パターンはCCR14.55%で基準NG。オリックスフルローン一択か検討が必要</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 村田先生：建築士コメント -->
+  <div class="card murata">
+    <div class="section-header">
+      <span class="icon">🏗️</span>
+      <h2>村田先生（一級建築士コメント）</h2>
+    </div>
+    <div class="analysis-content">
+
+      <div class="alert-warning">
+        <strong>現場を見ないと断言はできませんが、</strong>資料から読み取れる限り、建物本体の設計・仕様は新築準耐火木造として標準的な水準を保っています。最大の懸念は「建物が立っている地」——地盤・擁壁・高低差の3点です。
+      </div>
+
+      <h3>構造・仕様評価（標準レベル）</h3>
+      <ul>
+        <li>柱径105mm・木造2階建: 業界標準寸法。問題なし</li>
+        <li>屋根カラーベスト+アスファルトルーフィング940: 準耐火認定品。標準的</li>
+        <li>外壁サイディング QF045BE-9226: 準耐火性能を持つ認定品。適切</li>
+        <li>断熱（グラスウール GW HG10-45 t=100）: 標準的な仕様</li>
+        <li>窓 Low-E複層ガラス・シャッター付: 断熱・防犯面で良好</li>
+        <li>給湯ガス（効率81.2%）・都市ガス: 設備費・ランニングコスト良好</li>
+        <li>専有面積8.31〜8.98㎡: 法定最低基準クリアも非常に狭小。実際の居住性は現地確認が必要</li>
+      </ul>
+
+      <h3>地盤・基礎・擁壁リスク ⚠️（最大懸念点）</h3>
+      <p><strong>鋼管杭打設（D=114.3mm）:</strong> 表層地盤で直接基礎が使えないと設計者が判断したことを示す。「なぜ杭が要ったか」の地盤調査報告書（スウェーデン式サウンディング）を入手して確認することが必須。</p>
+      <p><strong>敷地内高低差7m超（-4.0m〜+3.24m）:</strong> 建物が立っている部分が切土か盛土かが重要。盛土の場合は不同沈下リスクが大きい。</p>
+      <p><strong>間知石積み擁壁:</strong> 古い工法で現在の造成規制基準では新規採用がほぼ認められない。石の転落・ずれ・目地の開き・はらみの有無を現地で直接確認することが必要。擁壁の所有者・管理主体の確認も必須。</p>
+      <p><strong>土砂災害警戒区域近傍:</strong> 特別警戒区域（赤）に建物が入っている場合は法令上の構造規制があるが、確認済証が取得されているため赤区域外である可能性が高い。ただし境界線と建物位置の正確な確認が必要。</p>
+
+      <h3>修繕リスク試算（新築・木造2階・8戸・延床146.88㎡）</h3>
+      <table class="repair-table">
+        <thead>
+          <tr><th>時期</th><th>内容</th><th>概算費用</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>5〜7年後</td><td>外壁コーキング打ち替え</td><td>30〜50万円</td></tr>
+          <tr><td>10〜12年後</td><td>外壁塗装・シーリング全面打ち替え</td><td>100〜150万円</td></tr>
+          <tr><td>10〜12年後</td><td>屋根塗装または一部葺き替え</td><td>50〜80万円</td></tr>
+          <tr><td>10〜15年後</td><td>給湯器交換（8台）</td><td>80〜120万円</td></tr>
+          <tr><td>15〜20年後</td><td>外壁塗装（2回目）</td><td>100〜150万円</td></tr>
+          <tr><td>20〜25年後</td><td>給排水管点検・部分更新</td><td>100〜200万円</td></tr>
+          <tr><td>20〜25年後</td><td>屋根葺き替え（カラーベスト）</td><td>100〜150万円</td></tr>
+          <tr><td>25〜30年後</td><td>給排水管全面更新</td><td>200〜300万円</td></tr>
+        </tbody>
+      </table>
+
+      <h3>現地で必ず確認すべきこと</h3>
+      <ul>
+        <li><strong>間知石積み擁壁全体:</strong> 石の転落・ずれ・目地の開き・はらみ・排水穴の機能状態</li>
+        <li><strong>敷地の高低差・切土/盛土の状況:</strong> 建物が盛土の上に立っているか否か</li>
+        <li><strong>土砂災害区域境界:</strong> 横浜市ハザードマップと現地照合・近隣への聞き込み</li>
+        <li><strong>42条2項道路のセットバック完了状況:</strong> 境界標の設置・後退線の明示</li>
+        <li><strong>周辺傾斜地・斜面の状態:</strong> 雨天後の訪問が理想（崩壊痕・水の流れを確認）</li>
+        <li><strong>外壁・屋根の施工精度:</strong> コーキング充填・カラーベストの欠け等（竣工前最後の機会）</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- キャプテンへの確認事項まとめ -->
+  <div class="card confirm-card">
+    <div class="section-header">
+      <span class="icon">❓</span>
+      <h2>キャプテンへの確認事項まとめ</h2>
+    </div>
+    <ul class="confirm-list">
+      <li>
+        <div class="confirm-num" style="background:#c0392b;">1</div>
+        <div><strong>【最優先】土砂災害区域の所在確定:</strong> 横浜市「よこはま防災ポータル」または国土地理院「重ねるハザードマップ」で地番198番7の座標が特別警戒区域（赤）・警戒区域（黄）の内側か外側かを確認してください。</div>
+      </li>
+      <li>
+        <div class="confirm-num" style="background:#c0392b;">2</div>
+        <div><strong>【最優先】間知石積み擁壁の詳細確認:</strong> 仲介業者に「擁壁の所有者・築年・管理主体はどこですか」と確認。現地訪問時に実物の状態も確認。</div>
+      </li>
+      <li>
+        <div class="confirm-num" style="background:#c0392b;">3</div>
+        <div><strong>【最優先】乙区（抵当権）の確認:</strong> 登記簿謄本（土地・全部事項証明書）を法務局またはオンライン（600円）で取得。抵当権・根抵当権・仮差押えの有無を確認。</div>
+      </li>
+      <li>
+        <div class="confirm-num" style="background:#e67e22;">4</div>
+        <div><strong>工事完了時期の確定:</strong> 確認申請書（令和8年6月30日）vs 概要書（2026年12月）の不整合を仲介業者経由で建築主㈱オーケーに確認。引渡し時期を明確にしてください。</div>
+      </li>
+      <li>
+        <div class="confirm-num" style="background:#e67e22;">5</div>
+        <div><strong>取引態様の確定:</strong> あおば不動産販売は「仲介」か「売主直販」か確認。諸費用7%vs4%で自己資金が約252万円変わります。</div>
+      </li>
+      <li>
+        <div class="confirm-num" style="background:#e67e22;">6</div>
+        <div><strong>スマサテ賃料査定:</strong> 70,000円/月（1K・徒歩21分）が保土ヶ谷区鎌谷町で成立するか確認。65,000円に下がると利回りは7.43%に低下。</div>
+      </li>
+      <li>
+        <div class="confirm-num" style="background:#2980b9;">7</div>
+        <div><strong>路線価の確認:</strong> 国税庁路線価図で「神奈川県 横浜市保土ヶ谷区 鎌谷町」を検索。積算比率・玉川式シートの数字が確定します。</div>
+      </li>
+      <li>
+        <div class="confirm-num" style="background:#2980b9;">8</div>
+        <div><strong>16号内外の確定:</strong> 鎌谷町198-7の座標と国道16号（保土ヶ谷バイパス）の位置関係をGoogleマップで目視確認。</div>
+      </li>
+      <li>
+        <div class="confirm-num" style="background:#27ae60;">9</div>
+        <div><strong>地盤調査報告書の入手:</strong> 鋼管杭が必要だった理由を確認するため、設計者または建築主からスウェーデン式サウンディング試験報告書を入手してください。</div>
+      </li>
+      <li>
+        <div class="confirm-num" style="background:#27ae60;">10</div>
+        <div><strong>宅地造成許可・完了検査済証の確認:</strong> 建築確認とは別に宅地造成等工事規制区域内の造成許可が必要。完了検査済証の存在を確認してください。</div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- チーム総合所見 -->
+  <div class="card verdict">
+    <div class="section-header">
+      <span class="icon">⚖️</span>
+      <h2>チーム総合所見</h2>
+    </div>
+    <div class="verdict-grid">
+      <div class="verdict-item">
+        <div class="v-label">総合判断</div>
+        <div style="font-size:1.1rem; font-weight:700; color:#c0392b;">条件付き保留 — 確認事項1〜3次第</div>
+      </div>
+      <div class="verdict-item">
+        <div class="v-label">最大リスク</div>
+        <div style="font-size:0.95rem; font-weight:700; color:#721c24;">土砂災害区域の所在 × 間知石積み擁壁 × 乙区未確認</div>
+      </div>
+    </div>
+
+    <div class="analysis-content">
+      <h3 style="border-color:#c0392b;">数字面の評価（アキ）</h3>
+      <p>オリックスフルローンでCF154万円・CF率1.84%・CCR26.25%はキャプテン基準を満たす骨格がある。ただし路線価・取引態様・賃料査定の3点が未確定で、最終数字は変動する余地がある。</p>
+
+      <h3 style="border-color:#c0392b;">エリア面の評価（ハルト）</h3>
+      <p>相鉄本線・星川駅の再開発メリットは駅近物件向けで、徒歩21分の鎌谷町には届きにくい。賃料70,000円の維持が最大の不確定要素。16号外側であれば基準適合が1点でも崩れる。</p>
+
+      <h3 style="border-color:#c0392b;">DD面の評価（リョウ）</h3>
+      <p>土砂災害区域が敷地に掛かっているかどうかで案件の性質が180度変わる。敷地外（近傍どまり）なら残課題は管理可能レベル。赤区域内なら融資困難・実質撤退。この1点が最優先。</p>
+
+      <h3 style="border-color:#c0392b;">建物面の評価（村田先生）</h3>
+      <p>建物本体の仕様は標準的で問題ない。懸念は地盤・擁壁・高低差。地盤調査報告書と宅地造成許可書類の確認なしに太鼓判は押せない。雨天後の現地訪問を強く推奨する。</p>
+
+      <div class="alert-warning">
+        <strong>次のアクション（優先順位順）:</strong><br>
+        1. ハザードマップで地番198番7の区域内外を確定（PCで5分で完了）<br>
+        2. 登記簿謄本（乙区）を法務局オンラインで取得（600円・即日）<br>
+        3. 仲介業者に工事完了時期・取引態様・擁壁所有者を一括確認<br>
+        4. 上記3点がすべてクリアなら、スマサテ賃料査定・路線価確認へ進む
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="footer">
+  TC Capitals 不動産仕入部 ｜ 精査日: 2026年6月15日 ｜ ハルト・リョウ・アキ・村田先生<br>
+  本レポートは精査時点の提供情報に基づく参考資料です。最終判断はキャプテン（山口輝大）が行います。
+</div>
+
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260615_hodogaya_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260615_hodogaya_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
