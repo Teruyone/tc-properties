@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>桜木町アパート（9580）— 不動産仕入部 精査レポート</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f0f4f8; color: #1a1a2e; line-height: 1.6; }
+    .header { background: linear-gradient(135deg, #1a3a5c 0%, #0d2137 100%); color: white; padding: 32px 40px; }
+    .header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+    .header .subtitle { font-size: 0.95rem; opacity: 0.85; margin-bottom: 8px; }
+    .header .meta { font-size: 0.85rem; opacity: 0.7; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 24px 20px; }
+    .card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid; }
+    .section-header .icon { font-size: 1.4rem; }
+    .section-header h2 { font-size: 1.15rem; font-weight: 700; }
+    .haruto .section-header { border-color: #e67e22; }
+    .haruto .section-header h2 { color: #e67e22; }
+    .ryo .section-header { border-color: #2980b9; }
+    .ryo .section-header h2 { color: #2980b9; }
+    .aki .section-header { border-color: #27ae60; }
+    .aki .section-header h2 { color: #27ae60; }
+    .murata .section-header { border-color: #8b5e3c; }
+    .murata .section-header h2 { color: #8b5e3c; }
+    .confirm-card .section-header { border-color: #8e44ad; }
+    .confirm-card .section-header h2 { color: #8e44ad; }
+    .verdict .section-header { border-color: #c0392b; }
+    .verdict .section-header h2 { color: #c0392b; }
+    .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+    .summary-item { background: #f8fafc; border-radius: 8px; padding: 12px; }
+    .summary-item .label { font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .summary-item .value { font-size: 1.05rem; font-weight: 700; color: #1a3a5c; }
+    .summary-item .sub { font-size: 0.8rem; color: #888; }
+    .criteria-table { width: 100%; border-collapse: collapse; }
+    .criteria-table th { background: #1a3a5c; color: white; padding: 10px 14px; text-align: left; font-size: 0.85rem; }
+    .criteria-table td { padding: 10px 14px; border-bottom: 1px solid #eef2f7; font-size: 0.9rem; }
+    .criteria-table tr:last-child td { border-bottom: none; }
+    .badge-ok { display: inline-block; background: #d4edda; color: #1e7e34; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+    .badge-ng { display: inline-block; background: #f8d7da; color: #721c24; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+    .badge-check { display: inline-block; background: #fff3cd; color: #856404; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+    .analysis-content { font-size: 0.9rem; line-height: 1.75; }
+    .analysis-content h3 { font-size: 0.95rem; font-weight: 700; margin: 16px 0 8px; padding-left: 8px; border-left: 3px solid; }
+    .haruto .analysis-content h3 { border-color: #e67e22; }
+    .ryo .analysis-content h3 { border-color: #2980b9; }
+    .aki .analysis-content h3 { border-color: #27ae60; }
+    .murata .analysis-content h3 { border-color: #8b5e3c; }
+    .analysis-content p { margin-bottom: 10px; }
+    .analysis-content ul { margin: 8px 0 12px 20px; }
+    .analysis-content li { margin-bottom: 4px; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
+    .metric-box { background: #f8fafc; border-radius: 8px; padding: 14px; }
+    .metric-box .m-label { font-size: 0.75rem; color: #666; margin-bottom: 4px; }
+    .metric-box .m-value { font-size: 1.2rem; font-weight: 700; }
+    .m-ok { color: #27ae60; } .m-ng { color: #c0392b; } .m-neutral { color: #2980b9; } .m-warn { color: #e67e22; }
+    .loan-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.88rem; }
+    .loan-table th { background: #f0f4f8; padding: 8px 12px; text-align: left; }
+    .loan-table td { padding: 8px 12px; border-bottom: 1px solid #eef; }
+    .loan-table tr:last-child td { border-bottom: none; }
+    .confirm-list { list-style: none; }
+    .confirm-list li { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eef2f7; font-size: 0.9rem; }
+    .confirm-list li:last-child { border-bottom: none; }
+    .confirm-num { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; color: white; }
+    .verdict-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+    .verdict-item { background: #f8fafc; border-radius: 8px; padding: 14px; }
+    .verdict-item .v-label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .risk-flag { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 6px; font-size: 0.88rem; font-weight: 700; margin: 4px 4px 4px 0; }
+    .risk-critical { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    .risk-high { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+    .risk-medium { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+    .link-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 8px; font-size: 0.88rem; font-weight: 600; text-decoration: none; margin: 8px 8px 0 0; }
+    .link-btn-blue { background: #2980b9; color: white; }
+    .link-btn-green { background: #27ae60; color: white; }
+    .link-btn-orange { background: #e67e22; color: white; }
+    .link-btn-brown { background: #8b5e3c; color: white; }
+    .alert-danger { background: #f8d7da; border-left: 4px solid #dc3545; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .alert-warning { background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .alert-info { background: #d1ecf1; border-left: 4px solid #17a2b8; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .alert-success { background: #d4edda; border-left: 4px solid #28a745; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .footer { text-align: center; padding: 24px; color: #999; font-size: 0.8rem; }
+    @media (max-width: 600px) { .summary-grid { grid-template-columns: repeat(2, 1fr); } .metrics-grid { grid-template-columns: 1fr; } .verdict-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- ヘッダー -->
+<div class="header">
+  <h1>🏠 桜木町アパート（9580）</h1>
+  <div class="subtitle">横浜市西区西戸部一丁目 ｜ 一括売りアパート</div>
+  <div class="meta">精査日: 2026年6月15日 ｜ 担当チーム: ハルト・リョウ・アキ・村田先生 ｜ 依頼: 山口輝大 キャプテン</div>
+</div>
+
+<div class="container">
+
+  <!-- 物件サマリーカード -->
+  <div class="card">
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="label">物件価格</div>
+        <div class="value">9,580万円</div>
+        <div class="sub">1億円以内 ✓</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">表面利回り</div>
+        <div class="value" style="color:#27ae60">7.57%</div>
+        <div class="sub">満室年収 7,255,200円</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">築年数</div>
+        <div class="value">8年（2018年4月）</div>
+        <div class="sub">10年以内 ✓</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">構造</div>
+        <div class="value" style="font-size:0.9rem">木造スレート葺2階建</div>
+        <div class="sub">準耐火1-2</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">延床 / 土地</div>
+        <div class="value" style="font-size:0.9rem">131.88㎡ / 123.85㎡</div>
+        <div class="sub">10戸 全室ロフト付き</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">アクセス</div>
+        <div class="value" style="font-size:0.85rem">日ノ出町駅 徒歩11分</div>
+        <div class="sub">桜木町駅 徒歩15分</div>
+      </div>
+    </div>
+    <div style="font-size:0.85rem; color:#666; margin-top:8px;">
+      取引態様: <strong>媒介（仲介）</strong> ／ 業者: プラック株式会社 ／ 現況: <strong style="color:#27ae60">満室稼働中</strong> ／ 全室保証会社加入
+    </div>
+  </div>
+
+  <!-- キャプテン基準チェック -->
+  <div class="card">
+    <div class="section-header" style="border-color:#1a3a5c;">
+      <span class="icon">📋</span>
+      <h2 style="color:#1a3a5c;">キャプテン基準チェック</h2>
+    </div>
+    <table class="criteria-table">
+      <thead>
+        <tr><th>基準項目</th><th>閾値</th><th>本物件</th><th>判定</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>築年数</td>
+          <td>10年以内</td>
+          <td>8年（2018年4月）</td>
+          <td><span class="badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>物件価格</td>
+          <td>1億円以内</td>
+          <td>9,580万円</td>
+          <td><span class="badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>表面利回り</td>
+          <td>7.1%以上</td>
+          <td>7.57%</td>
+          <td><span class="badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>16号内側エリア</td>
+          <td>内側</td>
+          <td>横浜市西区（地図確認要）</td>
+          <td><span class="badge-check">要確認</span></td>
+        </tr>
+        <tr>
+          <td>CF率（オリックス100%）</td>
+          <td>基準確認</td>
+          <td>1.20%</td>
+          <td><span class="badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>CCR（オリックス100%）</td>
+          <td>15%以上</td>
+          <td>17.1%</td>
+          <td><span class="badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>積算比率</td>
+          <td>基準確認</td>
+          <td>路線価不明（要確認）</td>
+          <td><span class="badge-check">要確認</span></td>
+        </tr>
+        <tr>
+          <td>10年目IRR</td>
+          <td>25%以上</td>
+          <td>TGシートで確認要</td>
+          <td><span class="badge-check">要確認</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="alert-warning" style="margin-top:14px;">
+      <strong>⚠ 最優先確認事項:</strong> 専有面積（ロフト除く本体面積）が1戸あたり16㎡以上あるか。延床131.88㎡÷10戸≒13.2㎡は共用部込みの数値。ロフト除外後の本体専有面積を業者に確認すること。
+    </div>
+  </div>
+
+  <!-- ① ハルト -->
+  <div class="card haruto">
+    <div class="section-header">
+      <span class="icon">🔍</span>
+      <h2>① ハルト — エリア・利回り分析</h2>
+    </div>
+    <div class="analysis-content">
+
+      <h3>エリア将来性</h3>
+      <p>横浜市西区は横浜市18区のなかで<strong>2070年まで人口増が続く稀有なエリアの一つ</strong>。2020年比で5年間に13%増（10.1万人→11.4万人）。横浜全体が人口減少局面に入るなかで西区は例外的な安定成長エリアであり、長期保有の安心感が高い。</p>
+
+      <h3>日ノ出町・野毛エリアのトレンド</h3>
+      <p>野毛商店街を中心に飲食・アート・商業が急速に集積。黄金町地区の「アートのまち再生」（2010年代〜）が奏功し、若い単身者・飲食業従事者・クリエイター層から圧倒的な支持を獲得。横浜市内でこれほど鮮やかな「昭和の居酒屋街から若者の街へ」のトレンド転換が起きているエリアは珍しく、賃貸需要の底堅さを裏付けている。</p>
+
+      <h3>交通利便性</h3>
+      <ul>
+        <li>京急線「日ノ出町駅」→ 横浜駅まで<strong>2分</strong>、品川まで30分圏内</li>
+        <li>JR「桜木町駅」→ 渋谷・品川方面の通勤圏</li>
+        <li><strong>2路線利用可能</strong>という立地は入居者の幅を広げる大きなアドバンテージ</li>
+      </ul>
+
+      <h3>利回り相場感</h3>
+      <p>神奈川県・横浜市の木造10戸以下アパートの相場は6.86〜7.82%。本物件の7.57%は相場中央〜やや上に位置し、横浜市西区という都心立地の希少性を考えると相場並みか希少性プレミアムがある水準。西区・中区・神奈川区の横浜都心部で利回り7%台の8年築木造アパートは数が少なく、出れば争奪戦になりやすい。</p>
+
+      <h3>空室リスク</h3>
+      <p>現況満室稼働中。西戸部一丁目のロフト付き賃貸は5.4〜5.8万円台で流通しており、本物件の平均賃料6.0万円（725万÷12÷10）は相場とほぼ整合する。ただしスマサテ等の賃料査定で現行設定賃料の下ブレリスクを確認しておくことを推奨する。</p>
+
+      <h3>⚠ ハルトの懸念点</h3>
+      <div class="alert-danger">
+        <strong>最大の確認事項: 専有面積</strong><br>
+        延床131.88㎡÷10戸≒13.2㎡。全室ロフト付きとのことだが、ロフト部分を除いた本体面積が16㎡を下回る可能性がある。16㎡未満は即NG基準。事実確認前に買付を進めてはいけない。
+      </div>
+      <div class="alert-warning">
+        <strong>16号内側の確認:</strong> 西戸部一丁目は国道16号の外縁ギリギリの位置に該当する可能性がある。地図（Google Maps等）またはGPS座標で目視確認が必要。
+      </div>
+
+      <h3>ハルトの率直な評価</h3>
+      <p>千三つ万八の感覚で言うと、今回は「筋のいい物件」の部類。築8年・横浜市西区・2路線・人口増エリア・満室・利回り7.57%という組み合わせはスペック上の弱点が少ない。<strong>専有面積と16号内側の2点がクリアできれば「即資料請求・DD推奨」</strong>。どちらかがNGなら基準外でスキップ。</p>
+    </div>
+  </div>
+
+  <!-- ② リョウ -->
+  <div class="card ryo">
+    <div class="section-header">
+      <span class="icon">📁</span>
+      <h2>② リョウ — デューデリジェンス</h2>
+    </div>
+    <div class="analysis-content">
+
+      <h3>一次スクリーニング</h3>
+      <p>新耐震基準（2018年建築）・新耐火性能（準耐火1-2）・満室稼働・全室保証会社加入・用途地域整合（第2種中高層住居専用・建ぺい率53%/容積率107%で法内）— <strong>一次スクリーニング全項目通過</strong>。</p>
+
+      <h3>公法制限の評価</h3>
+      <ul>
+        <li><strong>第3種高度地区:</strong> 最高高さ20m・北側斜線規制。木造2階建（軒高推定6〜7m）は大幅下回りOK。建替え時は規模制限あり（現在より大きな建物は困難な場合あり）</li>
+        <li><strong>準防火地域:</strong> 本物件の準耐火1-2仕様は規制に適合。重要事項説明書で確認すれば完結</li>
+        <li><strong>緑化地域:</strong> 敷地面積500㎡以上の建築行為が対象→本物件123.85㎡は対象外。実質制限なし</li>
+        <li><strong>一本松防災まちづくり計画:</strong> 法的強制力なし。事前協議の慣行のみ。買付・融資NGにはならないが建替え時に地域協議会との事前調整が必要</li>
+      </ul>
+
+      <h3>リスクフラグ</h3>
+      <div class="alert-warning">
+        <strong>⚠ レントロール未入手:</strong> 賃料幅54,000〜65,000円（差11,000円）。各戸の賃料個別内訳・契約開始日・更新予定日を業者（プラック）に即時依頼。全10戸の詳細レントロール取得前は収支計算が暫定値となる。
+      </div>
+      <div class="alert-warning">
+        <strong>⚠ ハザードマップ未確認:</strong> 西区丘陵地帯の洪水・内水・土砂災害リスク。横浜市西区浸水ハザードマップ（PDF公開）と国土地理院「重ねるハザードマップ」で座標確認要。
+      </div>
+      <div class="alert-warning">
+        <strong>⚠ 前面道路幅員未確認:</strong> 西戸部一丁目は細街路が存在するエリア。4m未満の場合はセットバック義務。重要事項説明書で幅員・種別を確認し、現地実測も実施。
+      </div>
+      <div class="alert-warning">
+        <strong>⚠ 擁壁リスク:</strong> 横浜市西区の丘陵地帯は擁壁が多い。隣接地との高低差・擁壁の老朽化が自己の土地に影響するリスクがある。オリックス銀行は擁壁案件でNGを出すことが多い。現地目視確認必須。
+      </div>
+
+      <h3>未入手書類</h3>
+      <ul>
+        <li>詳細レントロール（全10戸・賃料個別・契約日・保証会社名）</li>
+        <li>公課証明書または納税通知書（固都税301,012円の実額確定）</li>
+        <li>確認済証・検査済証</li>
+        <li>修繕履歴（築8年のため少ないと予想するが念のため）</li>
+        <li>登記簿謄本（土地・建物）権利関係確認</li>
+      </ul>
+
+      <h3>総合判定</h3>
+      <p>リスクレベル: <strong>中</strong>。法令適合・満室・保証会社加入という基本スペックは水準以上。一本松計画は法的制限ではなく事前協議の慣行のみ。レントロール・ハザードマップ・前面道路・擁壁の4点確認後に再判定推奨。現段階は「HOLD（資料収集後に再判定）」。</p>
+
+      <div style="margin-top:14px;">
+        <a href="https://teruyone.github.io/tc-properties/properties/20260615_sakuragi_DD.html" class="link-btn link-btn-blue">📋 入力済みDDリストを開く</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ アキ -->
+  <div class="card aki">
+    <div class="section-header">
+      <span class="icon">📊</span>
+      <h2>③ アキ — IG+ 収支計算</h2>
+    </div>
+    <div class="analysis-content">
+
+      <h3>収益・費用サマリー（デフォルト値使用）</h3>
+      <div class="metrics-grid">
+        <div class="metric-box">
+          <div class="m-label">満室年収</div>
+          <div class="m-value m-neutral">7,255,200円</div>
+        </div>
+        <div class="metric-box">
+          <div class="m-label">実効年収（空室5%控除）</div>
+          <div class="m-value m-neutral">6,892,440円</div>
+        </div>
+        <div class="metric-box">
+          <div class="m-label">NOI（純営業収益）</div>
+          <div class="m-value m-neutral">5,317,464円</div>
+        </div>
+        <div class="metric-box">
+          <div class="m-label">NOI利回り</div>
+          <div class="m-value m-neutral">5.55%</div>
+        </div>
+      </div>
+      <p style="font-size:0.8rem; color:#888;">※管理費率5%（管理会社未定・デフォルト）、固都税10%（中古）、修繕費0.5%、原状回復10,000円/㎡ を使用。BRICKS管理（2.75%）が確定した場合はNOIが改善する。</p>
+
+      <h3>融資パターン比較</h3>
+      <table class="loan-table">
+        <thead>
+          <tr>
+            <th>項目</th>
+            <th>① オリックス（100%・2.6%・35年）</th>
+            <th>② 神奈川銀行（90%・2.25%・35年）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>借入額</td><td>9,580万円</td><td>8,622万円</td></tr>
+          <tr><td>自己資金（諸費用等）</td><td>670.6万円（諸費用のみ）</td><td>1,628.6万円（10%+諸費用）</td></tr>
+          <tr><td>年間返済額</td><td>4,171,640円</td><td>3,561,609円</td></tr>
+          <tr><td>年間CF</td><td><strong style="color:#27ae60">1,145,824円</strong></td><td><strong style="color:#27ae60">1,755,854円</strong></td></tr>
+          <tr><td>CF率</td><td><strong style="color:#27ae60">1.20%</strong></td><td><strong style="color:#27ae60">1.83%</strong></td></tr>
+          <tr><td>返済比率</td><td>57.5%</td><td>49.1%</td></tr>
+          <tr><td>CCR</td><td><strong style="color:#27ae60">17.1%</strong></td><td><span style="color:#c0392b">10.8%（基準未達）</span></td></tr>
+          <tr><td>10年目IRR</td><td colspan="2" style="text-align:center; color:#e67e22">TGシートで確認要（≥25%が基準）</td></tr>
+        </tbody>
+      </table>
+
+      <h3>積算評価（暫定）</h3>
+      <p>建物評価額: 1,762万円（131.88㎡×210,000円×残存率63.6%）。<strong>土地評価額: 路線価不明のため0（計算外）</strong>。積算比率は路線価取得後に再計算要。西区西戸部一丁目の路線価は横浜市平均（21.8万/㎡前後）から推定すると土地評価だけで2,400万円以上の可能性があり、積算比率が大きく変わる可能性がある。</p>
+
+      <div class="alert-info">
+        <strong>📌 アキからの確認事項:</strong>
+        <ul style="margin: 6px 0 0 16px;">
+          <li>国税庁路線価図で「西戸部一丁目」の路線価を確認し、IG+の「相続路線価」フィールドに入力してください（積算比率が正確に計算されます）</li>
+          <li>TGシートをブラウザで開いて10年目IRRが25%以上あるか確認してください（キャプテン基準の最重要指標）</li>
+          <li>BRICKS管理が確定した場合は管理費率を2.75%に変更してください（NOI改善）</li>
+          <li>固都税実額（公課証明書）があれば精度が上がります（現在は実収×10%を使用）</li>
+        </ul>
+      </div>
+
+      <div style="margin-top:14px;">
+        <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=9580&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.57&floorArea=131.88&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=8&taxRateIncome=20&pi_price_inp=9580&pi_age_inp=8&pi_yield_inp=7.57&pi_area_inp=131.88&pi_rooms_inp=10&ik_land_area=123.85&ik_route_price=0&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&pi_struct_sel=%E6%9C%A8%E9%80%A0&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E6%A8%AA%E6%B5%9C%E5%B8%82%E8%A5%BF%E5%8C%BA%E8%A5%BF%E6%88%B8%E9%83%A8%E4%B8%80%E4%B8%81%E7%9B%AE" class="link-btn link-btn-green">📊 InvestGate+ を開く</a>
+        <a href="../../knowledge/tamagawa-analysis/20260615_sakuragi_TG.html" class="link-btn link-btn-green">📈 玉川式シートを開く</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ 村田先生 -->
+  <div class="card murata">
+    <div class="section-header">
+      <span class="icon">🏗️</span>
+      <h2>④ 村田先生 — 建築士コメント</h2>
+    </div>
+    <div class="analysis-content">
+
+      <h3>構造・築年数の評価</h3>
+      <p>2018年4月建築。2000年基準（接合部金物規定・基礎配筋規定）を完全適用した建物であり、耐震性の面での問題はない。「準耐火1-2（準耐火建築物ロ-2）」は主要構造部に一定の防火性能を持った材料を使用した木造建物で、準防火地域の建築規制に適合した仕様。法定耐用年数22年に対して残存14年。現時点では急ぎの修繕が必要な箇所はないと思われる。</p>
+
+      <h3>修繕リスクと費用概算</h3>
+      <p><strong>直近1〜3年:</strong></p>
+      <ul>
+        <li>給湯器（8年目・保証期間終了近し）: 1台15〜18万円、10戸一斉交換で<strong>150〜180万円</strong></li>
+        <li>ロフト付き住戸の換気設備点検（夏の高温対策）: 軽微〜1〜3万円/台</li>
+      </ul>
+      <p><strong>中期5〜7年後（修繕の大波）:</strong></p>
+      <ul>
+        <li>外壁塗装: <strong>150〜300万円</strong>（横浜港に近く塩害・紫外線劣化が早い）</li>
+        <li>スレート屋根塗装: <strong>80〜150万円</strong>（棟板金の釘浮き・シーリング劣化も確認要）</li>
+        <li>ベランダ・バルコニー防水トップコート: 10〜20万円（放置すると木部腐食→100万円超）</li>
+      </ul>
+      <p><strong>長期10〜20年:</strong> 排水管更新 200〜400万円、給水管更新 200〜400万円</p>
+      <div class="alert-warning"><strong>収支計算への折り込み推奨:</strong> 5〜7年後に外壁・屋根・設備修繕が集中する可能性あり。300〜500万円規模の修繕費バッファを織り込んでおくことを強く推奨する。</div>
+
+      <h3>ロフト付き10戸の特殊性</h3>
+      <p>建築基準法上の「小屋裏物置等」として扱うには<strong>天井高1.4m以下</strong>の要件が必要。この要件を満たさない場合、容積率オーバーの既存不適格建築になるリスクがある。現地で最低1戸の実測確認が必須。また夏の高温問題（屋根直下で40度超えの可能性）から断熱材仕様の確認も重要。</p>
+
+      <h3>公法制限の建物評価</h3>
+      <ul>
+        <li><strong>第3種高度地区:</strong> 木造2階建（推定軒高6〜7m）は最高高さ20mを大幅下回り。現建物への影響なし。建替え時は規模が制限される可能性</li>
+        <li><strong>一本松防災まちづくり計画:</strong> 準耐火仕様で建てられた本物件は計画の趣旨に沿った建物。法的制約はなし</li>
+        <li><strong>建ぺい率・容積率:</strong> 65.94㎡÷123.85㎡≒53.2%（上限60%内）、131.88㎡÷123.85㎡≒106.5%（上限150%内）— 数値上は適法</li>
+      </ul>
+
+      <h3>現地確認10項目</h3>
+      <ol style="margin-left:16px; line-height:2;">
+        <li>外壁・棟板金の目視（クラック・錆・剥離）</li>
+        <li>ロフト天井高の実測（1.4m以下か）</li>
+        <li>基礎の種類と状態（クラック・沈下・傾斜）</li>
+        <li>外部階段・廊下・バルコニーの錆・腐食</li>
+        <li>ロフトの換気口・断熱材・結露跡の確認</li>
+        <li>空室室内状態（雨漏り跡・カビ・水回り）</li>
+        <li>接道状況の実測（前面道路幅員・種別）</li>
+        <li>周辺の擁壁の状態（亀裂・水染み・鉄筋露出）</li>
+        <li>共用部の管理状態（ゴミ・荒れ）</li>
+        <li>周辺競合物件の立地・賃料水準（仲介業者ヒアリング）</li>
+      </ol>
+
+      <h3>村田先生の総合コメント</h3>
+      <p>資料だけで見ると築8年・準耐火・2000年基準適合の建物は「今この瞬間に急ぎの修繕が必要な箇所はない」と思われる。しかし西区西戸部一丁目という立地の<strong>丘陵地・塩害・擁壁リスク</strong>は資料では絶対に分からない。現場を見ないと断言はできませんが、この3点は現地調査が最優先です。ロフト天井高の実測も忘れずに。</p>
+    </div>
+  </div>
+
+  <!-- キャプテンへの確認事項 -->
+  <div class="card confirm-card">
+    <div class="section-header">
+      <span class="icon">❓</span>
+      <h2>キャプテンへの確認事項（統合）</h2>
+    </div>
+    <ul class="confirm-list">
+      <li>
+        <span class="confirm-num" style="background:#c0392b;">1</span>
+        <div><strong>【最優先・即確認】専有面積（ロフト除く本体面積）が1戸あたり16㎡以上あるか</strong><br>業者（プラック）に各戸の専有面積（ロフト除く）を確認。16㎡未満なら即スキップ。</div>
+      </li>
+      <li>
+        <span class="confirm-num" style="background:#c0392b;">2</span>
+        <div><strong>【最優先】西戸部一丁目が国道16号の内側に該当するか</strong><br>Google Mapsで西戸部一丁目と国道16号のラインを目視確認。</div>
+      </li>
+      <li>
+        <span class="confirm-num" style="background:#e67e22;">3</span>
+        <div><strong>路線価の確認（積算比率に直結）</strong><br>国税庁路線価図で横浜市西区西戸部一丁目の路線価を確認し、アキに共有。IG+の積算比率が確定する。</div>
+      </li>
+      <li>
+        <span class="confirm-num" style="background:#e67e22;">4</span>
+        <div><strong>TGシートで10年目IRRを確認</strong><br>玉川式シートをブラウザで開いて10年目IRRが25%以上あるか確認。キャプテン基準の最重要指標。</div>
+      </li>
+      <li>
+        <span class="confirm-num" style="background:#e67e22;">5</span>
+        <div><strong>詳細レントロールの取得</strong><br>プラック株式会社に全10戸の賃料個別内訳・契約開始日・更新予定日・保証会社名を依頼。</div>
+      </li>
+      <li>
+        <span class="confirm-num" style="background:#2980b9;">6</span>
+        <div><strong>ハザードマップ確認</strong><br>横浜市西区浸水ハザードマップ（PDF）と国土地理院「重ねるハザードマップ」で西戸部一丁目の洪水・土砂リスクを確認。</div>
+      </li>
+      <li>
+        <span class="confirm-num" style="background:#2980b9;">7</span>
+        <div><strong>現地調査の実施</strong><br>Googleストリートビューで前面道路幅員・擁壁の有無を事前確認。現地で村田先生の10項目を確認。</div>
+      </li>
+      <li>
+        <span class="confirm-num" style="background:#2980b9;">8</span>
+        <div><strong>管理会社の確認（BRICKSの可否）</strong><br>BRICKS管理が可能かどうかを確認。可能ならIG+管理費率を5%→2.75%に変更。NOIが改善する。</div>
+      </li>
+      <li>
+        <span class="confirm-num" style="background:#888;">9</span>
+        <div><strong>賃料相場の確認</strong><br>スマサテまたは現地仲介業者（日ノ出町・桜木町エリア）でロフト付き1K の賃料相場をヒアリング。現行設定賃料（5.4〜6.5万円）の下ブレリスクを確認。</div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- チーム総合所見 -->
+  <div class="card verdict">
+    <div class="section-header">
+      <span class="icon">⚖️</span>
+      <h2>チーム総合所見</h2>
+    </div>
+    <div class="verdict-grid">
+      <div class="verdict-item">
+        <div class="v-label">総合判断</div>
+        <div style="font-size:1.1rem; font-weight:700; color:#e67e22;">HOLD（2条件確認後に再判断）</div>
+        <div style="font-size:0.85rem; margin-top:6px; color:#666;">専有面積（16㎡以上）と16号内側の2点がクリアできれば「積極推薦」に昇格</div>
+      </div>
+      <div class="verdict-item">
+        <div class="v-label">最大リスク</div>
+        <div>
+          <span class="risk-critical">⚡ 専有面積16㎡未満の可能性</span>
+          <span class="risk-high">⚠ 丘陵地・擁壁リスク</span>
+          <span class="risk-high">⚠ 路線価・積算比率不明</span>
+          <span class="risk-medium">📋 レントロール未入手</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert-success">
+      <strong>✅ ポジティブ要素まとめ:</strong>
+      <ul style="margin: 6px 0 0 16px;">
+        <li>横浜市西区 = 2070年まで人口増が続く稀有なエリア</li>
+        <li>野毛・日ノ出町エリアの賃貸需要旺盛（若者層の急速な人気獲得）</li>
+        <li>2路線利用可能（日ノ出町・桜木町）、横浜駅まで2分</li>
+        <li>築8年・満室稼働・全室保証会社加入という基本スペックは水準以上</li>
+        <li>オリックスフルローンでCF率1.20%・CCR17.1%と基準クリア</li>
+        <li>初年度は減価償却が十分で課税所得ゼロ（税メリット）</li>
+      </ul>
+    </div>
+
+    <h3 style="margin-top:16px; font-size:0.95rem; font-weight:700;">次のアクション</h3>
+    <ol style="margin: 8px 0 0 20px; font-size:0.9rem; line-height:2.2;">
+      <li><strong>本日中:</strong> 業者（プラック）に専有面積・詳細レントロールを要求</li>
+      <li><strong>本日中:</strong> Google Mapsで西戸部一丁目と国道16号の位置関係を目視確認</li>
+      <li><strong>本日中:</strong> 路線価図で西戸部一丁目の路線価を確認 → アキのIG+に入力</li>
+      <li><strong>本日中:</strong> TGシートで10年目IRRを確認（25%以上なら積極推薦）</li>
+      <li><strong>上記クリア後:</strong> 現地調査の日程調整</li>
+    </ol>
+  </div>
+
+  <div class="footer">
+    TC Capitals 不動産仕入部 精査レポート ｜ 2026年6月15日<br>
+    担当: 朝倉 晴斗（ハルト）・黒沢 涼（リョウ）・三宅 亜紀（アキ）・村田 誠一先生<br>
+    このレポートは分析時点の情報に基づきます。最終判断はキャプテン（山口輝大）が行います。
+  </div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260615_sakuragi_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260615_sakuragi_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
