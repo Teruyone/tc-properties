@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>物件精査レポート｜(仮称)シティハイツ厚木市下荻野4期 2｜TC Capitals</title>
+<style>
+  :root {
+    --primary: #1a237e;
+    --primary-light: #3949ab;
+    --accent-haruto: #e65100;
+    --accent-ryo: #1565c0;
+    --accent-aki: #2e7d32;
+    --accent-murata: #6d4c41;
+    --ok: #2e7d32;
+    --ng: #c62828;
+    --warn: #f57c00;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --border: #dde3ee;
+    --text: #1a1a2e;
+    --muted: #607d8b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Hiragino Sans','Yu Gothic UI',sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.7; }
+
+  .site-header { background: var(--primary); color: white; padding: 14px 24px; }
+  .site-header h1 { font-size: 18px; font-weight: 700; letter-spacing: 0.05em; }
+  .site-header .sub { font-size: 13px; opacity: 0.8; margin-top: 4px; }
+
+  .container { max-width: 980px; margin: 24px auto; padding: 0 16px 80px; }
+
+  /* Summary card */
+  .summary-card {
+    background: white; border-radius: 12px; border: 1px solid var(--border);
+    padding: 24px; margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .summary-card h2 { font-size: 20px; color: var(--primary); margin-bottom: 16px; border-bottom: 2px solid var(--primary); padding-bottom: 8px; }
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .info-item { background: #f5f7fa; border-radius: 8px; padding: 10px 14px; }
+  .info-item .label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px; }
+  .info-item .value { font-size: 15px; font-weight: 700; color: var(--text); }
+  .info-item .value.big { font-size: 20px; color: var(--primary); }
+  .info-item .value.warn { color: var(--warn); }
+  .tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-left: 6px; vertical-align: middle; }
+  .tag.ok { background: #e8f5e9; color: var(--ok); }
+  .tag.ng { background: #ffebee; color: var(--ng); }
+  .tag.warn { background: #fff8e1; color: var(--warn); }
+
+  /* Criteria table */
+  .criteria-card { background: white; border-radius: 12px; border: 1px solid var(--border); padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .criteria-card h2 { font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 16px; }
+  .criteria-table { width: 100%; border-collapse: collapse; }
+  .criteria-table th, .criteria-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .criteria-table th { background: #e8eaf6; font-weight: 700; color: var(--primary); }
+  .criteria-table tr:last-child td { border-bottom: none; }
+  .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 12px; }
+  .badge.ok { background: #e8f5e9; color: var(--ok); }
+  .badge.ng { background: #ffebee; color: var(--ng); }
+  .badge.pending { background: #e3f2fd; color: #1565c0; }
+
+  /* Section cards */
+  .section-card { background: white; border-radius: 12px; border: 1px solid var(--border); padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid; }
+  .section-header.haruto { border-color: var(--accent-haruto); }
+  .section-header.ryo { border-color: var(--accent-ryo); }
+  .section-header.aki { border-color: var(--accent-aki); }
+  .section-header.murata { border-color: var(--accent-murata); }
+  .section-header .avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: white; flex-shrink: 0; }
+  .avatar.haruto { background: var(--accent-haruto); }
+  .avatar.ryo { background: var(--accent-ryo); }
+  .avatar.aki { background: var(--accent-aki); }
+  .avatar.murata { background: var(--accent-murata); }
+  .section-header h2 { font-size: 16px; font-weight: 700; }
+  .section-header h2.haruto { color: var(--accent-haruto); }
+  .section-header h2.ryo { color: var(--accent-ryo); }
+  .section-header h2.aki { color: var(--accent-aki); }
+  .section-header h2.murata { color: var(--accent-murata); }
+
+  /* CF table */
+  .cf-table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  .cf-table th, .cf-table td { padding: 8px 12px; text-align: right; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .cf-table th:first-child, .cf-table td:first-child { text-align: left; }
+  .cf-table th { background: #e8f5e9; font-weight: 700; color: var(--accent-aki); }
+  .cf-table .total { font-weight: 700; background: #f1f8e9; }
+  .cf-table .noi { font-weight: 700; color: var(--accent-aki); background: #e8f5e9; }
+
+  /* Risk list */
+  .risk-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .risk-item:last-child { border-bottom: none; }
+  .risk-badge { flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 8px; height: fit-content; }
+  .risk-badge.high { background: #ffebee; color: var(--ng); }
+  .risk-badge.mid { background: #fff8e1; color: var(--warn); }
+  .risk-badge.low { background: #e8f5e9; color: var(--ok); }
+
+  /* Confirm list */
+  .confirm-card { background: #fff8e1; border: 1px solid #ffe082; border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+  .confirm-card h2 { font-size: 16px; font-weight: 700; color: #e65100; margin-bottom: 16px; }
+  .confirm-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px dashed #ffe082; font-size: 13px; }
+  .confirm-item:last-child { border-bottom: none; }
+  .confirm-num { font-weight: 700; color: #e65100; flex-shrink: 0; min-width: 24px; }
+
+  /* Verdict card */
+  .verdict-card { background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%); color: white; border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  .verdict-card h2 { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+  .verdict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .verdict-item h3 { font-size: 13px; opacity: 0.8; margin-bottom: 6px; }
+  .verdict-item p { font-size: 14px; }
+  .verdict-result { text-align: center; font-size: 22px; font-weight: 700; padding: 16px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 16px; }
+
+  /* Links */
+  .link-bar { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
+  .link-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; color: white; }
+  .link-btn.ig { background: var(--accent-aki); }
+  .link-btn.tg { background: #1b5e20; }
+  .link-btn.dd { background: var(--accent-ryo); }
+
+  ul.checklist { list-style: none; padding: 0; }
+  ul.checklist li { padding: 5px 0 5px 20px; position: relative; font-size: 13px; border-bottom: 1px dashed var(--border); }
+  ul.checklist li:before { content: '→'; position: absolute; left: 0; color: var(--muted); }
+  ul.checklist li:last-child { border-bottom: none; }
+
+  .highlight-box { background: #fff3e0; border-left: 4px solid var(--warn); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 13px; }
+  .highlight-box.critical { background: #ffebee; border-color: var(--ng); }
+  .highlight-box.good { background: #e8f5e9; border-color: var(--ok); }
+
+  p { margin-bottom: 10px; font-size: 13px; }
+  p:last-child { margin-bottom: 0; }
+  h3 { font-size: 14px; font-weight: 700; color: var(--primary); margin: 14px 0 6px; }
+
+  @media (max-width: 600px) {
+    .verdict-grid { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <h1>TC Capitals 不動産仕入部 ｜ 物件精査レポート</h1>
+  <div class="sub">精査日: 2026-06-18 ／ 担当チーム: ハルト・リョウ・アキ・村田先生</div>
+</div>
+
+<div class="container">
+
+  <!-- 物件サマリー -->
+  <div class="summary-card">
+    <h2>(仮称)シティハイツ厚木市下荻野4期 2</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="label">所在地</div>
+        <div class="value">神奈川県厚木市下荻野824番26</div>
+      </div>
+      <div class="info-item">
+        <div class="label">交通</div>
+        <div class="value warn">小田急 本厚木駅 バス33分<br>神奈川工科大学前 徒歩1分</div>
+      </div>
+      <div class="info-item">
+        <div class="label">売却希望価格</div>
+        <div class="value big">10,700万円</div>
+      </div>
+      <div class="info-item">
+        <div class="label">表面利回り</div>
+        <div class="value big">7.45%</div>
+      </div>
+      <div class="info-item">
+        <div class="label">構造・規模</div>
+        <div class="value">木造在来 2階建 12戸<br>延床240.78㎡ / 土地264.36㎡</div>
+      </div>
+      <div class="info-item">
+        <div class="label">築年</div>
+        <div class="value">令和8年(2026年)8月完成予定<br><span class="tag ok">新築未完工</span></div>
+      </div>
+      <div class="info-item">
+        <div class="label">間取り</div>
+        <div class="value">1K+ロフト 全12戸<br>洋室10.13㎡+ロフト5.49㎡</div>
+      </div>
+      <div class="info-item">
+        <div class="label">取引形態</div>
+        <div class="value">媒介（BRICKS/澤井洋介）<br>仲介手数料約360万円</div>
+      </div>
+      <div class="info-item">
+        <div class="label">ガス</div>
+        <div class="value warn">プロパンガス（都市ガス不可）</div>
+      </div>
+      <div class="info-item">
+        <div class="label">満室想定年収</div>
+        <div class="value">796.8万円<br>(1戸 66,400円/月)</div>
+      </div>
+      <div class="info-item">
+        <div class="label">性能評価</div>
+        <div class="value"><span class="tag ok">劣化対策等級3</span></div>
+      </div>
+      <div class="info-item">
+        <div class="label">特記</div>
+        <div class="value warn">都市計画道路あり<br>（敷地一部かかる）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- キャプテン基準チェック -->
+  <div class="criteria-card">
+    <h2>キャプテン基準チェック（6指標）</h2>
+    <table class="criteria-table">
+      <tr>
+        <th>基準項目</th>
+        <th>キャプテン基準</th>
+        <th>本物件</th>
+        <th>判定</th>
+      </tr>
+      <tr>
+        <td>価格</td>
+        <td>1億円以下</td>
+        <td>10,700万円</td>
+        <td><span class="badge ng">✗ NG（+700万円）</span></td>
+      </tr>
+      <tr>
+        <td>表面利回り</td>
+        <td>7.1%以上</td>
+        <td>7.45%</td>
+        <td><span class="badge ok">✓ OK</span></td>
+      </tr>
+      <tr>
+        <td>エリア</td>
+        <td>16号線内側</td>
+        <td>バス33分・16号線外側</td>
+        <td><span class="badge ng">✗ NG（基準外）</span></td>
+      </tr>
+      <tr>
+        <td>築年</td>
+        <td>築10年以内</td>
+        <td>新築（令和8年8月完成）</td>
+        <td><span class="badge ok">✓ OK</span></td>
+      </tr>
+      <tr>
+        <td>CF率（オリックス）</td>
+        <td>プラス</td>
+        <td>1.44%（153.6万円/年）</td>
+        <td><span class="badge ok">✓ OK</span></td>
+      </tr>
+      <tr>
+        <td>CCR（オリックス）</td>
+        <td>15%以上</td>
+        <td>20.5%</td>
+        <td><span class="badge ok">✓ OK</span></td>
+      </tr>
+      <tr>
+        <td>積算比率</td>
+        <td>60%以上</td>
+        <td>路線価不明（要確認）<br>推定5万/㎡仮定: 59.6%</td>
+        <td><span class="badge pending">要確認</span></td>
+      </tr>
+      <tr>
+        <td>10年目税引後IRR</td>
+        <td>25%以上</td>
+        <td>玉川式シートで確認</td>
+        <td><span class="badge pending">要確認</span></td>
+      </tr>
+      <tr>
+        <td>専有面積</td>
+        <td>16㎡以上</td>
+        <td>洋室10.13㎡（ロフト除く）</td>
+        <td><span class="badge ng">✗ NG（10.13㎡）</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ハルト：エリア・利回り分析 -->
+  <div class="section-card">
+    <div class="section-header haruto">
+      <div class="avatar haruto">朝</div>
+      <h2 class="haruto">ハルト（朝倉晴斗）— エリア・利回り分析</h2>
+    </div>
+
+    <h3>神奈川工科大学の学生需要</h3>
+    <p>在学生4,218名（2025年5月）。大学推奨通学エリアに「下荻野」が明示されており、バス通学に慣れた学生層の需要は実在する。バス停名「神奈川工科大学前」まで徒歩1分という立地は学生向けには強い。仲介の「近隣4〜5棟が満室」というコメントとも整合する。</p>
+
+    <h3>本厚木駅の商業集積</h3>
+    <p>本厚木駅の乗降客数127,031人/日（小田急70駅中第7位、私鉄単独駅では日本最大規模）。ターミナルとしての商業集積は高い。ただし本物件はその本厚木駅からバス33分のエリアであり、ターミナルの利便性を直接享受できない。</p>
+
+    <h3>エリアの懸念点</h3>
+    <p>厚木市の人口は2024年223,940人で緩やかな減少傾向（2050年推計で約15.5%減）。バス便郊外エリアは人口減少局面で空室リスクが高まりやすい。16号線との位置関係は完全に外側（7〜10km以上離れている）。</p>
+
+    <h3>表面利回り7.45%の相場感</h3>
+    <p>厚木市・バス便郊外エリアとして「普通〜やや低め」の水準。学生需要に依存するリスクと立地の弱さを考えると、本来は8%以上が妥当な要求利回りではないか。</p>
+
+    <div class="highlight-box critical">
+      <strong>洋室10.13㎡の問題：</strong> キャプテン基準「16㎡以下はNG」に明確に抵触。ロフト5.49㎡を加えた実質使用面積は約15.6㎡だが、登記面積ベースで判断すると基準外。賃料66,400円/月は新築プレミアムが乗った数字で、5〜10年後の維持が疑問。
+    </div>
+
+    <div class="highlight-box">
+      <strong>ハルトの総合判断：</strong> <strong>見送り推奨。ただし要確認2点あり。</strong><br>
+      ①スマサテで66,400円が査定されるか確認 ②都市計画道路のかかる範囲確認。この2点がOKなら「基準外だが面白い」レベルに上がる可能性はある。
+    </div>
+  </div>
+
+  <!-- リョウ：DD -->
+  <div class="section-card">
+    <div class="section-header ryo">
+      <div class="avatar ryo">黒</div>
+      <h2 class="ryo">リョウ（黒沢涼）— DDチェック</h2>
+    </div>
+
+    <div class="link-bar">
+      <a class="link-btn dd" href="https://teruyone.github.io/tc-properties/properties/20260618_下荻野4期2_DD.html" target="_blank">📋 入力済みDDリストを開く</a>
+    </div>
+
+    <h3>確認済み事項</h3>
+    <ul class="checklist">
+      <li>建築確認取得済み（第AI建築確認00-2500990号 令和8年3月2日）</li>
+      <li>令和基準（2000年基準）適合・耐震問題なし</li>
+      <li>接道: 法42条1項1号・主要地方道相模原大磯線（幅員12m・歩道付）→ 問題なし</li>
+      <li>擁壁: h=30〜400mm（最大0.4m）→ オリックス「高低差2m超NG」基準に抵触なし</li>
+      <li>宅地造成規制法: 対象外（切土盛土なし）</li>
+      <li>用途地域: 近隣商業地域・建蔽率49.23%（上限80%）・容積率91.09%（上限200%）→ 余裕あり</li>
+      <li>品確法10年保証適用（新築）</li>
+    </ul>
+
+    <h3>リスクフラグ</h3>
+    <div class="risk-item">
+      <span class="risk-badge high">高</span>
+      <div>
+        <strong>都市計画道路リスク（最大の懸念）</strong><br>
+        配置図に「都市計画道路あり（添付資料参照）」と明記。計画道路境界線が敷地内にかかっている。建物本体への抵触範囲・路線名・事業認可状況が未確認。収用リスク・担保価値毀損・売却難化のリスクあり。「添付資料」の早期入手が最優先。
+      </div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge high">高</span>
+      <div>
+        <strong>バス便・学生依存リスク</strong><br>
+        入居者ターゲットが神奈川工科大学学生に強く依存。少子化・定員充足率低下（工学部78%）の影響を受けやすい。繁閑差・退去集中リスクあり。
+      </div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge mid">中</span>
+      <div>
+        <strong>プロパンガス契約条件不明</strong><br>
+        ガス会社の「無償設備提供→高単価回収」スキームの有無・縛り期間・給湯器所有権が未確認。2027年の新規スキーム規制との兼ね合いも要確認。
+      </div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge mid">中</span>
+      <div>
+        <strong>新築未完工リスク</strong><br>
+        2026年8月完成予定。現時点（6月）での工事進捗・遅延可能性・売主法人の状況が未確認。
+      </div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge mid">中</span>
+      <div>
+        <strong>専有面積の確認</strong><br>
+        洋室10.13㎡（ロフト除く）がキャプテン基準16㎡以下に抵触。ロフトを含む実使用面積の評価が必要。
+      </div>
+    </div>
+  </div>
+
+  <!-- アキ：IG+収支計算 -->
+  <div class="section-card">
+    <div class="section-header aki">
+      <div class="avatar aki">三</div>
+      <h2 class="aki">アキ（三宅亜紀）— IG+収支計算 ＋ 玉川式シート</h2>
+    </div>
+
+    <div class="link-bar">
+      <a class="link-btn ig" href="https://teruyone.github.io/tc-properties/ig-sheet/?price=10700&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.45&floorArea=240.78&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=2.75&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=10700&pi_age_inp=0&pi_yield_inp=7.45&pi_area_inp=240.78&pi_rooms_inp=12&ik_land_area=264.36&ik_route_price=0&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&buildStruct=%E6%9C%A8%E9%80%A0&pi_struct_sel=%E6%9C%A8%E9%80%A0&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E5%8E%9A%E6%9C%A8%E5%B8%82%E4%B8%8B%E8%8D%BB%E9%87%8E824%E7%95%AA26" target="_blank">📊 InvestGate+ を開く</a>
+      <a class="link-btn tg" href="../../knowledge/tamagawa-analysis/20260618_下荻野4期2_TG.html" target="_blank">📈 玉川式シートを開く</a>
+    </div>
+
+    <h3>収支概要</h3>
+    <table class="cf-table">
+      <tr>
+        <th>項目</th>
+        <th>金額</th>
+        <th>備考</th>
+      </tr>
+      <tr><td>満室年収</td><td>796.8万円</td><td>1戸66,400円×12戸</td></tr>
+      <tr><td>実収入（空室5%控除）</td><td>757.0万円</td><td></td></tr>
+      <tr><td>賃貸管理費（2.75%）</td><td>△20.8万円</td><td>BRICKS管理</td></tr>
+      <tr><td>BM費</td><td>△17.5万円</td><td>200円/坪×12ヶ月</td></tr>
+      <tr><td>固定資産税（7%・新築）</td><td>△53.0万円</td><td></td></tr>
+      <tr><td>修繕費（0.1%・新築）</td><td>△4.0万円</td><td></td></tr>
+      <tr><td>原状回復費</td><td>△9.1万円</td><td>新築5,000円/坪×25%</td></tr>
+      <tr><td>保険・その他</td><td>△33.0万円</td><td></td></tr>
+      <tr class="noi"><td>NOI</td><td>619.6万円</td><td>NOI利回り 5.79%</td></tr>
+    </table>
+
+    <h3>融資別CF試算</h3>
+    <table class="cf-table">
+      <tr>
+        <th>パターン</th>
+        <th>オリックス銀行</th>
+        <th>神奈川銀行</th>
+      </tr>
+      <tr><td>融資条件</td><td>100%・2.6%・35年</td><td>90%・2.25%・35年</td></tr>
+      <tr><td>借入額</td><td>10,700万円</td><td>9,630万円</td></tr>
+      <tr><td>自己資金</td><td>749万円（諸費用のみ）</td><td>1,819万円</td></tr>
+      <tr><td>年間返済額</td><td>465.9万円</td><td>397.8万円</td></tr>
+      <tr><td>返済比率</td><td>61.6%</td><td>52.6%</td></tr>
+      <tr class="total"><td>税引前CF</td><td>153.6万円（CF率1.44%）</td><td>221.8万円（CF率2.07%）</td></tr>
+      <tr><td>CCR</td><td><strong>20.5%</strong> <span class="tag ok">OK</span></td><td>12.2% <span class="tag ng">NG</span></td></tr>
+      <tr><td>初年度税引後CF</td><td>153.5万円</td><td>209.3万円</td></tr>
+    </table>
+
+    <h3>積算評価</h3>
+    <table class="cf-table">
+      <tr>
+        <th>項目</th>
+        <th>金額</th>
+        <th>備考</th>
+      </tr>
+      <tr><td>建物評価額</td><td>5,056万円</td><td>240.78㎡×21万/㎡×残存率1.0（等級3）</td></tr>
+      <tr><td>土地評価額</td><td>路線価要確認</td><td>推定5万/㎡仮定: 1,322万円</td></tr>
+      <tr class="total"><td>積算評価合計（仮定）</td><td>6,378万円</td><td>積算比率 59.6%（NG水準）</td></tr>
+    </table>
+
+    <div class="highlight-box">
+      <strong>アキのポイント：</strong> 新築×木造×劣化等級3の組み合わせで減価償却が340万円/年と厚く、オリックスフルローンでも初年度課税所得がほぼゼロ。税引後CFが税引前とほぼ同額という「デッドクロス前の甘い蜜」期間が22年続く。積算比率が路線価次第で60%を超えるかどうかが最大の関門。路線価7万/㎡以上なら積算64.5%でOK。
+    </div>
+
+    <div class="highlight-box critical">
+      <strong>10年目IRR：</strong> 玉川式シートで確認要。目標は25%以上（キャプテン基準）。シートをブラウザで開いて「10年」行のIRRを確認してください。
+    </div>
+  </div>
+
+  <!-- 村田先生：建築士コメント -->
+  <div class="section-card">
+    <div class="section-header murata">
+      <div class="avatar murata">村</div>
+      <h2 class="murata">村田誠一先生（一級建築士）— 建物評価</h2>
+    </div>
+
+    <div class="highlight-box good">
+      <strong>総合評価：</strong> 書面上の仕様は「新築木造として現時点で取りうる最善に近い選択」。劣化対策等級3・ベタ基礎・2000年基準・防腐防蟻K3処理・通気構法・FRP防水と主要な耐久性確保の手段が揃っている。
+    </div>
+
+    <h3>構造評価</h3>
+    <p>木造在来工法（管柱105×105）・2000年基準完全適合。ベタ基礎（Fc21N/mm²・SD295A）で地盤支持力良好。外壁構造用合板貼（2.5倍）耐力壁採用。準耐火建築物として法令要件を充足。</p>
+
+    <h3>修繕計画（コスト試算）</h3>
+    <table class="cf-table">
+      <tr><th>時期</th><th>主な修繕項目</th><th>費用概算</th></tr>
+      <tr><td>5〜10年目</td><td>シーリング打替・屋根塗装・FRP防水トップコート</td><td>105〜165万円</td></tr>
+      <tr><td>10〜15年目</td><td>給湯器全交換・外壁塗装・防腐防蟻再処理</td><td>300〜430万円</td></tr>
+      <tr><td>15〜20年目</td><td>屋根葺替・給水管補修</td><td>90〜160万円</td></tr>
+      <tr><td>20〜30年目</td><td>給排水管更新・外壁張替・外構リフレッシュ</td><td>610〜880万円</td></tr>
+      <tr class="total"><td>30年累計</td><td></td><td>1,500〜2,000万円</td></tr>
+    </table>
+    <p style="font-size:12px;color:var(--muted);">→ 修繕積立目安: 1戸あたり月額約5,000円（全体年60万円）をCF計算に組み込み推奨</p>
+
+    <h3>気になる3点</h3>
+    <div class="risk-item">
+      <span class="risk-badge high">要確認</span>
+      <div><strong>都市計画道路への建物抵触：</strong> 市役所道路担当窓口での事業認可状況確認を強く推奨。着工時期・補償額算定基準の把握が必要。</div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge high">重要</span>
+      <div><strong>プロパンガス2027年問題：</strong> 無償設備提供スキームが2027年から禁止予定。給湯器等の設備費用負担がオーナーに転嫁される可能性あり。LPガス会社との契約内容の早期確認が必要。</div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge mid">推奨</span>
+      <div><strong>竣工前ホームインスペクション：</strong> 5〜10万円で第三者建築士による竣工前検査を依頼推奨。界壁施工（小屋裏まで達するか）・外廊下FRP防水端末処理・通気層の施工精度の確認が最優先。</div>
+    </div>
+  </div>
+
+  <!-- キャプテンへの確認事項 -->
+  <div class="confirm-card">
+    <h2>⚠ キャプテンへの確認事項（澤井さんへの質問リスト）</h2>
+    <div class="confirm-item"><span class="confirm-num">1</span>
+      <div><strong>【最優先】都市計画道路の詳細：</strong> 路線名・計画番号・計画道路境界線が建物本体にかかっているかどうか・かかる面積を確認。「添付資料」の都市計画道路図を提供いただけますか。</div>
+    </div>
+    <div class="confirm-item"><span class="confirm-num">2</span>
+      <div><strong>路線価の確認：</strong> 厚木市下荻野824番26番地の路線価（国税庁路線価図）を確認。7万円/㎡以上あれば積算比率60%超でOK。</div>
+    </div>
+    <div class="confirm-item"><span class="confirm-num">3</span>
+      <div><strong>値交渉の余地：</strong> 価格9,990万円（△710万）への交渉可能性。キャプテン基準「1億以下」クリアのために必要。</div>
+    </div>
+    <div class="confirm-item"><span class="confirm-num">4</span>
+      <div><strong>プロパンガス会社との契約条件：</strong> 無償設備提供スキームの有無・縛り期間・給湯器所有権・2027年規制への対応方針。</div>
+    </div>
+    <div class="confirm-item"><span class="confirm-num">5</span>
+      <div><strong>管理会社（シティハウス）の条件：</strong> 管理費率・AD・入居付け実績・近隣4〜5棟の稼働実績（棟名・戸数・空室率）の資料提供。</div>
+    </div>
+    <div class="confirm-item"><span class="confirm-num">6</span>
+      <div><strong>オリックス融資の実績：</strong> 都市計画道路の状況を開示した上での「オリックス使えます」発言か確認。計画道路リスクをオリックス側が把握しているか。</div>
+    </div>
+    <div class="confirm-item"><span class="confirm-num">7</span>
+      <div><strong>工事進捗・売主情報：</strong> 売主（建築主）の法人名・現在の工事進捗率。2026年8月完成に遅延リスクはないか。</div>
+    </div>
+    <div class="confirm-item"><span class="confirm-num">8</span>
+      <div><strong>スマサテ賃料査定：</strong> 洋室10.13㎡+ロフト5.49㎡の物件で66,400円/月の査定が取れるか確認。現状の近隣物件の実際の入居賃料も併せて確認。</div>
+    </div>
+  </div>
+
+  <!-- チーム総合所見 -->
+  <div class="verdict-card">
+    <h2>チーム総合所見</h2>
+    <div class="verdict-grid">
+      <div class="verdict-item">
+        <h3>最大リスク</h3>
+        <p>都市計画道路（建物本体への抵触が未確認）と専有面積16㎡以下（基準外）の2点が致命的な懸念。都市計画道路の範囲次第で判断が大きく変わる。</p>
+      </div>
+      <div class="verdict-item">
+        <h3>ポジティブ要素</h3>
+        <p>神奈川工科大学在学生4,218名・大学推奨通学エリア明記・新築劣化等級3・CCR20.5%（オリックス）・新築減価償却で税引後CF優秀。</p>
+      </div>
+      <div class="verdict-item">
+        <h3>次のアクション</h3>
+        <p>①都市計画道路の添付資料入手（澤井） ②路線価確認（国税庁サイト） ③スマサテ賃料査定確認。3点が揃った段階で精査続行か見送りを最終判断。</p>
+      </div>
+      <div class="verdict-item">
+        <h3>出口戦略</h3>
+        <p>木造22年法定耐用年数・デッドクロスは築10〜13年目が目安。築15〜18年での売却出口を前提とした10年目IRR確認が必須（玉川式シート参照）。</p>
+      </div>
+    </div>
+    <div class="verdict-result">
+      現時点: 判断保留 — 都市計画道路詳細・路線価・スマサテ査定の3点確認後に最終判断
+    </div>
+  </div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260618_下荻野4期2_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260618_下荻野4期2_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
