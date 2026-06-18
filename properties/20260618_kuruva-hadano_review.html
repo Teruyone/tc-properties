@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>物件精査レポート｜グラスプラス栄町Ⅱ（秦野市）</title>
+<style>
+  :root {
+    --primary: #1a237e;
+    --primary-light: #3949ab;
+    --accent: #e65100;
+    --ok: #2e7d32;
+    --ng: #c62828;
+    --warn: #f57f17;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --border: #dde3ee;
+    --text: #1a1a2e;
+    --muted: #607d8b;
+    --haruto: #e65100;
+    --ryou: #1565c0;
+    --aki: #2e7d32;
+    --murata: #5d4037;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Hiragino Sans', 'Yu Gothic UI', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.7; }
+
+  .site-header { background: var(--primary); color: white; padding: 16px 24px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+  .site-header h1 { font-size: 18px; font-weight: 700; letter-spacing: 0.05em; }
+  .site-header .sub { font-size: 12px; opacity: 0.8; margin-top: 2px; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+
+  /* Summary card */
+  .summary-card { background: var(--card); border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 24px; margin-bottom: 20px; border-left: 5px solid var(--primary); }
+  .summary-card h2 { font-size: 22px; color: var(--primary); margin-bottom: 16px; }
+  .prop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .prop-item { background: #f0f4ff; border-radius: 8px; padding: 10px 14px; }
+  .prop-item .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .prop-item .value { font-size: 16px; font-weight: 700; color: var(--text); }
+  .prop-item .value.highlight { color: var(--primary); font-size: 20px; }
+
+  /* Criteria table */
+  .criteria-card { background: var(--card); border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 24px; margin-bottom: 20px; }
+  .criteria-card h2 { font-size: 17px; font-weight: 700; color: var(--primary); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  .criteria-table { width: 100%; border-collapse: collapse; }
+  .criteria-table th { background: var(--primary); color: white; padding: 10px 14px; text-align: left; font-size: 13px; }
+  .criteria-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .criteria-table tr:last-child td { border-bottom: none; }
+  .badge-ok { display: inline-block; background: var(--ok); color: white; border-radius: 4px; padding: 2px 10px; font-size: 12px; font-weight: 700; }
+  .badge-ng { display: inline-block; background: var(--ng); color: white; border-radius: 4px; padding: 2px 10px; font-size: 12px; font-weight: 700; }
+  .badge-warn { display: inline-block; background: var(--warn); color: white; border-radius: 4px; padding: 2px 10px; font-size: 12px; font-weight: 700; }
+
+  /* Section cards */
+  .section-card { background: var(--card); border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 24px; margin-bottom: 20px; }
+  .section-card h2 { font-size: 17px; font-weight: 700; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .section-card h2.haruto { color: var(--haruto); border-color: var(--haruto); }
+  .section-card h2.ryou { color: var(--ryou); border-color: var(--ryou); }
+  .section-card h2.aki { color: var(--aki); border-color: var(--aki); }
+  .section-card h2.murata { color: var(--murata); border-color: var(--murata); }
+  .section-card h2.captain { color: var(--primary); border-color: var(--primary); }
+
+  .avatar { width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .avatar.haruto { background: var(--haruto); }
+  .avatar.ryou { background: var(--ryou); }
+  .avatar.aki { background: var(--aki); }
+  .avatar.murata { background: var(--murata); }
+
+  .analysis-table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  .analysis-table th { background: #edf2fb; color: var(--text); padding: 8px 12px; text-align: left; font-size: 13px; font-weight: 600; }
+  .analysis-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .analysis-table tr:last-child td { border-bottom: none; }
+
+  .risk-high { background: #ffebee; border-left: 4px solid var(--ng); border-radius: 6px; padding: 12px 16px; margin: 10px 0; }
+  .risk-mid { background: #fff8e1; border-left: 4px solid var(--warn); border-radius: 6px; padding: 12px 16px; margin: 10px 0; }
+  .risk-low { background: #e8f5e9; border-left: 4px solid var(--ok); border-radius: 6px; padding: 12px 16px; margin: 10px 0; }
+  .risk-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .risk-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .risk-body { font-size: 13px; color: #444; }
+
+  .cf-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .cf-card { background: #f8f9fa; border-radius: 10px; padding: 16px; border: 2px solid var(--border); }
+  .cf-card.pattern1 { border-color: #1565c0; }
+  .cf-card.pattern2 { border-color: #2e7d32; }
+  .cf-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+  .cf-card h3.p1 { color: #1565c0; }
+  .cf-card h3.p2 { color: #2e7d32; }
+  .cf-item { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .cf-item:last-child { border-bottom: none; font-weight: 700; }
+  .cf-item .val { font-weight: 600; }
+  .cf-item .val.ok { color: var(--ok); }
+  .cf-item .val.ng { color: var(--ng); }
+  .cf-item .val.warn { color: var(--warn); }
+
+  .confirm-list { list-style: none; padding: 0; }
+  .confirm-list li { padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13px; display: flex; gap: 10px; align-items: flex-start; }
+  .confirm-list li:last-child { border-bottom: none; }
+  .confirm-num { background: var(--primary); color: white; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  .tool-links { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0; }
+  .tool-link { display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600; transition: opacity 0.2s; }
+  .tool-link:hover { opacity: 0.85; }
+  .tool-link.ig { background: #1565c0; color: white; }
+  .tool-link.dd { background: #6a1b9a; color: white; }
+  .tool-link.tg { background: #2e7d32; color: white; }
+
+  .verdict { background: linear-gradient(135deg, #1a237e 0%, #283593 100%); color: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+  .verdict h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px; opacity: 0.9; }
+  .verdict-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .verdict-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.7; min-width: 80px; padding-top: 2px; }
+  .verdict-value { font-size: 14px; }
+
+  .footer { text-align: center; color: var(--muted); font-size: 12px; padding: 32px 16px; }
+
+  @media (max-width: 600px) {
+    .cf-cards { grid-template-columns: 1fr; }
+    .prop-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <h1>TC Capitals｜物件精査レポート</h1>
+  <div class="sub">精査日: 2026年6月18日｜チーム: ハルト・リョウ・アキ・村田先生</div>
+</div>
+
+<div class="container">
+
+  <!-- 物件サマリー -->
+  <div class="summary-card">
+    <h2>グラスプラス栄町Ⅱ（秦野市一棟アパート）</h2>
+    <div class="prop-grid">
+      <div class="prop-item"><div class="label">物件価格</div><div class="value highlight">5,380万円</div></div>
+      <div class="prop-item"><div class="label">表面利回り</div><div class="value highlight">7.74%</div></div>
+      <div class="prop-item"><div class="label">所在地</div><div class="value">神奈川県秦野市栄町3-13-2</div></div>
+      <div class="prop-item"><div class="label">交通</div><div class="value">小田急 秦野駅 徒歩7分</div></div>
+      <div class="prop-item"><div class="label">構造</div><div class="value">木造3階建（2021年3月築 築5年）</div></div>
+      <div class="prop-item"><div class="label">規模</div><div class="value">6戸 / 延床115.53㎡ / 土地64.61㎡</div></div>
+      <div class="prop-item"><div class="label">現況</div><div class="value">全6室稼働中（月347,000円）</div></div>
+      <div class="prop-item"><div class="label">取引態様</div><div class="value">仲介・専属専任（3%+6万+税）</div></div>
+      <div class="prop-item"><div class="label">仲介会社</div><div class="value">クルヴァ株式会社</div></div>
+      <div class="prop-item"><div class="label">積算評価</div><div class="value">2,402万円（比率44.7%）</div></div>
+      <div class="prop-item"><div class="label">道路</div><div class="value">南東側3.3m 二項道路</div></div>
+      <div class="prop-item"><div class="label">用途地域</div><div class="value">近隣商業地域（容積200/建ぺい80）</div></div>
+    </div>
+  </div>
+
+  <!-- キャプテン基準 -->
+  <div class="criteria-card">
+    <h2>キャプテン基準チェック</h2>
+    <table class="criteria-table">
+      <thead>
+        <tr><th>基準</th><th>内容</th><th>判定</th><th>コメント</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>築10年以内</td><td>2021年3月築（築5年）</td><td><span class="badge-ok">OK</span></td><td>築浅プレミアム、修繕リスク低</td></tr>
+        <tr><td>価格1億円以下</td><td>5,380万円</td><td><span class="badge-ok">OK</span></td><td>資金効率は良好</td></tr>
+        <tr><td>表面利回り7.1%以上</td><td>7.74%（満室・現況とも同値）</td><td><span class="badge-ok">OK</span></td><td>全室稼働の実績あり</td></tr>
+        <tr><td>16号内側</td><td>秦野市は国道16号から約20km外側</td><td><span class="badge-ng">NG</span></td><td>2045年に人口26%減予測。小田急急行停車駅だが都心から約70分</td></tr>
+        <tr><td>CF率 ≥ 1.0%</td><td>①1.09% ②1.73%</td><td><span class="badge-ok">OK</span></td><td>両パターンでクリア</td></tr>
+        <tr><td>CCR ≥ 15%</td><td>①15.6% ②10.2%</td><td><span class="badge-warn">①OK / ②NG</span></td><td>オリックスフルローンなら辛うじてクリア</td></tr>
+        <tr><td>積算比率 ≥ 60%</td><td>44.7%（推定路線価8.2万/㎡ベース）</td><td><span class="badge-ng">NG</span></td><td>路線価確認で若干変動の余地あり</td></tr>
+        <tr><td>10年目IRR ≥ 25%</td><td>要TGシート確認</td><td><span class="badge-warn">要確認</span></td><td>TGシートをブラウザで開いて確認</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ツールリンク -->
+  <div class="section-card">
+    <h2 class="captain">📁 分析ツール（入力済み）</h2>
+    <div class="tool-links">
+      <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=5380&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.74&floorArea=115.53&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=5&taxRateIncome=20&pi_price_inp=8100&pi_age_inp=13&pi_yield_inp=7.45&pi_area_inp=150&pi_rooms_inp=8&ik_land_area=64.61&ik_route_price=8.2&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E7%A7%A6%E9%87%8E%E5%B8%82%E6%A0%84%E7%94%BA3-13-2" class="tool-link ig">📊 InvestGate+ 収支試算</a>
+      <a href="https://teruyone.github.io/tc-properties/properties/20260618_kuruva-hadano_DD.html" class="tool-link dd">📋 DDチェックリスト</a>
+      <a href="../knowledge/tamagawa-analysis/20260618_kuruva-hadano_TG.html" class="tool-link tg">📈 玉川式収益試算シート（IRR確認）</a>
+    </div>
+    <p style="font-size:12px; color:var(--muted); margin-top:8px;">※ IGシートは数値変更で自動再計算。TGシートで10年目IRR（目標≥25%）を確認してください。</p>
+  </div>
+
+  <!-- ハルト -->
+  <div class="section-card">
+    <h2 class="haruto"><span class="avatar haruto">ハ</span>ハルト（エリア・利回り分析）</h2>
+
+    <h3 style="font-size:14px; font-weight:700; margin-bottom:10px; color:var(--haruto);">■ 秦野市エリア将来性</h3>
+    <table class="analysis-table">
+      <tr><th>項目</th><th>内容</th></tr>
+      <tr><td>人口動態</td><td>2020年：162,439人 → 2045年（推計）：125,209人（▲26%）。既に2020年時点で推計を6,471人下振れ。</td></tr>
+      <tr><td>小田急沿線の位置</td><td>新宿から急行約75分。秦野・渋沢が終端部。相模大野・本厚木・海老名より需要薄。</td></tr>
+      <tr><td>開発計画</td><td>秦野駅北口多世代交流拠点整備（2025〜2029年）、戸川地区土地区画整理（19.5ha、新東名活用）。2024年地価が10年ぶり微増（+0.91%）。</td></tr>
+      <tr><td>居住誘導区域</td><td>都市近接居住誘導区域内。市が積極的に居住を誘導するエリア＝インフラ維持の優先度が高い。</td></tr>
+    </table>
+
+    <h3 style="font-size:14px; font-weight:700; margin:16px 0 10px; color:var(--haruto);">■ 賃料相場と妥当性評価</h3>
+    <table class="analysis-table">
+      <tr><th>ソース</th><th>秦野駅周辺1K相場</th></tr>
+      <tr><td>HOMES（徒歩10分以内）</td><td>1K: 5.42万円 / ワンルーム: 5.70万円</td></tr>
+      <tr><td>SUUMO（新築・築浅）</td><td>1K: 5.4〜5.9万円（ワンルーム上位6.5万円）</td></tr>
+    </table>
+    <div class="risk-mid" style="margin-top:10px;">
+      <div class="risk-label" style="color:var(--warn);">注意</div>
+      <div class="risk-title">賃料は新築プレミアムで天井付近の可能性</div>
+      <div class="risk-body">この物件の実質受取賃料は56,000〜59,000円/戸（共益費込）。相場上端。築10年超（2031年〜）で賃料が5万円を下回ると実質利回りは6%台後半に圧縮される計算。スマサテ賃料査定の実施を推奨。</div>
+    </div>
+
+    <h3 style="font-size:14px; font-weight:700; margin:16px 0 10px; color:var(--haruto);">■ ハルト総合評価</h3>
+    <div class="risk-high">
+      <div class="risk-label" style="color:var(--ng);">総合判定</div>
+      <div class="risk-title">現時点では推薦に踏み込めない</div>
+      <div class="risk-body">物件スペック（築5年・満室・駅7分・近隣商業）はTC Capitalsが好む型に近い。しかし積算比率44.7%での融資難度、秦野市の人口減少トレンド、16号外側という三重の逆風が重い。融資可否（オリックス or 収益評価行）の確認が先行条件。確認が取れれば再評価の余地あり。</div>
+    </div>
+  </div>
+
+  <!-- リョウ -->
+  <div class="section-card">
+    <h2 class="ryou"><span class="avatar ryou">リ</span>リョウ（DDチェック）</h2>
+
+    <h3 style="font-size:14px; font-weight:700; margin-bottom:10px; color:var(--ryou);">■ リスクフラグ一覧</h3>
+
+    <div class="risk-high">
+      <div class="risk-label" style="color:var(--ng);">リスク高 ①</div>
+      <div class="risk-title">四国総合信用株式会社 抵当権4,400万円 — 現在設定中・未抹消</div>
+      <div class="risk-body">建物・土地2筆に共同担保で設定（損害金14.60%）。売買決済時に必ず抹消が必要。残債が売価を超える場合は取引成立不可。→ 仲介業者経由で残債証明書の取得を依頼する。</div>
+    </div>
+
+    <div class="risk-high">
+      <div class="risk-label" style="color:var(--ng);">リスク高 ②</div>
+      <div class="risk-title">検査済証「確認中」— 2021年新築にもかかわらず未確認</div>
+      <div class="risk-body">融資行の多くが検査済証を融資条件とする。完了検査未受検の場合、融資NG・将来売却困難の二重リスク。準防火地域の木造3階建で検済なしは深刻。「書類の所在不明」か「未受検」かの確認が最優先。→ 仲介業者に検査済証の原本提示を強く要請。</div>
+    </div>
+
+    <div class="risk-mid">
+      <div class="risk-label" style="color:var(--warn);">リスク中 ③</div>
+      <div class="risk-title">二項道路（幅員3.3m）によるセットバック義務</div>
+      <div class="risk-body">道路中心から2m後退が必要（現況1.65m→追加0.35m後退）。セットバック面積≒2.3㎡。再建築時に有効地積が減少。道路台帳で一部2.3m区間あり（最大0.85m追加後退の可能性）。現建物がセットバック済みかを要確認。</div>
+    </div>
+
+    <div class="risk-mid">
+      <div class="risk-label" style="color:var(--warn);">リスク中 ④</div>
+      <div class="risk-title">宅地造成等工事規制区域（盛土規制法対象）</div>
+      <div class="risk-body">該当あり。増改築・解体新築時に許可が必要な可能性。秦野市は丘陵地形が多く造成地リスクあり。現運用への即時影響は限定的だが、将来の改築計画に制約が生じる可能性がある。市の担当課（建築指導課）への確認を推奨。</div>
+    </div>
+
+    <div class="risk-mid">
+      <div class="risk-label" style="color:var(--warn);">リスク中 ⑤</div>
+      <div class="risk-title">過去差押（秦野市・2023年2月）→ 2023年3月解除済み</div>
+      <div class="risk-body">登記上の瑕疵は消滅。ただし差押原因が固都税滞納の可能性が高く、売主の資金繰り逼迫の形跡。現在の固都税正常支払いを確認。売買時の固都税日割り精算のため、令和6年度納税通知書の入手が必要。</div>
+    </div>
+
+    <div class="risk-mid">
+      <div class="risk-label" style="color:var(--warn);">リスク中 ⑥</div>
+      <div class="risk-title">プロパンガス物件</div>
+      <div class="risk-body">入居者の光熱費負担が都市ガスの2〜2.5倍。賃料への下押し圧力になる可能性あり。プロパン無料スキーム（ガス会社が給湯器を無償提供）の有無により将来のガス会社変更に制約が生じる。2027年のLPガス規制改正（無償設備提供スキーム禁止）への対応も確認が必要。</div>
+    </div>
+
+    <h3 style="font-size:14px; font-weight:700; margin:16px 0 10px; color:var(--ryou);">■ リョウ総合判定</h3>
+    <div class="risk-mid">
+      <div class="risk-label" style="color:var(--warn);">総合リスクレベル：中〜高</div>
+      <div class="risk-title">検済・抵当権の2点解決が先決</div>
+      <div class="risk-body">物件スペックは悪くない。ただし「検済確認中」と「抵当権未抹消」は買付前の必須確認事項。この2点の答えが出るまで買付は待ってください。確認が取れれば中リスク水準（検討継続）と判断できます。</div>
+    </div>
+
+    <div style="margin-top:16px;">
+      <a href="https://teruyone.github.io/tc-properties/properties/20260618_kuruva-hadano_DD.html" class="tool-link dd" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px; padding:10px 18px; border-radius:8px; font-size:13px; font-weight:600; background:#6a1b9a; color:white;">📋 入力済みDDチェックリスト</a>
+    </div>
+  </div>
+
+  <!-- アキ -->
+  <div class="section-card">
+    <h2 class="aki"><span class="avatar aki">ア</span>アキ（IG+収支計算）</h2>
+
+    <h3 style="font-size:14px; font-weight:700; margin-bottom:10px; color:var(--aki);">■ 収支サマリー</h3>
+    <table class="analysis-table">
+      <tr><th>項目</th><th>金額</th></tr>
+      <tr><td>満室年収</td><td>416.4万円（賃料329,000+共益費18,000=月347,000×12）</td></tr>
+      <tr><td>実収入（空室5%控除）</td><td>395.6万円</td></tr>
+      <tr><td>費用合計</td><td>▲102.6万円（管理費・固都税・修繕費等）</td></tr>
+      <tr><td><strong>NOI</strong></td><td><strong>293.0万円（NOI利回り5.45%）</strong></td></tr>
+      <tr><td>積算評価（推計）</td><td>2,404.5万円（路線価8.2万/㎡推定ベース）</td></tr>
+      <tr><td>積算比率</td><td><strong>44.7%</strong>（キャプテン基準60%に対してNG）</td></tr>
+    </table>
+
+    <h3 style="font-size:14px; font-weight:700; margin:16px 0 10px; color:var(--aki);">■ 融資パターン別収支比較</h3>
+    <div class="cf-cards">
+      <div class="cf-card pattern1">
+        <h3 class="p1">① オリックス銀行<br>フルローン 2.6% 35年</h3>
+        <div class="cf-item"><span>借入額</span><span class="val">5,380万円</span></div>
+        <div class="cf-item"><span>月返済額</span><span class="val">195,228円</span></div>
+        <div class="cf-item"><span>年間返済額</span><span class="val">▲234.3万円</span></div>
+        <div class="cf-item"><span>CF</span><span class="val ok">+58.7万円/年</span></div>
+        <div class="cf-item"><span>CF率</span><span class="val ok">1.09% ✓</span></div>
+        <div class="cf-item"><span>自己資金</span><span class="val">376.6万円（諸費用のみ）</span></div>
+        <div class="cf-item"><span>CCR</span><span class="val ok">15.6% ✓</span></div>
+      </div>
+      <div class="cf-card pattern2">
+        <h3 class="p2">② 神奈川銀行<br>90% 2.25% 35年</h3>
+        <div class="cf-item"><span>借入額</span><span class="val">4,842万円</span></div>
+        <div class="cf-item"><span>月返済額</span><span class="val">166,679円</span></div>
+        <div class="cf-item"><span>年間返済額</span><span class="val">▲200.0万円</span></div>
+        <div class="cf-item"><span>CF</span><span class="val ok">+93.0万円/年</span></div>
+        <div class="cf-item"><span>CF率</span><span class="val ok">1.73% ✓</span></div>
+        <div class="cf-item"><span>自己資金</span><span class="val">914.6万円（頭金+諸費用）</span></div>
+        <div class="cf-item"><span>CCR</span><span class="val ng">10.2% ✗</span></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px; font-weight:700; margin:16px 0 10px; color:var(--aki);">■ キャプテン基準チェック（アキ版）</h3>
+    <table class="criteria-table">
+      <thead><tr><th>指標</th><th>基準</th><th>①オリックス</th><th>②神奈川銀行</th></tr></thead>
+      <tbody>
+        <tr><td>価格</td><td>≤1億円</td><td><span class="badge-ok">OK</span></td><td><span class="badge-ok">OK</span></td></tr>
+        <tr><td>利回り</td><td>≥7.1%</td><td><span class="badge-ok">OK 7.74%</span></td><td><span class="badge-ok">OK 7.74%</span></td></tr>
+        <tr><td>CF率</td><td>≥1.0%</td><td><span class="badge-ok">OK 1.09%</span></td><td><span class="badge-ok">OK 1.73%</span></td></tr>
+        <tr><td>CCR</td><td>≥15%</td><td><span class="badge-ok">OK 15.6%</span></td><td><span class="badge-ng">NG 10.2%</span></td></tr>
+        <tr><td>積算比率</td><td>≥60%</td><td><span class="badge-ng">NG 44.7%</span></td><td><span class="badge-ng">NG 44.7%</span></td></tr>
+        <tr><td>10年目IRR</td><td>≥25%</td><td colspan="2" style="text-align:center;"><span class="badge-warn">要TGシート確認</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="risk-mid" style="margin-top:12px;">
+      <div class="risk-label" style="color:var(--warn);">アキより</div>
+      <div class="risk-body">初年度は減価償却（209.2万/年）＋金利が課税所得を下回るため、税引後CFは税引前と同額。節税効果は最大。積算比率44.7%が最大の懸念。路線価確認（国税庁）で若干の改善余地はあるが50%超えは厳しい見通し。10年目IRRの確認をお願いします。</div>
+    </div>
+
+    <div style="margin-top:16px; display:flex; gap:12px; flex-wrap:wrap;">
+      <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=5380&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.74&floorArea=115.53&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=5&taxRateIncome=20&pi_price_inp=8100&pi_age_inp=13&pi_yield_inp=7.45&pi_area_inp=150&pi_rooms_inp=8&ik_land_area=64.61&ik_route_price=8.2&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E7%A7%A6%E9%87%8E%E5%B8%82%E6%A0%84%E7%94%BA3-13-2" class="tool-link ig" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px; padding:10px 18px; border-radius:8px; font-size:13px; font-weight:600;">📊 IG+シート（入力済み）</a>
+      <a href="../knowledge/tamagawa-analysis/20260618_kuruva-hadano_TG.html" class="tool-link tg" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px; padding:10px 18px; border-radius:8px; font-size:13px; font-weight:600;">📈 玉川式シート（IRR確認）</a>
+    </div>
+  </div>
+
+  <!-- 村田先生 -->
+  <div class="section-card">
+    <h2 class="murata"><span class="avatar murata">村</span>村田先生（一級建築士コメント）</h2>
+    <p style="font-size:12px; color:var(--muted); margin-bottom:14px;">※ 現場を見ないと断言はできませんが、資料から読み取れる範囲でコメントします。</p>
+
+    <h3 style="font-size:14px; font-weight:700; margin-bottom:10px; color:var(--murata);">■ 構造・品質評価</h3>
+    <table class="analysis-table">
+      <tr><th>項目</th><th>評価</th></tr>
+      <tr><td>耐震基準</td><td>2000年基準（平12年）以降＝接合金物・基礎仕様が強化済み。現行耐震水準を満たしている。</td></tr>
+      <tr><td>屋根（ガルバリウム鋼板）</td><td>耐久性高（従来トタンの4〜6倍）。メンテナンスサイクル15〜20年。傷・端部処理不完全箇所からの錆に注意。</td></tr>
+      <tr><td>準防火地域×木造3階建</td><td>外壁の準耐火構造・開口部の防火設備が義務。法的に適合して建設されているはずだが、検済が「確認中」の点は要注意。</td></tr>
+      <tr><td>修繕コスト（築5年）</td><td>大規模修繕の必要はほぼなし。年間10〜20万円程度。</td></tr>
+    </table>
+
+    <h3 style="font-size:14px; font-weight:700; margin:16px 0 10px; color:var(--murata);">■ 修繕計画概算</h3>
+    <table class="analysis-table">
+      <tr><th>時期</th><th>内容</th><th>概算費用</th></tr>
+      <tr><td>〜築10年（〜2031年）</td><td>給湯器点検・シーリング打ち直し程度</td><td>10〜20万円/年</td></tr>
+      <tr><td>築10〜15年（2031〜2036年）</td><td>外壁塗装・屋根塗装・給湯器全数交換</td><td>一括で230〜260万円</td></tr>
+      <tr><td>築20〜25年（2041〜2046年）</td><td>給排水管更新・外壁2回目・屋根葺き替え</td><td>430〜560万円</td></tr>
+    </table>
+
+    <h3 style="font-size:14px; font-weight:700; margin:16px 0 10px; color:var(--murata);">■ 現地確認チェックリスト（上位5項目）</h3>
+    <ul class="confirm-list">
+      <li><span class="confirm-num">1</span><span>外壁・基礎のクラック確認（不同沈下の兆候。宅地造成区域該当のため最優先）</span></li>
+      <li><span class="confirm-num">2</span><span>建物の傾き・床の水平確認（扉の建て付け・1階床をレーザー水準器で確認）</span></li>
+      <li><span class="confirm-num">3</span><span>セットバックの実施状況と境界標の確認（二項道路対応が適切に実施されているか）</span></li>
+      <li><span class="confirm-num">4</span><span>建物周囲の排水状況と地面の沈み（造成地の雨水集中リスク）</span></li>
+      <li><span class="confirm-num">5</span><span>3階開口部・サッシの防火仕様確認（準防火地域の法的義務）</span></li>
+    </ul>
+
+    <h3 style="font-size:14px; font-weight:700; margin:16px 0 10px; color:var(--murata);">■ 村田先生 総合コメント</h3>
+    <div class="risk-high">
+      <div class="risk-label" style="color:var(--ng);">最大懸念：検査済証「確認中」</div>
+      <div class="risk-title">2021年新築で検済が「確認中」は通常あり得ない</div>
+      <div class="risk-body">建物の素性（2000年基準耐震・ガルバリウム屋根・省エネ仕様）は評価できる。しかし準防火地域の木造3階建で検査済証が取れていないという状況は見逃せない。これが「書類の所在不明」なら解決可能。「完了検査未受検」なら融資NG・将来売却困難の二重リスク。検済証の原本確認が取れるまで、私は「Go」の判断を保留します。</div>
+    </div>
+    <div style="font-size:13px; color:var(--murata); font-style:italic; margin-top:12px; padding-left:12px; border-left:3px solid var(--murata);">「建物は正直者。資料に出ないことを、現場が教えてくれる」</div>
+  </div>
+
+  <!-- キャプテンへの確認事項 -->
+  <div class="section-card">
+    <h2 class="captain">📌 キャプテンへの確認事項（リョウ・アキ・村田先生より集約）</h2>
+    <ul class="confirm-list">
+      <li>
+        <span class="confirm-num">1</span>
+        <span><strong>【最優先】検査済証の原本取り寄せ</strong><br>仲介業者（クルヴァ）に「検査済証の原本またはコピーを確認したい」と明確に依頼してください。存在しない場合は融資・売却の両面で致命的リスクとなります。この1点でGO/NG判定が変わります。</span>
+      </li>
+      <li>
+        <span class="confirm-num">2</span>
+        <span><strong>四国総合信用株式会社の抵当権残債証明</strong><br>現在いくら残債があるかを仲介業者経由で確認してください。「残債証明書」の取得を依頼。売買代金5,380万円で決済・抹消できるかが前提条件です。</span>
+      </li>
+      <li>
+        <span class="confirm-num">3</span>
+        <span><strong>国税庁路線価図で秦野市栄町3丁目の路線価確認</strong><br>現在は積算から逆算した推定値（8.2万円/㎡）を使用。積算比率に直結するため、正確な路線価を確認してください。</span>
+      </li>
+      <li>
+        <span class="confirm-num">4</span>
+        <span><strong>過去差押の原因確認（固都税滞納の可能性）</strong><br>令和5年2月の秦野市による差押の原因を仲介業者経由で確認。現在も固都税を正常納付しているか、令和6年度分の納税通知書の開示を求めてください。</span>
+      </li>
+      <li>
+        <span class="confirm-num">5</span>
+        <span><strong>プロパンガス契約内容の確認</strong><br>現在の供給会社名と「無償設備提供スキーム」の有無を確認。2027年のLPガス規制改正への対応方針も把握しておくとベター。</span>
+      </li>
+      <li>
+        <span class="confirm-num">6</span>
+        <span><strong>【アキより】TGシートで10年目IRRを確認</strong><br>玉川式シートをブラウザで開いて「計算」ボタンを押し、オリックスパターン（フルローン・2.6%・35年）の10年目IRRが25%以上かを確認してください。</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- チーム総合所見 -->
+  <div class="verdict">
+    <h2>🏢 チーム総合所見</h2>
+    <div class="verdict-row">
+      <div class="verdict-label">物件評価</div>
+      <div class="verdict-value">築5年・全室稼働・秦野駅7分・近隣商業地域とスペックはTC Capitalsが好む型に近い。賃料も相場水準を維持。</div>
+    </div>
+    <div class="verdict-row">
+      <div class="verdict-label">最大リスク</div>
+      <div class="verdict-value">検済「確認中」（融資可否に直結）・積算比率44.7%（融資難度高）・16号外側エリア（人口減少リスク）の三点が重複。</div>
+    </div>
+    <div class="verdict-row">
+      <div class="verdict-label">融資見通し</div>
+      <div class="verdict-value">オリックスフルローンで CF率1.09%・CCR15.6%はギリギリクリア。ただし積算割れのため地銀系は厳しい。収益評価重視の金融機関（スルガ・アセット&ロワイヤル等）の確認も選択肢。</div>
+    </div>
+    <div class="verdict-row">
+      <div class="verdict-label">次のアクション</div>
+      <div class="verdict-value" style="font-weight:700; color:#ffcc02;">① 検済証の確認（最優先）→ ② 路線価確認（国税庁）→ ③ TGシートでIRR確認 → ④ 融資打診（オリックス並走）</div>
+    </div>
+    <div class="verdict-row">
+      <div class="verdict-label">値下げ交渉</div>
+      <div class="verdict-value">INVASEレポートに「50:50按分で5,200万円への交渉可能」の記載あり。180万円の値引きで積算比率・IRRが若干改善する可能性。</div>
+    </div>
+    <p style="margin-top:16px; font-size:12px; opacity:0.75;">※ 路線価8.2万/㎡は推定値。固都税はデフォルト値（実収×10%）。劣化等級は不明（等級1・2を使用）。</p>
+  </div>
+
+  <div class="footer">
+    TC Capitals 不動産仕入部｜精査日 2026年6月18日<br>
+    ハルト（エリア）/ リョウ（DD）/ アキ（IG+）/ 村田先生（建築士）
+  </div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260618_kuruva-hadano_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260618_kuruva-hadano_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
