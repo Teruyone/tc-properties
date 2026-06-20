@@ -218,7 +218,7 @@ body{padding-bottom:62px;}
       <div id="tab_income" class="yield-tab" onclick="setYieldMode('income')">総収入</div>
     </div>
     <div style="display:flex;align-items:baseline;gap:4px;">
-      <input type="number" id="pi_yield_inp" value="7.45" step="0.01" class="prop-inp" oninput="onYieldInput()">
+      <input type="text" inputmode="decimal" id="pi_yield_inp" value="7.45" class="prop-inp" oninput="onYieldInput()">
       <span id="pi_yield_unit" class="prop-unit">%</span>
     </div>
     <div class="cf-goal" id="pi_yield_derived"></div>
@@ -289,7 +289,7 @@ body{padding-bottom:62px;}
           <div id="tab_loan" class="yield-tab" onclick="setLtvMode('loan')">借入金額</div>
         </div>
         <div class="cell-input">
-          <input type="number" id="ltvInput" value="100" step="1" oninput="onLtvInput()">
+          <input type="text" inputmode="decimal" id="ltvInput" value="100" oninput="onLtvInput()">
           <input type="hidden" id="ltvRatio" value="100">
           <span id="ltv_unit" class="cell-unit">[%]</span>
         </div>
@@ -298,7 +298,7 @@ body{padding-bottom:62px;}
       <div class="cell">
         <span class="cell-label">諸費用率</span>
         <div class="cell-input">
-          <input type="number" id="costsRate" value="7" step="0.5" oninput="calc()">
+          <input type="text" inputmode="decimal" id="costsRate" value="7" oninput="calc()">
           <span class="cell-unit">[%]</span>
         </div>
       </div>
@@ -423,7 +423,7 @@ body{padding-bottom:62px;}
       <div class="cell">
         <span class="cell-label">表面利回り</span>
         <div class="cell-input">
-          <input type="number" id="grossYield" value="7.45" step="0.01" oninput="onGrossYieldInput()">
+          <input type="text" inputmode="decimal" id="grossYield" value="7.45" oninput="onGrossYieldInput()">
           <span class="cell-unit">[%]</span>
         </div>
       </div>
@@ -514,7 +514,7 @@ body{padding-bottom:62px;}
       <div class="cell">
         <span class="cell-label">賃貸管理手数料率</span>
         <div class="cell-input">
-          <input type="number" id="mgmtRate" value="3.3" step="0.1" oninput="calc()">
+          <input type="text" inputmode="decimal" id="mgmtRate" value="3.3" oninput="calc()">
           <span class="cell-unit">[%]</span>
         </div>
       </div>
@@ -1580,7 +1580,7 @@ setRepay(repayMode);
 calc();
 
 // 数値入力欄: フォーカス時に既存値を全選択（小数点位置を気にせず即入力できる）
-document.querySelectorAll('input[type="number"]').forEach(function(inp) {
+document.querySelectorAll('input[type="number"], input[inputmode="decimal"]').forEach(function(inp) {
   inp.addEventListener('focus', function() { this.select(); });
 });
 </script>
