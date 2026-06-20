@@ -1548,6 +1548,11 @@ function tcCopyToClipboard(text) {
 if (!loadFromUrlParams()) { loadDefaults(); }
 setRepay(repayMode);
 calc();
+
+// 数値入力欄: フォーカス時に既存値を全選択（小数点位置を気にせず即入力できる）
+document.querySelectorAll('input[type="number"]').forEach(function(inp) {
+  inp.addEventListener('focus', function() { this.select(); });
+});
 </script>
 
 <!-- TC 共有バー: フォームの値をURL paramsに変換してGitHub Pages URLをコピー -->
