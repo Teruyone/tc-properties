@@ -1178,10 +1178,12 @@ function calc(){
   el('repayInterestY1').textContent  = fmt0(annualInterestY1) + ' [円/年]';
   el('totalRepay').textContent      = fmt0(totalRepayVal) + ' [円]';
 
-  // 融資割合↔借入金額トグル：派生値表示、ltv モード時は上部入力欄を同期
+  // 融資割合↔借入金額トグル：派生値表示、ltv モード時は上部入力欄を同期（編集中はスキップ）
   if (ltvMode === 'ltv') {
     el('ltv_derived').textContent = '借入金額 ' + fmt0(loanAmt) + ' 万円';
-    document.getElementById('ltvInput').value = ltvRatio.toFixed(1);
+    if (document.activeElement !== document.getElementById('ltvInput')) {
+      document.getElementById('ltvInput').value = String(parseFloat(ltvRatio.toFixed(1)));
+    }
   } else {
     el('ltv_derived').textContent = '融資割合 ' + ltvRatio.toFixed(1) + '%';
   }
@@ -1315,8 +1317,11 @@ function calc(){
   if (yieldMode === 'yield') {
     // 入力: 利回り → 表示: 総収入
     el('pi_yield_derived').textContent = '総収入 ' + fmt0(grossIncMan) + ' 万円/年';
-    // 上部入力欄を利回り値に同期
-    document.getElementById('pi_yield_inp').value = grossYield.toFixed(2);
+    // 上部入力欄を利回り値に同期（編集中はスキップ）
+    if (document.activeElement !== document.getElementById('pi_yield_inp') &&
+        document.activeElement !== document.getElementById('grossYield')) {
+      document.getElementById('pi_yield_inp').value = String(parseFloat(grossYield.toFixed(2)));
+    }
   } else {
     // 入力: 総収入 → 表示: 表面利回り
     el('pi_yield_derived').textContent = '表面利回り ' + grossYield.toFixed(2) + '%';
