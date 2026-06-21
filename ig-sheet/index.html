@@ -15,7 +15,8 @@ a{color:var(--blue);text-decoration:none;}
 .ig-logo{font-size:26px;font-weight:700;color:var(--blue);letter-spacing:-0.5px;}
 .ig-subtitle{font-size:11px;color:var(--muted);margin-top:2px;}
 .ig-addr{font-size:18px;font-weight:700;color:var(--text);margin-top:10px;}
-.ig-addr-sub{font-size:11px;color:var(--blue);cursor:pointer;}
+.ig-addr-sub{font-size:11px;color:var(--blue);cursor:pointer;user-select:none;}
+#propAddr[contenteditable="true"]{outline:none;border-bottom:2px solid var(--blue);cursor:text;padding:0 4px;min-width:160px;display:inline-block;}
 
 /* Top metrics bar */
 .metrics-bar{background:var(--white);border-bottom:2px solid var(--border);display:grid;grid-template-columns:repeat(5,1fr);gap:0;}
@@ -1588,6 +1589,44 @@ function tcCopyToClipboard(text) {
 if (!loadFromUrlParams()) { loadDefaults(); }
 setRepay(repayMode);
 calc();
+
+// ヘッダータイトル：「タイトルを編集」クリックで直接編集可能
+(function() {
+  var addr = document.getElementById('propAddr');
+  var sub  = document.querySelector('.ig-addr-sub');
+  var PLACEHOLDER = '物件住所を入力してください';
+
+  function startEdit() {
+    if (addr.textContent.trim() === PLACEHOLDER) addr.textContent = '';
+    addr.setAttribute('contenteditable', 'true');
+    addr.focus();
+    var range = document.createRange();
+    range.selectNodeContents(addr);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    sub.textContent = '↵ で確定';
+  }
+
+  sub.addEventListener('click', startEdit);
+  addr.addEventListener('click', function() {
+    if (this.getAttribute('contenteditable') !== 'true') startEdit();
+  });
+
+  addr.addEventListener('blur', function() {
+    this.setAttribute('contenteditable', 'false');
+    var val = this.textContent.trim();
+    if (!val) this.textContent = PLACEHOLDER;
+    var inp = document.getElementById('addrInput');
+    if (inp) inp.value = (val === PLACEHOLDER || !val) ? '' : val;
+    sub.textContent = 'タイトルを編集';
+  });
+
+  addr.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); this.blur(); }
+    if (e.key === 'Escape') { this.textContent = document.getElementById('addrInput').value || PLACEHOLDER; this.blur(); }
+  });
+})();
 
 // 数値入力欄: フォーカス時に既存値を全選択（小数点位置を気にせず即入力できる）
 document.querySelectorAll('input[type="number"]').forEach(function(inp) {
