@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精査レポート — MELLAS 日進（さいたま市北区日進町）</title>
+<style>
+:root{--navy:#1a2744;--navy-light:#e8ecf5;--teal:#00897b;--teal-light:#e0f2f1;--orange:#e65100;--orange-light:#fff3e0;--blue:#1565c0;--blue-light:#e3f2fd;--green:#2e7d32;--green-light:#e8f5e9;--brown:#4e342e;--brown-light:#efebe9;--red:#c62828;--red-light:#ffebee;--yellow:#f9a825;--yellow-light:#fffde7;--border:#dadce0;--muted:#5f6368;--bg:#f8f9fa;--white:#fff;--text:#202124;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Hiragino Sans',sans-serif;font-size:14px;background:var(--bg);color:var(--text);}
+a{color:var(--blue);}
+.header{background:var(--navy);color:var(--white);padding:20px 32px;}
+.header h1{font-size:22px;font-weight:700;letter-spacing:0.5px;}
+.header .sub{font-size:12px;opacity:0.75;margin-top:4px;}
+.hazard-alert{background:var(--red);color:var(--white);padding:14px 32px;font-size:15px;font-weight:700;border-bottom:3px solid #7f0000;}
+.hazard-alert span{font-size:20px;margin-right:8px;}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:8px;margin-bottom:20px;overflow:hidden;}
+.card-header{padding:12px 20px;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;}
+.card-body{padding:20px;}
+.navy-header{background:var(--navy);color:var(--white);}
+.teal-header{background:var(--teal);color:var(--white);}
+.orange-header{background:var(--orange);color:var(--white);}
+.blue-header{background:var(--blue);color:var(--white);}
+.green-header{background:var(--green);color:var(--white);}
+.brown-header{background:var(--brown);color:var(--white);}
+.red-header{background:var(--red);color:var(--white);}
+.yellow-header{background:#f57f17;color:var(--white);}
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:1px solid var(--border);}
+.summary-cell{padding:16px 20px;border-right:1px solid var(--border);}
+.summary-cell:last-child{border-right:none;}
+.s-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.s-val{font-size:18px;font-weight:700;}
+.s-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.criteria-table{width:100%;border-collapse:collapse;}
+.criteria-table th{background:var(--navy-light);padding:8px 12px;text-align:left;font-size:12px;color:var(--navy);}
+.criteria-table td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px;}
+.criteria-table tr:last-child td{border-bottom:none;}
+.ok{color:var(--green);font-weight:700;}
+.ng{color:var(--red);font-weight:700;}
+.warn{color:var(--yellow);font-weight:700;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.info-block{background:var(--bg);border-radius:6px;padding:14px;}
+.info-block h4{font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:600;}
+.dl dt{font-size:11px;color:var(--muted);margin-top:8px;}
+.dl dd{font-size:13px;font-weight:600;}
+.risk-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin:2px;}
+.risk-high{background:#ffcdd2;color:#b71c1c;}
+.risk-med{background:#fff9c4;color:#795548;}
+.risk-low{background:#c8e6c9;color:#1b5e20;}
+.cf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.cf-cell{padding:12px 16px;text-align:center;border-right:1px solid var(--border);}
+.cf-cell:last-child{border-right:none;}
+.cf-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.cf-val{font-size:18px;font-weight:700;}
+.link-btn{display:inline-block;padding:7px 16px;background:var(--navy);color:var(--white);border-radius:4px;font-size:13px;font-weight:600;margin:4px;text-decoration:none;}
+.link-btn.teal{background:var(--teal);}
+.link-btn.blue{background:var(--blue);}
+.link-btn.green{background:var(--green);}
+.link-btn.brown{background:#5d4037;}
+ul.check-list{list-style:none;padding:0;}
+ul.check-list li{padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;}
+ul.check-list li:last-child{border-bottom:none;}
+ul.check-list li::before{content:'\25B6 ';color:var(--navy);font-size:10px;}
+.hazard-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.hazard-row{display:flex;justify-content:space-between;padding:8px 12px;background:var(--bg);border-radius:4px;font-size:13px;}
+.hazard-label{color:var(--muted);}
+.haz-ok{color:var(--green);font-weight:700;}
+.haz-warn{color:var(--yellow);font-weight:700;}
+.haz-ng{color:var(--red);font-weight:700;}
+.tag-ok{display:inline-block;background:#e8f5e9;color:#1b5e20;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;}
+.tag-ng{display:inline-block;background:#ffebee;color:#b71c1c;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;}
+.tag-warn{display:inline-block;background:#fff8e1;color:#e65100;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>&#128203; 仕入部 チーム精査レポート</h1>
+  <div class="sub">MELLAS 日進（埼玉県さいたま市北区日進町1-848-17）&nbsp;&nbsp;精査日: 2026-06-22&nbsp;&nbsp;チーム: ハルト・リョウ・アキ・村田先生</div>
+</div>
+
+<div class="hazard-alert">
+  <span>&#9888;</span>洪水浸水想定 5.0〜10.0m（即NG）— 国交省「重ねるハザードマップ」により浸水深2m超を確認。見送り推奨。
+</div>
+
+<div class="wrap">
+
+<!-- 物件サマリーカード -->
+<div class="card">
+  <div class="card-header navy-header">&#128204; 物件サマリー</div>
+  <div class="summary-grid">
+    <div class="summary-cell"><div class="s-label">物件名</div><div class="s-val" style="font-size:15px;">MELLAS 日進</div><div class="s-sub">新築・売主</div></div>
+    <div class="summary-cell"><div class="s-label">所在地</div><div class="s-val" style="font-size:14px;">さいたま市北区日進町1-848-17</div><div class="s-sub">JR川越線「日進」駅 徒歩14分</div></div>
+    <div class="summary-cell"><div class="s-label">価格</div><div class="s-val">9,500<span style="font-size:13px;">万円</span></div><div class="s-sub">仲介手数料 0%</div></div>
+  </div>
+  <div class="summary-grid">
+    <div class="summary-cell"><div class="s-label">表面利回り</div><div class="s-val">6.20<span style="font-size:13px;">%</span></div><div class="s-sub">スマサテ: 6.86%</div></div>
+    <div class="summary-cell"><div class="s-label">構造・築年</div><div class="s-val" style="font-size:15px;">木造3階建</div><div class="s-sub">2026年11月完成予定（新築）</div></div>
+    <div class="summary-cell"><div class="s-label">戸数・間取り</div><div class="s-val">9室<span style="font-size:13px;"> 1R</span></div><div class="s-sub">延床 172.39&#13217;&nbsp;&nbsp;劣化対策等級3</div></div>
+  </div>
+</div>
+
+<!-- キャプテン基準 -->
+<div class="card">
+  <div class="card-header navy-header">&#127919; キャプテン基準チェック</div>
+  <div class="card-body">
+    <table class="criteria-table">
+      <thead><tr><th>基準</th><th>条件</th><th>実績値</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><td>物件価格</td><td>1億円以内</td><td>9,500万円</td><td class="ok">&#10003; OK</td></tr>
+        <tr><td>表面利回り</td><td>7.1%以上</td><td>6.20%（スマサテ 6.86%）</td><td class="ng">&#10007; NG</td></tr>
+        <tr><td>エリア</td><td>一都三県</td><td>埼玉県さいたま市</td><td class="ok">&#10003; OK</td></tr>
+        <tr><td>立地</td><td>16号内側</td><td>日進駅（16号外側）</td><td class="ng">&#10007; NG</td></tr>
+        <tr><td>CF率</td><td>0%超</td><td>+0.35%（オリックス100%・2.6%・35年）</td><td class="ng">&#10007; NG（ほぼゼロ）</td></tr>
+        <tr><td>CCR</td><td>基準値以上</td><td>8.6%（フルローン参考値）</td><td class="warn">&#9888; 参考</td></tr>
+        <tr><td>ハザード</td><td>即NG項目なし</td><td>洪水浸水 5.0〜10.0m</td><td class="ng">&#10007; 即NG</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ハルト：路線価・ハザード・スマサテ -->
+<div class="card">
+  <div class="card-header teal-header">&#128506; 路線価・ハザードマップ・スマサテ査定（ハルト調査）</div>
+  <div class="card-body">
+    <div class="two-col" style="margin-bottom:16px;">
+      <div class="info-block">
+        <h4>相続路線価</h4>
+        <div style="font-size:18px;font-weight:700;">約 10.5<span style="font-size:12px;color:var(--muted);">万円/&#13217;</span></div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">推定値（chikamap取得不可・WebSearch手動確認）<br>出典: 国土交通省 令和7年分路線価（要最終確認）</div>
+      </div>
+      <div class="info-block">
+        <h4>スマサテ賃料査定</h4>
+        <div style="font-size:13px;">
+          <div>1F: <b>58,783円</b> / 2F: <b>61,463円</b> / 3F: <b>60,865円</b></div>
+          <div style="margin-top:4px;">全9室合計: <b>543,333円/月</b>（年間 651.9万円）</div>
+          <div style="margin-top:4px;">スマサテベース表面利回り: <b>6.86%</b></div>
+          <div style="margin-top:4px;color:var(--green);font-weight:600;">→ 資料賃料より上振れ余地あり</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:12px;">
+      <div style="font-size:13px;font-weight:700;margin-bottom:8px;">&#127754; 重ねるハザードマップ判定</div>
+      <div class="hazard-grid">
+        <div class="hazard-row"><span class="hazard-label">洪水浸水想定</span><span class="haz-ng">&#10007; 5.0〜10.0m（即NG）</span></div>
+        <div class="hazard-row"><span class="hazard-label">土砂災害警戒区域</span><span class="haz-ok">&#10003; 非該当</span></div>
+        <div class="hazard-row"><span class="hazard-label">津波浸水想定</span><span class="haz-ok">&#10003; 非該当</span></div>
+        <div class="hazard-row"><span class="hazard-label">液状化危険度</span><span class="haz-warn">&#9888; 確認不可</span></div>
+      </div>
+      <div style="margin-top:10px;padding:10px 14px;background:#ffebee;border-radius:6px;border-left:4px solid var(--red);">
+        <b style="color:var(--red);">総合判定: 即NG</b>&nbsp;&nbsp;洪水浸水想定 5.0〜10.0m —— キャプテン基準（浸水2m以上=即NG）に抵触
+      </div>
+      <div style="margin-top:8px;font-size:12px;color:var(--muted);">
+        &#128247; <a href="../../knowledge/hazardmap-debug/nisshin-mai_hazard_popup.png">ポップアップ画像</a>&nbsp;
+        &#128247; <a href="../../knowledge/hazardmap-debug/nisshin-mai_hazard_zoom50m.png">拡大50m画像</a>&nbsp;
+        出典: 国土交通省・国土地理院「重ねるハザードマップ」
+      </div>
+    </div>
+
+    <div style="margin-top:12px;">
+      <a href="nisshin-mai_survey.html" class="link-btn teal">&#128269; 物件調査レポート（スマサテ査定・ハザードマップ）</a>
+    </div>
+  </div>
+</div>
+
+<!-- ハルト：エリア分析 -->
+<div class="card">
+  <div class="card-header orange-header">&#128269; ハルト — エリア・利回り分析</div>
+  <div class="card-body">
+    <div class="two-col">
+      <div>
+        <div class="dl">
+          <dt>エリア評価</dt>
+          <dd>さいたま市北区は人口安定エリア。日進駅は乗降客数約4,000〜5,000人/日（川越線普通のみ停車）で利便性はやや低め。大宮駅まで4駅（約12分）でアクセスは確保される。</dd>
+          <dt>賃貸需要</dt>
+          <dd>大宮・さいたま新都心周辺のベッドタウン需要あり。1R単身者需要は安定的だが競合物件との差別化が必要。</dd>
+          <dt>将来性</dt>
+          <dd>さいたま市全体は人口増傾向。北区は横ばい〜微減。駅前再開発なし。「安定はするが跳ねない」エリア評価。</dd>
+          <dt>ハルトの率直な評価</dt>
+          <dd style="color:var(--red);">ハザードが即NGである以上、数字が揃っていても推奨は難しい。仮にハザードを考慮外としても利回り6.2%は基準7.1%に対して0.9pt不足。スキップ推奨。</dd>
+        </div>
+      </div>
+      <div>
+        <div class="info-block">
+          <h4>キャプテン基準との照合</h4>
+          <ul style="list-style:none;padding:0;">
+            <li style="padding:5px 0;border-bottom:1px solid var(--border);"><span class="tag-ok">OK</span> 価格 9,500万円（基準 1億以内）</li>
+            <li style="padding:5px 0;border-bottom:1px solid var(--border);"><span class="tag-ng">NG</span> 利回り 6.20%（基準 7.1%以上）</li>
+            <li style="padding:5px 0;border-bottom:1px solid var(--border);"><span class="tag-ok">OK</span> 一都三県（埼玉県）</li>
+            <li style="padding:5px 0;"><span class="tag-ng">NG</span> 16号外側（日進駅）</li>
+          </ul>
+        </div>
+        <div class="info-block" style="margin-top:10px;">
+          <h4>相場感</h4>
+          <div style="font-size:12px;color:var(--muted);">さいたま市北区・新築木造一棟の類似物件利回りは概ね5.5〜6.5%。6.20%は相場並み〜やや低め。エリアプレミアム（大宮近郊）が利回りを圧迫している。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- リョウ：DD -->
+<div class="card">
+  <div class="card-header blue-header">&#128203; リョウ — デューデリジェンス</div>
+  <div class="card-body">
+    <div style="margin-bottom:12px;">
+      <a href="https://teruyone.github.io/tc-properties/properties/20260622_nisshin-mai_DD.html" class="link-btn blue">&#128203; DDチェックリスト（入力済み）</a>
+    </div>
+    <div class="two-col">
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--red);margin-bottom:8px;">&#128680; 最大リスク</div>
+        <div style="background:#ffebee;border-radius:6px;padding:12px;border-left:4px solid var(--red);font-size:13px;">
+          <b>西側私道（848-37番）の通行・掘削承諾書未締結</b><br>
+          <span style="font-size:12px;color:var(--muted);">前面道路アクセスに影響する可能性。決済前に承諾書の取得・確認が必須。</span>
+        </div>
+        <div style="margin-top:12px;font-size:13px;font-weight:600;color:var(--muted);">その他リスク</div>
+        <ul class="check-list" style="margin-top:6px;">
+          <li><span class="risk-tag risk-high">HIGH</span> 利回り基準未達（6.20% vs 7.1%）</li>
+          <li><span class="risk-tag risk-high">HIGH</span> ハザードマップ 洪水浸水5〜10m（即NG）</li>
+          <li><span class="risk-tag risk-med">MED</span> 地目: 雑種地（登記変更完了確認要）</li>
+          <li><span class="risk-tag risk-med">MED</span> 引き渡し条件・竣工スケジュール不透明</li>
+          <li><span class="risk-tag risk-med">MED</span> インターネット費 月17,875円の負担区分不明</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--blue);margin-bottom:8px;">確認済み事項</div>
+        <ul class="check-list">
+          <li>確認済証 第25UDI1W建14346号（令和8年4月11日）</li>
+          <li>建築主: 株式会社MAI</li>
+          <li>構造計算: 許容応力度計算（令81条第3項）</li>
+          <li>劣化対策等級3（確認図面より）</li>
+          <li>取引態様: 売主（仲介手数料 0%）</li>
+          <li>木造3階建・9戸・1R・延床172.39&#13217;</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- アキ：収支計算 -->
+<div class="card">
+  <div class="card-header green-header">&#128201; アキ — IG+収支計算・玉川式シート</div>
+  <div class="card-body">
+    <div style="margin-bottom:12px;">
+      <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=9500&ltvInput=100&ltvRatio=100&costsRate=0&loanTerm=35&intRate=2.6&grossYield=7.45&floorArea=172.39&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=9500&pi_age_inp=0&pi_yield_inp=6.20&pi_area_inp=172.39&pi_rooms_inp=9&ik_land_area=113.40&ik_route_price=10.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%9F%BC%E7%8E%89%E7%9C%8C%E3%81%95%E3%81%84%E3%81%9F%E3%81%BE%E5%B8%82%E5%8C%97%E5%8C%BA%E6%97%A5%E9%80%B2%E7%94%BA1-848-17" class="link-btn green">&#128202; IG+【資料賃料 6.20%】</a>
+      <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=9500&ltvInput=100&ltvRatio=100&costsRate=0&loanTerm=35&intRate=2.6&grossYield=6.86&floorArea=172.39&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=9500&pi_age_inp=0&pi_yield_inp=6.86&pi_area_inp=172.39&pi_rooms_inp=9&ik_land_area=113.40&ik_route_price=10.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%9F%BC%E7%8E%89%E7%9C%8C%E3%81%95%E3%81%84%E3%81%9F%E3%81%BE%E5%B8%82%E5%8C%97%E5%8C%BA%E6%97%A5%E9%80%B2%E7%94%BA1-848-17" class="link-btn green">&#128202; IG+【スマサテ賃料 6.86%】</a>
+      <a href="../../knowledge/tamagawa-analysis/20260622_nisshin-mai_TG.html" class="link-btn brown">&#128200; 玉川式収益試算シート</a>
+    </div>
+
+    <div style="font-size:13px;font-weight:600;margin-bottom:10px;">オリックス 100%・2.6%・35年（元利均等）</div>
+    <div class="cf-grid" style="margin-bottom:16px;">
+      <div class="cf-cell"><div class="cf-label">月次返済額</div><div class="cf-val" style="font-size:16px;">344,734<span style="font-size:11px;color:var(--muted);">円</span></div></div>
+      <div class="cf-cell"><div class="cf-label">月次CF</div><div class="cf-val" style="font-size:16px;color:var(--yellow);">+27,000<span style="font-size:11px;color:var(--muted);">円</span></div></div>
+      <div class="cf-cell"><div class="cf-label">CF率</div><div class="cf-val" style="color:var(--red);">0.35<span style="font-size:11px;">%</span></div></div>
+      <div class="cf-cell"><div class="cf-label">NOI利回り</div><div class="cf-val">4.70<span style="font-size:11px;color:var(--muted);">%</span></div></div>
+    </div>
+
+    <table class="criteria-table" style="margin-bottom:14px;">
+      <thead><tr><th>IG+基準チェック</th><th>条件</th><th>実績</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><td>物件価格</td><td>1億以内</td><td>9,500万円</td><td class="ok">&#10003; OK</td></tr>
+        <tr><td>表面利回り</td><td>7.1%以上</td><td>6.20%</td><td class="ng">&#10007; NG</td></tr>
+        <tr><td>CF率</td><td>0%超</td><td>+0.35%</td><td class="ng">&#10007; NG（ほぼゼロ）</td></tr>
+        <tr><td>CCR</td><td>基準値</td><td>8.6%（フルローン参考値）</td><td class="warn">&#9888; 参考</td></tr>
+        <tr><td>積算比率</td><td>60%以上推奨</td><td>路線価10.5万/&#13217;で計算中</td><td class="warn">&#9888; 要確認</td></tr>
+        <tr><td>10年目IRR</td><td>&#8805;25%</td><td>玉川式シート参照</td><td class="warn">&#9888; 要確認</td></tr>
+      </tbody>
+    </table>
+
+    <div style="background:var(--green-light);border-radius:6px;padding:10px 14px;font-size:12px;color:#1b5e20;">
+      <b>アキのコメント:</b> 新築・売主・劣化等級3という書類面は申し分なし。ただし利回り6.2%ではCF率0.35%と薄く、金利上昇局面でマイナスに転落するリスクがある。ハザード問題を除いてもCFの薄さが懸念。スマサテ賃料（6.86%）でも利回り基準7.1%には届かない。
+    </div>
+  </div>
+</div>
+
+<!-- 村田先生：建築士コメント -->
+<div class="card">
+  <div class="card-header brown-header">&#127959; 村田先生 — 建築士コメント</div>
+  <div class="card-body">
+    <div class="two-col">
+      <div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:8px;">総合建築評価: &#9733;&#9733;&#9733;&#9733;&#9734;（4/5）</div>
+        <div class="dl">
+          <dt>構造・設計品質</dt>
+          <dd>木造3階建・許容応力度計算（KIZUKURI Ver9.10）採用。構造設計を専門会社（株式会社デファンス設計）が担当。劣化対策等級3確認済みで設計品質は高い。</dd>
+          <dt>気になる点</dt>
+          <dd>現場を見ないと断言はできませんが——木造廊下と鉄骨外階段の接合部は将来的に腐食・ガタつきが生じやすい接点。現地で接合金物の施工精度を必ず確認すること。</dd>
+          <dt>法令適合性</dt>
+          <dd>確認済証・副本ファイル一式確認済み。法令上の問題は資料段階では見当たらない。</dd>
+          <dt>修繕費概算（30年累計）</dt>
+          <dd>1,150〜2,145万円（外壁・屋根・設備交換含む）</dd>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--red);margin-bottom:8px;">現地で必ず確認すること</div>
+        <ul class="check-list">
+          <li>木造廊下と鉄骨外階段の接合金物・防水処理</li>
+          <li>西側私道（848-37番）の現況・幅員・舗装状態</li>
+          <li>外壁通気胴縁・サッシ取り付け精度</li>
+          <li>3階床梁の断面・梁スパン確認（荷重余裕）</li>
+          <li>排水系統・ますの位置と接続先</li>
+        </ul>
+        <div style="margin-top:12px;background:var(--brown-light);border-radius:6px;padding:10px 14px;font-size:12px;color:var(--brown);">
+          <b>村田先生総評:</b> 建物自体の設計は合格点。しかし洪水浸水5〜10mのエリアに新築木造3階を建てることは、建物品質の問題以前に立地判断の問題です。保険・融資条件にも影響し得るリスクで、購入推奨は難しい状況です。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 確認事項まとめ -->
+<div class="card">
+  <div class="card-header yellow-header">&#10067; キャプテンへの確認事項まとめ</div>
+  <div class="card-body">
+    <div class="two-col">
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--blue);margin-bottom:6px;">リョウ（DD）より</div>
+        <ul class="check-list">
+          <li>西側私道（848-37番）の通行・掘削承諾書は取得済みか？</li>
+          <li>地目「雑種地」から「宅地」への変更登記は完了しているか？</li>
+          <li>竣工・引き渡し予定は2026年11月で確定か？変動リスクは？</li>
+          <li>インターネット費 月17,875円はオーナー負担か入居者負担か？</li>
+          <li>建物完成後の検査済証の取得は保証されているか？</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--green);margin-bottom:6px;">アキ（収支）より</div>
+        <ul class="check-list">
+          <li>ハザードリスクがある場合の融資（オリックス）可否確認が必要</li>
+          <li>路線価を確定させてIG+積算評価を再計算すること</li>
+          <li>玉川式10年目IRRの確認（TGシートを開いて確認要）</li>
+          <li>スマサテ賃料（6.86%）でも基準7.1%未達——価格交渉余地はあるか？</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- チーム総合所見 -->
+<div class="card">
+  <div class="card-header red-header">&#9888; チーム総合所見</div>
+  <div class="card-body">
+    <div style="background:#ffebee;border-radius:6px;padding:14px;border-left:4px solid var(--red);margin-bottom:14px;">
+      <b style="color:var(--red);font-size:15px;">総合判断: 見送り推奨</b>
+      <div style="margin-top:6px;font-size:13px;">
+        洪水浸水深5.0〜10.0m（国交省ハザードマップ）により、キャプテン基準の即NG条件（浸水2m以上）に抵触。
+        これ単体で精査終了の判断も可能。加えて利回り基準未達（6.20% / 基準7.1%）・CF率薄い（+0.35%）・16号外側・西側私道未承諾の複合リスク。
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px;">最大リスク（優先度順）</div>
+        <ul class="check-list">
+          <li><span class="risk-tag risk-high">HIGH</span> &#127754; 洪水浸水 5〜10m（即NG）</li>
+          <li><span class="risk-tag risk-high">HIGH</span> &#128200; 利回り 6.20%（基準 -0.9pt）</li>
+          <li><span class="risk-tag risk-high">HIGH</span> &#128739; 西側私道 承諾書未締結</li>
+          <li><span class="risk-tag risk-med">MED</span> &#128176; CF率 0.35%（金利上昇で即マイナス）</li>
+          <li><span class="risk-tag risk-med">MED</span> &#128205; 16号外側（立地基準外）</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px;">次のアクション</div>
+        <ul class="check-list">
+          <li>山口さんに「ハザード即NG」を理由として丁重にお断り返信</li>
+          <li>次回から「ハザード確認を物件情報受領時に先行チェック」するフロー改善を検討</li>
+          <li>同エリアで利回り7%以上・16号内側の物件があれば再紹介を依頼</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div style="text-align:center;padding:16px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);margin-top:8px;">
+  TC Capitals 仕入部 精査レポート | 生成: 2026-06-22 | ハルト・リョウ・アキ・村田先生
+</div>
+
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260622_nisshin-mai_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260622_nisshin-mai_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
