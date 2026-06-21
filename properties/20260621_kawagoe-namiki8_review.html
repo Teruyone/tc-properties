@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>チーム精査レポート — （仮称）キャメル川越並木8</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif;background:#f0f2f5;color:#333;font-size:15px;line-height:1.7;}
+.header{background:linear-gradient(135deg,#1e3a5f,#2c5282);color:#fff;padding:32px;text-align:center;}
+.header h1{font-size:1.8em;margin-bottom:6px;}
+.header .sub{font-size:0.95em;opacity:0.85;}
+.container{max-width:960px;margin:0 auto;padding:20px;}
+.ng-banner{background:#c0392b;color:#fff;padding:20px 24px;border-radius:10px;margin:20px 0;font-size:1.1em;font-weight:bold;text-align:center;box-shadow:0 4px 12px rgba(192,57,43,0.4);}
+.ng-banner .ng-detail{font-size:0.85em;font-weight:normal;margin-top:6px;opacity:0.9;}
+.card{background:#fff;border-radius:10px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.card h2{font-size:1.2em;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #eee;}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+.summary-item label{font-size:0.8em;color:#666;display:block;}
+.summary-item .val{font-size:1.05em;font-weight:bold;}
+.criteria-table{width:100%;border-collapse:collapse;}
+.criteria-table th{background:#f7f8fa;padding:10px 12px;text-align:left;font-size:0.9em;color:#555;}
+.criteria-table td{padding:10px 12px;border-bottom:1px solid #f0f0f0;font-size:0.9em;}
+.ok{color:#27ae60;font-weight:bold;}
+.ng{color:#c0392b;font-weight:bold;}
+.warn{color:#e67e22;font-weight:bold;}
+.sec{margin:20px 0;}
+.sec-title{font-size:1.05em;font-weight:bold;padding:12px 18px;border-radius:8px 8px 0 0;color:#fff;}
+.sec-body{background:#fff;border-radius:0 0 8px 8px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.t-hazard .sec-title{background:#0e7c7b;}
+.t-haruto .sec-title{background:#d35400;}
+.t-ryo .sec-title{background:#2980b9;}
+.t-aki .sec-title{background:#27ae60;}
+.t-murata .sec-title{background:#795548;}
+.t-captain .sec-title{background:#6c3483;}
+.t-summary .sec-title{background:#1e3a5f;}
+.link-btn{display:inline-block;background:#1e3a5f;color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-size:0.88em;margin:4px 4px 4px 0;}
+table.data{width:100%;border-collapse:collapse;}
+table.data td,table.data th{padding:8px 10px;border-bottom:1px solid #eee;font-size:0.9em;}
+table.data th{background:#f7f8fa;color:#555;}
+ul.check{list-style:none;padding:0;}
+ul.check li{padding:5px 0;border-bottom:1px solid #f5f5f5;font-size:0.9em;}
+.hazard-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.hitem{border-radius:8px;padding:12px 16px;}
+.hitem .hlabel{font-size:0.78em;color:#555;margin-bottom:4px;}
+.hitem .hval{font-weight:bold;}
+.hng{background:#fde8e8;}
+.hok{background:#e8f8e8;}
+.hwarn{background:#fff3cd;}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>仕入部チーム精査レポート</h1>
+<div class="sub">（仮称）キャメル川越並木8 ｜ 精査日: 2026年6月21日 ｜ チーム: ハルト・リョウ・アキ・村田先生</div>
+</div>
+<div class="container">
+
+<div class="ng-banner">
+⛔ 即NG 判定 — 洪水浸水想定 3.0m〜5.0m（荒川 想定最大規模）
+<div class="ng-detail">キャプテン基準「洪水浸水深2m以上は即NG」に該当。収支・積算は参考情報として掲載。</div>
+</div>
+
+<div class="card">
+<h2>🏠 物件サマリー</h2>
+<div class="summary-grid">
+<div class="summary-item"><label>物件名</label><span class="val">（仮称）キャメル川越並木8</span></div>
+<div class="summary-item"><label>所在地</label><span class="val">埼玉県川越市並木新町14番8</span></div>
+<div class="summary-item"><label>交通</label><span class="val">JR川越線「南古谷」駅 徒歩6分</span></div>
+<div class="summary-item"><label>価格</label><span class="val">10,160万円（土地4,000+建物6,160）</span></div>
+<div class="summary-item"><label>表面利回り</label><span class="val">6.80%（年収691.2万円）</span></div>
+<div class="summary-item"><label>構造・築年</label><span class="val">木造3階建（60分準耐火・劣化等級3）/ 新築2026年2月</span></div>
+<div class="summary-item"><label>延床・土地</label><span class="val">291.46㎡（88.16坪）/ 169.28㎡</span></div>
+<div class="summary-item"><label>戸数・間取</label><span class="val">1K×9戸（27.12㎡/戸）</span></div>
+<div class="summary-item"><label>取引態様</label><span class="val">売主（三光ソフラン株式会社）</span></div>
+<div class="summary-item"><label>路線価（chikamap実測）</label><span class="val">10.5万円/㎡（D60% 令和7年分）</span></div>
+</div>
+</div>
+
+<div class="card">
+<h2>✅ キャプテン基準チェック</h2>
+<table class="criteria-table">
+<tr><th>基準</th><th>閾値</th><th>実績</th><th>判定</th></tr>
+<tr><td>物件価格</td><td>≤1億円</td><td>10,160万円</td><td class="ng">❌ NG（+160万）</td></tr>
+<tr><td>表面利回り</td><td>≥7.1%</td><td>6.80%</td><td class="ng">❌ NG（▲0.30pt）</td></tr>
+<tr><td>CF率（オリックス100%・2.6%・35年）</td><td>≥1.0%</td><td>0.63%</td><td class="ng">❌ NG</td></tr>
+<tr><td>CCR</td><td>≥15.0%</td><td>15.79%</td><td class="ok">✅ OK</td></tr>
+<tr><td>積算比率（路線価10.5万反映）</td><td>≥60.0%</td><td>86.3%</td><td class="ok">✅ OK</td></tr>
+<tr style="background:#fde8e8;"><td><strong>洪水浸水深</strong></td><td>2m未満</td><td><strong>3.0〜5.0m</strong></td><td class="ng">⛔ 即NG</td></tr>
+</table>
+</div>
+
+<div class="sec t-hazard">
+<div class="sec-title">🗺️ ハルト調査 — 路線価・ハザードマップ・スマサテ</div>
+<div class="sec-body">
+<p><strong>相続路線価（chikamap.jp 令和7年分）</strong></p>
+<p style="margin:6px 0 16px;">✅ <strong>10.5万円/㎡</strong>（D 60%・令和7年分）<br>
+<small style="color:#666;">※前回資料記載11万円より0.5万円低い。IG+に反映済み。</small></p>
+
+<p><strong>🗺️ 重ねるハザードマップ（国土交通省）</strong></p>
+<div class="hazard-grid">
+<div class="hitem hng">
+<div class="hlabel">洪水浸水想定（荒川 想定最大規模）</div>
+<div class="hval">❌ 3.0m〜5.0m（即NG）</div>
+</div>
+<div class="hitem hok">
+<div class="hlabel">土砂災害警戒区域</div>
+<div class="hval">✅ 非該当</div>
+</div>
+<div class="hitem hok">
+<div class="hlabel">津波浸水想定</div>
+<div class="hval">✅ 非該当</div>
+</div>
+<div class="hitem hwarn">
+<div class="hlabel">液状化危険度</div>
+<div class="hval">⚠️ 確認不可（荒川低地）</div>
+</div>
+</div>
+<p style="margin-top:10px;"><strong>総合判定: ⛔ 即NG</strong>（洪水浸水3.0m〜5.0m — 基準2m超）</p>
+<p style="margin-top:8px;font-size:0.85em;color:#666;">
+📸 スクリーンショット: <a href="../../knowledge/hazardmap-debug/20260621_kawagoe-namiki8_hazard_popup.png" target="_blank">ポップアップ版</a> /
+<a href="../../knowledge/hazardmap-debug/20260621_kawagoe-namiki8_hazard_zoom50m.png" target="_blank">拡大50m版</a>
+（出典: 国土交通省・国土地理院「重ねるハザードマップ」）
+</p>
+
+<p style="margin-top:16px;"><strong>🏠 スマサテ賃料査定</strong></p>
+<div style="background:#fff3cd;border-radius:6px;padding:12px;margin-top:6px;">
+⚠️ サーバー障害（504 Gateway Time-out）のため実行スキップ。<br>
+資料記載64,000円/戸（参考値）。スマサテ復旧後に再実行予定。
+</div>
+</div>
+</div>
+
+<div class="sec t-haruto">
+<div class="sec-title">📊 ハルト（エリア・利回り分析）</div>
+<div class="sec-body">
+<ul class="check">
+<li>⛔ <strong>南古谷周辺は荒川氾濫域の低地帯</strong>。2019年台風19号で周辺エリアが広範囲浸水実績。今回ハザードマップで浸水深3〜5mが確定し、DDの懸念が現実となった。</li>
+<li>❌ 賃貸需要：川越線沿線の単身需要は一定存在するが、南古谷は本川越・川越の1〜2駅外れで競合との差別化が必要。</li>
+<li>❌ 利回り6.80%は新築木造として平均的。キャプテン基準7.1%に0.3pt届かない。</li>
+<li>✅ 路線価10.5万円（実測）。積算86.3%で担保価値は高水準。</li>
+<li>⛔ <strong>洪水リスク確定により見送り推奨</strong>。オリックス・auじぶん銀行は浸水深1m超で融資慎重化する傾向。</li>
+</ul>
+</div>
+</div>
+
+<div class="sec t-ryo">
+<div class="sec-title">📋 リョウ（DDチェック）</div>
+<div class="sec-body">
+<p><strong>確認済み事項</strong></p>
+<ul class="check">
+<li>✅ 新耐震基準・構造計算（令和7年確認申請番号取得）</li>
+<li>✅ 登記簿クリーン（差押解除・抵当権全抹消）</li>
+<li>✅ 売主直取引（諸費用4%・仲介料なし）</li>
+<li>✅ 劣化対策等級3・60分準耐火確認</li>
+</ul>
+<p style="margin-top:12px;"><strong>リスクフラグ</strong></p>
+<ul class="check">
+<li>⛔ <strong>洪水浸水3〜5m確定</strong> — 即NG。融資謝絶リスク高。</li>
+<li>🔴 液状化リスク — 荒川低地・沖積平野のため要確認。</li>
+<li>🟡 サブリース2年毎見直し下限値未確認（三光ソフラン）</li>
+<li>🟡 施工会社名・建設業許可番号未確認</li>
+<li>🟡 住宅瑕疵担保保険付保証明書未入手</li>
+<li>🟡 竣工4ヶ月経過の入居状況未確認（9戸中何戸か）</li>
+</ul>
+<p style="margin-top:12px;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260621_kawagoe-namiki8_DD.html" class="link-btn">📋 DDリスト詳細</a>
+</p>
+</div>
+</div>
+
+<div class="sec t-aki">
+<div class="sec-title">💹 アキ（IG+収支計算）</div>
+<div class="sec-body">
+<p style="margin-bottom:10px;font-size:0.85em;color:#666;">路線価10.5万円（chikamap実測）反映済み。スマサテダウンのため資料賃料版のみ。</p>
+<table class="data">
+<tr><th>項目</th><th>金額</th><th>備考</th></tr>
+<tr><td>満室年収</td><td>6,912,000円</td><td>64,000円×9戸×12</td></tr>
+<tr><td>実収入（空室5%控除）</td><td>6,566,400円</td><td></td></tr>
+<tr><td>費用合計</td><td>▲1,500,600円</td><td>管理費・修繕・保険・固都税等</td></tr>
+<tr><td><strong>NOI</strong></td><td><strong>5,065,800円</strong></td><td>NOI利回り 4.99%</td></tr>
+<tr><td>年間返済額（オリックス100%・2.6%・35年）</td><td>▲4,424,028円</td><td>月368,669円</td></tr>
+<tr><td><strong>CF（税引前）</strong></td><td><strong>+641,772円</strong></td><td><strong>CF率 0.63%</strong></td></tr>
+<tr><td>返済比率</td><td>67.4%</td><td></td></tr>
+<tr><td>CCR（自己資金406万）</td><td>15.79%</td><td>✅ 基準15%クリア</td></tr>
+</table>
+<p style="margin-top:14px;"><strong>積算評価（劣化等級3: 240,000円/㎡）</strong></p>
+<table class="data" style="margin-top:6px;">
+<tr><th>項目</th><th>金額</th></tr>
+<tr><td>建物評価（291.46㎡×240,000×新築100%）</td><td>6,995万円</td></tr>
+<tr><td>土地評価（169.28㎡×10.5万円）</td><td>1,777万円</td></tr>
+<tr><td><strong>積算評価額</strong></td><td><strong>8,772万円</strong></td></tr>
+<tr><td><strong>積算比率</strong></td><td><strong>86.3% ✅</strong></td></tr>
+</table>
+<p style="margin-top:12px;">
+<a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=10160&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.45&floorArea=291.46&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=10160&pi_age_inp=0&pi_yield_inp=6.80&pi_area_inp=291.46&pi_rooms_inp=9&ik_land_area=169.28&ik_route_price=10.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%9F%BC%E7%8E%89%E7%9C%8C%E5%B7%9D%E8%B6%8A%E5%B8%82%E4%B8%A6%E6%9C%A8%E6%96%B0%E7%94%BA14%E7%95%AA8" class="link-btn">📊 IG+【資料賃料版】</a>
+<a href="../../../knowledge/tamagawa-analysis/20260621_kawagoe-namiki8_TG.html" class="link-btn">📈 玉川式シート</a>
+</p>
+</div>
+</div>
+
+<div class="sec t-murata">
+<div class="sec-title">🏗️ 村田先生（建築士コメント）</div>
+<div class="sec-body">
+<ul class="check">
+<li>✅ <strong>建物スペックは水準以上</strong>: 令和7年確認申請・60分準耐火・劣化等級3・ピアチェック義務付き。</li>
+<li>🔴 <strong>施工業者が不明</strong>: 新築で施工者名が資料に現れないのは異例。売買前に施工会社名・建設業許可番号・瑕疵保険付保証明書を書面入手すること。</li>
+<li>🟡 <strong>LPGと2027年設備提供規制</strong>: 規制後の設備費用負担が大家側に転嫁される可能性。LPG業者契約内容を確認。</li>
+<li>🟡 デッドクロスは築15〜18年頃。出口は築12〜15年（2038〜2041年）を想定。</li>
+<li>🟡 劣化等級3が「建設住宅性能評価（現場検査含む）」かどうかを確認。</li>
+<li>📋 現地確認6点: 基礎・外壁コーキング品質 / 床下点検口（防腐処理）/ 共用階段・避難設備 / 水回り動作（1戸）/ 前面道路実幅員 / 浸水痕跡と地盤改良有無</li>
+</ul>
+</div>
+</div>
+
+<div class="sec t-captain">
+<div class="sec-title">📌 キャプテンへの確認事項</div>
+<div class="sec-body">
+<ol style="padding-left:20px;">
+<li style="margin-bottom:8px;">⛔ <strong>【最優先】</strong> 洪水浸水3〜5m判明。見送り or 継続のご判断をお願いします。</li>
+<li style="margin-bottom:8px;">🔴 竣工4ヶ月の入居状況確認（9戸中何戸入居済みか）</li>
+<li style="margin-bottom:8px;">🟡 サブリース契約書原本の取得（最低保証賃料下限・解約条件）</li>
+<li style="margin-bottom:8px;">🟡 施工会社名・建設業許可番号・瑕疵保険付保証明書（3点セット）</li>
+<li style="margin-bottom:8px;">🟡 建築確認済証・検査済証（用途地域・容積率172%の適法確認）</li>
+<li style="margin-bottom:8px;">🟡 スマサテ復旧後に64,000円/戸の妥当性確認</li>
+</ol>
+</div>
+</div>
+
+<div class="sec t-summary">
+<div class="sec-title">🔍 チーム総合所見</div>
+<div class="sec-body">
+<div style="background:#fde8e8;border-radius:8px;padding:16px;margin-bottom:16px;font-size:1.05em;font-weight:bold;">
+⛔ 現状：見送り推奨<br>
+<span style="font-weight:normal;font-size:0.9em;">荒川L2最大規模浸水深3.0m〜5.0mにより、キャプテン基準「洪水2m以上即NG」に該当。積算・CCRは良好だが、ハザードリスクが優先する。</span>
+</div>
+<p><strong>総合NG項目:</strong> 価格・利回り・CF率の基準3項目 + 洪水即NG</p>
+<p><strong>総合OK項目:</strong> CCR（15.79%）・積算比率（86.3%）・建物スペック（劣化等級3）</p>
+<br>
+<p><strong>次のアクション（キャプテン判断後）:</strong></p>
+<ul class="check">
+<li>1. 見送り確定 → ブローカーに連絡・終了</li>
+<li>2. 継続検討の場合 → オリックス・auじぶん銀行に浸水深3〜5mエリアの融資可否を先打診 → 入居状況・サブリース契約書入手</li>
+<li>3. スマサテ復旧後 → IG+スマサテ賃料版を追加生成</li>
+</ul>
+</div>
+</div>
+
+<p style="text-align:center;color:#aaa;font-size:0.85em;margin:30px 0;">
+精査チーム: ハルト（朝倉晴斗）・リョウ（黒沢涼）・アキ（三宅亜紀）・村田先生（村田誠一）<br>
+2026年6月21日 ｜ 出典: chikamap.jp（路線価）・国土交通省「重ねるハザードマップ」
+</p>
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260621_kawagoe-namiki8_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260621_kawagoe-namiki8_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
