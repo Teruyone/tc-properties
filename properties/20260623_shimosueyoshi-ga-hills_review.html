@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>G・Aヒルズ下末吉 チーム精査レポート</title>
+<style>
+  body { font-family: 'Hiragino Sans', 'Meiryo', sans-serif; line-height: 1.7; background:#f5f5f5; margin:0; padding:20px; color:#222; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  header { background:#1a3a5c; color:#fff; padding:24px; border-radius:8px 8px 0 0; }
+  header h1 { margin:0 0 8px; font-size:24px; }
+  header .meta { font-size:13px; opacity:0.85; }
+  .card { background:#fff; padding:20px 24px; border-radius:8px; margin-bottom:18px; box-shadow:0 1px 3px rgba(0,0,0,0.05); }
+  h2 { font-size:18px; margin:0 0 14px; padding:8px 12px; border-radius:4px; color:#fff; }
+  h2.harut { background:#e87722; }
+  h2.ryou { background:#1f6dbd; }
+  h2.aki { background:#2e8b57; }
+  h2.murata { background:#8b5a3c; }
+  h2.captain { background:#7a1f3a; }
+  h2.summary { background:#444; }
+  h2.investigate { background:#0d8a8c; }
+  table { width:100%; border-collapse: collapse; margin: 10px 0; font-size:14px; }
+  th, td { border:1px solid #ddd; padding:8px 10px; text-align:left; }
+  th { background:#f0f0f0; font-weight:600; }
+  .ok { color:#2e8b57; font-weight:bold; }
+  .ng { color:#c0392b; font-weight:bold; }
+  .warn { color:#e87722; font-weight:bold; }
+  .alert { background:#fff3cd; border-left:4px solid #ffa726; padding:12px 16px; margin:10px 0; border-radius:4px; }
+  .danger { background:#f8d7da; border-left:4px solid #c0392b; padding:12px 16px; margin:10px 0; border-radius:4px; color:#721c24; font-weight:bold; }
+  .info { background:#d1ecf1; border-left:4px solid #0c5460; padding:12px 16px; margin:10px 0; border-radius:4px; }
+  ul, ol { padding-left:24px; }
+  li { margin-bottom:4px; }
+  .summary-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin:10px 0; }
+  .summary-item { background:#f9f9f9; padding:10px 14px; border-radius:4px; border-left:3px solid #1a3a5c; }
+  .summary-item .label { font-size:11px; color:#666; }
+  .summary-item .value { font-size:16px; font-weight:bold; color:#1a3a5c; }
+  a { color:#1f6dbd; }
+  .link-btn { display:inline-block; padding:8px 14px; background:#1f6dbd; color:#fff; text-decoration:none; border-radius:4px; margin:4px 4px 4px 0; font-size:13px; }
+  .link-btn:hover { background:#15518f; }
+  .quote { background:#f9f9f9; border-left:3px solid #999; padding:10px 14px; margin:8px 0; font-style:italic; color:#444; font-size:14px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>🏢 G・Aヒルズ下末吉 — チーム精査レポート</h1>
+  <div class="meta">精査日: 2026年6月23日 ／ チーム: ハルト・リョウ・アキ・村田先生（仕入部4名）</div>
+</header>
+
+<!-- 物件サマリー -->
+<div class="card">
+  <h2 class="summary">📋 物件サマリー</h2>
+  <div class="summary-grid">
+    <div class="summary-item"><div class="label">物件価格</div><div class="value">7,300万円</div></div>
+    <div class="summary-item"><div class="label">表面利回り</div><div class="value">7.00%</div></div>
+    <div class="summary-item"><div class="label">構造／築年</div><div class="value">木造2階 / 築8年</div></div>
+    <div class="summary-item"><div class="label">所在地</div><div class="value">横浜市鶴見区下末吉5-21-14</div></div>
+    <div class="summary-item"><div class="label">交通</div><div class="value">JR京浜東北線 鶴見駅 徒歩23分</div></div>
+    <div class="summary-item"><div class="label">取引態様</div><div class="value">仲介（推定・要確認）</div></div>
+    <div class="summary-item"><div class="label">土地／延床</div><div class="value">131.28㎡ / 104.70㎡</div></div>
+    <div class="summary-item"><div class="label">戸数／稼働</div><div class="value">8戸 / 100%稼働</div></div>
+    <div class="summary-item"><div class="label">満室想定年収</div><div class="value">5,112,000円</div></div>
+  </div>
+  <div class="alert">
+    <strong>備考:</strong> 契約不適合免責・境界非明示・現況引渡 ／ 売主: 個人（2024年6月取得＝短期譲渡） ／ 第二種中高層住居専用地域・第三種高度地区・準防火・緑化地域
+  </div>
+</div>
+
+<!-- キャプテン基準5項目 -->
+<div class="card">
+  <h2 class="summary">✅ キャプテン基準チェック</h2>
+  <table>
+    <tr><th>基準</th><th>条件</th><th>本物件</th><th>判定</th></tr>
+    <tr><td>築年数</td><td>10年以内</td><td>築8年</td><td class="ok">OK</td></tr>
+    <tr><td>価格</td><td>1億円以内</td><td>7,300万円</td><td class="ok">OK</td></tr>
+    <tr><td>表面利回り</td><td>7.1%以上</td><td>7.00%（資料） / 9.71%（スマサテ）</td><td class="warn">資料NG / スマサテOK</td></tr>
+    <tr><td>エリア</td><td>16号内側・一都三県</td><td>横浜市鶴見区（16号内側）</td><td class="ok">OK</td></tr>
+    <tr><td>10年目税引後IRR</td><td>25%以上</td><td>玉川式シートで要確認</td><td class="warn">要確認</td></tr>
+  </table>
+</div>
+
+<!-- 路線価・ハザード・スマサテ -->
+<div class="card">
+  <h2 class="investigate">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</h2>
+  <table>
+    <tr><th>項目</th><th>結果</th></tr>
+    <tr><td>相続路線価</td><td><strong>21.5万円/㎡</strong>（借地権割合D 60% / chikamap.jp 令和7年分）</td></tr>
+    <tr><td>洪水浸水想定</td><td class="warn">⚠️ 浸水区域内（深度要確認）</td></tr>
+    <tr><td>土砂災害警戒区域</td><td class="warn">⚠️ イエローゾーン（レッドではない）</td></tr>
+    <tr><td>津波浸水想定</td><td class="ok">✅ 非該当</td></tr>
+    <tr><td>液状化危険度</td><td>確認不可</td></tr>
+    <tr><td>総合ハザード判定</td><td class="warn"><strong>要注意</strong>（即NG基準は回避）</td></tr>
+  </table>
+  <div class="alert">
+    <strong>🏠 スマサテ賃料査定:</strong><br>
+    査定賃料（標準）: <strong>73,825円/戸</strong> ／ 資料賃料: 49,000円/戸（中央値） ／ <strong>乖離: +50.7%</strong><br>
+    スマサテ満室想定年収: 7,087,200円 → <strong>スマサテ考慮利回り: 9.71%</strong><br>
+    <em>※ハルト解釈: スマサテが「ロフト面積込み」で査定した可能性が高い。実態は55,000〜60,000円/戸（利回り7.2〜7.5%）が現実的</em>
+  </div>
+  <p><a href="20260623_shimosueyoshi-ga-hills_survey.html" class="link-btn">📊 物件調査レポート（スマサテ・路線価・ハザード）</a></p>
+</div>
+
+<!-- ハルト -->
+<div class="card">
+  <h2 class="harut">🌅 ハルト — エリア・利回り分析</h2>
+  <h3>鶴見区下末吉エリア評価</h3>
+  <ul>
+    <li>京浜東北線・鶴見線の乗換駅 — 川崎・横浜・東京すべてアクセス良好</li>
+    <li>第二種中高層住居専用地域で住環境は良好</li>
+    <li>路線価21.5万円/㎡ — 駅徒歩23分エリアとして妥当（駅前40〜50万円台）</li>
+  </ul>
+  <h3>気になる点</h3>
+  <ul>
+    <li class="warn">駅徒歩23分 — キャプテン過去フィードバック「徒歩15分超は空室リスク高」に該当</li>
+    <li class="warn">戸あたり延床13.09㎡ — ロフト含めても極コンパクト1R。退去サイクル短縮リスク</li>
+    <li>現状満室稼働（家賃帯49,000円）で需要は実証済み</li>
+  </ul>
+  <h3>積算評価</h3>
+  <p>土地（路線価ベース）: 21.5万円×131.28㎡ = 約2,822万円 ／ 建物（木造残存14年・再調達原価）: 約1,198万円 ／ <strong>積算合計 約4,020万円 / 価格7,300万円 = 積算率55.1%</strong></p>
+  <div class="info">
+    <strong>ハルト総合判定:</strong> 「★イチオシではないが、スマサテ次第で化ける可能性あり。価格交渉で6,800万円（利回り7.5%相当）まで下げられればバランス改善。条件付きで深掘り価値あり」
+  </div>
+</div>
+
+<!-- リョウ -->
+<div class="card">
+  <h2 class="ryou">🔍 リョウ — DD（デューデリジェンス）</h2>
+  <p><strong>確認済み:</strong> 7件 ／ <strong>リスクフラグ:</strong> 10件 ／ <strong>未確認・要入手:</strong> 11件</p>
+  <h3>最大リスクTOP3</h3>
+  <ol>
+    <li><strong>短期譲渡＋契約不適合免責＋境界非明示の三重買主リスク</strong> — 売主が2024年6月取得→2年で短期譲渡税かけて売却。瑕疵把握済みの可能性。免責特約で全リスクが買主負担</li>
+    <li><strong>戸あたり13.09㎡の極小1R＋利回り基準未達</strong> — ロフト推定の極小1Rは退去時の客付けリスクの典型</li>
+    <li><strong>42条2項道路セットバック＋緑化地域維持義務</strong> — みなし道路で再建築時に建ぺい・容積目減り。緑化率10%未達で是正命令の可能性</li>
+  </ol>
+  <h3>リスクフラグ抜粋</h3>
+  <ul>
+    <li>乙区9番 三井住友トラストL&F 抵当権5,700万円・2.9% — 残債と抹消可否確認</li>
+    <li>売主は2024/6取得＝短期譲渡税対象 — <strong>売却理由の聴取必須</strong></li>
+    <li>取引態様未確定（仲介推定） — 諸費用率7%/4%の差が大きい</li>
+  </ul>
+  <div class="danger">
+    リョウ総合判定: <strong>リスクレベル「高」</strong>。買付を出すなら指値（7,000万円台前半）＋契約条件改善（インスペ義務化・確定測量売主負担）が前提。条件改善困難なら見送り推奨。
+  </div>
+  <p><a href="https://teruyone.github.io/tc-properties/properties/20260623_shimosueyoshi-ga-hills_DD.html" class="link-btn">📋 DDチェックリスト（入力済み）</a></p>
+</div>
+
+<!-- アキ -->
+<div class="card">
+  <h2 class="aki">💰 アキ — IG+収支計算 + 玉川式</h2>
+  <table>
+    <tr><th>指標</th><th>オリックス（100%・2.6%・35年）</th><th>神奈川銀行（90%・2.25%・35年）</th></tr>
+    <tr><td>満室収入</td><td>5,112,000円/年</td><td>同左</td></tr>
+    <tr><td>NOI</td><td colspan="2">3,707,906円（NOI利回り 5.08%）</td></tr>
+    <tr><td>年返済</td><td>▲3,179,292円</td><td>▲2,714,268円</td></tr>
+    <tr><td><strong>CF</strong></td><td><strong>528,614円</strong></td><td><strong>993,638円</strong></td></tr>
+    <tr><td>CF率</td><td class="ng">0.72%（NG）</td><td class="ok">1.36%（OK）</td></tr>
+    <tr><td>CCR</td><td class="ng">10.3%（NG）</td><td class="ng">8.0%（NG）</td></tr>
+    <tr><td>返済比率</td><td>65.5%</td><td>55.9%</td></tr>
+    <tr><td>自己資金</td><td>約511万円（諸費用のみ）</td><td>約1,241万円（頭金10%+諸費用）</td></tr>
+  </table>
+  <div class="alert">
+    <strong>注記:</strong> 固都税は推計値（taxRate=10%）で約48万円計上。資料実額は241,676円のため、実額採用ならNOIが約24万円改善（CF率+0.33pt）。玉川式シートは実額ベース。<br>
+    <strong>スマサテ賃料版IG+:</strong> 査定73,825円/戸ベースで利回り9.71%に再計算。各種CFが大幅改善する想定（ただしロフト面積誤認の可能性あり）
+  </div>
+  <p>
+    <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=7300&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.0&floorArea=104.70&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=8&taxRateIncome=20&pi_price_inp=7300&pi_age_inp=8&pi_yield_inp=7.0&pi_area_inp=104.70&pi_rooms_inp=8&ik_land_area=131.28&ik_route_price=21.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&buildStruct=%E6%9C%A8%E9%80%A0&pi_struct_sel=%E6%9C%A8%E9%80%A0&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%B6%B4%E8%A6%8B%E5%8C%BA%E4%B8%8B%E6%9C%AB%E5%90%895-21-14" class="link-btn">📊 IG+【資料賃料版】</a>
+    <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=7300&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=9.71&floorArea=104.70&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=8&taxRateIncome=20&pi_price_inp=7300&pi_age_inp=8&pi_yield_inp=9.71&pi_area_inp=104.70&pi_rooms_inp=8&ik_land_area=131.28&ik_route_price=21.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&buildStruct=%E6%9C%A8%E9%80%A0&pi_struct_sel=%E6%9C%A8%E9%80%A0&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%B6%B4%E8%A6%8B%E5%8C%BA%E4%B8%8B%E6%9C%AB%E5%90%895-21-14" class="link-btn">📊 IG+【スマサテ賃料版】</a>
+    <a href="../../knowledge/tamagawa-analysis/20260623_shimosueyoshi-ga-hills_TG.html" class="link-btn">📈 玉川式収益試算シート</a>
+  </p>
+  <p class="quote">「表面7.00%はキャプテン基準7.1%にギリギリ届かず、フルローンだとCF率0.72%・CCR10.3%と物足りない。価格交渉で6,800万〜7,000万円台前半に持っていけるかが鍵」</p>
+</div>
+
+<!-- 村田先生 -->
+<div class="card">
+  <h2 class="murata">🏗️ 村田先生 — 建築士コメント</h2>
+  <p class="quote">「現場を見ないと断言はできませんが、資料から読み取れる限り『買ってはいけない物件ではない、ただし徹底DDが前提』というのが私の所見です」</p>
+  <h3>構造評価</h3>
+  <ul>
+    <li>2018年5月築・新耐震2000年基準クリア・準防火地域仕様で構造的に大きな不安なし</li>
+    <li><strong>典型的な狭小ロフト付き小規模アパート</strong>（グローバル・アーキテクト社系列の設計と推定）</li>
+    <li>4号特例適用世代（〜2025年3月）— 構造図書・壁量計算書・N値計算書の現物確認必須</li>
+    <li>スレート屋根（ノンアスベスト品）— 築8年からチョーキング・棟板金の浮き等が出始める時期</li>
+  </ul>
+  <h3>修繕リスク見立て</h3>
+  <ul>
+    <li>短期（〜5年）: 200〜350万円（外壁シーリング・バルコニー防水・外部階段塗装等）</li>
+    <li>中期（5〜15年）: 350〜700万円（外壁塗装・屋根塗装/カバー・給湯器8台一斉更新等）</li>
+    <li><strong>通算: 直近15年で500〜1,000万円規模</strong>を家賃から積み立てる前提で収支を組み直すべき</li>
+  </ul>
+  <h3>★最重要★ 法令適合性</h3>
+  <div class="danger">
+    <strong>概要書「戸建」記載と共同住宅レントロールの矛盾</strong> — 確認申請書類の建物用途欄が「共同住宅」「長屋」「一戸建」のどれで申請されているか必ず確認。「長屋」と「共同住宅」では適法性とローン付けが180度変わる
+  </div>
+  <ul>
+    <li>検査済証の現物 — グローバル・アーキテクト社の新築分譲なら通常取得済みだが要現物確認</li>
+    <li>接道42条2項道路の幅員6m超記載は矛盾 — 横浜市建築局の道路台帳で要確認</li>
+    <li>横浜市建築基準条例の住戸面積規定（25㎡以上の有無）</li>
+    <li>採光・換気の有効開口面積（10㎡専有なら1.43㎡以上必要）</li>
+    <li>ロフトの法令適合（天井高1.4m以下・下階の1/2以下面積）</li>
+  </ul>
+  <h3>ロフト固有のリスク</h3>
+  <ul>
+    <li>はしご固定金物の劣化（退去時毎回点検必要・落下事故は所有者責任）</li>
+    <li>ロフト床の積載荷重（180kg/㎡が住宅用基準・過積載で梁たわみ）</li>
+    <li>結露・カビ（夏40度・冬結露でカビ必発・原状回復費が嵩む）</li>
+    <li>ロフト用小窓まわりの防水（雨漏り頻発箇所）</li>
+  </ul>
+  <h3>現地確認チェックポイント</h3>
+  <p>屋根（棟板金浮き・スレート割れ）／外壁（シーリング・チョーキング）／基礎（クラック0.3mm以上）／共用部（外部階段サビ・はしご固定）／ロフト（床たわみ・小窓コーキング）／給湯器製造年（2018年製なら交換時期突入）／隣地境界標の現存（境界非明示物件のため最重要）</p>
+</div>
+
+<!-- キャプテン確認事項 -->
+<div class="card">
+  <h2 class="captain">📞 キャプテンへの確認事項まとめ</h2>
+  <ol>
+    <li class="warn"><strong>【最優先】売却理由を仲介経由で必ず聞く</strong> — 2024年6月取得→2年で短期譲渡税かけて売る理由。瑕疵・収支悪化・近隣トラブルの兆候を探る最重要シグナル（リョウ）</li>
+    <li><strong>【最重要】確認申請書類の建物用途欄</strong>（共同住宅／長屋／一戸建のどれか）— 適法性・ローン付けが180度変わる（村田先生）</li>
+    <li><strong>【最重要】検査済証の現物確認</strong> — なければ価格交渉材料に（村田先生）</li>
+    <li><strong>【高】取引態様確認</strong> — 仲介なら諸費用7%・売主なら4%で収支再計算（リョウ）</li>
+    <li><strong>【高】抵当権5,700万円の残債と抹消スケジュール</strong>（リョウ）</li>
+    <li><strong>【高】建築確認図面・構造計算書の取得</strong> — 4号特例世代の壁量計算・N値計算（村田先生）</li>
+    <li>【高】交通アクセス（最寄駅・徒歩分数）の正確化（リョウ）</li>
+    <li>【高】指値交渉余地 — 短期譲渡で売り急ぎなら利回り7.1%ライン（≒7,200万円）まで100万円指値（リョウ）</li>
+    <li>【中】確定測量図・境界確認書の有無（リョウ）</li>
+    <li>【中】42条道路の実態（2項か1項か・幅員6m超の矛盾解消）— 横浜市建築局道路台帳で照会（村田先生・リョウ）</li>
+    <li>【中】緑化施設の現況維持確認（リョウ・村田先生）</li>
+    <li>【中】ロフトの実用面積（賃料設定の妥当性検証）— スマサテ査定73,825円vs資料49,000円の乖離分析（アキ・ハルト）</li>
+    <li>【中】10年目税引後IRR — 玉川式シートをブラウザで開いて確認（アキ）</li>
+  </ol>
+</div>
+
+<!-- 総合所見 -->
+<div class="card">
+  <h2 class="summary">🎯 チーム総合所見</h2>
+  <div class="danger">
+    <strong>総合判定:</strong> 「条件付きで深掘り価値あり、ただし指値+契約条件改善が前提」<br>
+    <strong>最大リスク:</strong> 短期譲渡＋契約不適合免責＋境界非明示の三重買主リスク／概要書「戸建」記載の用途欄整合性
+  </div>
+  <h3>各エージェントの所感</h3>
+  <ul>
+    <li><strong>ハルト:</strong> 「★イチオシではないがスマサテ次第で化ける可能性あり。条件付きで深掘り価値」</li>
+    <li><strong>リョウ:</strong> 「リスクレベル高。指値＋契約条件改善が前提。条件改善困難なら見送り推奨」</li>
+    <li><strong>アキ:</strong> 「フルローンCF率0.72%は物足りない。価格交渉で6,800万〜7,000万円台前半に持っていけるかが鍵」</li>
+    <li><strong>村田先生:</strong> 「建物自体に大きな不安なし、ただし用途欄・検査済証・確認図面の現物確認が前提条件」</li>
+  </ul>
+  <h3>次のアクション（チーム提案）</h3>
+  <ol>
+    <li>仲介経由で<strong>売却理由・取引態様・確認申請書類・検査済証・残債明細</strong>を即時取得</li>
+    <li>現地調査で<strong>ロフト実用面積・浸水深度・境界標・接道幅員・緑化施設・建物外観劣化</strong>を一気に確認</li>
+    <li>条件揃いしだい <strong>6,800〜7,000万円台前半での指値＋契約条件改善（インスペ義務化・確定測量売主負担）</strong>で買付検討</li>
+    <li>条件改善が困難な場合は<strong>見送り推奨</strong>（現状は基準7.1%未達＋ハザード要注意＋契約不利＋極小1R＋駅遠の重複ネガティブ）</li>
+  </ol>
+</div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260623_shimosueyoshi-ga-hills_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260623_shimosueyoshi-ga-hills_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
