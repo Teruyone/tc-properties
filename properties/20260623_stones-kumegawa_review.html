@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ストーンズ久米川 物件精査レポート — TC Capitals 仕入部</title>
+<style>
+* { box-sizing: border-box; }
+body { font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif; background: #f5f7fa; margin: 0; padding: 0; color: #2c3e50; }
+.container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+.report-header { background: #1a365d; color: white; padding: 32px; border-radius: 12px 12px 0 0; }
+.report-header h1 { margin: 0 0 8px 0; font-size: 28px; }
+.report-header .meta { font-size: 14px; opacity: 0.85; }
+.card { background: white; padding: 24px; margin-bottom: 16px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.card h2 { margin-top: 0; padding-bottom: 12px; border-bottom: 3px solid; font-size: 22px; }
+.summary-card h2 { border-color: #1a365d; }
+.criteria-card h2 { border-color: #2d3748; }
+.haruto-card h2 { border-color: #ed8936; color: #ed8936; }
+.ryo-card h2 { border-color: #3182ce; color: #3182ce; }
+.aki-card h2 { border-color: #38a169; color: #38a169; }
+.murata-card h2 { border-color: #8b4513; color: #8b4513; }
+.survey-card h2 { border-color: #319795; color: #319795; }
+.consult-card h2 { border-color: #d69e2e; color: #d69e2e; }
+.team-card h2 { border-color: #1a365d; }
+.spec-table, .criteria-table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+.spec-table th, .spec-table td, .criteria-table th, .criteria-table td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
+.spec-table th { background: #f7fafc; width: 30%; font-weight: 600; color: #4a5568; }
+.criteria-table th { background: #1a365d; color: white; padding: 10px 12px; font-weight: 600; }
+.ok { color: #38a169; font-weight: bold; }
+.ng { color: #e53e3e; font-weight: bold; }
+.warn { color: #d69e2e; font-weight: bold; }
+.alert-banner { background: #fed7d7; border-left: 6px solid #e53e3e; padding: 16px 20px; margin-bottom: 16px; border-radius: 4px; }
+.alert-banner strong { color: #c53030; font-size: 16px; }
+.tool-link { display: inline-block; background: #2b6cb0; color: white; padding: 10px 16px; border-radius: 6px; text-decoration: none; margin: 4px 8px 4px 0; font-size: 14px; }
+.tool-link:hover { background: #1e4e8c; }
+.tool-link.ig { background: #38a169; }
+.tool-link.ig-sumasate { background: #319795; }
+.tool-link.tg { background: #d69e2e; }
+.tool-link.dd { background: #3182ce; }
+.tool-link.survey { background: #805ad5; }
+.section-title { font-size: 16px; color: #2d3748; font-weight: bold; margin: 16px 0 8px; }
+ul { line-height: 1.8; }
+li { margin-bottom: 4px; }
+.hazard-row { padding: 8px 12px; margin: 4px 0; background: #f7fafc; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; }
+.hazard-row strong { color: #4a5568; }
+.conclusion-box { background: #fef5e7; border-left: 4px solid #d69e2e; padding: 16px 20px; margin: 12px 0; border-radius: 4px; }
+.sumasate-result { background: #e6fffa; border-left: 4px solid #319795; padding: 12px 16px; margin: 10px 0; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="report-header">
+<h1>🏠 ストーンズ久米川 物件精査レポート</h1>
+<div class="meta">精査日: 2026-06-23 / チーム: ハルト・リョウ・アキ・村田先生 / TC Capitals 仕入部</div>
+</div>
+
+<div class="alert-banner">
+<strong>⚠️ チーム総合判定: スルー推奨</strong><br>
+キャプテン基準を価格・利回りの両軸で大幅未達。さらにスマサテ査定で資料賃料が▲19%過大設定と判明し、実力利回りは4.94%まで低下。融資面でも積算比率47.6%は厳しく、現価格での仕入れは推奨しません。
+</div>
+
+<div class="card summary-card">
+<h2>📋 物件サマリー</h2>
+<table class="spec-table">
+<tr><th>物件名</th><td>ストーンズ久米川（一棟新築アパート）</td></tr>
+<tr><th>所在地</th><td>東京都東村山市諸季町2-26-6</td></tr>
+<tr><th>交通</th><td>西武新宿線「久米川」駅 徒歩10分</td></tr>
+<tr><th>物件価格</th><td><strong>17,700万円</strong></td></tr>
+<tr><th>表面利回り（資料）</th><td><strong>6.10%</strong>（満室想定年収 10,812,000円）</td></tr>
+<tr><th>スマサテ実力利回り</th><td class="ng">4.94%（▲1.16pt乖離）</td></tr>
+<tr><th>構造・築年</th><td>木造3階建（合金メッキ鋼板ぶき）/ 2025年1月新築（築0年）</td></tr>
+<tr><th>土地・延床面積</th><td>土地 159.40㎡（48.21坪）/ 延床 275.55㎡（83.35坪）</td></tr>
+<tr><th>戸数</th><td>9戸（各階3戸×3階・1戸あたり約30.6㎡）</td></tr>
+<tr><th>用途地域</th><td>準住居地域（建ぺい60%/容積200%）</td></tr>
+<tr><th>防火</th><td>準防火地域（法第62条）</td></tr>
+<tr><th>接道</th><td>北側 私道 法42条第1項第5号（位置指定道路）・幅員確認中</td></tr>
+<tr><th>その他制限</th><td>浸水想定区域（一部地域）、宅地造成等工事規制区域、第三種高度地区</td></tr>
+<tr><th>路線価</th><td>chikamap.jp令和7年分: <strong>20万円/㎡</strong>（D 60%）／資料記載: 16.5万円/㎡</td></tr>
+<tr><th>取引態様</th><td>未確認（仲介想定）</td></tr>
+</table>
+</div>
+
+<div class="card criteria-card">
+<h2>✅ キャプテン基準照合（6指標）</h2>
+<table class="criteria-table">
+<tr><th>基準項目</th><th>閾値</th><th>本物件</th><th>判定</th></tr>
+<tr><td>物件価格</td><td>≤1億円</td><td>17,700万円</td><td class="ng">NG（+7,700万）</td></tr>
+<tr><td>表面利回り</td><td>≥7.1%</td><td>6.10%（資料）/ 4.94%（スマサテ）</td><td class="ng">NG（-1.0pt/-2.16pt）</td></tr>
+<tr><td>CF率</td><td>≥10%</td><td>0.32%（オリックス）/ 0.96%（神奈川）</td><td class="ng">NG（大幅未達）</td></tr>
+<tr><td>CCR</td><td>≥10%</td><td>4.6%（オリックス）/ 5.6%（神奈川）</td><td class="ng">NG</td></tr>
+<tr><td>積算比率</td><td>≥70%</td><td>47.6%（路線価16.5万円試算）</td><td class="ng">NG（-22.4pt）</td></tr>
+<tr><td>10年目税引後IRR</td><td>≥25%</td><td>玉川式シートで要確認</td><td class="warn">要確認</td></tr>
+</table>
+<p style="margin-top: 12px;"><strong>6指標中5指標がNG。</strong> 新築・東京都内・西武新宿線徒歩10分の立地メリットを差し引いても、現価格では仕入対象として進める根拠が見当たりません。</p>
+</div>
+
+<div class="card survey-card">
+<h2>🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</h2>
+
+<div class="section-title">📍 相続税路線価（chikamap.jp 令和7年分）</div>
+<p>路線価: <strong>20万円/㎡（200,000円/㎡）</strong>・借地権割合 D 60%<br>
+土地評価額試算 = 200,000円 × 159.40㎡ = <strong>3,188万円</strong>（取引価格比 18.0%）</p>
+
+<div class="section-title">🌊 ハザードマップ（重ねるハザードマップ）</div>
+<div class="hazard-row"><strong>洪水浸水想定</strong><span class="warn">⚠️ 浸水区域内（0.5m未満想定）</span></div>
+<div class="hazard-row"><strong>土砂災害警戒区域</strong><span class="ok">✅ 非該当</span></div>
+<div class="hazard-row"><strong>津波浸水想定</strong><span class="ok">✅ 非該当</span></div>
+<div class="hazard-row"><strong>液状化危険度</strong><span>確認不可</span></div>
+<div class="hazard-row"><strong>内水氾濫</strong><span class="ok">✅ 非該当</span></div>
+<div class="hazard-row"><strong>総合判定</strong><span class="warn">⚠️ 要注意（浸水深0.5m未満なら致命的ではない・火災保険水災オプション必須）</span></div>
+
+<div class="section-title">💴 スマサテ賃料査定</div>
+<div class="sumasate-result">
+<strong>査定結果（1K・30.6㎡・木造・築0年・2階）:</strong><br>
+スマサテ標準賃料: <strong>81,000円/月/戸</strong>（単価2,645円/㎡・8,743円/坪）<br>
+資料記載賃料: 100,111円/月/戸<br>
+<strong class="ng">乖離: ▲19.1%（資料賃料が過大）</strong><br>
+スマサテ満室想定年収 = 81,000円 × 9戸 × 12ヶ月 = <strong>8,748,000円</strong><br>
+スマサテ実力利回り = 8,748,000 ÷ 177,000,000 × 100 = <strong class="ng">4.94%</strong>（資料表面6.10%から▲1.16pt下振れ）
+</div>
+
+<p style="margin-top: 12px;">
+<a href="20260623_stones-kumegawa_survey.html" class="tool-link survey">🔍 物件調査レポート（survey HTML）を開く</a>
+</p>
+</div>
+
+<div class="card haruto-card">
+<h2>🟠 ハルト（エリア・利回り分析）</h2>
+
+<div class="section-title">エリア分析 — 東村山市・久米川駅</div>
+<ul>
+<li>東村山市人口: 約15.0万人（緩やかな減少局面、2020年比▲1〜2%）</li>
+<li>久米川駅周辺は東村山駅と並ぶ商業エリア。単身者向け賃貸需要は安定</li>
+<li>西武新宿線で高田馬場34分・新宿41分 → <strong>通勤圏としては"準郊外"の位置付け</strong></li>
+<li>1K新築の家賃相場（久米川駅徒歩10分圏）: <strong>7.5万〜8.5万円</strong>が中心レンジ</li>
+<li>資料賃料10.0万円は<strong>相場上限を1.5万円以上超過</strong> → スマサテ81,000円のほうが実勢に近い</li>
+</ul>
+
+<div class="section-title">利回り相場感（東村山市・木造新築1K）</div>
+<ul>
+<li>東村山市新築木造アパート相場利回り: <strong>6.5〜7.5%</strong>（健美屋系平均）</li>
+<li>本物件 表面利回り: 6.10% → <strong>相場下限を下回る</strong></li>
+<li>スマサテ実力利回り: 4.94% → <strong>大幅に下振れ</strong></li>
+</ul>
+
+<div class="section-title">空室リスク評価</div>
+<ul>
+<li><strong>賃料設定がスマサテ比+19%は危険水域</strong>（最大リスク）</li>
+<li>戸数9戸の1棟リスクは中程度</li>
+<li>同エリアは新築〜築浅アパートの供給が継続。新築プレミアムが切れる築5年以降に賃料下落圧力</li>
+<li>賃料を相場（8.0〜8.5万円）まで落とせば満室は可能だが、それを織り込むと利回り4.9〜5.2%となり投資妙味消失</li>
+</ul>
+
+<div class="conclusion-box">
+<strong>ハルトの率直評価: スルー</strong><br>
+「キャプテン、これは新築・都内ブランドの匂いに釣られそうになる罠物件です。スマサテが正直に▲19%乖離を出してきました。値引き2,000万円（→1.55億）で資料表面6.97%、それでもスマサテ実力で5.64%。新築木造1Kでこの数字は買えない。今回はパスで！」
+</div>
+</div>
+
+<div class="card ryo-card">
+<h2>🔵 リョウ（DD・デューデリジェンス）</h2>
+
+<div class="section-title">確認済み（資料記載で判明）</div>
+<ul>
+<li>新耐震基準（2025年1月築・新築） / 木造3階建 / 耐用年数22年</li>
+<li>規模: 土地159.40㎡ / 延床275.55㎡ / 1〜3階各91.85㎡ / 9戸</li>
+<li>用途: 準住居地域 / 建ぺい60% / 容積200% / 準防火 / 第三種高度地区 / 絶対高さ制限なし</li>
+<li>接道種別: 北側私道（建築基準法42条1項5号道路 = 位置指定道路）</li>
+<li>路線価: 165千円/㎡（資料記載）→ chikamap実測200千円/㎡</li>
+</ul>
+
+<div class="section-title">リスクフラグ（重要度順）</div>
+<ul>
+<li class="ng">🚩 <strong>一次スクリーニングNG</strong>: 価格（+77%）・利回り（-1.0pt）・エリア（16号外側）の3項目でキャプテン基準未達</li>
+<li class="ng">🚩 <strong>私道接道（42条1項5号道路）</strong>: 通行掘削同意・私道持分・幅員「確認中」（4m未満ならセットバックリスク）</li>
+<li class="ng">🚩 <strong>浸水想定区域</strong>: 浸水深ランク不明（0.5m未満ならOK、3m以上だと融資NG）・火災保険コスト増</li>
+<li class="ng">🚩 <strong>宅地造成等工事規制区域</strong>: 擁壁の検査済証必須・不適格擁壁ならオリックス・スルガNG</li>
+<li class="warn">🟡 準住居地域: 沿道サービス施設建設可能・居住性悪化リスク</li>
+<li class="warn">🟡 9戸の賃貸借状況: レントロール未入手・想定賃料の妥当性確認必須</li>
+<li class="warn">🟡 引渡条件「相談」: 売主の意図不明・スケジュール柔軟性に交渉余地</li>
+<li class="warn">🟡 取引態様未確認: 仲介7% vs 売主4% で諸費用差額530万円</li>
+</ul>
+
+<div class="section-title">未確認・要入手書類</div>
+<ul>
+<li>レントロール / 公課証明書 / 建築確認済証 + 検査済証 / 登記簿謄本（土地・建物・私道）</li>
+<li>通行掘削同意書 / ハザードマップ実物 / 擁壁の検査済証</li>
+<li>境界確定書 / 越境物協定 / 新築瑕疵保険証券 / 建築図面一式</li>
+<li>取引態様明示書 / 重要事項説明書ドラフト</li>
+</ul>
+
+<div class="conclusion-box">
+<strong>リョウの判定: リスクレベル 高</strong><br>
+キャプテン基準で3項目逸脱に加え、私道接道・浸水想定区域・宅造規制区域と法務リスクが3つ重畳。融資行も限られる（オリックスNG濃厚、神奈川銀行・auじぶん銀行が候補）。特例で進める正当な理由がない限り、仕入対象から外すのが妥当。
+</div>
+
+<p style="margin-top: 12px;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260623_stones-kumegawa_DD.html" class="tool-link dd">📋 入力済みDDチェックリストを開く</a>
+</p>
+</div>
+
+<div class="card aki-card">
+<h2>🟢 アキ（IG+収支計算 + 玉川式）</h2>
+
+<div class="section-title">収益・費用（IG+ロジック準拠）</div>
+<table class="spec-table">
+<tr><th>満室時想定収入</th><td>10,812,000円/年</td></tr>
+<tr><th>実収入（空室5%控除）</th><td>10,271,400円/年</td></tr>
+<tr><th>費用合計</th><td>▲1,995,450円</td></tr>
+<tr><th>NOI</th><td><strong>8,275,950円/年</strong></td></tr>
+<tr><th>NOI利回り</th><td><strong>4.68%</strong></td></tr>
+</table>
+
+<div class="section-title">ローン試算（2パターン）</div>
+<table class="criteria-table">
+<tr><th>項目</th><th>① オリックス（100%・2.6%・35年）</th><th>② 神奈川銀行（90%・2.25%・35年）</th></tr>
+<tr><td>借入額</td><td>17,700万円</td><td>15,930万円</td></tr>
+<tr><td>年間返済額</td><td>7,707,516円</td><td>6,580,428円</td></tr>
+<tr><td>CF</td><td><strong>568,434円/年（56.8万円）</strong></td><td><strong>1,695,522円/年（169.6万円）</strong></td></tr>
+<tr><td>CF率</td><td class="ng">0.32%</td><td class="ng">0.96%</td></tr>
+<tr><td>返済比率</td><td>75.0%</td><td>64.1%</td></tr>
+<tr><td>自己資金</td><td>12,390,000円</td><td>30,090,000円</td></tr>
+<tr><td>CCR</td><td class="ng">4.6%</td><td class="ng">5.6%</td></tr>
+</table>
+
+<div class="section-title">積算評価</div>
+<table class="spec-table">
+<tr><th>建物評価</th><td>275.55㎡ × 210,000円 × 残存率1.0 = 57,865,500円</td></tr>
+<tr><th>土地評価（資料路線価16.5万円）</th><td>159.40㎡ × 16.5万円/㎡ = 26,301,000円</td></tr>
+<tr><th>積算合計</th><td><strong>84,166,500円</strong></td></tr>
+<tr><th>積算比率</th><td class="ng">47.6%（目標70%まで▲39,733,500円）</td></tr>
+</table>
+<p style="font-size: 13px; color: #718096;">※ chikamap実測の20万円/㎡で再計算しても積算比率は約49.6%。いずれにせよ70%基準には大きく届きません。</p>
+
+<div class="conclusion-box">
+<strong>アキの判定: 現価格での購入は推奨しません</strong><br>
+「数字を見る限り、ストーンズ久米川は<strong>『ぜんぶNG』のレベル</strong>です。NOI利回り4.68%・CF率0.32%（オリックス）・積算比率47.6%。指値で14,500万円程度まで下がれば利回り7.46%・CCR約8%まで改善しますが、それでもキャプテン基準には届きません。」
+</div>
+
+<p style="margin-top: 12px;">
+<a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=17700&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=6.10&floorArea=275.55&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=17700&pi_age_inp=0&pi_yield_inp=6.10&pi_area_inp=275.55&pi_rooms_inp=9&ik_land_area=159.40&ik_route_price=20&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&buildStruct=%E6%9C%A8%E9%80%A0&pi_struct_sel=%E6%9C%A8%E9%80%A0&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%9D%B1%E6%9D%91%E5%B1%B1%E5%B8%82%E8%AB%B8%E5%AD%A3%E7%94%BA2-26-6" class="tool-link ig">📊 InvestGate+【資料賃料】</a>
+<a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=17700&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=4.94&floorArea=275.55&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=17700&pi_age_inp=0&pi_yield_inp=4.94&pi_area_inp=275.55&pi_rooms_inp=9&ik_land_area=159.40&ik_route_price=20&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&buildStruct=%E6%9C%A8%E9%80%A0&pi_struct_sel=%E6%9C%A8%E9%80%A0&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%9D%B1%E6%9D%91%E5%B1%B1%E5%B8%82%E8%AB%B8%E5%AD%A3%E7%94%BA2-26-6" class="tool-link ig-sumasate">📊 InvestGate+【スマサテ賃料】</a>
+<a href="../../knowledge/tamagawa-analysis/20260623_stones-kumegawa_TG.html" class="tool-link tg">📈 玉川式収益試算シート</a>
+</p>
+</div>
+
+<div class="card murata-card">
+<h2>🟤 村田先生（一級建築士コメント）</h2>
+
+<div class="section-title">構造・築年数の評価</div>
+<ul>
+<li><strong>構造形式</strong>: 木造3階建275.55㎡・在来軸組工法＋構造用合板による耐力壁仕様と推定。<strong>許容応力度計算（構造計算書）が必須</strong>のため、構造計算書の有無を最優先で確認。</li>
+<li><strong>築年・新耐震区分</strong>: 2000年基準＋2025年4月改正前の駆け込み確認申請の可能性。確認申請日付（2024年中か2025年4月以降か）で適合省エネ基準が分かる。</li>
+<li><strong>屋根（合金メッキ鋼板ぶき）</strong>: SGL（エスジーエル）の可能性大。耐食性が従来ガルバの1.5〜3倍。<strong>葺き替えは40年超でOK</strong>と判断。軒先・ケラバの板金処理は現地必須確認。</li>
+<li><strong>準防火地域での外壁・開口部</strong>: 「準耐火建築物（45分準耐火）」以上必須。<strong>防火構造認定番号・防火設備認定番号</strong>が図面仕上表に記載されていれば適合と判断。</li>
+<li><strong>基礎・地盤</strong>: 宅造規制区域内のため、<strong>べた基礎＋地盤改良</strong>が標準。地盤調査報告書の確認を強く推奨。</li>
+</ul>
+
+<div class="section-title">修繕リスク・費用概算（20年合計目安: 700〜900万円）</div>
+<ul>
+<li>築3〜5年: 初期不具合対応・コーキング点検（5〜20万円）</li>
+<li>築7〜10年: 給湯器交換（順次9戸×12〜15万＝<strong>110〜135万円</strong>）</li>
+<li>築10〜12年: 外壁シーリング打ち替え＋部分塗装（<strong>120〜180万円</strong>）</li>
+<li>築12〜15年: バルコニーFRP防水トップコート（<strong>40〜55万円</strong>）</li>
+<li>築15年: 本格外壁塗装＋シーリング全打ち替え（<strong>250〜350万円</strong>）</li>
+<li>築20〜25年: 給排水管点検・部分更新（<strong>135〜225万円</strong>）</li>
+<li>築30年: 2回目外壁塗装＋屋根塗装（<strong>350〜450万円</strong>）</li>
+</ul>
+
+<div class="section-title">法令適合性・確認すべき書類（最優先）</div>
+<ul>
+<li>★★★ 建築確認済証 / 検査済証 / 構造計算書（許容応力度計算） / 地盤調査報告書 / 造成検査済証</li>
+<li>★★★ 道路位置指定図 or 私道協定書（42条1項5号道路の幅員指定・所有者・通行掘削承諾）</li>
+<li>★★★ 住宅瑕疵担保責任保険証券（新築から10年保証）</li>
+<li>★★ 仕上表・準耐火認定番号一覧 / 省エネ計算書 / 第三種高度地区適合（北側斜線）</li>
+</ul>
+
+<div class="section-title">現地で必ず確認してほしいこと（村田からの宿題）</div>
+<ol>
+<li>基礎まわり: ベタ基礎の立ち上がりにジャンカ・ひび割れ・水染み跡がないか</li>
+<li>外壁・シーリング: サイディング目地シーリングの痩せ・亀裂（特に南・西面）</li>
+<li>サッシ・防火設備: 網入りガラスor防火認定サッシのシール（認定番号刻印）を実物で確認</li>
+<li><strong>バルコニー防水（最重要）</strong>: FRP防水＋ドレン排水を全戸チェック</li>
+<li>浸水想定区域での1階対策: 1階開口部のGL高さ・分電盤・給湯器の設置高さ</li>
+<li>共用部・階段・廊下: 鉄骨外階段の溶接部の発錆・モルタル踏板のクラック</li>
+<li>各戸内部（音・断熱）: 上下階・隣戸の遮音性能テスト・LL-45等級フローリング</li>
+<li>駐輪場・駐車場・ゴミ置場: 最低18台分（1戸2台×9戸）の駐輪場</li>
+<li>給湯器・エアコン: メーカー・型番・製造年を写真記録</li>
+<li>屋根（可能なら）: 棟板金の浮き・ビス頭の防水処理</li>
+</ol>
+
+<div class="conclusion-box">
+<strong>村田先生の総合所感</strong>: 「建築的には、新築・準耐火・SGL屋根・2000年基準＋αという、現代木造アパートの標準スペックが揃った安心できる案件です。住宅瑕疵担保10年保証も追い風。<br><br>
+現場を見ないと断言はできませんが、木造3階建ての落とし穴は3つ —（1）バルコニー防水、（2）シーリング劣化、（3）遮音性能。<br><br>
+立地面では『私道（42条1項5号）』『宅造規制区域』『浸水想定区域』と書類確認項目が多いため、<strong>取得書類一式の完備が買付の絶対条件</strong>。書類が揃えば建築面で減点なし、とお返しします。」
+</div>
+</div>
+
+<div class="card consult-card">
+<h2>📌 キャプテンへの確認事項まとめ</h2>
+<ol>
+<li><strong>そもそも本物件を仕入対象として進める意図はありますか？</strong>（利回り6.10%・1.77億円でキャプテン基準を大きく外れているため、特例で進めるなら理由を確認したい）</li>
+<li>取引態様の確認: 仲介か売主か（諸費用7% vs 4%で差額530万円）</li>
+<li>レントロール・建築確認済証・検査済証の依頼を仲介に出す（最優先）</li>
+<li>私道（5号道路）の通行掘削同意書・私道持分・幅員（4m以上）の確認</li>
+<li>宅造規制区域内のため擁壁の有無と検査済証の確認</li>
+<li>浸水想定区域の浸水深ランク（0.5m未満 / 0.5-3m / 3m以上）の確認</li>
+<li>引渡条件「相談」について、売主の希望時期・条件のヒアリング</li>
+<li>BRICKS管理可否（玉川式シートはpm_rate=5%で試算）</li>
+<li>指値交渉前提か（現価格では全項目NG。指値前提なら何万円まで下げる予定か）</li>
+</ol>
+</div>
+
+<div class="card team-card">
+<h2>🎯 チーム総合所見</h2>
+<table class="spec-table">
+<tr><th>総合判断</th><td class="ng"><strong>スルー推奨</strong></td></tr>
+<tr><th>最大リスク</th><td>① 資料賃料がスマサテ比+19%の過大設定（実力利回り4.94%）<br>② 価格1.77億円はキャプテン基準1億円を大幅超過<br>③ 積算比率47.6%でフルローン審査に苦戦の可能性<br>④ 私道接道・浸水想定区域・宅造規制区域の三重法務リスク</td></tr>
+<tr><th>光る点</th><td>新築・都内・西武新宿線徒歩10分という立地希少性<br>SGL屋根・準耐火・2000年基準＋αという建築的健全性<br>住宅瑕疵担保10年保証残あり</td></tr>
+<tr><th>次のアクション</th><td>
+① キャプテンに「進める意図」をまず確認<br>
+② 進める場合は取引態様＋レントロール＋建築書類の入手依頼<br>
+③ 指値前提なら14,500万円以下を狙う（それでも基準未達ですが）<br>
+④ 並行物件の探索を継続（ハルトに新着チェック指示推奨）
+</td></tr>
+</table>
+</div>
+
+<div style="text-align: center; padding: 24px; color: #718096; font-size: 12px;">
+TC Capitals 仕入部 — ハルト・リョウ・アキ・村田先生<br>
+精査日: 2026-06-23
+</div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260623_stones-kumegawa_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260623_stones-kumegawa_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
