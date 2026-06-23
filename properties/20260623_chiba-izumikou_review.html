@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>千葉市中央区出洲港1棟マンション — 仕入部チーム精査レポート</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif; background: #f4f5f7; color: #2c3e50; line-height: 1.7; padding: 20px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  header { background: #1a365d; color: white; padding: 32px 28px; border-radius: 10px 10px 0 0; }
+  header h1 { font-size: 26px; margin-bottom: 8px; }
+  header .meta { font-size: 14px; opacity: 0.85; }
+  .alert-red { background: #c81e1e; color: white; padding: 22px 28px; font-size: 18px; font-weight: bold; border-left: 8px solid #7c0a0a; }
+  .alert-red .label { font-size: 14px; opacity: 0.9; display: block; margin-bottom: 4px; }
+  .card { background: white; padding: 28px; margin-bottom: 18px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 8px; }
+  .summary-grid .item { background: #f7f9fc; padding: 14px; border-radius: 6px; border-left: 4px solid #1a365d; }
+  .summary-grid .item .label { font-size: 12px; color: #6b7280; }
+  .summary-grid .item .value { font-size: 17px; font-weight: bold; color: #1a365d; margin-top: 4px; }
+  h2 { font-size: 20px; padding: 14px 18px; border-radius: 6px 6px 0 0; margin-bottom: 0; }
+  h2.h-haruto { background: #e76f51; color: white; }
+  h2.h-research { background: #008080; color: white; }
+  h2.h-ryo { background: #2563eb; color: white; }
+  h2.h-aki { background: #16a34a; color: white; }
+  h2.h-murata { background: #92400e; color: white; }
+  h2.h-criteria { background: #4a5568; color: white; }
+  h2.h-captain { background: #7c3aed; color: white; }
+  h2.h-final { background: #1a365d; color: white; }
+  .section-body { background: white; padding: 22px 26px; border-radius: 0 0 8px 8px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  table th, table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+  table th { background: #f3f4f6; font-weight: 600; }
+  .ok { color: #16a34a; font-weight: bold; }
+  .ng { color: #dc2626; font-weight: bold; }
+  .warn { color: #d97706; font-weight: bold; }
+  .neutral { color: #4b5563; }
+  ul.list { margin: 10px 0 10px 22px; }
+  ul.list li { margin-bottom: 6px; }
+  .link-row { background: #f7f9fc; padding: 12px 16px; border-radius: 6px; margin: 8px 0; border-left: 4px solid #008080; }
+  .link-row a { color: #1a365d; font-weight: bold; text-decoration: none; }
+  .link-row a:hover { text-decoration: underline; }
+  .hazard-table th { background: #fef3c7; }
+  .hazard-table .row-ng { background: #fee2e2; }
+  .hazard-table .row-warn { background: #fef3c7; }
+  .quote { font-style: italic; color: #4b5563; padding-left: 14px; border-left: 3px solid #cbd5e0; margin: 10px 0; }
+  .footer { text-align: center; color: #6b7280; font-size: 13px; padding: 20px; margin-top: 24px; }
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260623_chiba-izumikou_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=12760&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.45&floorArea=264.00&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=5&taxRateIncome=20&pi_price_inp=12760&pi_age_inp=5&pi_yield_inp=7.00&pi_area_inp=264.00&pi_rooms_inp=12&ik_land_area=300.71&ik_route_price=14&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%8D%83%E8%91%89%E7%9C%8C%E5%8D%83%E8%91%89%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E5%87%BA%E6%B4%B2%E6%B8%AF9-28" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=12760&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=6.21&floorArea=264.00&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=5&taxRateIncome=20&pi_price_inp=12760&pi_age_inp=5&pi_yield_inp=6.21&pi_area_inp=264.00&pi_rooms_inp=12&ik_land_area=300.71&ik_route_price=14&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%8D%83%E8%91%89%E7%9C%8C%E5%8D%83%E8%91%89%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E5%87%BA%E6%B4%B2%E6%B8%AF9-28" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260623_chiba-izumikou_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20260623_chiba-izumikou_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+<div class="container">
+
+  <header>
+    <h1>🏢 千葉市中央区出洲港1棟マンション — 仕入部チーム精査レポート</h1>
+    <div class="meta">精査日: 2026年6月23日 / チーム: ハルト・リョウ・アキ・村田先生</div>
+  </header>
+
+  <div class="alert-red">
+    <span class="label">【総合判定】</span>
+    ⚠️ ハザードリスクにより見送り推奨（条件付き精査続行も可）
+    <div style="font-size: 14px; font-weight: normal; margin-top: 8px; opacity: 0.95;">
+      標高1.8m埋立地・洪水3〜5m／高潮5〜10m／津波3〜5mの三重ハザード該当。
+      利回り7.00%もキャプテン基準7.1%未達。価格1.276億は1棟目戦略「1億円以内」を超過。
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="color: #1a365d; margin-bottom: 12px;">📋 物件サマリー</h3>
+    <div class="summary-grid">
+      <div class="item"><div class="label">価格</div><div class="value">1億2,760万円</div></div>
+      <div class="item"><div class="label">表面利回り（資料）</div><div class="value">7.00%</div></div>
+      <div class="item"><div class="label">スマサテ実勢利回り</div><div class="value">6.21%</div></div>
+      <div class="item"><div class="label">構造・築年</div><div class="value">木造2階建 / 築5年（2021年10月）</div></div>
+      <div class="item"><div class="label">所在地</div><div class="value">千葉県千葉市中央区出洲港9-28</div></div>
+      <div class="item"><div class="label">交通</div><div class="value">JR外房線「本千葉」徒歩10分</div></div>
+      <div class="item"><div class="label">間取り・戸数</div><div class="value">1K×12戸（各22.00㎡）</div></div>
+      <div class="item"><div class="label">土地 / 建物面積</div><div class="value">300.71㎡ / 264.00㎡</div></div>
+      <div class="item"><div class="label">用途地域</div><div class="value">準工業地域 / 建ぺい60% / 容積200%</div></div>
+      <div class="item"><div class="label">取引態様</div><div class="value">媒介（IPA不動産）</div></div>
+    </div>
+  </div>
+
+  <div>
+    <h2 class="h-criteria">📊 キャプテン基準チェック</h2>
+    <div class="section-body">
+      <table>
+        <thead><tr><th>基準</th><th>本物件</th><th>判定</th></tr></thead>
+        <tbody>
+          <tr><td>築10年以内</td><td>築5年（2021年10月）</td><td class="ok">◯</td></tr>
+          <tr><td>価格1億円以内</td><td>1億2,760万円</td><td class="ng">✕（+27.6%超過）</td></tr>
+          <tr><td>利回り7.1%以上</td><td>表面7.00% / 実勢6.21%</td><td class="ng">✕</td></tr>
+          <tr><td>一都三県・16号内側</td><td>千葉市中央区（16号内側）</td><td class="ok">◯</td></tr>
+          <tr><td>CF率1%以上（神奈川銀ベース）</td><td>1.19%</td><td class="ok">◯</td></tr>
+          <tr><td>CCR15%以上</td><td>7.0〜7.9%</td><td class="ng">✕</td></tr>
+          <tr><td>積算評価60%以上</td><td>建物4,284万＋土地4,210万 = 8,494万（67%）</td><td class="ok">◯</td></tr>
+          <tr><td>10年目税引後IRR ≥25%</td><td>玉川式シートで要確認</td><td class="warn">要確認</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:10px; color:#dc2626; font-weight:bold;">→ 8指標中4指標が不適合。最大の問題は「価格1億超過」と「利回り基準未達」。</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 18px;">
+    <h2 class="h-research">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト自動調査）</h2>
+    <div class="section-body">
+
+      <h4 style="margin-bottom:8px; color:#1a365d;">相続路線価（chikamap 令和7年分）</h4>
+      <table>
+        <tr><th>路線価</th><td><strong>14万円/㎡</strong>（借地権割合 D 60%）</td></tr>
+        <tr><th>路線価ベース土地評価</th><td>14万円/㎡ × 300.71㎡ ≈ <strong>4,210万円</strong></td></tr>
+      </table>
+
+      <h4 style="margin: 20px 0 8px; color:#1a365d;">重ねるハザードマップ（国交省・国土地理院）</h4>
+      <table class="hazard-table">
+        <thead><tr><th>災害種別</th><th>判定</th><th>レベル</th></tr></thead>
+        <tbody>
+          <tr class="row-ng"><td>洪水浸水想定</td><td>❌ <strong>3.0〜5.0m</strong>（想定最大規模）</td><td class="ng">即NG級</td></tr>
+          <tr class="row-ng"><td>高潮浸水想定</td><td>❌ <strong>5.0〜10.0m</strong>（想定最大規模）</td><td class="ng">即NG級</td></tr>
+          <tr class="row-ng"><td>津波浸水想定</td><td>❌ <strong>3.0〜5.0m</strong>（想定最大規模）</td><td class="ng">即NG級</td></tr>
+          <tr><td>土砂災害警戒</td><td>✅ 非該当</td><td class="ok">問題なし</td></tr>
+          <tr><td>標高（DEM5A）</td><td><strong>1.8m</strong>（埋立地）</td><td class="warn">低地</td></tr>
+          <tr><td>液状化危険度</td><td>確認不可（現地・市マップで要確認）</td><td class="warn">要確認</td></tr>
+        </tbody>
+      </table>
+      <p style="background:#fee2e2; padding:12px; border-radius:6px; margin-top:10px; color:#7c0a0a;">
+        ⚠️ <strong>標高1.8m・三重ハザード該当</strong>。木造2階建では高潮5〜10m想定は致命的（屋上避難不可・全損リスク）。
+        2011年東日本大震災で千葉市中央区沿岸部は広範囲液状化発生。火災保険水災特約の保険料は1.5〜2倍想定。
+      </p>
+
+      <h4 style="margin: 20px 0 8px; color:#1a365d;">スマサテ賃料査定</h4>
+      <table>
+        <tr><th>査定賃料（標準・1K/22㎡）</th><td><strong>55,000円/戸</strong></td></tr>
+        <tr><th>単価</th><td>2,626円/㎡ / 8,682円/坪</td></tr>
+        <tr><th>資料記載平均賃料</th><td>53,000円/戸</td></tr>
+        <tr><th>乖離</th><td class="ok">+2,000円（+3.8%）→ 賃料設定適正（やや上振れ余地）</td></tr>
+        <tr><th>査定結果URL</th><td><a href="https://owners.sumasate.jp/assessment_results/430181" target="_blank">スマサテ結果ページ</a></td></tr>
+      </table>
+
+      <div class="link-row" style="margin-top:18px;">
+        🔍 <a href="{survey_url}">物件調査レポート（スマサテ・路線価・ハザード一体型）</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 18px;">
+    <h2 class="h-haruto">🔍 ハルト（エリア・利回り分析）</h2>
+    <div class="section-body">
+      <h4 style="color:#e76f51; margin-bottom:8px;">千葉市中央区・本千葉駅エリア</h4>
+      <ul class="list">
+        <li><strong>本千葉駅</strong>: JR外房線、千葉駅まで1駅2分、東京駅まで47分。乗降客数約1.0万人/日</li>
+        <li><strong>人口</strong>: 千葉市中央区約21.5万人・横ばい〜微増。3駅集約で利便性高い</li>
+        <li><strong>再開発</strong>: 千葉駅周辺は活況だが、本千葉駅周辺は官庁街（県庁・地裁・市役所）の地味エリア</li>
+        <li><strong>賃貸需要</strong>: 官庁職員・千葉大医・近隣事業所単身者中心。1K需要は安定</li>
+      </ul>
+
+      <h4 style="color:#e76f51; margin: 18px 0 8px;">出洲港エリアの特性</h4>
+      <ul class="list">
+        <li>千葉港の埋立地。準工業地域。倉庫・物流・工場が多い「働く街」</li>
+        <li>本千葉駅まで国道357沿い・夜間歩行環境はやや寂しい</li>
+        <li>入居者層は<strong>物流系・工場勤務の単身ブルーカラー中心</strong>。転勤・離職での入退去サイクル早め</li>
+        <li>住所イメージは「働く街・港町」でマイナス傾向</li>
+      </ul>
+
+      <h4 style="color:#e76f51; margin: 18px 0 8px;">利回り相場感</h4>
+      <ul class="list">
+        <li>千葉市中央区・築5年木造1棟物件の市場利回り: <strong>概ね7.0〜8.0%</strong></li>
+        <li>本物件7.00%は<strong>相場下限ギリギリ</strong>。新築プレミアム＋エリア安定性で買主は付くが投資妙味薄い</li>
+        <li>スマサテ査定実勢でも<strong>6.21%</strong>と市場相場を下回る</li>
+      </ul>
+
+      <h4 style="color:#e76f51; margin: 18px 0 8px;">ハルト総合所見</h4>
+      <div class="quote">
+        <p>結論: <strong>見送り推奨 ✕</strong></p>
+        <p>築5年・1K22㎡で設備充実・本千葉徒歩10分という基本スペックは合格ですが、
+        ①利回り未達（実勢6.21%）、②ハザード3冠（出洲港標高1.8m埋立地）、③エリアが融資戦略外（神奈川中心の戦略から外れる千葉市）の3点が決定的です。</p>
+        <p>もし狙うなら最低条件は<strong>1.15億円以下指値（実勢7.1%確保）</strong>＋水災特約付き火災保険料試算＋築15年で1億割れ前提のCF設計。
+        媒介物件で築5年の値引き幅は通常5〜8%（1.18億程度）が現実的で、1.15億は厳しいです。</p>
+        <p>本千葉エリア自体は嫌いじゃないので、出洲港じゃなく<strong>千葉駅・登戸・新千葉</strong>で同条件物件が出たら積極的に追いたいです。</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 18px;">
+    <h2 class="h-ryo">📋 リョウ（DDチェック）</h2>
+    <div class="section-body">
+      <h4 style="color:#2563eb; margin-bottom:8px;">確認済み（資料記載あり・問題なし）</h4>
+      <ul class="list">
+        <li>新耐震基準（2021年10月築・2000年基準完全準拠）</li>
+        <li>検査済証あり → 融資審査通過しやすい</li>
+        <li>接道4.00m × 13.18m接面（4m接道確保）</li>
+        <li>土地: 所有権・地目宅地</li>
+        <li>用途地域: 準工業地域（共同住宅は適法）</li>
+        <li>取引態様: 媒介（諸費用約7%）</li>
+        <li>現況: 全12戸満室稼働</li>
+        <li>固都税実額: 447,314円/年（価格1.276億に対し0.35%・妥当）</li>
+      </ul>
+
+      <h4 style="color:#2563eb; margin: 18px 0 8px;">リスクフラグ（要注意）</h4>
+      <ol class="list" style="list-style:decimal;">
+        <li><strong>接道42条1項3号道路（既存道路扱い）</strong>: 実測4m未満ならセットバック発生 → 再建築時の有効敷地縮小</li>
+        <li><strong>準工業地域・周辺用途リスク</strong>: 工場・倉庫・風俗も建築可能。半径100mの事業所要調査</li>
+        <li><strong>港湾埋立地リスク</strong>: 液状化・高潮（→ハルトの調査で確認済み・浸水3冠）</li>
+        <li><strong>宅地造成等工事規制区域</strong>: 過去の宅造履歴・擁壁の有無確認必要</li>
+        <li><strong>全戸敷金0円</strong>: AD・フリーレントで埋めた募集の可能性。2026-2028年に退去ラッシュ懸念</li>
+        <li><strong>駐車場P2が外部契約者</strong>: 売買時の契約継承を確認</li>
+        <li><strong>ランニングコスト疑問</strong>: 「その他29,340円/月」内訳不明・BM管理(137,940円/年)と管理委託料(27,931円/月)の二重計上疑い</li>
+        <li><strong>利回り基準未達</strong>: 7.00%は当社基準7.1%に未達</li>
+      </ol>
+
+      <h4 style="color:#2563eb; margin: 18px 0 8px;">未確認・要入手書類</h4>
+      <ul class="list">
+        <li>登記簿謄本（土地・建物）・抵当権/差押の有無</li>
+        <li>公図・地積測量図</li>
+        <li>確認済証・検査済証の写し</li>
+        <li>道路台帳・道路明示図（42条1項3号の幅員証明）</li>
+        <li>宅造許可書・完了検査済証</li>
+        <li>12戸分の賃貸借契約書写し・直近3年レントロール推移</li>
+        <li>駐車場P2外部契約書</li>
+        <li>管理委託契約書・BM契約書（業務範囲の重複確認）</li>
+        <li>修繕履歴（過去3年・大規模修繕予定）</li>
+      </ul>
+
+      <h4 style="color:#2563eb; margin: 18px 0 8px;">リョウ総合判定</h4>
+      <div class="quote">
+        リスクレベル<strong>「中」</strong>（条件付き精査続行）。築浅・満室・新耐震・検査済証で基本スペックは合格ですが、
+        <strong>湾岸埋立地の液状化・宅造規制・準工業の周辺用途・接道4mギリ</strong>の4点クリアまで買付NG。
+        利回り7.00%は基準未達のため<strong>指値1.25億以下でなければ見送り推奨</strong>。
+      </div>
+
+      <div class="link-row" style="margin-top:14px;">
+        📋 <a href="{dd_url}">DD チェックリスト（入力済みHTML）</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 18px;">
+    <h2 class="h-aki">💹 アキ（IG+収支計算 + 玉川式）</h2>
+    <div class="section-body">
+      <h4 style="color:#16a34a; margin-bottom:8px;">IG+ 収支試算（資料賃料ベース）</h4>
+      <table>
+        <thead><tr><th>項目</th><th>オリックス（100%・2.6%・35年）</th><th>神奈川銀行（90%・2.25%・35年）</th></tr></thead>
+        <tbody>
+          <tr><td>満室収入</td><td>893.8万円/年</td><td>893.8万円/年</td></tr>
+          <tr><td>実収入（空室5%）</td><td>849.1万円</td><td>849.1万円</td></tr>
+          <tr><td>NOI</td><td>626.0万円（NOI利回り4.91%）</td><td>626.0万円</td></tr>
+          <tr><td>返済額</td><td>▲555.6万円</td><td>▲474.4万円</td></tr>
+          <tr><td>CF</td><td>70.4万円</td><td>151.6万円</td></tr>
+          <tr><td>CF率</td><td class="ng">0.55%</td><td class="ok">1.19%</td></tr>
+          <tr><td>返済比率</td><td>65.4%</td><td>55.9%</td></tr>
+          <tr><td>CCR</td><td class="ng">7.9%（自己資金893万）</td><td class="ng">7.0%（自己資金2,169万）</td></tr>
+        </tbody>
+      </table>
+
+      <h4 style="color:#16a34a; margin: 18px 0 8px;">積算評価（路線価14万円/㎡反映）</h4>
+      <ul class="list">
+        <li>建物評価: 4,284万円（再建築単価21万円/㎡・残存率77.3%）</li>
+        <li>土地評価: 14万円/㎡ × 300.71㎡ ≈ <strong>4,210万円</strong></li>
+        <li>積算合計: 約8,494万円 → 価格1.276億に対し<strong>積算比率 66.6%</strong> <span class="ok">◯（60%超）</span></li>
+      </ul>
+
+      <h4 style="color:#16a34a; margin: 18px 0 8px;">スマサテ賃料版（55,000円/戸）</h4>
+      <ul class="list">
+        <li>スマサテ賃料ベース表面利回り: <strong>6.21%</strong>（家賃のみ計算）</li>
+        <li>駐車場・バイク等収入を加味した「実勢利回り」: 7.23%（資料の駐車場収入維持時）</li>
+        <li>キャプテン基準7.1%にはギリギリ届くが、家賃のみベースでは未達</li>
+      </ul>
+
+      <h4 style="color:#16a34a; margin: 18px 0 8px;">アキからひとこと</h4>
+      <div class="quote">
+        6指標中、価格・利回り・CCRがNG、CF率と積算（路線価反映後）はOK、IRRは要確認の混合結果。
+        最大の問題は<strong>価格1億超え（12,760万円・基準上限+27.6%）</strong>で、1棟目戦略「1億円以内」に明確に反します。
+        ただし神奈川銀行ベースならCF率1.19%でぎりぎりC評価ライン到達、積算は66.6%確保で評価基準クリア。
+        固都税は資料実額447,314円を玉川式に反映済み（bldg_eval/land_tax_baseで逆算調整）。
+      </div>
+
+      <div class="link-row" style="margin-top:14px;">
+        💹 <a href="{ig_url}">IG+ 収支試算【資料賃料版】</a>
+      </div>
+      <div class="link-row">
+        💹 <a href="{ig_sumasate_url}">IG+ 収支試算【スマサテ賃料版 6.21%】</a>
+      </div>
+      <div class="link-row">
+        📈 <a href="{tg_url}">玉川式収益試算シート（35年CF・10年目IRR ≥25%要確認）</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 18px;">
+    <h2 class="h-murata">🏗️ 村田先生（建築士コメント）</h2>
+    <div class="section-body">
+      <p class="quote">「現場を見ないと断言はできませんが——」</p>
+
+      <h4 style="color:#92400e; margin: 14px 0 8px;">構造評価</h4>
+      <ul class="list">
+        <li>木造2階建・築5年（2021年10月）・1K×12戸×22㎡の規格商品アパート</li>
+        <li>工法推定: 在来軸組+構造用合板面材耐力壁 または 2×4枠組壁工法</li>
+        <li><strong>2000年基準完全準拠 — 新耐震基準よりさらに改善された木造耐震最上位水準</strong></li>
+        <li>築5年で構造躯体劣化はまず心配なし</li>
+        <li>12戸×22㎡の配置効率良好・設備充実で「差別化を狙った木造アパート」</li>
+      </ul>
+
+      <h4 style="color:#92400e; margin: 18px 0 8px;">直近修繕リスク（築5〜10年）</h4>
+      <ul class="list">
+        <li>給湯器の保証切れ → 1台10〜15万円 × 12戸 = <strong>120〜180万円</strong>（10年スパン）</li>
+        <li>エアコン12戸分交換 → 1台8〜12万円 = <strong>96〜144万円</strong></li>
+        <li>EV充電器の維持管理コスト</li>
+      </ul>
+
+      <h4 style="color:#92400e; margin: 18px 0 8px;">中期修繕リスク（10〜15年）</h4>
+      <ul class="list">
+        <li>外壁塗装・サイディング目地シーリング打替: <strong>250〜400万円</strong></li>
+        <li>屋根防水・塗装: 80〜150万円</li>
+        <li>給湯器全戸交換2巡目: 120〜180万円</li>
+        <li>シロアリ防蟻処理更新: 30〜50万円</li>
+        <li>EV充電器更新: 50〜100万円</li>
+        <li><strong>築15年時点で500〜800万円規模の修繕費が必要</strong>。年間40〜50万円の修繕積立を推奨</li>
+      </ul>
+
+      <h4 style="color:#92400e; margin: 18px 0 8px;">立地リスク（最重要）</h4>
+      <ul class="list">
+        <li><strong>液状化リスク</strong>: 出洲港は東京湾岸埋立地・港湾隣接。2011年東日本大震災で千葉市美浜区・中央区沿岸部は広範囲液状化発生</li>
+        <li>木造2階建ては建物自体が軽いので倒壊リスクは低いが、不同沈下で建物の傾き・配管破断リスク</li>
+        <li><strong>基礎の仕様と地盤改良の有無確認が極めて重要</strong>（地盤調査報告書必須）</li>
+        <li>居住促進区域 = 千葉市立地適正化計画の「居住誘導区域」=長期保有上プラス材料</li>
+      </ul>
+
+      <h4 style="color:#92400e; margin: 18px 0 8px;">現地で必ず確認</h4>
+      <ul class="list">
+        <li>基礎の仕様と地盤改良の有無（地盤調査報告書・建築確認図書一式）</li>
+        <li>基礎外周のひび割れ・タイル目地のズレ・建具の建付け（不同沈下の兆候）</li>
+        <li>外壁サイディングのコーキング状態</li>
+        <li>小屋裏点検口からの確認（雨漏り・断熱・防蟻）</li>
+        <li>床下点検口からの確認（シロアリ・床下湿気）</li>
+        <li>EV充電器の仕様と契約形態・電気代負担</li>
+        <li>給湯器の設置状況（メーカー・型番・設置場所）</li>
+        <li>周辺の工場・倉庫・港湾施設の稼働状況（早朝・夕方・深夜の3回確認）</li>
+      </ul>
+
+      <h4 style="color:#92400e; margin: 18px 0 8px;">設備評価</h4>
+      <div class="quote">
+        追い焚き機能・モニター付きインターホン・EV充電器・防犯カメラ・独立洗面台・システムキッチン2口コンロ —
+        <strong>22㎡1Kとしては明らかに上位仕様</strong>。建築費は5,500〜6,000万円の可能性。
+        EV充電器は将来投資としては正解だが、現時点の集客効果は限定的で15年後の更新費50〜100万円を計上必要。
+      </div>
+
+      <h4 style="color:#92400e; margin: 18px 0 8px;">村田総合所感</h4>
+      <div class="quote">
+        建物単体として見れば、築5年・2000年基準準拠・検査済証あり・設備充実で<strong>ほぼ問題のない物件</strong>。
+        木造アパートとしての基本品質は高い。
+        <br><br>
+        ただし<strong>立地のハザード性（液状化・浸水・高潮）と準工業地域の周辺環境変化</strong>の2点が分かれ目。
+        基礎の地盤改良仕様と建築確認図書一式の取得をDDで必須化してください。
+        建物だけ見れば「買い」寄りですが、立地のリスク評価が分かれ目になります。
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 18px;">
+    <h2 class="h-captain">📞 キャプテンへの確認事項まとめ</h2>
+    <div class="section-body">
+      <ol class="list" style="list-style:decimal;">
+        <li><strong>価格1億超え（12,760万円）</strong>: 1棟目戦略「1億円以内」との整合性をどう判断されますか？</li>
+        <li><strong>指値方針</strong>: 1.276億 → 1.25億（利回り7.15%）以下の指値で勝負しますか？満室・築5年なので売主強気の可能性あり</li>
+        <li><strong>融資</strong>: 出洲港（埋立地・標高1.8m）でオリックス・auじぶん銀行は通る感触ありますか？湾岸エリアはローン審査で物件評価が落ちることがあります</li>
+        <li><strong>エリア戦略</strong>: 16号内側基準に「千葉市中央区」は含まれますか？JR本千葉駅徒歩10分は許容範囲か確認したい</li>
+        <li><strong>ハザード3冠</strong>: 洪水3-5m・高潮5-10m・津波3-5mを織り込んでも検討続行しますか？保険料1.5〜2倍想定</li>
+        <li><strong>現地調査</strong>: 仲介の森さんに ①公図 ②確認済証 ③42条1項3号道路の道路台帳 ④賃貸借契約書12戸分 ⑤地盤調査報告書 ⑥宅造許可書 を一括請求してOKですか？</li>
+        <li><strong>レントロール</strong>: 2026-2028年に集中する更新時期の退去シミュレーションを依頼しますか？満室前提7.00%が崩れる前提のNG判定基準は？</li>
+        <li><strong>10年目税引後IRR</strong>: 玉川式シートでブラウザ確認お願いします（25%目標）</li>
+      </ol>
+    </div>
+  </div>
+
+  <div style="margin-top: 18px;">
+    <h2 class="h-final">🎯 チーム総合所見</h2>
+    <div class="section-body">
+      <h4 style="color:#1a365d; margin-bottom:8px;">総合判断</h4>
+      <p style="background:#fee2e2; padding:12px; border-radius:6px; color:#7c0a0a; font-weight:bold;">
+        4名一致で「条件付きNG・見送り推奨」。
+      </p>
+
+      <h4 style="color:#1a365d; margin: 18px 0 8px;">最大リスク</h4>
+      <ol class="list" style="list-style:decimal;">
+        <li><strong>ハザード3冠</strong>: 標高1.8m埋立地で洪水3-5m・高潮5-10m・津波3-5m。木造2階建てに高潮5-10m想定は致命的</li>
+        <li><strong>キャプテン基準4項目NG</strong>: 価格1億超・利回り7.1%未達・CCR15%未達</li>
+        <li><strong>融資戦略外エリア</strong>: 千葉市中央区はオリックス/auじぶん戦略から外れる可能性</li>
+        <li><strong>準工業地域・周辺用途変化リスク</strong>: 10年保有中に工場・倉庫が隣接する可能性</li>
+      </ol>
+
+      <h4 style="color:#1a365d; margin: 18px 0 8px;">プラス材料</h4>
+      <ul class="list">
+        <li>築5年・新耐震2000年基準準拠・検査済証あり・建物基本品質高い</li>
+        <li>全12戸満室稼働・賃料設定もスマサテ査定と整合（適正）</li>
+        <li>設備充実（追い焚き・EV充電器・モニターインターホン・防犯カメラ）</li>
+        <li>積算比率66.6%（路線価14万円/㎡）でキャプテン基準クリア</li>
+        <li>本千葉駅徒歩10分・千葉駅2分・東京駅47分の交通利便性</li>
+      </ul>
+
+      <h4 style="color:#1a365d; margin: 18px 0 8px;">次のアクション（推奨）</h4>
+      <ol class="list" style="list-style:decimal;">
+        <li><strong>本物件は基本見送り</strong>。ただし価格1.15億以下の指値が通る場合のみ検討余地（実勢7.1%確保）</li>
+        <li>同条件で<strong>千葉駅・登戸・新千葉・蘇我</strong>等のハザード問題なし物件が出たら積極的に追う</li>
+        <li>もし精査続行なら、ハザード・接道・地盤・宅造規制の4点をDD必須化</li>
+        <li>火災保険水災特約付き保険料の試算（1.5〜2倍想定）を事前確認</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="footer">
+    🤖 仕入部チーム（ハルト・リョウ・アキ・村田先生）/ 精査日: 2026年6月23日<br>
+    TC Capitals 不動産仕入部
+  </div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260623_chiba-izumikou_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260623_chiba-izumikou_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
