@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玉川式不動産収益試算シート</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Meiryo","Yu Gothic",sans-serif;font-size:13px;background:#f0f2f5;color:#222}
+.header{background:#1a3a5c;color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
+.header h1{font-size:16px;font-weight:bold}
+.header small{font-size:11px;opacity:.8}
+.tab-bar{display:flex;flex-wrap:wrap;background:#2c5282;gap:2px;padding:4px 6px}
+.tab-bar button{background:#3a6fa8;color:#fff;border:none;padding:6px 10px;font-size:11px;cursor:pointer;border-radius:3px 3px 0 0;white-space:nowrap}
+.tab-bar button.active{background:#fff;color:#1a3a5c;font-weight:bold}
+.tab-bar button:hover:not(.active){background:#4a8fc8}
+.tab-content{display:none;padding:14px;background:#fff;min-height:calc(100vh - 90px)}
+.tab-content.active{display:block}
+/* Input form styles */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-section{background:#f8faff;border:1px solid #c8d8f0;border-radius:6px;padding:12px}
+.form-section h3{font-size:12px;font-weight:bold;color:#1a3a5c;background:#dce8f8;margin:-12px -12px 10px;padding:7px 12px;border-radius:5px 5px 0 0}
+.form-row{display:flex;align-items:center;margin-bottom:6px;gap:6px}
+.form-row label{flex:0 0 200px;font-size:12px;color:#444}
+.form-row input,.form-row select{flex:1;padding:4px 6px;border:1px solid #aac;border-radius:3px;font-size:12px;background:#fffde7}
+.form-row input[readonly]{background:#e0e0e0;color:#555;border-color:#bbb}
+.form-row .unit{flex:0 0 auto;font-size:11px;color:#666}
+.form-row .hint{flex:0 0 auto;font-size:10px;color:#888;font-style:italic}
+/* Summary box */
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin:12px 0}
+.kpi-box{background:#1a3a5c;color:#fff;padding:10px 14px;border-radius:6px;text-align:center}
+.kpi-box .kpi-label{font-size:10px;opacity:.8;margin-bottom:4px}
+.kpi-box .kpi-value{font-size:18px;font-weight:bold}
+.kpi-box .kpi-unit{font-size:10px;opacity:.7}
+/* Tables */
+.pl-table-wrap{overflow-x:auto;margin-top:16px}
+table{border-collapse:collapse;font-size:11px;min-width:max-content}
+th,td{border:1px solid #ccc;padding:3px 6px;white-space:nowrap}
+thead th{background:#1a3a5c;color:#fff;text-align:center;position:sticky;top:0;z-index:2}
+thead th.year-hdr{background:#2c5282}
+.row-label{background:#e8eef8;font-weight:bold;position:sticky;left:0;z-index:1;min-width:220px}
+.section-hdr td{background:#2c5282;color:#fff;font-weight:bold;padding:4px 6px}
+.num{text-align:right}
+.neg{color:#c00}
+.pos{color:#060}
+.highlight{background:#fffde7}
+/* Alert/note */
+.note{background:#fff3cd;border:1px solid #ffc107;padding:8px 12px;border-radius:4px;font-size:11px;margin:8px 0}
+.calc-btn{background:#1a3a5c;color:#fff;border:none;padding:8px 20px;border-radius:4px;cursor:pointer;font-size:13px;margin:10px 0}
+.calc-btn:hover{background:#2c5282}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.right-col{position:sticky;top:4px}
+.share-btn{background:#4CAF50;color:#fff;border:none;padding:6px 14px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:bold;white-space:nowrap}
+.share-btn:hover{background:#45a049}
+.share-btn.copied{background:#2196F3}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>玉川式不動産収益試算シート <small>Rev.2020.08.10 (VAT10%)</small></h1>
+  <button class="share-btn" id="copy-link-btn" onclick="copyShareLink()">🔗 リンクをコピー</button>
+  <small>制作著作：コアプラス・アンド・アーキテクチャーズ株式会社 玉川陽介</small>
+</div>
+<div class="tab-bar">
+  <button class="active" onclick="showTab('t1')">①収益シミュレーション</button>
+  <button onclick="showTab('t2')">②売却時手残り</button>
+  <button onclick="showTab('t3')">③法人税率計算</button>
+  <button onclick="showTab('t4')">④個人税率計算</button>
+  <button onclick="showTab('t5')">⑤法人税率早見表</button>
+  <button onclick="showTab('t6')">⑥個人税率早見表</button>
+  <button onclick="showTab('t7')">⑦法人税率TB</button>
+  <button onclick="showTab('t8')">⑧個人税率TB</button>
+  <button onclick="showTab('t9')">⑨ローン計算</button>
+  <button onclick="showTab('t10')">⑩償却と固定資産</button>
+  <button onclick="showTab('t11')">⑪main</button>
+  <button onclick="showTab('t12')">⑫税後IRR計算</button>
+  <button onclick="showTab('t13')">⑬バグ修正履歴</button>
+</div>
+
+<div id="t1" class="tab-content active">
+
+<div class="two-col">
+<div><!-- LEFT: INPUT FORM -->
+
+<div class="form-section">
+<h3>購入条件</h3>
+<div class="form-row"><label>物件名</label><input type="text" id="prop_name" value="グランメール庚台（神奈川県横浜市南区庚台16-4）"></div>
+<div class="form-row"><label>購入年</label><input type="number" id="purchase_year" value="2026"><span class="unit">年</span></div>
+<div class="form-row"><label>a.物件価格</label><input type="text" id="price" value="105,600,000"><span class="unit">円</span></div>
+<div class="form-row"><label>（うち消費税10%）</label><input type="text" id="consumption_tax" value="8,181,818" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>価格に占める税込建物割合</label><input type="number" id="building_ratio" value="0.7" step="0.01"><span class="unit"> (推奨: 0.3)</span></div>
+<div class="form-row"><label>売買契約書上の建物価格(税込)</label><input type="text" id="building_price_contract" value="90,000,000" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>売買契約書上の土地価格</label><input type="text" id="land_price_contract" value="210,000,000" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>建物構造 耐用年数</label>
+  <select id="structure">
+    <option value="47">RC造(47年)</option>
+    <option value="34">重量鉄骨(34年)</option>
+    <option value="22" selected>木造(22年)</option>
+  </select>
+</div>
+<div class="form-row"><label>物件築年(西暦)</label><input type="number" id="built_year" value="2018"><span class="unit">年</span></div>
+<div class="form-row"><label>経過年数</label><input type="number" id="elapsed_years" value="30" readonly><span class="unit">年</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>残存耐用年数</label><input type="number" id="remaining_life" value="17" readonly><span class="unit">年</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>税務上耐用年数</label><input type="number" id="tax_life" value="23" readonly><span class="unit">年</span><span class="hint">自動計算</span></div>
+</div>
+
+<div class="form-section">
+<h3>不動産取得費用</h3>
+<div class="form-row"><label>b.購入時売買契約印紙代</label><input type="text" id="inshi_baibai" value="60,000" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>c.銀行金消契約印紙代</label><input type="text" id="inshi_ginko" value="100,000" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>d.抵当権設定費用</label><input type="text" id="teito_cost" value="1,020,000" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>e.所有権移転登録免許税(土地建物)</label><input type="text" id="toroku_tax" value="1,650,000" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>f.司法書士費用</label><input type="text" id="shihoshoshi" value="150,000"><span class="unit">円</span></div>
+<div class="form-row"><label>購入時仲介手数料率(税込)</label><input type="number" id="brokerage_rate" value="3.3" step="0.1"><span class="unit">%</span></div>
+<div class="form-row"><label>g.購入時仲介手数料額(税込)</label><input type="text" id="brokerage_fee" value="9,696,000" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>h.購入時その他費用</label><input type="text" id="other_purchase_cost" value="50,000"><span class="unit">円</span></div>
+<div class="form-row"><label>i.不動産取得税土地（1.5%）</label><input type="text" id="fudosan_tax_land" value="1,050,000" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>j.不動産取得税建物（3%）</label><input type="text" id="fudosan_tax_bldg" value="900,000" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>k.敷金引き継ぎ</label><input type="text" id="shikikin" value="660,000"><span class="unit">円</span></div>
+<div class="form-row"><label>購入時諸経費合計(b～h合計)</label><input type="text" id="purchase_misc" value="12,726,000" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>決済時に必要な資金</label><input type="text" id="settlement_cash" value="56,726,000" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
+</div>
+
+<div class="form-section">
+<h3>借入条件</h3>
+<div class="form-row"><label>自己資金割合％（または自己資金額）</label><input type="number" id="equity_ratio" value="0"><span class="unit">%</span></div>
+<div class="form-row"><label>借入金利</label><input type="number" id="loan_rate" value="2.6" step="0.1"><span class="unit">%</span></div>
+<div class="form-row"><label>ローン年数</label><input type="number" id="loan_years" value="35"><span class="unit">年</span></div>
+<div class="form-row"><label>借入額</label><input type="text" id="loan_amount" value="255,000,000" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>自己資金</label><input type="text" id="equity_amount" value="45,000,000" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
+</div>
+
+<div class="form-section">
+<h3>賃料計算・定期費用</h3>
+<div class="form-row"><label>満室想定賃料年額</label><input type="text" id="rent_full" value="7,920,000"><span class="unit">円/年</span></div>
+<div class="form-row"><label>平均入居年数(年)</label><input type="number" id="avg_stay" value="4"><span class="unit">年</span></div>
+<div class="form-row"><label>募集にかかる平均期間</label><input type="number" id="avg_vacant" value="1.7" step="0.1"><span class="unit">ヶ月</span></div>
+<div class="form-row"><label>平均募集費用(ヶ月)</label><input type="number" id="avg_recruit_cost" value="1"><span class="unit">ヶ月分</span></div>
+<div class="form-row"><label>平均原状回復費用(ヶ月)</label><input type="number" id="avg_restore_cost" value="1.0"><span class="unit">ヶ月分</span></div>
+<div class="form-row"><label>入居率推奨値</label><input type="number" id="occupancy_rec" value="95.49" readonly><span class="unit">%</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>入居率</label><input type="number" id="occupancy" value="95" step="0.01"><span class="unit">%</span></div>
+<div class="form-row"><label>PM管理会社委託費用(対年間現況賃料)</label><input type="number" id="pm_rate" value="5" step="0.1"><span class="unit">%</span></div>
+<div class="form-row"><label>BM費用月額</label><input type="text" id="bm_monthly" value="12,000"><span class="unit">円/月</span></div>
+<div class="form-row"><label>火災保険・地震保険等年額</label><input type="text" id="insurance" value="99,000"><span class="unit">円/年</span></div>
+<div class="form-row"><label>毎年発生その他費用</label><input type="text" id="other_annual" value="553,400"><span class="unit">円/年</span></div>
+</div>
+
+<div class="form-section">
+<h3>固定資産税・都市計画税計算</h3>
+<div class="form-row"><label>評価証明（土地の評価額）</label><input type="text" id="land_eval" value="28,343,000"><span class="unit">円</span></div>
+<div class="form-row"><label>評価証明（建物の評価額）</label><input type="text" id="bldg_eval" value="19,655,913"><span class="unit">円</span></div>
+<div class="form-row"><label>評価証明（土地の固定資産税課税標準額）</label><input type="text" id="land_tax_base" value="3,705,644"><span class="unit">円</span></div>
+<div class="form-row"><label>評価証明（建物の固定資産税課税標準額）</label><input type="text" id="bldg_tax_base" value="30,000,000" readonly><span class="unit">円</span><span class="hint">自動計算（建物評価額と同じ）</span></div>
+</div>
+
+<div class="form-section">
+<h3>売却条件</h3>
+<div class="form-row"><label>想定売却価格</label><input type="text" id="sale_price" value="105,600,000"><span class="unit">円</span></div>
+<div class="form-row"><label>売却時仲介手数料率(税込)</label><input type="number" id="sale_broker_rate" value="3.3" step="0.1"><span class="unit">%</span></div>
+</div>
+
+<div class="form-section">
+<h3>税額計算</h3>
+<div class="form-row"><label>物件保有主体</label>
+  <select id="owner_type">
+    <option value="2" selected>法人</option>
+    <option value="1">個人</option>
+  </select>
+</div>
+<div class="form-row"><label>本業収入（個人は本業年収、法人は税引前利益）</label><input type="number" id="main_income" value="0"><span class="unit">円</span></div>
+<div class="form-row"><label>賃料収入にかかる税率(-1で自動計算)</label><input type="number" id="tax_rate_manual" value="-0.01" step="0.01"></div>
+</div>
+</div><!-- end left col -->
+
+<div class="right-col"><!-- RIGHT: KPIs -->
+<div class="form-section">
+<h3>主要指標サマリー</h3>
+<div class="summary-grid">
+  <div class="kpi-box"><div class="kpi-label">表面利回り</div><div class="kpi-value" id="kpi_gross">7.00</div><div class="kpi-unit">%</div></div>
+  <div class="kpi-box"><div class="kpi-label">NOI利回り</div><div class="kpi-value" id="kpi_noi">4.80</div><div class="kpi-unit">%</div></div>
+  <div class="kpi-box"><div class="kpi-label">経費率</div><div class="kpi-value" id="kpi_expense">31.5</div><div class="kpi-unit">%</div></div>
+  <div class="kpi-box"><div class="kpi-label">入居率</div><div class="kpi-value" id="kpi_occ">95.5</div><div class="kpi-unit">%</div></div>
+  <div class="kpi-box"><div class="kpi-label">賃料収入月額(空室後)</div><div class="kpi-value" id="kpi_monthly_rent">167.1</div><div class="kpi-unit">万円</div></div>
+  <div class="kpi-box"><div class="kpi-label">ローン支払月額</div><div class="kpi-value" id="kpi_monthly_loan">88.0</div><div class="kpi-unit">万円</div></div>
+  <div class="kpi-box"><div class="kpi-label">税引前CF月額</div><div class="kpi-value" id="kpi_cf_before">32.3</div><div class="kpi-unit">万円</div></div>
+  <div class="kpi-box"><div class="kpi-label">税引後CF月額</div><div class="kpi-value" id="kpi_cf_after">18.9</div><div class="kpi-unit">万円</div></div>
+  <div class="kpi-box"><div class="kpi-label">5年後BEP売却価格</div><div class="kpi-value" id="kpi_bep5">2.71</div><div class="kpi-unit">億円</div></div>
+  <div class="kpi-box"><div class="kpi-label">10年後BEP売却価格</div><div class="kpi-value" id="kpi_bep10">2.21</div><div class="kpi-unit">億円</div></div>
+  <div class="kpi-box" style="background:#c00"><div class="kpi-label">税引前IRR(10年)</div><div class="kpi-value" id="kpi_irr_pre">12.1</div><div class="kpi-unit">%</div></div>
+  <div class="kpi-box" style="background:#060"><div class="kpi-label">税引後IRR(10年)</div><div class="kpi-value" id="kpi_irr_post">9.3</div><div class="kpi-unit">%</div></div>
+</div>
+</div>
+</div><!-- end right col -->
+</div><!-- end two-col -->
+
+<!-- 35-year P/L Table -->
+<h3 style="margin-top:20px;padding:6px;background:#1a3a5c;color:#fff">35年P/L試算テーブル</h3>
+<div class="pl-table-wrap">
+<table id="pl_table">
+<thead>
+<tr>
+  <th class="row-label" style="min-width:230px">項目</th>
+  <th class="year-hdr">購入時</th>
+  <th class="year-hdr">1年目</th>
+  <th class="year-hdr">2年目</th>
+  <th class="year-hdr">3年目</th>
+  <th class="year-hdr">4年目</th>
+  <th class="year-hdr">5年目</th>
+  <th class="year-hdr">6年目</th>
+  <th class="year-hdr">7年目</th>
+  <th class="year-hdr">8年目</th>
+  <th class="year-hdr">9年目</th>
+  <th class="year-hdr">10年目</th>
+  <th class="year-hdr">11年目</th>
+  <th class="year-hdr">12年目</th>
+  <th class="year-hdr">13年目</th>
+  <th class="year-hdr">14年目</th>
+  <th class="year-hdr">15年目</th>
+  <th class="year-hdr">16年目</th>
+  <th class="year-hdr">17年目</th>
+  <th class="year-hdr">18年目</th>
+  <th class="year-hdr">19年目</th>
+  <th class="year-hdr">20年目</th>
+  <th class="year-hdr">21年目</th>
+  <th class="year-hdr">22年目</th>
+  <th class="year-hdr">23年目</th>
+  <th class="year-hdr">24年目</th>
+  <th class="year-hdr">25年目</th>
+  <th class="year-hdr">26年目</th>
+  <th class="year-hdr">27年目</th>
+  <th class="year-hdr">28年目</th>
+  <th class="year-hdr">29年目</th>
+  <th class="year-hdr">30年目</th>
+  <th class="year-hdr">31年目</th>
+  <th class="year-hdr">32年目</th>
+  <th class="year-hdr">33年目</th>
+  <th class="year-hdr">34年目</th>
+  <th class="year-hdr">35年目</th>
+</tr>
+</thead>
+<tbody id="pl_tbody"></tbody>
+</table>
+</div>
+</div>
+
+<div id="t2" class="tab-content">
+<h2 style="margin-bottom:12px;color:#1a3a5c">不動産を売却時に結局手元にいくら残るのか計算</h2><div class="note">※「収益シミュレーション」シートとはリンクしていません。独立した計算アプリです。</div>
+
+<div style="max-width:600px">
+<div class="form-section">
+<h3>簿価・売却条件</h3>
+<div class="form-row"><label>土地価格簿価</label><input type="text" id="s2_land_book" value="53,900,000"><span class="unit">円</span><span class="hint">決算書を参照</span></div>
+<div class="form-row"><label>建物価格簿価</label><input type="text" id="s2_bldg_book" value="36,000,000"><span class="unit">円</span><span class="hint">決算書を参照</span></div>
+<div class="form-row"><label>CAPEX残存簿価</label><input type="text" id="s2_capex_book" value="5,000,000"><span class="unit">円</span><span class="hint">設備等の残存価</span></div>
+<div class="form-row"><label>税務上の取得価格</label><input type="text" id="s2_tax_cost" value="94,900,000" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>a.売却利回り</label><input type="number" id="s2_yield" value="0.095" step="0.001"></div>
+<div class="form-row"><label>b.年間賃料</label><input type="text" id="s2_rent" value="10,200,000"><span class="unit">円</span></div>
+<div class="form-row"><label>c.売却価格</label><input type="text" id="s2_sale_price" value="107,368,421" readonly><span class="unit">円</span><span class="hint">a+bから自動計算</span></div>
+</div>
+<div class="form-section">
+<h3>売却費用・税</h3>
+<div class="form-row"><label>銀行への早期返済違約金</label><input type="number" id="s2_penalty" value="0"><span class="unit">円</span></div>
+<div class="form-row"><label>仲介手数料(税込)</label><input type="text" id="s2_broker" value="3,382,105"><span class="unit">円</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>抵当権抹消費用</label><input type="number" id="s2_teito" value="15000"><span class="unit">円</span></div>
+<div class="form-row"><label>売買契約書印紙代</label><input type="number" id="s2_inshi" value="60000"><span class="unit">円</span></div>
+<div class="form-row"><label>税務上の利益</label><input type="text" id="s2_tax_profit" value="9,011,316" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>税率 (%)</label><input type="number" id="s2_tax_rate" value="39.63" step="0.01"><span class="unit">%</span><span class="hint">個人5年以内39.63%、5年超20.315%、法人約37%</span></div>
+<div class="form-row"><label>税額</label><input type="text" id="s2_tax_amount" value="3,571,184" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
+<div class="form-row"><label>敷金相殺額</label><input type="text" id="s2_shikikin" value="1,095,000"><span class="unit">円</span></div>
+<div class="form-row"><label>借入金返済</label><input type="text" id="s2_loan_repay" value="96,300,000"><span class="unit">円</span><span class="hint">決済日現在の借入残高</span></div>
+</div>
+<div class="form-section">
+<h3>結果</h3>
+<div class="summary-grid">
+  <div class="kpi-box"><div class="kpi-label">税引後手元に残るお金</div><div class="kpi-value" id="s2_result">295</div><div class="kpi-unit">万円</div></div>
+</div>
+<button class="calc-btn" onclick="calcTab2()">計算する</button>
+<div id="s2_detail" style="margin-top:10px;font-size:12px"></div>
+</div>
+<div class="note" style="margin-top:10px">
+※消費税の納税は考慮していません。<br>
+※非居住者が売主の場合、買主には源泉徴収義務があります。<br>
+※計算結果は概算です。投資判断に際しては必ず税理士へお問い合わせください。
+</div>
+</div>
+</div>
+
+<div id="t3" class="tab-content">
+<h2 style="margin-bottom:8px;color:#1a3a5c">法人税率計算（2017年1月現在・東京都区内中小法人）</h2><div style="max-width:700px">
+<div class="form-section">
+<h3>入力</h3>
+<div class="form-row"><label>法人の税引前利益</label><input type="text" id="corp_income" value="9,000,000"><span class="unit">円</span></div>
+<button class="calc-btn" onclick="calcCorp()">計算する</button>
+</div>
+<div class="form-section" style="margin-top:12px">
+<h3>計算結果</h3>
+<table style="width:100%">
+<thead><tr><th>納税種目</th><th>課税標準</th><th>税率</th><th>税額</th></tr></thead>
+<tbody id="corp_result_tbody">
+<tr><td>法人税（800万以下）</td><td class="num">8,000,000</td><td class="num">15.0%</td><td class="num">1,200,000</td></tr>
+<tr><td>法人税（800万超）</td><td class="num">1,000,000</td><td class="num">23.4%</td><td class="num">234,000</td></tr>
+<tr><td>復興税</td><td class="num">1,434,000</td><td class="num">0%</td><td class="num">0</td></tr>
+<tr><td>住民税（法人税割）</td><td class="num">1,434,000</td><td class="num">12.9%</td><td class="num">184,986</td></tr>
+<tr><td>住民税（均等割）</td><td>-</td><td>-</td><td class="num">70,000</td></tr>
+<tr><td>事業税（法人事業税）</td><td>-</td><td>-</td><td class="num">407,000</td></tr>
+<tr><td>事業税（地方法人特別税）</td><td class="num">407,000</td><td class="num">43.2%</td><td class="num">175,824</td></tr>
+<tr><td>地方法人税</td><td class="num">1,434,000</td><td class="num">4.4%</td><td class="num">63,096</td></tr>
+<tr style="background:#1a3a5c;color:#fff"><td><strong>納税額合計</strong></td><td></td><td></td><td class="num"><strong id="corp_total">2,334,906</strong></td></tr>
+<tr style="background:#dce8f8"><td><strong>実効税率</strong></td><td></td><td></td><td class="num"><strong id="corp_eff_rate">25.9%</strong></td></tr>
+</tbody>
+</table>
+<div class="note" style="margin-top:8px">
+※2017年1月現在の東京都区における中小法人に対する税率<br>
+※事業税（法人事業税）と事業税（地方法人特別税）は来期の損金になります。<br>
+※法人税が1,000万円超の場合は住民税（法人税割）税率16.3%適用
+</div>
+</div>
+</div>
+</div>
+
+<div id="t4" class="tab-content">
+<h2 style="margin-bottom:8px;color:#1a3a5c">個人税率計算（平成27年4月1日現在法令等）</h2><div class="two-col">
+<div>
+<div class="form-section">
+<h3>本業収入</h3>
+<div class="form-row"><label>年収</label><input type="text" id="ind_income" value="8,000,000"><span class="unit">円</span></div>
+<div class="form-row"><label>所得税配偶者控除</label><input type="text" id="ind_spouse" value="380,000"><span class="unit">円</span></div>
+<div class="form-row"><label>所得税扶養控除</label><input type="number" id="ind_depend" value="0"><span class="unit">円</span></div>
+<div class="form-row"><label>住宅ローン控除</label><input type="number" id="ind_housing" value="0"><span class="unit">円</span></div>
+</div>
+<div class="form-section">
+<h3>不動産収入</h3>
+<div class="form-row"><label>不動産投資の税引前利益</label><input type="text" id="ind_re_profit" value="5,000,000"><span class="unit">円</span></div>
+<div class="form-row"><label>住宅ローン控除（不動産）</label><input type="number" id="ind_re_housing" value="0"><span class="unit">円</span></div>
+<div class="form-row"><label>青色申告控除</label><input type="text" id="ind_aoki" value="650,000"><span class="unit">円</span></div>
+</div>
+<button class="calc-btn" onclick="calcInd()">計算する</button>
+</div>
+<div>
+<div class="form-section">
+<h3>本業のみの場合</h3>
+<table style="width:100%">
+<thead><tr><th>項目</th><th>金額</th></tr></thead>
+<tbody>
+<tr><td>所得税</td><td class="num" id="ind_tax_income">390,752</td></tr>
+<tr><td>住民税</td><td class="num" id="ind_tax_住民">429,126</td></tr>
+<tr><td>復興税</td><td class="num" id="ind_tax_revival">8,206</td></tr>
+<tr><td>健康保険+年金</td><td class="num" id="ind_tax_ins">1,148,736</td></tr>
+<tr><td>健保年金を抜いた税額合計</td><td class="num" id="ind_tax_sub">828,084</td></tr>
+<tr style="background:#dce8f8"><td><strong>健保年金含む納税額計</strong></td><td class="num"><strong id="ind_tax_total">1,976,820</strong></td></tr>
+<tr><td>所得税・住民税・復興税 実効税率</td><td class="num" id="ind_eff1">10.35%</td></tr>
+<tr><td>+健保年金 実効税率</td><td class="num" id="ind_eff2">24.71%</td></tr>
+</tbody>
+</table>
+</div>
+<div class="form-section" style="margin-top:12px">
+<h3>不動産所得が増えた場合の増加分</h3>
+<table style="width:100%">
+<thead><tr><th>項目</th><th>増加額</th></tr></thead>
+<tbody>
+<tr><td>収入増</td><td class="num">5,000,000</td></tr>
+<tr><td>所得税増</td><td class="num" id="ind_inc_income">914,739</td></tr>
+<tr><td>住民税増</td><td class="num" id="ind_inc_住民">435,000</td></tr>
+<tr><td>復興税増</td><td class="num" id="ind_inc_revival">19,210</td></tr>
+<tr><td>個人事業税増</td><td class="num" id="ind_inc_biz">105,000</td></tr>
+<tr><td>健康保険+年金増</td><td class="num" id="ind_inc_ins">0</td></tr>
+<tr><td>税引後手取り増</td><td class="num" id="ind_inc_net">3,526,052</td></tr>
+<tr style="background:#dce8f8"><td><strong>不動産所得増の実効税率</strong></td><td class="num"><strong id="ind_inc_rate">29.5%</strong></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div id="t5" class="tab-content">
+<h2 style="margin-bottom:8px;color:#1a3a5c">法人実効税率早見表（2017年1月現在）</h2>
+<div class="pl-table-wrap">
+<table>
+<thead><tr>
+<th>税引前利益(万円)</th><th>納税額合計(万円)</th><th>実効税率</th><th>追加利益100万に対する税額(万円)</th><th>摘要</th>
+</tr></thead>
+<tbody>
+<tr><td class="num">100</td><td class="num">29.46</td><td class="num">29.46%</td><td class="num">29.46</td><td></td></tr>
+<tr><td class="num">200</td><td class="num">51.93</td><td class="num">25.96%</td><td class="num">22.46</td><td></td></tr>
+<tr><td class="num">300</td><td class="num">74.39</td><td class="num">24.80%</td><td class="num">22.46</td><td></td></tr>
+<tr><td class="num">400</td><td class="num">96.86</td><td class="num">24.21%</td><td class="num">22.46</td><td>税引前利益400万</td></tr>
+<tr><td class="num">500</td><td class="num">121.75</td><td class="num">24.35%</td><td class="num">24.90</td><td></td></tr>
+<tr><td class="num">600</td><td class="num">146.65</td><td class="num">24.44%</td><td class="num">24.90</td><td></td></tr>
+<tr><td class="num">700</td><td class="num">171.55</td><td class="num">24.51%</td><td class="num">24.90</td><td></td></tr>
+<tr><td class="num">800</td><td class="num">196.45</td><td class="num">24.56%</td><td class="num">24.90</td><td>税引前利益800万</td></tr>
+<tr><td class="num">900</td><td class="num">233.49</td><td class="num">25.94%</td><td class="num">37.04</td><td></td></tr>
+<tr><td class="num">1,000</td><td class="num">270.53</td><td class="num">27.05%</td><td class="num">37.04</td><td></td></tr>
+<tr><td class="num">1,100</td><td class="num">307.58</td><td class="num">27.96%</td><td class="num">37.04</td><td></td></tr>
+<tr><td class="num">1,200</td><td class="num">344.62</td><td class="num">28.72%</td><td class="num">37.04</td><td></td></tr>
+<tr><td class="num">1,300</td><td class="num">381.66</td><td class="num">29.36%</td><td class="num">37.04</td><td></td></tr>
+<tr><td class="num">1,400</td><td class="num">418.70</td><td class="num">29.91%</td><td class="num">37.04</td><td></td></tr>
+<tr><td class="num">1,500</td><td class="num">455.75</td><td class="num">30.38%</td><td class="num">37.04</td><td></td></tr>
+<tr><td class="num">1,600</td><td class="num">492.79</td><td class="num">30.80%</td><td class="num">37.04</td><td></td></tr>
+<tr><td class="num">1,700</td><td class="num">529.83</td><td class="num">31.17%</td><td class="num">37.04</td><td></td></tr>
+<tr><td class="num">1,800</td><td class="num">566.87</td><td class="num">31.49%</td><td class="num">37.04</td><td></td></tr>
+<tr><td class="num">1,900</td><td class="num">603.92</td><td class="num">31.79%</td><td class="num">37.04</td><td></td></tr>
+<tr><td class="num">2,000</td><td class="num">640.96</td><td class="num">32.05%</td><td class="num">37.04</td><td></td></tr>
+<tr><td class="num">2,100</td><td class="num">678.00</td><td class="num">32.29%</td><td class="num">37.04</td><td></td></tr>
+<tr><td class="num">2,200</td><td class="num">715.04</td><td class="num">32.50%</td><td class="num">37.04</td><td></td></tr>
+<tr><td class="num">2,300</td><td class="num">752.09</td><td class="num">32.70%</td><td class="num">37.04</td><td></td></tr>
+<tr><td class="num">2,400</td><td class="num">789.13</td><td class="num">32.88%</td><td class="num">37.04</td><td></td></tr>
+<tr><td class="num">2,500</td><td class="num">826.17</td><td class="num">33.05%</td><td class="num">37.04</td><td>税引前利益2500万</td></tr>
+<tr><td class="num">2,600</td><td class="num">879.11</td><td class="num">33.81%</td><td class="num">52.94</td><td></td></tr>
+<tr><td class="num">2,700</td><td class="num">916.84</td><td class="num">33.96%</td><td class="num">37.73</td><td></td></tr>
+<tr><td class="num">2,800</td><td class="num">954.57</td><td class="num">34.09%</td><td class="num">37.73</td><td></td></tr>
+<tr><td class="num">2,900</td><td class="num">992.30</td><td class="num">34.22%</td><td class="num">37.73</td><td></td></tr>
+<tr><td class="num">3,000</td><td class="num">1030.03</td><td class="num">34.33%</td><td class="num">37.73</td><td></td></tr>
+<tr><td class="num">3,100</td><td class="num">1067.76</td><td class="num">34.44%</td><td class="num">37.73</td><td></td></tr>
+<tr><td class="num">3,200</td><td class="num">1105.49</td><td class="num">34.55%</td><td class="num">37.73</td><td></td></tr>
+<tr><td class="num">3,300</td><td class="num">1143.22</td><td class="num">34.64%</td><td class="num">37.73</td><td></td></tr>
+<tr><td class="num">3,400</td><td class="num">1180.95</td><td class="num">34.73%</td><td class="num">37.73</td><td></td></tr>
+<tr><td class="num">3,500</td><td class="num">1218.68</td><td class="num">34.82%</td><td class="num">37.73</td><td></td></tr>
+<tr><td class="num">3,600</td><td class="num">1256.41</td><td class="num">34.90%</td><td class="num">37.73</td><td></td></tr>
+<tr><td class="num">3,700</td><td class="num">1294.14</td><td class="num">34.98%</td><td class="num">37.73</td><td></td></tr>
+<tr><td class="num">3,800</td><td class="num">1331.87</td><td class="num">35.05%</td><td class="num">37.73</td><td></td></tr>
+<tr><td class="num">3,900</td><td class="num">1369.60</td><td class="num">35.12%</td><td class="num">37.73</td><td></td></tr>
+<tr><td class="num">4,000</td><td class="num">1407.33</td><td class="num">35.18%</td><td class="num">37.73</td><td></td></tr>
+<tr><td class="num">4,100</td><td class="num">1445.06</td><td class="num">35.25%</td><td class="num">37.73</td><td></td></tr>
+<tr><td class="num">4,200</td><td class="num">1482.79</td><td class="num">35.30%</td><td class="num">37.73</td><td></td></tr>
+<tr><td class="num">4,300</td><td class="num">1520.52</td><td class="num">35.36%</td><td class="num">37.73</td><td></td></tr>
+<tr><td class="num">4,400</td><td class="num">1558.25</td><td class="num">35.41%</td><td class="num">37.73</td><td></td></tr>
+</tbody></table></div>
+</div>
+
+<div id="t6" class="tab-content">
+<h2 style="margin-bottom:8px;color:#1a3a5c">個人税率早見表（課税所得→所得税率テーブル）</h2>
+<div class="pl-table-wrap">
+<table>
+<thead><tr>
+<th>課税所得（以上）</th><th>課税所得（まで）</th><th>税率</th><th>控除額</th>
+</tr></thead>
+<tbody>
+<tr><td class="num">0</td><td class="num">1,950,000</td><td class="num">5%</td><td class="num">0</td></tr>
+<tr><td class="num">1,950,001</td><td class="num">3,300,000</td><td class="num">10%</td><td class="num">97,500</td></tr>
+<tr><td class="num">3,300,001</td><td class="num">6,950,000</td><td class="num">20%</td><td class="num">427,500</td></tr>
+<tr><td class="num">6,950,001</td><td class="num">9,000,000</td><td class="num">23%</td><td class="num">636,000</td></tr>
+<tr><td class="num">9,000,001</td><td class="num">18,000,000</td><td class="num">33%</td><td class="num">1,536,000</td></tr>
+<tr><td class="num">18,000,001</td><td class="num">40,000,000</td><td class="num">40%</td><td class="num">2,796,000</td></tr>
+<tr><td class="num">40,000,001</td><td class="num">以上</td><td class="num">45%</td><td class="num">4,796,000</td></tr>
+</tbody></table></div>
+
+<h3 style="margin-top:16px;padding:6px;background:#1a3a5c;color:#fff">給与所得控除テーブル</h3>
+<div class="pl-table-wrap">
+<table>
+<thead><tr><th>年収（以上）</th><th>年収（まで）</th><th>控除率</th><th>控除額（定額分）</th></tr></thead>
+<tbody>
+<tr><td class="num">0</td><td class="num">1,625,000</td><td class="num">0%</td><td class="num">550,000</td></tr>
+<tr><td class="num">1,625,001</td><td class="num">1,800,000</td><td class="num">40%</td><td class="num">-100,000</td></tr>
+<tr><td class="num">1,800,001</td><td class="num">3,600,000</td><td class="num">30%</td><td class="num">80,000</td></tr>
+<tr><td class="num">3,600,001</td><td class="num">6,600,000</td><td class="num">20%</td><td class="num">440,000</td></tr>
+<tr><td class="num">6,600,001</td><td class="num">8,500,000</td><td class="num">10%</td><td class="num">1,100,000</td></tr>
+<tr><td class="num">8,500,001</td><td class="num">以上</td><td class="num">0%</td><td class="num">1,950,000</td></tr>
+</tbody></table></div>
+</div>
+
+<div id="t7" class="tab-content">
+<h2 style="margin-bottom:8px;color:#1a3a5c">法人税率TB（法人本業＋不動産合算の35年納税シミュレーション）</h2>
+<div class="pl-table-wrap">
+<table>
+<thead><tr>
+<th class="row-label">項目</th>
+<th class="year-hdr">1年</th><th class="year-hdr">2年</th><th class="year-hdr">3年</th><th class="year-hdr">4年</th><th class="year-hdr">5年</th><th class="year-hdr">6年</th><th class="year-hdr">7年</th><th class="year-hdr">8年</th><th class="year-hdr">9年</th><th class="year-hdr">10年</th><th class="year-hdr">11年</th><th class="year-hdr">12年</th><th class="year-hdr">13年</th><th class="year-hdr">14年</th><th class="year-hdr">15年</th><th class="year-hdr">16年</th><th class="year-hdr">17年</th><th class="year-hdr">18年</th><th class="year-hdr">19年</th><th class="year-hdr">20年</th><th class="year-hdr">21年</th><th class="year-hdr">22年</th><th class="year-hdr">23年</th><th class="year-hdr">24年</th><th class="year-hdr">25年</th><th class="year-hdr">26年</th><th class="year-hdr">27年</th><th class="year-hdr">28年</th><th class="year-hdr">29年</th><th class="year-hdr">30年</th><th class="year-hdr">31年</th><th class="year-hdr">32年</th><th class="year-hdr">33年</th><th class="year-hdr">34年</th><th class="year-hdr">35年</th></tr></thead><tbody>
+<tr><td class="row-label">不動産のみの税前利益</td><td class="num ">1,579,060</td><td class="num ">6,594,492</td><td class="num ">6,401,001</td><td class="num ">6,530,447</td><td class="num ">6,638,016</td><td class="num ">6,748,805</td><td class="num ">6,860,885</td><td class="num ">6,974,653</td><td class="num ">7,089,990</td><td class="num ">7,206,931</td><td class="num ">7,325,382</td><td class="num ">7,445,610</td><td class="num ">7,567,504</td><td class="num ">7,690,992</td><td class="num ">7,816,325</td><td class="num ">7,943,404</td><td class="num ">8,072,262</td><td class="num ">8,201,162</td><td class="num ">8,330,841</td><td class="num ">8,462,438</td><td class="num ">8,595,879</td><td class="num ">8,731,087</td><td class="num ">8,868,347</td><td class="num ">13,047,002</td><td class="num ">12,800,456</td><td class="num ">12,980,778</td><td class="num ">13,122,360</td><td class="num ">13,269,910</td><td class="num ">13,419,060</td><td class="num ">13,570,488</td><td class="num ">13,641,262</td><td class="num ">13,634,472</td><td class="num ">13,635,123</td><td class="num ">13,635,061</td><td class="num ">13,635,067</td></tr>
+<tr><td class="row-label">繰越欠損控除後利益</td><td class="num ">1,579,060</td><td class="num ">6,594,492</td><td class="num ">6,401,001</td><td class="num ">6,530,447</td><td class="num ">6,638,016</td><td class="num ">6,748,805</td><td class="num ">6,860,885</td><td class="num ">6,974,653</td><td class="num ">7,089,990</td><td class="num ">7,206,931</td><td class="num ">7,325,382</td><td class="num ">7,445,610</td><td class="num ">7,567,504</td><td class="num ">7,690,992</td><td class="num ">7,816,325</td><td class="num ">7,943,404</td><td class="num ">8,072,262</td><td class="num ">8,201,162</td><td class="num ">8,330,841</td><td class="num ">8,462,438</td><td class="num ">8,595,879</td><td class="num ">8,731,087</td><td class="num ">8,868,347</td><td class="num ">13,047,002</td><td class="num ">12,800,456</td><td class="num ">12,980,778</td><td class="num ">13,122,360</td><td class="num ">13,269,910</td><td class="num ">13,419,060</td><td class="num ">13,570,488</td><td class="num ">13,641,262</td><td class="num ">13,634,472</td><td class="num ">13,635,123</td><td class="num ">13,635,061</td><td class="num ">13,635,067</td></tr>
+<tr><td class="row-label">住民税（均等割）税額</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td><td class="num ">70,000</td></tr>
+</tbody></table></div>
+</div>
+
+<div id="t8" class="tab-content">
+<h2 style="margin-bottom:8px;color:#1a3a5c">個人税率TB（個人所得＋不動産所得の35年納税シミュレーション）</h2>
+<div class="pl-table-wrap">
+<table>
+<thead><tr>
+<th class="row-label">項目</th>
+<th class="year-hdr">1年</th><th class="year-hdr">2年</th><th class="year-hdr">3年</th><th class="year-hdr">4年</th><th class="year-hdr">5年</th><th class="year-hdr">6年</th><th class="year-hdr">7年</th><th class="year-hdr">8年</th><th class="year-hdr">9年</th><th class="year-hdr">10年</th><th class="year-hdr">11年</th><th class="year-hdr">12年</th><th class="year-hdr">13年</th><th class="year-hdr">14年</th><th class="year-hdr">15年</th><th class="year-hdr">16年</th><th class="year-hdr">17年</th><th class="year-hdr">18年</th><th class="year-hdr">19年</th><th class="year-hdr">20年</th><th class="year-hdr">21年</th><th class="year-hdr">22年</th><th class="year-hdr">23年</th><th class="year-hdr">24年</th><th class="year-hdr">25年</th><th class="year-hdr">26年</th><th class="year-hdr">27年</th><th class="year-hdr">28年</th><th class="year-hdr">29年</th><th class="year-hdr">30年</th><th class="year-hdr">31年</th><th class="year-hdr">32年</th><th class="year-hdr">33年</th><th class="year-hdr">34年</th><th class="year-hdr">35年</th></tr></thead><tbody>
+<tr><td class="row-label">所得税基礎控除</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td><td class="num ">480,000</td></tr>
+<tr><td class="row-label">所得税配偶者控除</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td><td class="num ">380,000</td></tr>
+<tr><td class="row-label">所得税扶養控除</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td></tr>
+<tr><td class="row-label">住宅ローン控除</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td><td class="num ">400,000</td></tr>
+<tr><td class="row-label">所得税社会保険控除</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td><td class="num ">136,540</td></tr>
+<tr><td class="row-label">所得控除額合計</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td><td class="num ">1,546,540</td></tr>
+<tr><td class="row-label">住民税均等割</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td><td class="num ">5,000</td></tr>
+<tr><td class="row-label">住民税率</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td></tr>
+<tr><td class="row-label">住民税控除</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td><td class="num ">796,540</td></tr>
+<tr><td class="row-label">厚生年金額</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td><td class="num ">96,624</td></tr>
+<tr><td class="row-label">健康保険金額</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td><td class="num ">39,916</td></tr>
+<tr><td class="row-label">不動産投資の税引前利益</td><td class="num ">1,579,060</td><td class="num ">6,594,492</td><td class="num ">6,401,001</td><td class="num ">6,530,447</td><td class="num ">6,638,016</td><td class="num ">6,748,805</td><td class="num ">6,860,885</td><td class="num ">6,974,653</td><td class="num ">7,089,990</td><td class="num ">7,206,931</td><td class="num ">7,325,382</td><td class="num ">7,445,610</td><td class="num ">7,567,504</td><td class="num ">7,690,992</td><td class="num ">7,816,325</td><td class="num ">7,943,404</td><td class="num ">8,072,262</td><td class="num ">8,201,162</td><td class="num ">8,330,841</td><td class="num ">8,462,438</td><td class="num ">8,595,879</td><td class="num ">8,731,087</td><td class="num ">8,868,347</td><td class="num ">13,047,002</td><td class="num ">12,800,456</td><td class="num ">12,980,778</td><td class="num ">13,122,360</td><td class="num ">13,269,910</td><td class="num ">13,419,060</td><td class="num ">13,570,488</td><td class="num ">13,641,262</td><td class="num ">13,634,472</td><td class="num ">13,635,123</td><td class="num ">13,635,061</td><td class="num ">13,635,067</td></tr>
+</tbody></table></div>
+</div>
+
+<div id="t9" class="tab-content">
+<h2 style="margin-bottom:8px;color:#1a3a5c">ローン計算（元利均等返済）</h2>
+<div class="form-section" style="max-width:400px">
+<h3>借入条件</h3>
+<div class="form-row"><label>借入額</label><input type="text" id="loan_calc_amount" value="255,000,000"><span class="unit">円</span></div>
+<div class="form-row"><label>金利</label><input type="number" id="loan_calc_rate" value="0.015" step="0.001"></div>
+<div class="form-row"><label>返済期間</label><input type="number" id="loan_calc_years" value="30"><span class="unit">年</span></div>
+<button class="calc-btn" onclick="calcLoan()">計算する</button>
+</div>
+<div class="summary-grid" style="max-width:600px;margin-top:12px">
+  <div class="kpi-box"><div class="kpi-label">月の支払額</div><div class="kpi-value" id="loan_monthly">88.0</div><div class="kpi-unit">万円</div></div>
+  <div class="kpi-box"><div class="kpi-label">総返済額</div><div class="kpi-value" id="loan_total">31,682</div><div class="kpi-unit">万円</div></div>
+</div>
+
+<h3 style="margin-top:12px;padding:6px;background:#1a3a5c;color:#fff">年次サマリー</h3>
+<div class="pl-table-wrap">
+<table>
+<thead><tr><th>年次</th><th>元金（年）</th><th>利息（年）</th><th>合計（年）</th><th>元本残高（年末）</th></tr></thead>
+<tbody id="loan_table_body">
+<tr><td class="num">1</td><td class="num">6,782,177</td><td class="num">3,778,495</td><td class="num">10,560,672</td><td class="num">248,217,823</td></tr>
+<tr><td class="num">2</td><td class="num">6,884,614</td><td class="num">3,676,058</td><td class="num">10,560,672</td><td class="num">241,333,209</td></tr>
+<tr><td class="num">3</td><td class="num">6,988,597</td><td class="num">3,572,075</td><td class="num">10,560,672</td><td class="num">234,344,612</td></tr>
+<tr><td class="num">4</td><td class="num">7,094,148</td><td class="num">3,466,524</td><td class="num">10,560,672</td><td class="num">227,250,464</td></tr>
+<tr><td class="num">5</td><td class="num">7,201,294</td><td class="num">3,359,378</td><td class="num">10,560,672</td><td class="num">220,049,170</td></tr>
+<tr><td class="num">6</td><td class="num">7,310,062</td><td class="num">3,250,610</td><td class="num">10,560,672</td><td class="num">212,739,108</td></tr>
+<tr><td class="num">7</td><td class="num">7,420,469</td><td class="num">3,140,203</td><td class="num">10,560,672</td><td class="num">205,318,639</td></tr>
+<tr><td class="num">8</td><td class="num">7,532,545</td><td class="num">3,028,127</td><td class="num">10,560,672</td><td class="num">197,786,094</td></tr>
+<tr><td class="num">9</td><td class="num">7,646,314</td><td class="num">2,914,358</td><td class="num">10,560,672</td><td class="num">190,139,780</td></tr>
+<tr><td class="num">10</td><td class="num">7,761,802</td><td class="num">2,798,870</td><td class="num">10,560,672</td><td class="num">182,377,978</td></tr>
+<tr><td class="num">11</td><td class="num">7,879,029</td><td class="num">2,681,643</td><td class="num">10,560,672</td><td class="num">174,498,949</td></tr>
+<tr><td class="num">12</td><td class="num">7,998,031</td><td class="num">2,562,641</td><td class="num">10,560,672</td><td class="num">166,500,918</td></tr>
+<tr><td class="num">13</td><td class="num">8,118,828</td><td class="num">2,441,844</td><td class="num">10,560,672</td><td class="num">158,382,090</td></tr>
+<tr><td class="num">14</td><td class="num">8,241,454</td><td class="num">2,319,218</td><td class="num">10,560,672</td><td class="num">150,140,636</td></tr>
+<tr><td class="num">15</td><td class="num">8,365,929</td><td class="num">2,194,743</td><td class="num">10,560,672</td><td class="num">141,774,707</td></tr>
+<tr><td class="num">16</td><td class="num">8,492,284</td><td class="num">2,068,388</td><td class="num">10,560,672</td><td class="num">133,282,423</td></tr>
+<tr><td class="num">17</td><td class="num">8,620,546</td><td class="num">1,940,126</td><td class="num">10,560,672</td><td class="num">124,661,877</td></tr>
+<tr><td class="num">18</td><td class="num">8,750,748</td><td class="num">1,809,924</td><td class="num">10,560,672</td><td class="num">115,911,129</td></tr>
+<tr><td class="num">19</td><td class="num">8,882,918</td><td class="num">1,677,754</td><td class="num">10,560,672</td><td class="num">107,028,211</td></tr>
+<tr><td class="num">20</td><td class="num">9,017,080</td><td class="num">1,543,592</td><td class="num">10,560,672</td><td class="num">98,011,131</td></tr>
+<tr><td class="num">21</td><td class="num">9,153,270</td><td class="num">1,407,402</td><td class="num">10,560,672</td><td class="num">88,857,861</td></tr>
+<tr><td class="num">22</td><td class="num">9,291,516</td><td class="num">1,269,156</td><td class="num">10,560,672</td><td class="num">79,566,345</td></tr>
+<tr><td class="num">23</td><td class="num">9,431,850</td><td class="num">1,128,822</td><td class="num">10,560,672</td><td class="num">70,134,495</td></tr>
+<tr><td class="num">24</td><td class="num">9,574,306</td><td class="num">986,366</td><td class="num">10,560,672</td><td class="num">60,560,189</td></tr>
+<tr><td class="num">25</td><td class="num">9,718,912</td><td class="num">841,760</td><td class="num">10,560,672</td><td class="num">50,841,277</td></tr>
+<tr><td class="num">26</td><td class="num">9,865,703</td><td class="num">694,969</td><td class="num">10,560,672</td><td class="num">40,975,574</td></tr>
+<tr><td class="num">27</td><td class="num">10,014,709</td><td class="num">545,963</td><td class="num">10,560,672</td><td class="num">30,960,865</td></tr>
+<tr><td class="num">28</td><td class="num">10,165,966</td><td class="num">394,706</td><td class="num">10,560,672</td><td class="num">20,794,899</td></tr>
+<tr><td class="num">29</td><td class="num">10,319,508</td><td class="num">241,164</td><td class="num">10,560,672</td><td class="num">10,475,391</td></tr>
+<tr><td class="num">30</td><td class="num">10,475,369</td><td class="num">85,303</td><td class="num">10,560,672</td><td class="num">0</td></tr>
+</tbody></table></div>
+
+<h3 style="margin-top:16px;padding:6px;background:#1a3a5c;color:#fff">月次明細（初年度）</h3>
+<div class="pl-table-wrap">
+<table>
+<thead><tr><th>年次</th><th>回数</th><th>返済額計（累計）</th><th>返済額</th><th>内元金</th><th>内利息</th><th>元本残高</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td class="num">1</td><td class="num">880,056</td><td class="num">880,056</td><td class="num">561,306</td><td class="num">318,750</td><td class="num">254,438,694</td></tr>
+<tr><td class="num">1</td><td class="num">2</td><td class="num">1,760,112</td><td class="num">880,056</td><td class="num">562,008</td><td class="num">318,048</td><td class="num">253,876,686</td></tr>
+<tr><td class="num">1</td><td class="num">3</td><td class="num">2,640,168</td><td class="num">880,056</td><td class="num">562,711</td><td class="num">317,345</td><td class="num">253,313,975</td></tr>
+<tr><td class="num">1</td><td class="num">4</td><td class="num">3,520,224</td><td class="num">880,056</td><td class="num">563,414</td><td class="num">316,642</td><td class="num">252,750,561</td></tr>
+<tr><td class="num">1</td><td class="num">5</td><td class="num">4,400,280</td><td class="num">880,056</td><td class="num">564,118</td><td class="num">315,938</td><td class="num">252,186,443</td></tr>
+<tr><td class="num">1</td><td class="num">6</td><td class="num">5,280,336</td><td class="num">880,056</td><td class="num">564,823</td><td class="num">315,233</td><td class="num">251,621,620</td></tr>
+<tr><td class="num">1</td><td class="num">7</td><td class="num">6,160,392</td><td class="num">880,056</td><td class="num">565,529</td><td class="num">314,527</td><td class="num">251,056,091</td></tr>
+<tr><td class="num">1</td><td class="num">8</td><td class="num">7,040,448</td><td class="num">880,056</td><td class="num">566,236</td><td class="num">313,820</td><td class="num">250,489,855</td></tr>
+<tr><td class="num">1</td><td class="num">9</td><td class="num">7,920,504</td><td class="num">880,056</td><td class="num">566,944</td><td class="num">313,112</td><td class="num">249,922,911</td></tr>
+<tr><td class="num">1</td><td class="num">10</td><td class="num">8,800,560</td><td class="num">880,056</td><td class="num">567,653</td><td class="num">312,403</td><td class="num">249,355,258</td></tr>
+<tr><td class="num">1</td><td class="num">11</td><td class="num">9,680,616</td><td class="num">880,056</td><td class="num">568,362</td><td class="num">311,694</td><td class="num">248,786,896</td></tr>
+<tr><td class="num">1</td><td class="num">12</td><td class="num">10,560,672</td><td class="num">880,056</td><td class="num">569,073</td><td class="num">310,983</td><td class="num">248,217,823</td></tr>
+</tbody></table></div>
+</div>
+
+<div id="t10" class="tab-content">
+<h2 style="margin-bottom:8px;color:#1a3a5c">償却と固定資産</h2>
+<div class="two-col">
+<div>
+<h3 style="padding:6px;background:#1a3a5c;color:#fff;margin-bottom:8px">建物の減価償却率（定額法）</h3>
+<table>
+<thead><tr><th>耐用年数</th><th>定額法償却率</th></tr></thead>
+<tbody>
+<tr><td class="num">2年</td><td class="num">0.500</td></tr>
+<tr><td class="num">3年</td><td class="num">0.333</td></tr>
+<tr><td class="num">4年</td><td class="num">0.250</td></tr>
+<tr><td class="num">5年</td><td class="num">0.200</td></tr>
+<tr><td class="num">6年</td><td class="num">0.166</td></tr>
+<tr><td class="num">7年</td><td class="num">0.142</td></tr>
+<tr><td class="num">8年</td><td class="num">0.125</td></tr>
+<tr><td class="num">9年</td><td class="num">0.111</td></tr>
+<tr><td class="num">10年</td><td class="num">0.100</td></tr>
+<tr><td class="num">11年</td><td class="num">0.090</td></tr>
+<tr><td class="num">12年</td><td class="num">0.083</td></tr>
+<tr><td class="num">13年</td><td class="num">0.076</td></tr>
+<tr><td class="num">14年</td><td class="num">0.071</td></tr>
+<tr><td class="num">15年</td><td class="num">0.066</td></tr>
+<tr><td class="num">16年</td><td class="num">0.062</td></tr>
+<tr><td class="num">17年</td><td class="num">0.058</td></tr>
+<tr><td class="num">18年</td><td class="num">0.055</td></tr>
+<tr><td class="num">19年</td><td class="num">0.052</td></tr>
+<tr><td class="num">20年</td><td class="num">0.050</td></tr>
+<tr><td class="num">21年</td><td class="num">0.048</td></tr>
+<tr><td class="num">22年</td><td class="num">0.046</td></tr>
+<tr><td class="num">23年</td><td class="num">0.044</td></tr>
+<tr><td class="num">24年</td><td class="num">0.042</td></tr>
+<tr><td class="num">25年</td><td class="num">0.040</td></tr>
+<tr><td class="num">26年</td><td class="num">0.039</td></tr>
+<tr><td class="num">27年</td><td class="num">0.037</td></tr>
+<tr><td class="num">28年</td><td class="num">0.036</td></tr>
+<tr><td class="num">29年</td><td class="num">0.035</td></tr>
+<tr><td class="num">30年</td><td class="num">0.034</td></tr>
+<tr><td class="num">31年</td><td class="num">0.033</td></tr>
+<tr><td class="num">32年</td><td class="num">0.032</td></tr>
+<tr><td class="num">33年</td><td class="num">0.031</td></tr>
+<tr><td class="num">34年</td><td class="num">0.030</td></tr>
+<tr><td class="num">35年</td><td class="num">0.029</td></tr>
+<tr><td class="num">36年</td><td class="num">0.028</td></tr>
+<tr><td class="num">37年</td><td class="num">0.027</td></tr>
+<tr><td class="num">38年</td><td class="num">0.026</td></tr>
+<tr><td class="num">39年</td><td class="num">0.026</td></tr>
+<tr><td class="num">40年</td><td class="num">0.025</td></tr>
+<tr><td class="num">41年</td><td class="num">0.025</td></tr>
+<tr><td class="num">42年</td><td class="num">0.024</td></tr>
+<tr><td class="num">43年</td><td class="num">0.024</td></tr>
+<tr><td class="num">44年</td><td class="num">0.023</td></tr>
+<tr><td class="num">45年</td><td class="num">0.023</td></tr>
+<tr><td class="num">46年</td><td class="num">0.022</td></tr>
+<tr><td class="num">47年</td><td class="num">0.022</td></tr>
+<tr><td class="num">48年</td><td class="num">0.021</td></tr>
+<tr><td class="num">49年</td><td class="num">0.021</td></tr>
+<tr><td class="num">50年</td><td class="num">0.020</td></tr>
+</tbody></table>
+</div>
+<div>
+<h3 style="padding:6px;background:#1a3a5c;color:#fff;margin-bottom:8px">固定資産税逓減テーブル（建物評価額の掛け目）</h3>
+<table>
+<thead><tr><th>経過年数</th><th>RC</th><th>鉄骨</th><th>木造</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td class="num">0.8000</td><td class="num">0.8000</td><td class="num">0.80</td></tr>
+<tr><td class="num">2</td><td class="num">0.7500</td><td class="num">0.7500</td><td class="num">0.75</td></tr>
+<tr><td class="num">3</td><td class="num">0.7000</td><td class="num">0.7000</td><td class="num">0.70</td></tr>
+<tr><td class="num">4</td><td class="num">0.6912</td><td class="num">0.6865</td><td class="num">0.68</td></tr>
+<tr><td class="num">5</td><td class="num">0.6825</td><td class="num">0.6730</td><td class="num">0.65</td></tr>
+<tr><td class="num">6</td><td class="num">0.6737</td><td class="num">0.6595</td><td class="num">0.63</td></tr>
+<tr><td class="num">7</td><td class="num">0.6649</td><td class="num">0.6459</td><td class="num">0.61</td></tr>
+<tr><td class="num">8</td><td class="num">0.6561</td><td class="num">0.6324</td><td class="num">0.59</td></tr>
+<tr><td class="num">9</td><td class="num">0.6474</td><td class="num">0.6189</td><td class="num">0.56</td></tr>
+<tr><td class="num">10</td><td class="num">0.6386</td><td class="num">0.6054</td><td class="num">0.54</td></tr>
+<tr><td class="num">11</td><td class="num">0.6298</td><td class="num">0.5919</td><td class="num">0.52</td></tr>
+<tr><td class="num">12</td><td class="num">0.6211</td><td class="num">0.5784</td><td class="num">0.50</td></tr>
+<tr><td class="num">13</td><td class="num">0.6123</td><td class="num">0.5649</td><td class="num">0.47</td></tr>
+<tr><td class="num">14</td><td class="num">0.6035</td><td class="num">0.5514</td><td class="num">0.45</td></tr>
+<tr><td class="num">15</td><td class="num">0.5947</td><td class="num">0.5378</td><td class="num">0.43</td></tr>
+<tr><td class="num">16</td><td class="num">0.5860</td><td class="num">0.5243</td><td class="num">0.40</td></tr>
+<tr><td class="num">17</td><td class="num">0.5772</td><td class="num">0.5108</td><td class="num">0.38</td></tr>
+<tr><td class="num">18</td><td class="num">0.5684</td><td class="num">0.4973</td><td class="num">0.36</td></tr>
+<tr><td class="num">19</td><td class="num">0.5596</td><td class="num">0.4838</td><td class="num">0.34</td></tr>
+<tr><td class="num">20</td><td class="num">0.5509</td><td class="num">0.4703</td><td class="num">0.31</td></tr>
+<tr><td class="num">21</td><td class="num">0.5421</td><td class="num">0.4568</td><td class="num">0.29</td></tr>
+<tr><td class="num">22</td><td class="num">0.5333</td><td class="num">0.4433</td><td class="num">0.27</td></tr>
+<tr><td class="num">23</td><td class="num">0.5246</td><td class="num">0.4297</td><td class="num">0.25</td></tr>
+<tr><td class="num">24</td><td class="num">0.5158</td><td class="num">0.4162</td><td class="num">0.22</td></tr>
+<tr><td class="num">25</td><td class="num">0.5070</td><td class="num">0.4027</td><td class="num">0.20</td></tr>
+<tr><td class="num">26</td><td class="num">0.4982</td><td class="num">0.3892</td><td class="num">0.20</td></tr>
+<tr><td class="num">27</td><td class="num">0.4895</td><td class="num">0.3757</td><td class="num">0.20</td></tr>
+<tr><td class="num">28</td><td class="num">0.4807</td><td class="num">0.3622</td><td class="num">0.20</td></tr>
+<tr><td class="num">29</td><td class="num">0.4719</td><td class="num">0.3486</td><td class="num">0.20</td></tr>
+<tr><td class="num">30</td><td class="num">0.4632</td><td class="num">0.3351</td><td class="num">0.20</td></tr>
+<tr><td class="num">31</td><td class="num">0.4544</td><td class="num">0.3216</td><td class="num">0.20</td></tr>
+<tr><td class="num">32</td><td class="num">0.4456</td><td class="num">0.3081</td><td class="num">0.20</td></tr>
+<tr><td class="num">33</td><td class="num">0.4368</td><td class="num">0.2946</td><td class="num">0.20</td></tr>
+<tr><td class="num">34</td><td class="num">0.4281</td><td class="num">0.2811</td><td class="num">0.20</td></tr>
+<tr><td class="num">35</td><td class="num">0.4193</td><td class="num">0.2676</td><td class="num">0.20</td></tr>
+</tbody></table>
+
+<h3 style="padding:6px;background:#1a3a5c;color:#fff;margin-top:12px;margin-bottom:8px">印紙代テーブル（不動産売買契約）</h3>
+<table>
+<thead><tr><th>売買金額（超）</th><th>印紙税額</th></tr></thead>
+<tbody>
+<tr><td class="num">0</td><td class="num">0円</td></tr>
+<tr><td class="num">1,000,001</td><td class="num">1,000円</td></tr>
+<tr><td class="num">5,000,001</td><td class="num">5,000円</td></tr>
+<tr><td class="num">10,000,001</td><td class="num">10,000円</td></tr>
+<tr><td class="num">50,000,001</td><td class="num">30,000円</td></tr>
+<tr><td class="num">100,000,001</td><td class="num">60,000円</td></tr>
+<tr><td class="num">500,000,001</td><td class="num">160,000円</td></tr>
+<tr><td class="num">1,000,000,001</td><td class="num">320,000円</td></tr>
+<tr><td class="num">5,000,000,001</td><td class="num">480,000円</td></tr>
+</tbody></table>
+</div>
+</div>
+</div>
+
+<div id="t11" class="tab-content">
+<h2 style="margin-bottom:8px;color:#1a3a5c">main（諸費用・集約計算）</h2>
+<div class="pl-table-wrap">
+<table>
+<thead><tr>
+<th class="row-label">項目</th>
+<th class="year-hdr">y1</th><th class="year-hdr">y2</th><th class="year-hdr">y3</th><th class="year-hdr">y4</th><th class="year-hdr">y5</th><th class="year-hdr">y6</th><th class="year-hdr">y7</th><th class="year-hdr">y8</th><th class="year-hdr">y9</th><th class="year-hdr">y10</th><th class="year-hdr">y11</th><th class="year-hdr">y12</th><th class="year-hdr">y13</th><th class="year-hdr">y14</th><th class="year-hdr">y15</th><th class="year-hdr">y16</th><th class="year-hdr">y17</th><th class="year-hdr">y18</th><th class="year-hdr">y19</th><th class="year-hdr">y20</th><th class="year-hdr">y21</th><th class="year-hdr">y22</th><th class="year-hdr">y23</th><th class="year-hdr">y24</th><th class="year-hdr">y25</th><th class="year-hdr">y26</th><th class="year-hdr">y27</th><th class="year-hdr">y28</th><th class="year-hdr">y29</th><th class="year-hdr">y30</th><th class="year-hdr">y31</th><th class="year-hdr">y32</th><th class="year-hdr">y33</th><th class="year-hdr">y34</th><th class="year-hdr">y35</th></tr></thead><tbody>
+<tr><td class="row-label">物件売却価格</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td><td class="num ">300,000,000</td></tr>
+<tr><td class="row-label">ローン残債</td><td class="num ">248,217,823</td><td class="num ">241,333,209</td><td class="num ">234,344,612</td><td class="num ">227,250,464</td><td class="num ">220,049,170</td><td class="num ">212,739,108</td><td class="num ">205,318,639</td><td class="num ">197,786,094</td><td class="num ">190,139,780</td><td class="num ">182,377,978</td><td class="num ">174,498,949</td><td class="num ">166,500,918</td><td class="num ">158,382,090</td><td class="num ">150,140,636</td><td class="num ">141,774,707</td><td class="num ">133,282,423</td><td class="num ">124,661,877</td><td class="num ">115,911,129</td><td class="num ">107,028,211</td><td class="num ">98,011,131</td><td class="num ">88,857,861</td><td class="num ">79,566,345</td><td class="num ">70,134,495</td><td class="num ">60,560,189</td><td class="num ">50,841,277</td><td class="num ">40,975,574</td><td class="num ">30,960,865</td><td class="num ">20,794,899</td><td class="num ">10,475,391</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td></tr>
+<tr><td class="row-label">売却時手数料額税込み</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td><td class="num ">6,000,000</td></tr>
+<tr><td class="row-label">売却時印紙代</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td><td class="num ">60,000</td></tr>
+<tr><td class="row-label">売却時諸経費合計</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td><td class="num ">6,060,000</td></tr>
+<tr><td class="row-label">期末建物簿価</td><td class="num ">88,869,286</td><td class="num ">84,829,772</td><td class="num ">80,790,258</td><td class="num ">76,750,744</td><td class="num ">72,711,230</td><td class="num ">68,671,716</td><td class="num ">64,632,202</td><td class="num ">60,592,688</td><td class="num ">56,553,174</td><td class="num ">52,513,660</td><td class="num ">48,474,146</td><td class="num ">44,434,632</td><td class="num ">40,395,118</td><td class="num ">36,355,604</td><td class="num ">32,316,090</td><td class="num ">28,276,576</td><td class="num ">24,237,062</td><td class="num ">20,197,548</td><td class="num ">16,158,034</td><td class="num ">12,118,520</td><td class="num ">8,079,006</td><td class="num ">4,039,492</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td><td class="num ">0</td></tr>
+<tr><td class="row-label">土地簿価</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td></tr>
+<tr><td class="row-label">土地建物CAPEX期末簿価</td><td class="num ">305,656,486</td><td class="num ">301,616,972</td><td class="num ">297,577,458</td><td class="num ">293,537,944</td><td class="num ">289,498,430</td><td class="num ">285,458,916</td><td class="num ">281,419,402</td><td class="num ">277,379,888</td><td class="num ">273,340,374</td><td class="num ">269,300,860</td><td class="num ">265,261,346</td><td class="num ">261,221,832</td><td class="num ">257,182,318</td><td class="num ">253,142,804</td><td class="num ">249,103,290</td><td class="num ">245,063,776</td><td class="num ">241,024,262</td><td class="num ">236,984,748</td><td class="num ">232,945,234</td><td class="num ">228,905,720</td><td class="num ">224,866,206</td><td class="num ">220,826,692</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td><td class="num ">216,787,200</td></tr>
+<tr><td class="row-label">売却に係る税務上利益</td><td class="num neg">-11,716,486</td><td class="num neg">-7,676,972</td><td class="num neg">-3,637,458</td><td class="num ">402,056</td><td class="num ">4,441,570</td><td class="num ">8,481,084</td><td class="num ">12,520,598</td><td class="num ">16,560,112</td><td class="num ">20,599,626</td><td class="num ">24,639,140</td><td class="num ">28,678,654</td><td class="num ">32,718,168</td><td class="num ">36,757,682</td><td class="num ">40,797,196</td><td class="num ">44,836,710</td><td class="num ">48,876,224</td><td class="num ">52,915,738</td><td class="num ">56,955,252</td><td class="num ">60,994,766</td><td class="num ">65,034,280</td><td class="num ">69,073,794</td><td class="num ">73,113,308</td><td class="num ">77,152,800</td><td class="num ">77,152,800</td><td class="num ">77,152,800</td><td class="num ">77,152,800</td><td class="num ">77,152,800</td><td class="num ">77,152,800</td><td class="num ">77,152,800</td><td class="num ">77,152,800</td><td class="num ">77,152,800</td><td class="num ">77,152,800</td><td class="num ">77,152,800</td><td class="num ">77,152,800</td><td class="num ">77,152,800</td></tr>
+<tr><td class="row-label">建物仲介手数料（按分）</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td><td class="num ">2,908,800</td></tr>
+<tr><td class="row-label">土地仲介手数料（按分）</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td><td class="num ">6,787,200</td></tr>
+</tbody></table></div>
+</div>
+
+<div id="t12" class="tab-content">
+<h2 style="margin-bottom:8px;color:#1a3a5c">税後IRR計算</h2>
+<div class="pl-table-wrap">
+<table>
+<thead><tr>
+<th>売却年</th><th>税引後IRR</th><th>税引後MIRR</th><th>CF合計</th><th>マルチプル</th>
+</tr></thead>
+<tbody>
+<tr><td class="num">1</td><td class="num neg">-0.2304 (-23.04%)</td><td class="num">-0.2304 (-23.04%)</td><td class="num">-10,137,426</td><td class="num">0.770</td></tr>
+<tr><td class="num">2</td><td class="num ">0.0022 (0.22%)</td><td class="num">0.0020 (0.20%)</td><td class="num">218,745</td><td class="num">1.005</td></tr>
+<tr><td class="num">3</td><td class="num ">0.0554 (5.54%)</td><td class="num">0.0510 (5.10%)</td><td class="num">8,878,162</td><td class="num">1.202</td></tr>
+<tr><td class="num">4</td><td class="num ">0.0765 (7.65%)</td><td class="num">0.0706 (7.06%)</td><td class="num">17,313,971</td><td class="num">1.393</td></tr>
+<tr><td class="num">5</td><td class="num pos">0.0856 (8.56%)</td><td class="num">0.0787 (7.87%)</td><td class="num">25,435,923</td><td class="num">1.578</td></tr>
+<tr><td class="num">6</td><td class="num pos">0.0899 (8.99%)</td><td class="num">0.0823 (8.23%)</td><td class="num">33,518,903</td><td class="num">1.762</td></tr>
+<tr><td class="num">7</td><td class="num pos">0.0920 (9.20%)</td><td class="num">0.0837 (8.37%)</td><td class="num">41,693,991</td><td class="num">1.948</td></tr>
+<tr><td class="num">8</td><td class="num pos">0.0929 (9.29%)</td><td class="num">0.0839 (8.39%)</td><td class="num">49,962,502</td><td class="num">2.136</td></tr>
+<tr><td class="num">9</td><td class="num pos">0.0928 (9.28%)</td><td class="num">0.0832 (8.32%)</td><td class="num">58,155,185</td><td class="num">2.322</td></tr>
+<tr><td class="num">10</td><td class="num pos">0.0924 (9.24%)</td><td class="num">0.0823 (8.23%)</td><td class="num">66,585,917</td><td class="num">2.513</td></tr>
+<tr><td class="num">11</td><td class="num pos">0.0917 (9.17%)</td><td class="num">0.0812 (8.12%)</td><td class="num">75,113,955</td><td class="num">2.707</td></tr>
+<tr><td class="num">12</td><td class="num pos">0.0909 (9.09%)</td><td class="num">0.0799 (7.99%)</td><td class="num">83,740,710</td><td class="num">2.903</td></tr>
+<tr><td class="num">13</td><td class="num pos">0.0899 (8.99%)</td><td class="num">0.0786 (7.86%)</td><td class="num">92,467,575</td><td class="num">3.102</td></tr>
+<tr><td class="num">14</td><td class="num pos">0.0887 (8.87%)</td><td class="num">0.0771 (7.71%)</td><td class="num">100,932,955</td><td class="num">3.294</td></tr>
+<tr><td class="num">15</td><td class="num pos">0.0876 (8.76%)</td><td class="num">0.0757 (7.57%)</td><td class="num">109,831,034</td><td class="num">3.496</td></tr>
+<tr><td class="num">16</td><td class="num pos">0.0865 (8.65%)</td><td class="num">0.0744 (7.44%)</td><td class="num">118,833,466</td><td class="num">3.701</td></tr>
+<tr><td class="num">17</td><td class="num pos">0.0854 (8.54%)</td><td class="num">0.0731 (7.31%)</td><td class="num">127,941,711</td><td class="num">3.908</td></tr>
+<tr><td class="num">18</td><td class="num pos">0.0843 (8.43%)</td><td class="num">0.0718 (7.18%)</td><td class="num">137,149,047</td><td class="num">4.117</td></tr>
+<tr><td class="num">19</td><td class="num pos">0.0832 (8.32%)</td><td class="num">0.0706 (7.06%)</td><td class="num">146,450,382</td><td class="num">4.328</td></tr>
+<tr><td class="num">20</td><td class="num pos">0.0822 (8.22%)</td><td class="num">0.0693 (6.93%)</td><td class="num">155,846,980</td><td class="num">4.542</td></tr>
+<tr><td class="num">21</td><td class="num pos">0.0811 (8.11%)</td><td class="num">0.0682 (6.82%)</td><td class="num">165,340,188</td><td class="num">4.758</td></tr>
+<tr><td class="num">22</td><td class="num pos">0.0801 (8.01%)</td><td class="num">0.0670 (6.70%)</td><td class="num">174,931,296</td><td class="num">4.976</td></tr>
+<tr><td class="num">23</td><td class="num ">0.0791 (7.91%)</td><td class="num">0.0659 (6.59%)</td><td class="num">184,621,747</td><td class="num">5.196</td></tr>
+<tr><td class="num">24</td><td class="num ">0.0781 (7.81%)</td><td class="num">0.0649 (6.49%)</td><td class="num">194,412,954</td><td class="num">5.418</td></tr>
+<tr><td class="num">25</td><td class="num ">0.0772 (7.72%)</td><td class="num">0.0639 (6.39%)</td><td class="num">204,515,482</td><td class="num">5.648</td></tr>
+<tr><td class="num">26</td><td class="num ">0.0763 (7.63%)</td><td class="num">0.0629 (6.29%)</td><td class="num">214,701,551</td><td class="num">5.880</td></tr>
+<tr><td class="num">27</td><td class="num ">0.0754 (7.54%)</td><td class="num">0.0620 (6.20%)</td><td class="num">224,994,632</td><td class="num">6.114</td></tr>
+<tr><td class="num">28</td><td class="num ">0.0744 (7.44%)</td><td class="num">0.0611 (6.11%)</td><td class="num">235,394,102</td><td class="num">6.350</td></tr>
+<tr><td class="num">29</td><td class="num ">0.0735 (7.35%)</td><td class="num">0.0602 (6.02%)</td><td class="num">245,901,606</td><td class="num">6.589</td></tr>
+<tr><td class="num">30</td><td class="num ">0.0727 (7.27%)</td><td class="num">0.0594 (5.94%)</td><td class="num">256,518,743</td><td class="num">6.830</td></tr>
+<tr><td class="num">31</td><td class="num ">0.0718 (7.18%)</td><td class="num">0.0578 (5.78%)</td><td class="num">267,196,140</td><td class="num">7.073</td></tr>
+<tr><td class="num">32</td><td class="num ">0.0710 (7.10%)</td><td class="num">0.0569 (5.69%)</td><td class="num">277,877,203</td><td class="num">7.315</td></tr>
+<tr><td class="num">33</td><td class="num ">0.0703 (7.03%)</td><td class="num">0.0570 (5.70%)</td><td class="num">288,557,914</td><td class="num">7.558</td></tr>
+<tr><td class="num">34</td><td class="num ">0.0696 (6.96%)</td><td class="num">0.0562 (5.62%)</td><td class="num">299,238,659</td><td class="num">7.801</td></tr>
+<tr><td class="num">35</td><td class="num ">0.0690 (6.90%)</td><td class="num">0.0555 (5.55%)</td><td class="num">309,919,401</td><td class="num">8.044</td></tr>
+</tbody></table></div>
+</div>
+
+<div id="t13" class="tab-content">
+<h2 style="margin-bottom:8px;color:#1a3a5c">バグ修正履歴</h2>
+<div class="pl-table-wrap">
+<table>
+<thead><tr><th>影響度</th><th>発生頻度</th><th>内容</th><th>修正日</th><th>備考</th></tr></thead>
+<tbody>
+<tr><td>中大</td><td>中</td><td>法人で物件を赤字売却した際、その損失は当該年度の賃料収入と相殺されるはずだがされていなかった</td><td>?</td><td ></td></tr>
+<tr><td>中</td><td>毎回</td><td>ブレークイーブン売却価格が少し合っていなかった。いまだにたまに少額合わないことがあるが概ね合っている。</td><td>?</td><td ></td></tr>
+<tr><td>ほぼなし</td><td>毎回</td><td>税引き前IRRの計算で物件購入時の契約書貼付印紙代が2重計上されていた？（影響ほとんどなし）</td><td>?</td><td ></td></tr>
+<tr><td>小</td><td>毎回</td><td>建物減価償却定額法の計算が微妙に違っていた（あまり大きな違いは発生しない）</td><td>?</td><td ></td></tr>
+<tr><td>大</td><td>毎回</td><td>個人で物件を保有して売却したときの長期保有５年超について、いつからが長期となるのか期間が正しく計算されていなかった</td><td>2016-08-19</td><td ></td></tr>
+<tr><td>大</td><td>毎回</td><td>個人売却時の税率計算６－７年目が正しくなかった</td><td>2016-08-21</td><td ></td></tr>
+<tr><td>中</td><td>毎回</td><td>法人の事業税（地方法人特別税）の計算方法が間違っていた</td><td>2016-08-29</td><td ></td></tr>
+<tr><td>中</td><td>毎回</td><td>個人の所得計算で事業税が抜けていた</td><td>2016-08-29</td><td ></td></tr>
+<tr><td>小</td><td>希</td><td>10億円超の売買をしたときの印紙代計算が間違っていた</td><td>2016-10-09</td><td ></td></tr>
+<tr><td>小</td><td>毎回</td><td>事業税を来期の経費として計算するようにした（仕様変更）</td><td>2016-10-21</td><td ></td></tr>
+<tr><td>小</td><td>希</td><td>住宅ローン控除3000万円オーバー不適用の判定が間違っていた</td><td>2016-10-22</td><td ></td></tr>
+<tr><td>中</td><td>毎回</td><td>個人の税金計算に青色申告控除65万円を追加</td><td>2016-10-22</td><td ></td></tr>
+<tr><td>中</td><td>毎回</td><td>「個人税金計算」に青色申告控除65万円を追加(35年一覧の「個人税率TB」はまだ修正していない)</td><td>2018-04-15</td><td ></td></tr>
+<tr><td>小</td><td>希</td><td>法人で賃料収入(PL)赤字で物件売却(BS)黒字の年の物件売却益がPL赤字と相殺されていなかった</td><td>2016-10-23</td><td ></td></tr>
+<tr><td>中</td><td>希</td><td>法人で累積繰越欠損が残っていて物件売却時に利益が出る場合は相殺するようにした</td><td>2016-10-23</td><td ></td></tr>
+<tr><td>大</td><td>毎回</td><td>マルチプルの計算が間違っていた</td><td>2016-10-25</td><td ></td></tr>
+<tr><td>中</td><td>中</td><td>個人不動産利益が65万円以下の場合に青色申告控除の計算がおかしかった</td><td>2016-11-13</td><td ></td></tr>
+<tr><td>小</td><td>小</td><td>法人事業税が超過税率の際、地方法人特別税の課税標準は、標準税率で計算した事業税額を使います(現在は超過税率で計算している)</td><td></td><td style="color:#c00">まだ修正されていない</td></tr>
+<tr><td>小</td><td>中</td><td>個人の税額計算において、青色申告控除が住民税の計算で適用されていない（年間6万円程度の誤差）</td><td>2018-04-15</td><td ></td></tr>
+<tr><td>大</td><td>中</td><td>個人の税額計算において、個人の本業収入が少ないときに住宅ローン控除の計算が正しくされない</td><td>2018-04-15</td><td ></td></tr>
+<tr><td>-</td><td>毎回</td><td>個人税率TBの81=税引後手取り増　は計算は正しいが「手取り増」の表記は不適切。</td><td></td><td ></td></tr>
+<tr><td>小</td><td>毎回</td><td>保険と年金を平成30年3月分（4月納付分）の新料率に変更</td><td>2018-04-15</td><td ></td></tr>
+<tr><td>小</td><td>毎回</td><td>個人の税額計算(配偶者あり)で住民税調整控除(税額控除)5000円とすべきところが2500円になっていた。計算結果ベリファイ参考http://www.tax-asp.e-civion.net/tax-project/NagoyaMenuAction.do</td><td>2018-04-15</td><td ></td></tr>
+<tr><td>-</td><td>-</td><td>収益シミュレーションシートに当期NOI集計欄を追加</td><td>2018-04-15</td><td ></td></tr>
+<tr><td>大</td><td>毎回</td><td>Rev.2018.04.16に限り個人の健康保険額が本来の1/12になっていた（月額と年額を間違えた）なお、それ以前のバージョンは正常</td><td>2018-06-27</td><td ></td></tr>
+<tr><td>小</td><td>毎回</td><td>厚生年金の等級2のときに年金額がゼロになる</td><td>2019-08-22</td><td ></td></tr>
+<tr><td>中</td><td>毎回</td><td>消費税10%に対応</td><td>2019-10-03</td><td ></td></tr>
+<tr><td>大</td><td>毎回</td><td>売却時手残り試算のシートに変更不可パスワードがかかっており操作できなかった</td><td>2019-10-16</td><td ></td></tr>
+<tr><td>大</td><td>毎回</td><td>マルチプルの計算が間違っていた　掲示板#4345(購入時の諸経費が二重計上されていた)</td><td>2020-02-10</td><td ></td></tr>
+<tr><td>-</td><td>-</td><td>市況の変化に合わせて初期設定パラメーターを渋めに変更</td><td>2020-02-10</td><td ></td></tr>
+<tr><td>中</td><td>毎回</td><td>仕様＞更新料の受領が一律でゼロの扱い</td><td></td><td style="color:#c00">まだ修正されていない</td></tr>
+<tr><td>大</td><td>毎回</td><td>法人事業税の支払いがキャッシュフロー計算から漏れていたかと思ったら漏れていなかった（税額に事業税も含まれる）</td><td>2020-08-10</td><td ></td></tr>
+<tr><td>中</td><td>小</td><td>法人本業の利益が入力されているとき、法人事業税の計算がおかしい</td><td>2020-08-10</td><td ></td></tr>
+<tr><td>小</td><td>毎回</td><td>子ども・子育て拠出金率（令和2年4月1日～　適用）　…0.36％事業主負担が反映されていない</td><td></td><td style="color:#c00">まだ修正されていない</td></tr>
+<tr><td>小</td><td>毎回</td><td>令和2年4月分（5月納付分）からの健康保険・厚生年金保険の保険料額表が反映されていない</td><td></td><td style="color:#c00">まだ修正されていない</td></tr>
+<tr><td>小</td><td>毎回</td><td>合計所得が2400万超の場合段階的に基礎控除が減額されますが所得にかかわらず基礎控除は一律48万円としています</td><td></td><td style="color:#c00">まだ修正されていない</td></tr>
+</tbody></table></div>
+<div class="note" style="margin-top:12px">
+投資主体が法人の場合、物件売却時税前CFよりも物件売却時税後CFが多くなることがありますが擬似的に税金の還付処理をしているためであり異常ではありません。
+</div>
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active'));
+  document.querySelectorAll('.tab-bar button').forEach(e => e.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function fmt(n) { return Math.round(n).toLocaleString('ja-JP'); }
+function fmtM(n) { return (n/10000).toFixed(1); }
+function pct(n) { return (n*100).toFixed(2)+'%'; }
+function parseNum(id) { var el=document.getElementById(id); return el ? parseFloat(String(el.value).replace(/,/g,'')) : 0; }
+function parseNumD(id, def) { var el=document.getElementById(id); if(!el) return def; var raw=String(el.value).replace(/,/g,''); if(raw.trim()==='') return def; var v=parseFloat(raw); return isNaN(v)?def:v; }
+
+// ---- Loan calculation ----
+function calcMonthlyPayment(principal, annualRate, years) {
+  var r = annualRate / 12;
+  var n = years * 12;
+  if (r === 0) return principal / n;
+  return principal * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1);
+}
+
+function calcLoan() {
+  var P = parseNum('loan_calc_amount') || 255000000;
+  var rate = parseNum('loan_calc_rate') || 0.015;
+  var years = parseInt(document.getElementById('loan_calc_years').value) || 30;
+  var monthly = calcMonthlyPayment(P, rate, years);
+  document.getElementById('loan_monthly').textContent = (monthly/10000).toFixed(1);
+  document.getElementById('loan_total').textContent = fmt(Math.round(monthly)*years*12/10000);
+}
+
+// ---- Corp tax calc ----
+function calcCorp() {
+  var income = parseNum('corp_income') || 9000000;
+  var tax800 = Math.min(income, 8000000) * 0.15;
+  var taxOver800 = Math.max(0, income - 8000000) * 0.234;
+  var houjinTax = tax800 + taxOver800;
+  var juminTax = (houjinTax > 10000000) ? houjinTax * 0.163 : houjinTax * 0.129;
+  var juminKintou = 70000;
+  var biz400 = Math.min(income, 4000000) * 0.034;
+  var biz800 = Math.min(Math.max(0, income - 4000000), 4000000) * 0.051;
+  var bizOver = Math.max(0, income - 8000000) * 0.067;
+  var jigyoTax = biz400 + biz800 + bizOver;
+  var chihoTax = jigyoTax * 0.432;
+  var chihoHoujin = houjinTax * 0.044;
+  var total = houjinTax + juminTax + juminKintou + jigyoTax + chihoTax + chihoHoujin;
+  var effRate = total / income;
+  document.getElementById('corp_total').textContent = fmt(Math.round(total));
+  document.getElementById('corp_eff_rate').textContent = (effRate*100).toFixed(2)+'%';
+}
+
+// ---- Corporate tax calculation (均等割なし = marginal tax base) ----
+// NOTE: Excel excludes 均等割(70,000) from the rental/sale incremental rate calculation.
+function corpTaxBase(income) {
+  if (income <= 0) return 0;
+  var h = Math.min(income, 8000000) * 0.15 + Math.max(0, income - 8000000) * 0.234;
+  var j = h * (h > 10000000 ? 0.163 : 0.129); // 住民税 (均等割なし)
+  var b = Math.min(income, 4000000) * 0.034 +
+          Math.min(Math.max(0, income - 4000000), 4000000) * 0.051 +
+          Math.max(0, income - 8000000) * 0.067;
+  return h + j + b * 1.432 + h * 0.044;  // b*(1+特別法人事業税0.432)
+}
+
+// Effective tax rate on rental income (no 均等割)
+function corpRentalTaxRate(income) {
+  if (income <= 0) return 0;
+  return corpTaxBase(income) / income;
+}
+
+// Marginal effective rate on sale gain (given base rental taxable income)
+function computeSaleEffRate(ownerType, rentalTaxable, saleGain) {
+  if (saleGain <= 0) return 0;
+  var base = Math.max(0, rentalTaxable);
+  if (ownerType === 2) { // 法人
+    return (corpTaxBase(base + saleGain) - corpTaxBase(base)) / saleGain;
+  } else { // 個人: simplified
+    return 0.3746;
+  }
+}
+
+// ---- MIRR (finance_rate=0, reinvest_rate=0 = "再投資なし") ----
+function calcMIRR(cashflows) {
+  var posSum = 0, negSum = 0;
+  for (var i = 0; i < cashflows.length; i++) {
+    if (cashflows[i] >= 0) posSum += cashflows[i];
+    else negSum += Math.abs(cashflows[i]);
+  }
+  if (negSum === 0 || posSum === 0) return 0;
+  var n = cashflows.length - 1;
+  return Math.pow(posSum / negSum, 1/n) - 1;
+}
+
+// ---- IRR (bisection method) ----
+function calcIRR(cashflows) {
+  function npv(rate, cfs) {
+    return cfs.reduce(function(acc, cf, i) { return acc + cf / Math.pow(1+rate, i); }, 0);
+  }
+  var lo = -0.99, hi = 10.0;
+  for (var i = 0; i < 200; i++) {
+    var mid = (lo + hi) / 2;
+    if (npv(mid, cashflows) > 0) lo = mid; else hi = mid;
+    if (hi - lo < 1e-8) break;
+  }
+  return (lo + hi) / 2;
+}
+
+// Stamp duty lookup tables (Excel: 諸経費固定費用 sheet A6:B16 / D6:E16)
+var SALE_STAMP_TABLE = [[0,0],[1000001,1000],[5000001,5000],[10000001,10000],[50000001,30000],[100000001,60000],[500000001,160000],[1000000001,320000],[5000000001,480000]];
+var LOAN_STAMP_TABLE = [[0,0],[1000001,2000],[5000001,10000],[10000001,20000],[50000001,60000],[100000001,100000],[500000001,200000],[1000000001,400000],[5000000001,600000]];
+function stampDutyLookup(amt, tbl) { var r=0; for(var i=0;i<tbl.length;i++){if(amt>tbl[i][0])r=tbl[i][1];} return r; }
+
+// RC building fixed asset tax depreciation table (年数→率, index=経過年数から累積)
+var BLDG_TAX_RC_VALS = [1.0,0.80,0.75,0.70,0.6912,0.6825,0.6737,0.6649,0.6561,0.6474,0.6386,0.6298,0.6211,0.6123,0.6035,0.5947,0.5860,0.5772,0.5684,0.5596,0.5509,0.5421,0.5333,0.5246,0.5158,0.5070,0.4982,0.4895,0.4807,0.4719,0.4632,0.4544,0.4456,0.4368,0.4281,0.4193,0.4105,0.4018,0.3930,0.3842,0.3754,0.3667,0.3579,0.3491,0.3404,0.3316,0.3228,0.3140,0.3053,0.2965,0.2877,0.2789,0.2702,0.2614,0.2526,0.2439,0.2351,0.2263,0.2175,0.2088,0.2000];
+
+// ---- Main simulation ----
+function calcAll() {
+  var price = parseNum('price') || 300000000;
+  var purchaseYear = parseInt(document.getElementById('purchase_year').value) || 2020;
+  var buildingRatio = parseNum('building_ratio') || 0.3;
+  var loanRate = (parseNum('loan_rate') || 1.5) / 100;
+  var loanYears = parseInt(document.getElementById('loan_years').value) || 30;
+  var equityRatio = parseNumD('equity_ratio', 15);
+  var loanAmount = price * (1 - equityRatio/100);
+  var equity = price * equityRatio/100;
+  var structure = parseInt(document.getElementById('structure').value) || 47;
+  var builtYear = parseInt(document.getElementById('built_year').value) || 1990;
+  var rentFull = parseNum('rent_full') || 21000000;
+  var occupancy = (parseNum('occupancy') || 95.49) / 100;
+  var pmRate = (parseNum('pm_rate') || 5.4) / 100;
+  var bmMonthly = parseNumD('bm_monthly', 100000);
+  var insurance = parseNumD('insurance', 200000);
+  var otherAnnual = parseNumD('other_annual', 200000);
+  var avgStay = parseNum('avg_stay') || 3;
+  var avgVacant = parseNum('avg_vacant') || 1.7;
+  var avgRecruit = parseNumD('avg_recruit_cost', 2);
+  var avgRestore = parseNumD('avg_restore_cost', 2);
+  var landTaxBase = parseNum('land_tax_base') || 15000000;
+  var landEval = parseNum('land_eval') || 70000000;
+  var bldgEval = parseNum('bldg_eval') || 30000000;
+  var saleBrokerRate = (parseNum('sale_broker_rate') || 2.0) / 100;
+  var salePrice = parseNum('sale_price') || price;
+  var ownerType = parseInt(document.getElementById('owner_type').value) || 2;
+  var brokerageRate = (parseNum('brokerage_rate') || 3.3) / 100;
+  var shikikin = parseNumD('shikikin', 1000000);
+  var shihoshoshi = parseNum('shihoshoshi') || 150000;
+  var otherPurchase = parseNumD('other_purchase_cost', 50000);
+
+  // Auto-calculated purchase cost fields (Excel: B11-B20 are formulas)
+  var bldgPriceContract = Math.round(price * buildingRatio);
+  var landPriceContract = price - bldgPriceContract;
+  // 消費税 = INT(建物価格 - 建物価格/1.1)  ※仲介手数料の計算ベースに使用
+  var consumptionTax = Math.floor(price * buildingRatio - price * buildingRatio / 1.1);
+  var inshiBaibai = stampDutyLookup(price, SALE_STAMP_TABLE);
+  var inshiGinko = stampDutyLookup(loanAmount, LOAN_STAMP_TABLE);
+  var teitoCost = Math.round(loanAmount * 0.004);
+  var totoTax = Math.round(landEval * 0.015 + bldgEval * 0.02);
+  var acqTaxLand = Math.round(landEval * 0.015);
+  var acqTaxBuild = Math.round(bldgEval * 0.03);
+  var bldgTaxBase = bldgEval;  // B26=B24 in Excel
+
+  // Update auto-calculated DOM fields
+  document.getElementById('consumption_tax').value = fmt(consumptionTax);
+  document.getElementById('building_price_contract').value = fmt(bldgPriceContract);
+  document.getElementById('land_price_contract').value = fmt(landPriceContract);
+  document.getElementById('inshi_baibai').value = fmt(inshiBaibai);
+  document.getElementById('inshi_ginko').value = fmt(inshiGinko);
+  document.getElementById('teito_cost').value = fmt(teitoCost);
+  document.getElementById('toroku_tax').value = fmt(totoTax);
+  document.getElementById('fudosan_tax_land').value = fmt(acqTaxLand);
+  document.getElementById('fudosan_tax_bldg').value = fmt(acqTaxBuild);
+  document.getElementById('bldg_tax_base').value = fmt(bldgTaxBase);
+  // 損金算入初期費用(b〜j, 仲介手数料除く) — 年1課税所得から控除
+  var taxInitCosts = inshiBaibai + inshiGinko + teitoCost + totoTax + shihoshoshi + otherPurchase + acqTaxLand + acqTaxBuild;
+  // 仲介手数料: Excel B17 = rate × (物件価格 - 消費税) + 66000（税込3.3%の場合）
+  var brokerageFee = (price - consumptionTax) * brokerageRate;
+  if (Math.abs(brokerageRate - 0.033) < 0.001) brokerageFee += 66000;
+  document.getElementById('brokerage_fee').value = fmt(Math.round(brokerageFee));
+  // 年1 CF控除額（損金算入初期費用＋仲介手数料）
+  var cfInitCosts = taxInitCosts + brokerageFee;
+  var purchaseMisc = inshiBaibai + inshiGinko + teitoCost + totoTax + shihoshoshi + brokerageFee + otherPurchase;
+  document.getElementById('purchase_misc').value = fmt(Math.round(purchaseMisc));
+  document.getElementById('settlement_cash').value = fmt(Math.round(equity + purchaseMisc - shikikin));
+  document.getElementById('loan_amount').value = fmt(Math.round(loanAmount));
+  document.getElementById('equity_amount').value = fmt(Math.round(equity));
+
+  var elapsed = purchaseYear - builtYear;
+  document.getElementById('elapsed_years').value = elapsed;
+  var remainLife = structure - elapsed;
+  if (remainLife <= 0) remainLife = Math.floor(structure * 0.2);
+  document.getElementById('remaining_life').value = remainLife;
+  // Tax life for used building
+  var taxLife = (remainLife <= 0) ? Math.floor(structure * 0.2) : Math.floor(remainLife + (structure - remainLife)*0.2);
+  if (taxLife < 2) taxLife = 2;
+  document.getElementById('tax_life').value = taxLife;
+
+  // Occupancy recommended
+  var occRec = 1 - (avgVacant / (avgStay * 12 + avgVacant));
+  document.getElementById('occupancy_rec').value = (occRec * 100).toFixed(2);
+
+  // Annual loan payment
+  var monthlyPayment = calcMonthlyPayment(loanAmount, loanRate, loanYears);
+
+  // Building value for depreciation (Excel: main!B10 = B29 + B17*B28)
+  var buildingPriceForDepr = price * buildingRatio;
+  var brokerBuilding = brokerageFee * buildingRatio;
+  var buildingCost = buildingPriceForDepr + brokerBuilding;
+  // Land book value (constant, no depreciation)
+  var landBook = price * (1 - buildingRatio) + brokerageFee * (1 - buildingRatio);
+  // Straight-line depreciation — Excel: INT(-buildingCost/taxLife) as negative = ceil of positive
+  var annualDepr = Math.ceil(buildingCost / taxLife);
+
+  // Fixed asset tax: land portion is constant, building portion declines each year
+  // using the RC assessment table normalized to holding year 1 (= elapsed+1 index)
+  var landFixedTax = landTaxBase * 0.014;
+  var landUrbanTax = landTaxBase * 0.003;
+  var yr1TaxIdx = elapsed + 1;
+  var yr1TaxFactor = (yr1TaxIdx < BLDG_TAX_RC_VALS.length) ? BLDG_TAX_RC_VALS[yr1TaxIdx] : BLDG_TAX_RC_VALS[BLDG_TAX_RC_VALS.length-1];
+
+  var results = [];
+  var loanBalance = loanAmount;
+  var buildingBook = buildingCost;
+  var prevCFAfterCum = -(equity + purchaseMisc - shikikin);
+  var cumRentalCFAfterTax = 0;
+  var initialInvestment = equity + purchaseMisc - shikikin;
+  var prevJigyoTax = 0; // 事業税(+特別法人事業税)は翌年損金算入
+
+  for (var yr = 1; yr <= 35; yr++) {
+    // Loan
+    var yearPrincipal = 0, yearInterest = 0;
+    if (yr <= loanYears) {
+      // Calculate annual principal and interest
+      var balStart = loanBalance;
+      var bal = balStart;
+      var yPrin = 0, yInt = 0;
+      for (var m = 0; m < 12; m++) {
+        var intM = Math.floor(bal * loanRate / 12);
+        var prinM = monthlyPayment - intM;
+        yInt += intM;
+        yPrin += prinM;
+        bal -= prinM;
+      }
+      yearPrincipal = yPrin;
+      yearInterest = yInt;
+      loanBalance = bal;
+      if (loanBalance < 0) loanBalance = 0;
+    }
+
+    // Building depreciation — allow book value to reach 0 (Excel: IF(prev_BV>depr, depr, prev_BV))
+    var bldgDepr = 0;
+    if (buildingBook > 0) {
+      bldgDepr = Math.min(annualDepr, buildingBook);
+      buildingBook -= bldgDepr;
+    }
+
+    // Fixed asset tax — building portion normalized to holding year 1 (bldgTaxBase = bldgEval = year-1 base)
+    var yrTaxIdx = elapsed + yr;
+    var yrTaxFactor = (yrTaxIdx < BLDG_TAX_RC_VALS.length) ? BLDG_TAX_RC_VALS[yrTaxIdx] : BLDG_TAX_RC_VALS[BLDG_TAX_RC_VALS.length-1];
+    var bldgTaxFactor = (yr1TaxFactor > 0) ? yrTaxFactor / yr1TaxFactor : 1.0;
+    var bldgFixedTax = bldgTaxBase * bldgTaxFactor * 0.014;
+    var bldgUrbanTax = bldgTaxBase * bldgTaxFactor * 0.003;
+    var totalFixedTax = landFixedTax + bldgFixedTax;
+    var totalUrbanTax = landUrbanTax + bldgUrbanTax;
+
+    // Vacancy / recruiting costs
+    var vacancyLoss = rentFull * (1 - occupancy);
+    var effectiveRentAnn = rentFull * occupancy;
+    var recruitCost = (effectiveRentAnn / 12) * avgRecruit / avgStay;
+    var restoreCost = (effectiveRentAnn / 12) * avgRestore / avgStay;
+    var pmCost = rentFull * occupancy * pmRate;
+    var bmCost = bmMonthly * 12;
+
+    // NOI (before interest)
+    var operatingCosts = vacancyLoss + bmCost + pmCost + insurance + otherAnnual + recruitCost + restoreCost + totalFixedTax + totalUrbanTax;
+    var noi = rentFull - vacancyLoss - bmCost - pmCost - insurance - otherAnnual - recruitCost - restoreCost - totalFixedTax - totalUrbanTax;
+
+    // Tax before income tax
+    // Year 1: deduct initial costs (b〜j except brokerage); every year: deduct prior year jigyoTax
+    var taxableIncome = noi - yearInterest - bldgDepr
+                        - (yr === 1 ? taxInitCosts : 0)
+                        - prevJigyoTax;
+    // Dynamic corporate tax (excludes 均等割; matches Excel)
+    var incomeTax = (ownerType === 2) ? corpTaxBase(Math.max(0, taxableIncome)) : Math.max(0, taxableIncome * 0.295);
+    var incomeTaxRate = (taxableIncome > 0 && ownerType === 2) ? (incomeTax / taxableIncome) : (ownerType === 2 ? 0 : 0.295);
+    // 当年控除額（前年の事業税）を保存してからprevJigyoTaxを更新
+    var jigyoTaxDeductedThisYear = prevJigyoTax;
+    // Compute this year's jigyoTax for next year's deduction
+    var tiJ = Math.max(0, taxableIncome);
+    var jigyoBiz = Math.min(tiJ, 4000000)*0.034 + Math.min(Math.max(0,tiJ-4000000),4000000)*0.051 + Math.max(0,tiJ-8000000)*0.067;
+    prevJigyoTax = (ownerType === 2 && taxableIncome > 0) ? jigyoBiz * 1.432 : 0;
+
+    // Cash flow（年1のみ cfInitCosts を控除）
+    var cfBeforeTax = noi - yearPrincipal - yearInterest;
+    var cfAfterTax = cfBeforeTax - incomeTax;
+
+    // Cumulative rental CF
+    cumRentalCFAfterTax += cfAfterTax;
+
+    // Breakeven sale price
+    var saleExp = salePrice * saleBrokerRate + 60000; // broker + stamp (for saleGain display)
+    var saleStamp = 60000;
+    var breakeven = (loanBalance - incomeTax + equity - cumRentalCFAfterTax + saleStamp) / (1 - saleBrokerRate);
+
+    // ---- 売却益試算 ----
+    var fullBookValue = landBook + buildingBook; // 期末土地建物等簿価
+    var taxProfit = salePrice - saleExp - fullBookValue; // 税務上売却益
+    var saleEffRate = computeSaleEffRate(ownerType, taxableIncome, Math.max(0, taxProfit));
+    var capGainsTax = taxProfit > 0 ? -(taxProfit * saleEffRate) : 0; // 売却時譲渡益課税 (負=税)
+    var saleGainBeforeTax = salePrice - saleExp - loanBalance - shikikin; // 物件売却時 税前CF
+    var saleGainAfterTax = saleGainBeforeTax + capGainsTax;   // 物件売却時 税後CF
+
+    // ---- B/S試算 ----
+    // 税支払後純資産 = 物件売却時税後CF + 累計rental税後CF
+    var netAsset = saleGainAfterTax + cumRentalCFAfterTax;
+    var netAssetPrev = results.length > 0 ? results[results.length - 1].netAsset : initialInvestment;
+    var netAssetIncrease = netAsset - netAssetPrev; // 当期純資産増加額
+    var netAssetCum = netAsset - initialInvestment; // 純資産増加額累計
+    var multiplier = netAsset / initialInvestment;  // 税引後マルチプル
+
+    results.push({
+      yr: yr, noi: noi, bldgDepr: bldgDepr, taxableIncome: taxableIncome,
+      incomeTax: incomeTax, incomeTaxRate: incomeTaxRate, cfBeforeTax: cfBeforeTax, cfAfterTax: cfAfterTax,
+      loanBalance: loanBalance, buildingBook: buildingBook,
+      yearPrincipal: yearPrincipal, yearInterest: yearInterest,
+      fixedTax: totalFixedTax, urbanTax: totalUrbanTax,
+      breakeven: breakeven, vacancyLoss: vacancyLoss, pmCost: pmCost,
+      bmCost: bmCost, recruitCost: recruitCost, restoreCost: restoreCost,
+      jigyoTaxDeducted: jigyoTaxDeductedThisYear,
+      cumRentalCFAfterTax: cumRentalCFAfterTax,
+      fullBookValue: fullBookValue, taxProfit: taxProfit,
+      saleEffRate: saleEffRate, capGainsTax: capGainsTax,
+      saleGainBeforeTax: saleGainBeforeTax, saleGainAfterTax: saleGainAfterTax,
+      netAsset: netAsset, netAssetIncrease: netAssetIncrease, netAssetCum: netAssetCum,
+      multiplier: multiplier, saleExp: saleExp
+    });
+  }
+
+  // ---- IRR / MIRR for each year (1-35) ----
+  var irrData = [];
+  for (var yr2 = 1; yr2 <= 35; yr2++) {
+    var cfAfterArr = [-initialInvestment]; // year 0: -44M
+    var cfBeforeArr = [-initialInvestment];
+    for (var j = 0; j < yr2; j++) {
+      var rj = results[j];
+      if (j < yr2 - 1) {
+        cfAfterArr.push(rj.cfAfterTax);
+        cfBeforeArr.push(rj.cfBeforeTax);
+      } else {
+        cfAfterArr.push(rj.cfAfterTax + rj.saleGainAfterTax);
+        cfBeforeArr.push(rj.cfBeforeTax + rj.saleGainBeforeTax);
+      }
+    }
+    irrData.push({
+      irrAfter:   calcIRR(cfAfterArr),
+      irrBefore:  calcIRR(cfBeforeArr),
+      mirrAfter:  calcMIRR(cfAfterArr),
+      mirrBefore: calcMIRR(cfBeforeArr)
+    });
+  }
+
+  // Update KPIs
+  var grossYield = rentFull / price;
+  document.getElementById('kpi_gross').textContent = (grossYield*100).toFixed(2);
+  var noiYield = results[0].noi / price;
+  document.getElementById('kpi_noi').textContent = (noiYield*100).toFixed(2);
+  var expenseRatio = (rentFull - results[0].noi) / rentFull;
+  document.getElementById('kpi_expense').textContent = (expenseRatio*100).toFixed(1);
+  document.getElementById('kpi_occ').textContent = (occupancy*100).toFixed(1);
+  document.getElementById('kpi_monthly_rent').textContent = (rentFull*occupancy/12/10000).toFixed(1);
+  document.getElementById('kpi_monthly_loan').textContent = (monthlyPayment/10000).toFixed(1);
+  document.getElementById('kpi_cf_before').textContent = (results[1].cfBeforeTax/12/10000).toFixed(1);
+  document.getElementById('kpi_cf_after').textContent = (results[1].cfAfterTax/12/10000).toFixed(1);
+  document.getElementById('kpi_bep5').textContent = (results[4].breakeven/100000000).toFixed(2);
+  document.getElementById('kpi_bep10').textContent = (results[9].breakeven/100000000).toFixed(2);
+
+  // IRR at year 10 (use pre-computed irrData)
+  document.getElementById('kpi_irr_post').textContent = (irrData[9].irrAfter*100).toFixed(1);
+  document.getElementById('kpi_irr_pre').textContent  = (irrData[9].irrBefore*100).toFixed(1);
+
+  // Render P/L table
+  var rows = [
+    {label:"満室想定賃料収入", key:"rentFull", vals: results.map(function(){return rentFull;})},
+    {label:"空室率の控除", neg:true, vals: results.map(function(r){return -r.vacancyLoss;})},
+    {label:"BM建物維持費用", neg:true, vals: results.map(function(r){return -r.bmCost;})},
+    {label:"PM管理会社委託費用", neg:true, vals: results.map(function(r){return -r.pmCost;})},
+    {label:"保険・その他定期費用", neg:true, vals: results.map(function(){return -(insurance+otherAnnual);})},
+    {label:"テナント募集仲介・広告費", neg:true, vals: results.map(function(r){return -r.recruitCost;})},
+    {label:"原状回復費用", neg:true, vals: results.map(function(r){return -r.restoreCost;})},
+    {label:"修繕費（当期一括償却）", vals: results.map(function(){return 0;})},
+    {label:"大規模修繕費(10年償却CAPEX)", vals: results.map(function(){return 0;})},
+    {label:"ローン元金支払い", neg:true, vals: results.map(function(r){return -r.yearPrincipal;})},
+    {label:"ローン金利支払い", neg:true, vals: results.map(function(r){return -r.yearInterest;})},
+    {label:"年間固定資産税(1.4%)", neg:true, vals: results.map(function(r){return -r.fixedTax;})},
+    {label:"年間都市計画税(0.3%)", neg:true, vals: results.map(function(r){return -r.urbanTax;})},
+    {label:"今期の経費となる事業税", neg:true, vals: results.map(function(r){return -r.jigyoTaxDeducted;})},
+    {label:"その他ユーザー設定当期損益", vals: results.map(function(){return 0;})},
+    {label:"当期NOI(金利支払前粗利)", bold:true, vals: results.map(function(r){return r.noi;})},
+    {label:"CAPEX減価償却(定額法)", neg:true, vals: results.map(function(){return 0;})},
+    {label:"建物減価償却(定額法)", neg:true, vals: results.map(function(r){return -r.bldgDepr;})},
+    {label:"建物残存価値", vals: results.map(function(r){return r.buildingBook;})},
+    {label:"当期税引前利益", bold:true, vals: results.map(function(r){return r.taxableIncome;})},
+    {label:"繰越欠損期末残高", vals: results.map(function(){return 0;})},
+    {label:"繰越欠損控除後利益", vals: results.map(function(r){return r.taxableIncome;})},
+    {label:"税率", pct:true, vals: results.map(function(r){return r.incomeTaxRate || 0;})},
+    {label:"税額", neg:true, vals: results.map(function(r){return -r.incomeTax;})},
+    {label:"税引前キャッシュフロー", bold:true, vals: results.map(function(r){return r.cfBeforeTax;})},
+    {label:"税引後キャッシュフロー", bold:true, vals: results.map(function(r){return r.cfAfterTax;})},
+    {label:"ローン残債", vals: results.map(function(r){return r.loanBalance;})},
+    {label:"ブレイクイーブン売却価格", vals: results.map(function(r){return r.breakeven;})},
+    // ─── 売却益試算 ───────────────────────────────
+    {label:"売却益試算", section:true},
+    {label:"税引後CF各年累計", vals: results.map(function(r){return r.cumRentalCFAfterTax;})},
+    {label:"想定物件売却価格", vals: results.map(function(){return salePrice;})},
+    {label:"ブレイクイーブン売却価格（再掲）", vals: results.map(function(r){return r.breakeven;})},
+    {label:"ローン残債", vals: results.map(function(r){return r.loanBalance;})},
+    {label:"期末土地建物等簿価", vals: results.map(function(r){return r.fullBookValue;})},
+    {label:"売却時の諸経費", vals: results.map(function(r){return r.saleExp;})},
+    {label:"税務上の物件売却益", vals: results.map(function(r){return r.taxProfit;})},
+    {label:"物件売却に対する実効税率推奨値", pct:true, vals: results.map(function(r){return r.saleEffRate;})},
+    {label:"物件売却に対する実効税率", pct:true, vals: results.map(function(r){return r.saleEffRate;})},
+    {label:"売却時譲渡益課税", vals: results.map(function(r){return r.capGainsTax;})},
+    {label:"物件売却時 税前CF", bold:true, vals: results.map(function(r){return r.saleGainBeforeTax;})},
+    {label:"物件売却時 税後CF", bold:true, vals: results.map(function(r){return r.saleGainAfterTax;})},
+    // ─── B/S試算 ──────────────────────────────────
+    {label:"Ｂ／Ｓ試算", section:true},
+    {label:"投下初期費用", vals: results.map(function(){return -initialInvestment;})},
+    {label:"当期純資産増加額", vals: results.map(function(r){return r.netAssetIncrease;})},
+    {label:"税支払後純資産", bold:true, vals: results.map(function(r){return r.netAsset;})},
+    {label:"純資産増加額累計", bold:true, vals: results.map(function(r){return r.netAssetCum;})},
+    // ─── 収益指標 ──────────────────────────────────
+    {label:"収益指標", section:true},
+    {label:"税引前IRR", pct:true, dash1:true, vals: irrData.map(function(d){return d.irrBefore;})},
+    {label:"税引後IRR", pct:true, dash1:true, vals: irrData.map(function(d){return d.irrAfter;})},
+    {label:"税引前MIRR(再投資なし利回り)", pct:true, dash1:true, vals: irrData.map(function(d){return d.mirrBefore;})},
+    {label:"税引後MIRR(再投資なし利回り)", pct:true, dash1:true, vals: irrData.map(function(d){return d.mirrAfter;})},
+    {label:"税引後マルチプル(分母はIRRと同)", vals: results.map(function(r){return r.multiplier;})},
+  ];
+
+  var tbody = document.getElementById('pl_tbody');
+  tbody.innerHTML = '';
+  rows.forEach(function(row) {
+    var tr = document.createElement('tr');
+    if (row.section) {
+      tr.className = 'section-hdr';
+      tr.innerHTML = '<td colspan="37" style="font-size:12px;letter-spacing:1px">' + row.label + '</td>';
+      tbody.appendChild(tr);
+      return;
+    }
+    var style = row.bold ? 'font-weight:bold;background:#e8f0ff' : '';
+    var firstCell = row.dash1 ? '-' : '-';
+    tr.innerHTML = '<td class="row-label" style="' + style + '">' + row.label + '</td><td class="num">' + firstCell + '</td>';
+    row.vals.forEach(function(v) {
+      var display, cls;
+      if (row.pct) {
+        display = isNaN(v) ? '-' : (v*100).toFixed(2) + '%';
+        cls = '';
+      } else if (row.label === '税引後マルチプル(分母はIRRと同)') {
+        display = isNaN(v) ? '-' : v.toFixed(3);
+        cls = v < 1 ? 'neg' : 'pos';
+      } else {
+        display = fmt(Math.round(v));
+        cls = v < 0 ? 'neg' : (v > 0 ? 'pos' : '');
+      }
+      tr.innerHTML += '<td class="num ' + cls + '" style="' + style + '">' + display + '</td>';
+    });
+    tbody.appendChild(tr);
+  });
+  serializeToHash();
+}
+
+// ---- Tab2 calc ----
+function calcTab2() {
+  var land = parseNum('s2_land_book') || 53900000;
+  var bldg = parseNum('s2_bldg_book') || 36000000;
+  var capex = parseNum('s2_capex_book') || 5000000;
+  var taxCost = land + bldg + capex;
+  document.getElementById('s2_tax_cost').value = fmt(Math.round(taxCost));
+  var yld = parseNum('s2_yield') || 0.095;
+  var rent = parseNum('s2_rent') || 10200000;
+  var salePrice = rent / yld;
+  document.getElementById('s2_sale_price').value = fmt(Math.round(salePrice));
+  var broker = salePrice * 0.032 + 66000;
+  document.getElementById('s2_broker').value = fmt(Math.round(broker));
+  var taxProfit = salePrice - taxCost;
+  document.getElementById('s2_tax_profit').value = fmt(Math.round(taxProfit));
+  var taxRate = parseNum('s2_tax_rate') / 100;
+  var taxAmount = Math.max(0, taxProfit * taxRate);
+  document.getElementById('s2_tax_amount').value = fmt(Math.round(taxAmount));
+  var penalty = parseNum('s2_penalty') || 0;
+  var teito = parseNum('s2_teito') || 15000;
+  var inshi = parseNum('s2_inshi') || 60000;
+  var shikikin = parseNum('s2_shikikin') || 1095000;
+  var loanRepay = parseNum('s2_loan_repay') || 96300000;
+  var remain = salePrice - penalty - broker - teito - inshi - taxAmount - shikikin - loanRepay;
+  document.getElementById('s2_result').textContent = Math.round(remain/10000).toLocaleString('ja-JP');
+  document.getElementById('s2_detail').innerHTML =
+    '<strong>計算明細</strong><br>' +
+    '売却価格: ' + fmt(Math.round(salePrice)) + '円<br>' +
+    '▲仲介手数料: ' + fmt(Math.round(broker)) + '円<br>' +
+    '▲抵当権抹消: ' + fmt(teito) + '円<br>' +
+    '▲印紙代: ' + fmt(inshi) + '円<br>' +
+    '▲税額: ' + fmt(Math.round(taxAmount)) + '円<br>' +
+    '▲敷金相殺: ' + fmt(Math.round(shikikin)) + '円<br>' +
+    '▲借入金返済: ' + fmt(Math.round(loanRepay)) + '円<br>' +
+    '<strong>手取り: ' + fmt(Math.round(remain)) + '円</strong>';
+}
+
+// ---- Individual tax calc (simplified) ----
+function calcInd() {
+  var income = parseNum('ind_income') || 8000000;
+  var spouse = parseNum('ind_spouse') || 380000;
+  var depend = parseNum('ind_depend') || 0;
+  var housing = parseNum('ind_housing') || 0;
+  var reProfit = parseNum('ind_re_profit') || 5000000;
+  var aoki = parseNum('ind_aoki') || 650000;
+
+  // Salary deduction
+  var kyuyoDeduction;
+  if (income <= 1625000) kyuyoDeduction = 550000;
+  else if (income <= 1800000) kyuyoDeduction = income * 0.4 - 100000;
+  else if (income <= 3600000) kyuyoDeduction = income * 0.3 + 80000;
+  else if (income <= 6600000) kyuyoDeduction = income * 0.2 + 440000;
+  else if (income <= 8500000) kyuyoDeduction = income * 0.1 + 1100000;
+  else kyuyoDeduction = 1950000;
+
+  var salaryIncome = income - kyuyoDeduction;
+
+  // Basic deduction 480000
+  var basicDeduction = 480000;
+  // Social insurance (approximate)
+  var pension = 96624; var health = 39915.6;
+  var socialIns = pension + health;
+
+  var totalDeduction = basicDeduction + spouse + depend + housing + socialIns;
+  var taxableIncome = Math.max(0, salaryIncome - totalDeduction);
+
+  // Income tax
+  function calcIncomeTax(ti) {
+    if (ti <= 1950000) return ti * 0.05;
+    if (ti <= 3300000) return ti * 0.10 - 97500;
+    if (ti <= 6950000) return ti * 0.20 - 427500;
+    if (ti <= 9000000) return ti * 0.23 - 636000;
+    if (ti <= 18000000) return ti * 0.33 - 1536000;
+    if (ti <= 40000000) return ti * 0.40 - 2796000;
+    return ti * 0.45 - 4796000;
+  }
+  var incomeTax = Math.max(0, calcIncomeTax(taxableIncome) - housing);
+  var revivalTax = incomeTax * 0.021;
+
+  // Resident tax
+  var residentTaxable = Math.max(0, salaryIncome - (basicDeduction - 50000) - spouse - depend - socialIns);
+  var residentTax = residentTaxable * 0.1 + 5000 - Math.min(2500, (basicDeduction - 330000) / 2);
+  residentTax = Math.max(5000, residentTax);
+
+  document.getElementById('ind_tax_income').textContent = fmt(Math.round(incomeTax));
+  document.getElementById('ind_tax_住民').textContent = fmt(Math.round(residentTax));
+  document.getElementById('ind_tax_revival').textContent = fmt(Math.round(revivalTax));
+  document.getElementById('ind_tax_ins').textContent = fmt(Math.round(socialIns));
+  document.getElementById('ind_tax_sub').textContent = fmt(Math.round(incomeTax + residentTax + revivalTax));
+  document.getElementById('ind_tax_total').textContent = fmt(Math.round(incomeTax + residentTax + revivalTax + socialIns));
+  document.getElementById('ind_eff1').textContent = ((incomeTax + residentTax + revivalTax)/income*100).toFixed(2)+'%';
+  document.getElementById('ind_eff2').textContent = ((incomeTax + residentTax + revivalTax + socialIns)/income*100).toFixed(2)+'%';
+
+  // With real estate income
+  var reTaxable = Math.max(0, reProfit - aoki);
+  var totalTaxable = taxableIncome + reTaxable;
+  var totalIncomeTax = Math.max(0, calcIncomeTax(totalTaxable) - housing);
+  var incIncomeTax = totalIncomeTax - incomeTax;
+  var incResidentTax = reTaxable * 0.1;
+  var incRevival = incIncomeTax * 0.021;
+  var bizTax = Math.max(0, reProfit - 2900000) * 0.05;
+  var netIncrease = reProfit - incIncomeTax - incResidentTax - incRevival - bizTax;
+  var effRateIncrease = (incIncomeTax + incResidentTax + incRevival + bizTax) / reProfit;
+
+  document.getElementById('ind_inc_income').textContent = fmt(Math.round(incIncomeTax));
+  document.getElementById('ind_inc_住民').textContent = fmt(Math.round(incResidentTax));
+  document.getElementById('ind_inc_revival').textContent = fmt(Math.round(incRevival));
+  document.getElementById('ind_inc_biz').textContent = fmt(Math.round(bizTax));
+  document.getElementById('ind_inc_ins').textContent = '0 (不変)';
+  document.getElementById('ind_inc_net').textContent = fmt(Math.round(netIncrease));
+  document.getElementById('ind_inc_rate').textContent = (effRateIncrease*100).toFixed(1)+'%';
+}
+
+// ---- URL Hash State (Share Link) ----
+var _hashEnabled = false;
+var SHARE_FIELDS = [
+  'prop_name','purchase_year','price','building_ratio','structure','built_year',
+  'shihoshoshi','brokerage_rate','other_purchase_cost','shikikin',
+  'equity_ratio','loan_rate','loan_years','rent_full','avg_stay','avg_vacant',
+  'avg_recruit_cost','avg_restore_cost','occupancy','pm_rate','bm_monthly',
+  'insurance','other_annual','land_eval','bldg_eval','land_tax_base',
+  'sale_price','sale_broker_rate','owner_type','main_income','tax_rate_manual'
+];
+
+function serializeToHash() {
+  if (!_hashEnabled) return;
+  var params = new URLSearchParams();
+  SHARE_FIELDS.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) params.set(id, el.value);
+  });
+  history.replaceState(null, '', location.pathname + location.search + '#' + params.toString());
+}
+
+function deserializeFromHash() {
+  if (!location.hash || location.hash.length <= 1) return false;
+  try {
+    var params = new URLSearchParams(location.hash.slice(1));
+    if (params.toString().length === 0) return false;
+    SHARE_FIELDS.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el && params.has(id)) el.value = params.get(id);
+    });
+    return true;
+  } catch(e) { return false; }
+}
+
+function copyShareLink() {
+  _hashEnabled = true;
+  serializeToHash();
+  var url = window.location.href;
+  var btn = document.getElementById('copy-link-btn');
+  function onCopied() {
+    btn.textContent = 'コピーしました！';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = '🔗 リンクをコピー'; btn.classList.remove('copied'); }, 2000);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(onCopied).catch(function() {
+      var ta = document.createElement('textarea');
+      ta.value = url; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      onCopied();
+    });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = url; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    onCopied();
+  }
+}
+
+// Initialize on load + auto-recalculate on any input change
+window.onload = function() {
+  if (deserializeFromHash()) _hashEnabled = true;
+  calcAll();
+  document.querySelectorAll('input, select').forEach(function(el) {
+    el.addEventListener('input', function() { _hashEnabled = true; calcAll(); });
+    el.addEventListener('change', function() { _hashEnabled = true; calcAll(); });
+  });
+  // Re-format monetary text inputs after user edits (blur)
+  document.querySelectorAll('input[type="text"]').forEach(function(el) {
+    if (el.readOnly) return;
+    el.addEventListener('blur', function() {
+      var v = parseFloat(String(el.value).replace(/,/g,''));
+      if (!isNaN(v) && Math.abs(v) >= 1000) {
+        el.value = Math.round(v).toLocaleString('ja-JP');
+      }
+    });
+    el.addEventListener('focus', function() { this.select(); });
+  });
+};
+</script>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/tamagawa-analysis/20260626_grandmer-kanoedai_TG.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260626_grandmer-kanoedai_TG.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
