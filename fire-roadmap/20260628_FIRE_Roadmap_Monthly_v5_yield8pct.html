@@ -246,8 +246,11 @@ function simSeq(levRate) {
       ev = '棟2取得（auじぶん95%）'; isB = true;
       buys.push(snap(st, m, ev, true));
     }
-    // 棟3〜6: 流動資産1700万到達次第（棟2取得後12ヶ月以上経過）
-    if (b2 && b3 < 4 && m >= 19 && st.cash + st.lev + st.other >= 1700) {
+    // 棟3〜6: 購入直後も流動資産/総負債≥10%を満たせる流動資産が揃い次第
+    // 必要流動資産 = cost(1700) + 10% × (現在の総負債 + 新規ローン9000)
+    const tlNow = loanBal(st.loans, m);
+    const reqLiq = 1700 + 0.10 * (tlNow + 9000);
+    if (b2 && b3 < 4 && m >= 19 && st.cash + st.lev + st.other >= reqLiq) {
       buyProp(st, 1700, 9000, 2.6, 35, m); b3++;
       ev = `棟${st.bldg}取得（地銀90%）`; isB = true;
       buys.push(snap(st, m, ev, true));
@@ -279,7 +282,11 @@ function simBurst() {
       ev = '棟1取得（オリックス100%）'; isB = true;
       buys.push(snap(st, m, ev, true));
     }
-    if (b1 && !burst && st.cash + st.lev + st.other >= NEED) {
+    // 一気買い: 購入直後も流動資産/総負債≥10%を満たせる額が揃い次第
+    // 新規ローン合計 = 9025 + 4×9000 = 45025、棟3〜6分(4棟)が10%ルール対象
+    const tlNowB = loanBal(st.loans, m);
+    const reqLiqB = NEED + 0.10 * (tlNowB + 9025 + 4 * 9000);
+    if (b1 && !burst && st.cash + st.lev + st.other >= reqLiqB) {
       buyProp(st, 855, 9025, 2.4, 35, m);
       for (let i = 0; i < 4; i++) buyProp(st, 1700, 9000, 2.6, 35, m);
       burst = true;
@@ -287,8 +294,8 @@ function simBurst() {
       buys.push(snap(st, m, ev, true));
     }
 
-    // バーストシナリオはCFが0→116→875のみ（中間なし）
-    const cfC = st.bldg === 0 ? 0 : st.bldg === 1 ? 116 : 875;
+    // バーストシナリオはCFが0→186→1287のみ（中間なし・8%版）
+    const cfC = st.bldg === 0 ? 0 : st.bldg === 1 ? 186 : 1287;
     const r = snap(st, m, ev, isB);
     r.cf = cfC;
     rows.push(r);
