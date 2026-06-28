@@ -155,7 +155,7 @@ footer { text-align: center; color: #aaa; font-size: 10px; padding: 18px; }
 <div class="tab-panel" id="panel-C">
   <div class="sc-bar">
     <span class="sc-badge" style="background:#e05200;color:white">シナリオC</span>
-    <span class="sc-meta">棟1のみ取得 → レバナス<strong>30%/年</strong>で待機 → 7,655万到達で残5棟一気買い（4棟時点でFIRE達成）</span>
+    <span class="sc-meta">棟1のみ取得 → レバナス<strong>30%/年</strong>で待機 → 必要流動資産到達で棟2〜4を<strong>3棟同時購入</strong>（4棟でFIRE達成）</span>
     <span class="sc-meta">FIRE: <strong id="fire-C">—</strong></span>
     <span class="sc-meta">購入直後10%ルール: <strong id="buy10-C">—</strong></span>
   </div>
@@ -268,7 +268,7 @@ function simSeq(levRate) {
 // ===== シナリオC: 一気買い =====
 function simBurst() {
   const st = { cash: 270, lev: 1400, other: 690, loans: [], bldg: 0 };
-  const NEED = 855 + 4 * 1700; // 7,655万
+  const NEED = 855 + 2 * 1700; // 4,255万（棟2〜4の3棟）
   const mlr = Math.pow(1.30, 1/12) - 1;
   const rows = [], buys = [];
   let b1=false, burst=false;
@@ -285,17 +285,17 @@ function simBurst() {
     // 一気買い: 購入直後も流動資産/総負債≥10%を満たせる額が揃い次第
     // 新規ローン合計 = 9025 + 4×9000 = 45025、棟3〜6分(4棟)が10%ルール対象
     const tlNowB = loanBal(st.loans, m);
-    const reqLiqB = NEED + 0.10 * (tlNowB + 9025 + 4 * 9000);
+    const reqLiqB = NEED + 0.10 * (tlNowB + 9025 + 2 * 9000);
     if (b1 && !burst && st.cash + st.lev + st.other >= reqLiqB) {
       buyProp(st, 855, 9025, 2.4, 35, m);
-      for (let i = 0; i < 4; i++) buyProp(st, 1700, 9000, 2.6, 35, m);
+      for (let i = 0; i < 2; i++) buyProp(st, 1700, 9000, 2.6, 35, m);
       burst = true;
-      ev = '棟2〜6 一気取得（5棟同時）'; isB = true;
+      ev = '棟2〜4 一気取得（3棟同時）'; isB = true;
       buys.push(snap(st, m, ev, true));
     }
 
-    // バーストシナリオはCFが0→186→1287のみ（中間なし・8%版）
-    const cfC = st.bldg === 0 ? 0 : st.bldg === 1 ? 186 : 1287;
+    // バーストシナリオはCFが0→186→841のみ（棟1→棟2〜4一気・8%版）
+    const cfC = st.bldg === 0 ? 0 : st.bldg === 1 ? 186 : CF_TABLE[4];
     const r = snap(st, m, ev, isB);
     r.cf = cfC;
     rows.push(r);
