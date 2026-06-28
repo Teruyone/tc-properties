@@ -86,7 +86,7 @@ footer { text-align: center; color: #aaa; font-size: 10px; padding: 18px; }
     <div class="kpi" id="kpi-A" style="background:rgba(0,229,160,.12)"><div class="kl">シナリオA 0%逐次</div><div class="kv" style="color:#00e5a0">—</div><div class="ku">保守ベースライン</div></div>
     <div class="kpi" id="kpi-B" style="background:rgba(255,215,0,.12)"><div class="kl">シナリオB 30%逐次</div><div class="kv" style="color:#ffd700">—</div><div class="ku">レバナス30%/年</div></div>
     <div class="kpi" id="kpi-C" style="background:rgba(255,107,53,.18)"><div class="kl">シナリオC 30%一気</div><div class="kv" style="color:#ff9966">—</div><div class="ku">🥇 最速FIRE</div></div>
-    <div class="kpi" style="background:rgba(255,184,77,.12)"><div class="kl">10%ルール</div><div class="kv" style="color:#ffb84d">購入時</div><div class="ku">流動資産/総負債 ≥ 10%</div></div>
+    <div class="kpi" style="background:rgba(255,184,77,.12)"><div class="kl">10%ルール</div><div class="kv" style="color:#ffb84d">棟3〜継続</div><div class="ku">流動資産/総負債 ≥ 10%（毎月）</div></div>
     <div class="kpi"><div class="kl">取得棟数</div><div class="kv">4</div><div class="ku">棟（4棟でFIRE — 8%効果）</div></div>
   </div>
 </div>
@@ -114,7 +114,7 @@ footer { text-align: center; color: #aaa; font-size: 10px; padding: 18px; }
     </div>
     <div class="lb">
       <div class="lh">🏦 棟2 — auじぶん銀行</div>
-      <div class="lv">95%融資（頭金5%）<br>金利 2.4% ／ 35年<br>諸費用 855万（頭金5%+諸経費4%）<br>物件価格目安: 9,500万円<br>追加CF: <strong>+209万/年</strong>（v4比: +66万）</div>
+      <div class="lv">95%融資（頭金5%）<br>金利 2.4% ／ 35年<br>諸費用 855万（頭金5%+諸経費4%）<br>物件価格目安: 9,500万円<br>取得タイミング: 棟1の<strong>半年後</strong><br>追加CF: <strong>+209万/年</strong>（v4比: +66万）</div>
     </div>
     <div class="lb">
       <div class="lh">🏦 棟3〜6 — 地方銀行</div>
@@ -220,7 +220,7 @@ function snap(st, m, event, isBuy) {
   const cf = CF_TABLE[Math.min(st.bldg, 6)];
   return { y, mo, bldg: st.bldg, cf, cash: Math.round(st.cash), lev: Math.round(st.lev),
            other: Math.round(st.other), liq,
-           ta, tl, na, rt, ok: rt >= 10, event, isBuy };
+           ta, tl, na, rt, ok: st.bldg < 3 || rt >= 10, event, isBuy };
 }
 
 // ===== シナリオA/B: 逐次購入 =====
@@ -240,14 +240,14 @@ function simSeq(levRate) {
       ev = '棟1取得（オリックス100%）'; isB = true;
       buys.push(snap(st, m, ev, true));
     }
-    // 棟2: 1年後（強制）
-    if (m === 13 && !b2) {
+    // 棟2: 半年後（7ヶ月目）
+    if (m === 7 && !b2) {
       buyProp(st, 855, 9025, 2.4, 35, m); b2 = true;
       ev = '棟2取得（auじぶん95%）'; isB = true;
       buys.push(snap(st, m, ev, true));
     }
-    // 棟3〜6: 流動資産1700万到達次第
-    if (b2 && b3 < 4 && m >= 25 && st.cash + st.lev + st.other >= 1700) {
+    // 棟3〜6: 流動資産1700万到達次第（棟2取得後12ヶ月以上経過）
+    if (b2 && b3 < 4 && m >= 19 && st.cash + st.lev + st.other >= 1700) {
       buyProp(st, 1700, 9000, 2.6, 35, m); b3++;
       ev = `棟${st.bldg}取得（地銀90%）`; isB = true;
       buys.push(snap(st, m, ev, true));
@@ -316,10 +316,10 @@ function render(rows, buys, tblId, bcId, fireId, buy10Id, kpiId) {
   if (kpiEl) kpiEl.querySelector('.kv').textContent = fireLabel;
 
   // 購入直後チェック結果
-  const hasNG = buys.some(b => !b.ok);
+  const hasNG = rows.some(r => !r.ok); // 棟3〜の全月を毎月チェック
   document.getElementById(buy10Id).innerHTML = hasNG
-    ? '<span style="color:#e53935">❌ 割れあり（下表参照）</span>'
-    : '<span style="color:#00b88a">✅ 全取得でクリア</span>';
+    ? '<span style="color:#e53935">❌ 割れあり（月次テーブル赤行参照）</span>'
+    : '<span style="color:#00b88a">✅ 棟3〜全月クリア</span>';
 
   // ===== 月次テーブル =====
   let h = '<table class="mt"><thead><tr>';
@@ -337,7 +337,7 @@ function render(rows, buys, tblId, bcId, fireId, buy10Id, kpiId) {
     if (first) fireDone = true;
 
     let cls = '';
-    if (r.isBuy && !r.ok)     cls = 'ng-r';
+    if (!r.ok)                 cls = 'ng-r';
     else if (r.isBuy || first) cls = isFire ? 'fire-r' : 'buy-r';
     else if (isFire)           cls = 'fire-r';
 
@@ -367,15 +367,15 @@ function render(rows, buys, tblId, bcId, fireId, buy10Id, kpiId) {
 
   // ===== 購入直後10%ルールチェック =====
   let bc = '<div class="bc-wrap">';
-  bc += '<div class="bc-title">⚡ 購入直後10%ルールチェック（ローン追加の瞬間）</div>';
+  bc += '<div class="bc-title">⚡ 流動資産/総負債 10%ルール — 棟3〜継続監視（棟1・2は対象外）</div>';
   bc += hasNG
-    ? '<div class="note-ng">⚠️ 下記の購入イベントで、ローン追加直後に純資産比率が10%を下回っています。</div>'
-    : '<div class="note-ok">✅ 全ての購入直後で10%ルールをクリアしています。</div>';
+    ? '<div class="note-ng">⚠️ 棟3以降のいずれかの月で流動資産/総負債が10%を下回っています。月次テーブルの赤行で確認してください。</div>'
+    : '<div class="note-ok">✅ 棟3〜の全月で流動資産/総負債10%ルールをクリアしています。</div>';
   bc += '<table class="mt"><thead><tr>';
   bc += '<th style="text-align:left">購入イベント</th><th>時期</th>';
   bc += '<th>流動資産</th><th>総負債</th><th>流動/負債比</th><th>判定</th>';
   bc += '</tr></thead><tbody>';
-  for (const b of buys) {
+  for (const b of buys.filter(b => b.bldg >= 3)) {
     const cls2 = b.ok ? 'buy-r' : 'ng-r';
     const diff  = (b.rt - 10).toFixed(1);
     bc += `<tr class="${cls2}">`;
@@ -389,7 +389,7 @@ function render(rows, buys, tblId, bcId, fireId, buy10Id, kpiId) {
   bc += '</tbody></table>';
   if (hasNG) {
     bc += `<div style="font-size:11px;color:#555;padding:8px 10px;margin-top:6px;background:#f9f9f9;border-radius:5px">
-      💡 <strong>対策：</strong>取得タイミングを数ヶ月遅らせてCFと積立を積み増すか、取得直前に「流動資産 ÷ 総負債 ≥ 10%」をクリアしているか確認してから実行してください。
+      💡 <strong>対策：</strong>取得タイミングを遅らせてCF・積立を積み増し、「流動資産 ÷ 総負債 ≥ 10%」を購入直後から毎月継続してクリアできる水準を確認してから実行してください（棟3〜の全期間が対象）。
     </div>`;
   }
   bc += '</div>';
