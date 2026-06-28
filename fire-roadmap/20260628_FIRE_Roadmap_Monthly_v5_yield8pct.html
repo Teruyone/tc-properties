@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIRE ロードマップ v5 月次版 — 物件利回り8%版 | TC Capitals</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Helvetica Neue', Arial, 'Hiragino Sans', sans-serif; background: #f0f2f5; color: #1a1a2e; font-size: 13px; }
+
+.hdr { background: linear-gradient(135deg, #0d1b4b, #1a3a7a); color: white; padding: 22px 28px 16px; }
+.hdr h1 { font-size: 19px; font-weight: 700; }
+.hdr .sub { font-size: 11px; color: #90aacc; margin-top: 2px; }
+.kpi-row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.kpi { background: rgba(255,255,255,.09); border-radius: 8px; padding: 9px 14px; min-width: 120px; }
+.kpi .kl { font-size: 9px; color: #7fa3cc; text-transform: uppercase; margin-bottom: 2px; }
+.kpi .kv { font-size: 17px; font-weight: 800; color: #ffd700; }
+.kpi .ku { font-size: 10px; color: #a0b4d8; }
+
+.body { max-width: 1440px; margin: 0 auto; padding: 18px; }
+
+/* -- Criteria -- */
+.crit-card { background: white; border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; box-shadow: 0 2px 6px rgba(0,0,0,.06); }
+.crit-title { font-size: 11px; font-weight: 700; color: #0d1b4b; text-transform: uppercase; letter-spacing: .07em; border-left: 4px solid #1a3a7a; padding-left: 8px; margin-bottom: 10px; }
+.crit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 7px; margin-bottom: 10px; }
+.ci { background: #f0fff8; border: 1px solid #b2f0da; border-radius: 6px; padding: 7px 10px; }
+.ci.hl { background: #fff0f8; border-color: #f5b8d5; }
+.ci .cl { font-size: 9px; color: #7a8ab0; text-transform: uppercase; margin-bottom: 1px; }
+.ci .cv { font-size: 13px; font-weight: 700; color: #0d1b4b; }
+.ci .cn { font-size: 10px; color: #888; }
+.loan-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.lb { background: #fffbe6; border: 1px solid #ffe066; border-radius: 6px; padding: 8px 10px; }
+.lb .lh { font-size: 10px; font-weight: 700; color: #856404; margin-bottom: 3px; }
+.lb .lv { font-size: 11px; color: #333; line-height: 1.8; }
+
+/* -- Tabs -- */
+.tabs { display: flex; gap: 6px; margin-bottom: 14px; }
+.tab-btn { padding: 8px 20px; border-radius: 6px 6px 0 0; font-weight: 700; font-size: 12px; cursor: pointer; border: none; background: #d4dced; color: #556; transition: .15s; }
+.tab-btn.active { background: #0d1b4b; color: #ffd700; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* -- Scenario bar -- */
+.sc-bar { background: white; border-radius: 8px; padding: 10px 14px; margin-bottom: 10px; box-shadow: 0 2px 6px rgba(0,0,0,.05); display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.sc-badge { border-radius: 5px; padding: 3px 10px; font-weight: 700; font-size: 12px; }
+.sc-meta { font-size: 12px; color: #555; }
+
+/* -- Monthly table -- */
+.tbl-outer { background: white; border-radius: 10px; padding: 14px; box-shadow: 0 2px 6px rgba(0,0,0,.06); overflow-x: auto; }
+table.mt { width: 100%; border-collapse: collapse; font-size: 11px; }
+table.mt th {
+  background: #0d1b4b; color: white; padding: 6px 8px;
+  text-align: right; font-size: 10px; white-space: nowrap;
+  position: sticky; top: 0; z-index: 1;
+}
+table.mt th:nth-child(-n+2) { text-align: left; }
+table.mt td { padding: 4px 8px; text-align: right; border-bottom: 1px solid #f0f3fa; white-space: nowrap; }
+table.mt td:nth-child(1) { font-weight: 600; color: #667; font-size: 10.5px; text-align: left; }
+table.mt td:nth-child(2) { text-align: left; }
+table.mt tr.buy-r  { background: #e8f0ff !important; }
+table.mt tr.fire-r { background: #c8f7e4 !important; font-weight: 700; }
+table.mt tr.ng-r   { background: #fff0f0 !important; }
+table.mt tr.ysep td { border-top: 2px solid #9ab; }
+.ev-buy  { background: #1a3a7a; color: white; border-radius: 3px; padding: 1px 5px; font-size: 9px; font-weight: 700; white-space: nowrap; display: inline-block; }
+.ev-fire { background: #00b88a; color: white; border-radius: 3px; padding: 1px 5px; font-size: 9px; font-weight: 700; display: inline-block; }
+.ok  { color: #00b88a; font-weight: 700; }
+.ng  { color: #e53935; font-weight: 700; }
+.pos { color: #00b88a; }
+
+/* -- Buy-time check -- */
+.bc-wrap { background: white; border-radius: 10px; padding: 14px; margin-top: 10px; box-shadow: 0 2px 6px rgba(0,0,0,.06); border-top: 3px solid #e53935; }
+.bc-title { font-size: 11px; font-weight: 700; color: #0d1b4b; text-transform: uppercase; letter-spacing: .06em; border-left: 4px solid #e53935; padding-left: 7px; margin-bottom: 8px; }
+.note-ng { font-size: 11px; color: #721c24; background: #fce4e4; padding: 6px 10px; border-radius: 5px; margin-bottom: 8px; }
+.note-ok { font-size: 11px; color: #155724; background: #d4edda; padding: 6px 10px; border-radius: 5px; margin-bottom: 8px; }
+
+footer { text-align: center; color: #aaa; font-size: 10px; padding: 18px; }
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <h1>🏢 FIRE ロードマップ v5 月次版 — 物件利回り8%版 | TC Capitals</h1>
+  <div class="sub">更新: 2026-06-28 ／ シミュレーション開始: 2026年6月 ／ 目標: 税引後CF 750万/年（物件利回り8%版 / v4比: 利回り7.1%→8%に変更）</div>
+  <div class="kpi-row">
+    <div class="kpi"><div class="kl">FIRE目標</div><div class="kv">750</div><div class="ku">万円/年 税引後CF</div></div>
+    <div class="kpi" id="kpi-A" style="background:rgba(0,229,160,.12)"><div class="kl">シナリオA 0%逐次</div><div class="kv" style="color:#00e5a0">—</div><div class="ku">保守ベースライン</div></div>
+    <div class="kpi" id="kpi-B" style="background:rgba(255,215,0,.12)"><div class="kl">シナリオB 30%逐次</div><div class="kv" style="color:#ffd700">—</div><div class="ku">レバナス30%/年</div></div>
+    <div class="kpi" id="kpi-C" style="background:rgba(255,107,53,.18)"><div class="kl">シナリオC 30%一気</div><div class="kv" style="color:#ff9966">—</div><div class="ku">🥇 最速FIRE</div></div>
+    <div class="kpi" style="background:rgba(255,184,77,.12)"><div class="kl">10%ルール</div><div class="kv" style="color:#ffb84d">全月</div><div class="ku">純資産/総資産 ≥ 10%</div></div>
+    <div class="kpi"><div class="kl">取得棟数</div><div class="kv">4</div><div class="ku">棟（4棟でFIRE — 8%効果）</div></div>
+  </div>
+</div>
+
+<div class="body">
+
+<!-- 購入物件条件 -->
+<div class="crit-card">
+  <div class="crit-title">🏠 購入物件の条件（キャプテン基準）</div>
+  <div class="crit-grid">
+    <div class="ci"><div class="cl">物件価格</div><div class="cv">≤ 1億円</div><div class="cn">絶対上限</div></div>
+    <div class="ci"><div class="cl">表面利回り</div><div class="cv">≥ 8.0%</div><div class="cn">想定NOI5.5%超が目安</div></div>
+    <div class="ci"><div class="cl">築年数</div><div class="cv">≤ 10年</div><div class="cn">修繕リスク最小化</div></div>
+    <div class="ci"><div class="cl">エリア</div><div class="cv">首都圏優先</div><div class="cn">16号線内側・人口増エリア</div></div>
+    <div class="ci"><div class="cl">構造</div><div class="cv">木造</div><div class="cn">築10年以内で劣化リスク低</div></div>
+    <div class="ci"><div class="cl">CF率（税引前）</div><div class="cv">≥ 1.0%</div><div class="cn">物件価格比</div></div>
+    <div class="ci"><div class="cl">CCR</div><div class="cv">≥ 15%</div><div class="cn">自己資金収益率</div></div>
+    <div class="ci"><div class="cl">積算比率</div><div class="cv">≥ 60%</div><div class="cn">土地+建物/物件価格</div></div>
+    <div class="ci hl"><div class="cl">10%ルール（購入直後）</div><div class="cv">≥ 10%</div><div class="cn">純資産/総資産 — 購入の瞬間も維持</div></div>
+  </div>
+  <div class="loan-row">
+    <div class="lb">
+      <div class="lh">🏦 棟1 — オリックス銀行</div>
+      <div class="lv">フルローン 100%<br>金利 2.6% ／ 35年<br>諸費用 700万（7%）<br>物件価格目安: 1億円<br>年間CF: <strong>186万/年</strong>（v4比: +70万）</div>
+    </div>
+    <div class="lb">
+      <div class="lh">🏦 棟2 — auじぶん銀行</div>
+      <div class="lv">95%融資（頭金5%）<br>金利 2.4% ／ 35年<br>諸費用 855万（頭金5%+諸経費4%）<br>物件価格目安: 9,500万円<br>追加CF: <strong>+209万/年</strong>（v4比: +66万）</div>
+    </div>
+    <div class="lb">
+      <div class="lh">🏦 棟3〜6 — 地方銀行</div>
+      <div class="lv">90%融資（頭金10%）<br>金利 2.6% ／ 35年<br>諸費用 1,700万（頭金10%+諸経費7%）<br>物件価格目安: 9,000万円<br>追加CF: <strong>+223万/棟</strong>（v4比: +69万）</div>
+    </div>
+  </div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('A')">📊 シナリオA: 0%逐次</button>
+  <button class="tab-btn" onclick="switchTab('B')">🚀 シナリオB: 30%逐次</button>
+  <button class="tab-btn" onclick="switchTab('C')">⚡ シナリオC: 30%一気買い</button>
+</div>
+
+<div class="tab-panel active" id="panel-A">
+  <div class="sc-bar">
+    <span class="sc-badge" style="background:#1a3a7a;color:#ffd700">シナリオA</span>
+    <span class="sc-meta">投信成長 <strong>0%</strong>（保守ベースライン）月35万積立のみ、成長なし</span>
+    <span class="sc-meta">FIRE: <strong id="fire-A">—</strong></span>
+    <span class="sc-meta">購入直後10%ルール: <strong id="buy10-A">—</strong></span>
+  </div>
+  <div class="tbl-outer" id="tbl-A">計算中...</div>
+  <div id="bc-A"></div>
+</div>
+
+<div class="tab-panel" id="panel-B">
+  <div class="sc-bar">
+    <span class="sc-badge" style="background:#c47a00;color:white">シナリオB</span>
+    <span class="sc-meta">レバナス <strong>30%/年成長</strong> + 月35万積立（逐次購入）</span>
+    <span class="sc-meta">FIRE: <strong id="fire-B">—</strong></span>
+    <span class="sc-meta">購入直後10%ルール: <strong id="buy10-B">—</strong></span>
+  </div>
+  <div class="tbl-outer" id="tbl-B">計算中...</div>
+  <div id="bc-B"></div>
+</div>
+
+<div class="tab-panel" id="panel-C">
+  <div class="sc-bar">
+    <span class="sc-badge" style="background:#e05200;color:white">シナリオC</span>
+    <span class="sc-meta">棟1のみ取得 → レバナス<strong>30%/年</strong>で待機 → 7,655万到達で残5棟一気買い（4棟時点でFIRE達成）</span>
+    <span class="sc-meta">FIRE: <strong id="fire-C">—</strong></span>
+    <span class="sc-meta">購入直後10%ルール: <strong id="buy10-C">—</strong></span>
+  </div>
+  <div class="tbl-outer" id="tbl-C">計算中...</div>
+  <div id="bc-C"></div>
+</div>
+
+</div>
+<footer>TC Capitals FIRE ロードマップ v5 月次版 ／ 2026-06-28 ／ 物件利回り8%版 ／ 10%ルール・レバナス分離モデル ／ 4棟でFIRE達成</footer>
+
+<script>
+// ===== 設定 =====
+const SY = 2026, SM = 6; // 開始: 2026年6月
+
+// 月番号→年月変換
+function ym(m) {
+  const t = (SM - 1) + (m - 1);
+  return { y: SY + Math.floor(t / 12), mo: (t % 12) + 1 };
+}
+
+// ローン残高計算（元利均等）
+function loanBal(loans, m) {
+  let s = 0;
+  for (const l of loans) {
+    const r = l.rate / 100 / 12;
+    const e = m - l.start;
+    if (e < 0) continue;
+    if (e === 0) { s += l.amount; continue; }
+    const pmt = l.amount * r / (1 - Math.pow(1 + r, -l.term));
+    let b = l.amount;
+    for (let i = 0; i < e; i++) b = b * (1 + r) - pmt;
+    s += Math.max(0, b);
+  }
+  return s;
+}
+
+// 購入実行（cash→lev→other の順に充当）
+function buyProp(st, cost, la, rate, term, m) {
+  let rem = cost;
+  if (st.cash >= rem) { st.cash -= rem; rem = 0; }
+  else { rem -= st.cash; st.cash = 0; }
+  if (rem > 0 && st.lev >= rem) { st.lev -= rem; rem = 0; }
+  else if (rem > 0) { rem -= st.lev; st.lev = 0; }
+  if (rem > 0 && st.other >= rem) { st.other -= rem; rem = 0; }
+  st.loans.push({ amount: la, rate, term: term * 12, start: m });
+  st.bldg++;
+}
+
+// 状態スナップショット
+// 利回り8%版: 各棟CF再計算 (v4: 7.1%比 +70/+66/+69万)
+// 棟1:186 棟2追加:209 棟3-6追加:223 → 4棟(841万)でFIRE達成
+const CF_TABLE = [0, 186, 395, 618, 841, 1064, 1287];
+function snap(st, m, event, isBuy) {
+  const tl  = Math.round(loanBal(st.loans, m));
+  const pv  = st.bldg * 10000;
+  const ta  = Math.round(pv + Math.max(0, st.cash) + Math.max(0, st.lev) + Math.max(0, st.other));
+  const na  = ta - tl;
+  const rt  = ta > 0 ? +(na / ta * 100).toFixed(1) : 0;
+  const { y, mo } = ym(m);
+  const cf = CF_TABLE[Math.min(st.bldg, 6)];
+  return { y, mo, bldg: st.bldg, cf, cash: Math.round(st.cash), lev: Math.round(st.lev),
+           other: Math.round(st.other), liq: Math.round(st.cash + st.lev + st.other),
+           ta, tl, na, rt, ok: rt >= 10, event, isBuy };
+}
+
+// ===== シナリオA/B: 逐次購入 =====
+function simSeq(levRate) {
+  const st = { cash: 270, lev: 1400, other: 690, loans: [], bldg: 0 };
+  const mlr = levRate === 0 ? 0 : Math.pow(1 + levRate, 1/12) - 1;
+  const rows = [], buys = [];
+  let b1=false, b2=false, b3=0;
+
+  for (let m = 1; m <= 120; m++) {
+    const { y, mo } = ym(m);
+    let ev = '', isB = false;
+
+    // 棟1: 開始直後（強制）
+    if (m === 1 && !b1) {
+      buyProp(st, 700, 10000, 2.6, 35, m); b1 = true;
+      ev = '棟1取得（オリックス100%）'; isB = true;
+      buys.push(snap(st, m, ev, true));
+    }
+    // 棟2: 1年後（強制）
+    if (m === 13 && !b2) {
+      buyProp(st, 855, 9025, 2.4, 35, m); b2 = true;
+      ev = '棟2取得（auじぶん95%）'; isB = true;
+      buys.push(snap(st, m, ev, true));
+    }
+    // 棟3〜6: 流動資産1700万到達次第
+    if (b2 && b3 < 4 && m >= 25 && st.cash + st.lev + st.other >= 1700) {
+      buyProp(st, 1700, 9000, 2.6, 35, m); b3++;
+      ev = `棟${st.bldg}取得（地銀90%）`; isB = true;
+      buys.push(snap(st, m, ev, true));
+    }
+
+    rows.push(snap(st, m, ev, isB));
+    const cf = CF_TABLE[Math.min(st.bldg, 6)];
+    st.cash += cf / 12;
+    st.lev = (st.lev + 35) * (1 + mlr);
+    if (y >= 2033 && mo === 12) break;
+  }
+  return { rows, buys };
+}
+
+// ===== シナリオC: 一気買い =====
+function simBurst() {
+  const st = { cash: 270, lev: 1400, other: 690, loans: [], bldg: 0 };
+  const NEED = 855 + 4 * 1700; // 7,655万
+  const mlr = Math.pow(1.30, 1/12) - 1;
+  const rows = [], buys = [];
+  let b1=false, burst=false;
+
+  for (let m = 1; m <= 120; m++) {
+    const { y, mo } = ym(m);
+    let ev = '', isB = false;
+
+    if (m === 1 && !b1) {
+      buyProp(st, 700, 10000, 2.6, 35, m); b1 = true;
+      ev = '棟1取得（オリックス100%）'; isB = true;
+      buys.push(snap(st, m, ev, true));
+    }
+    if (b1 && !burst && st.cash + st.lev + st.other >= NEED) {
+      buyProp(st, 855, 9025, 2.4, 35, m);
+      for (let i = 0; i < 4; i++) buyProp(st, 1700, 9000, 2.6, 35, m);
+      burst = true;
+      ev = '棟2〜6 一気取得（5棟同時）'; isB = true;
+      buys.push(snap(st, m, ev, true));
+    }
+
+    // バーストシナリオはCFが0→116→875のみ（中間なし）
+    const cfC = st.bldg === 0 ? 0 : st.bldg === 1 ? 116 : 875;
+    const r = snap(st, m, ev, isB);
+    r.cf = cfC;
+    rows.push(r);
+    st.cash += cfC / 12;
+    st.lev = (st.lev + 35) * (1 + mlr);
+    if (y >= 2033 && mo === 12) break;
+  }
+  return { rows, buys };
+}
+
+// ===== レンダー =====
+function f(n)  { return n.toLocaleString(); }
+function pct(rt, ok) {
+  return `<span class="${ok?'ok':'ng'}">${rt.toFixed(1)}% ${ok?'✅':'❌'}</span>`;
+}
+
+function render(rows, buys, tblId, bcId, fireId, buy10Id, kpiId) {
+  // FIRE検出
+  const fireRow = rows.find(r => r.cf >= 750);
+  const fireLabel = fireRow ? `${fireRow.y}年${fireRow.mo}月` : '未達成';
+  document.getElementById(fireId).textContent = fireLabel;
+
+  // KPIヘッダー更新
+  const kpiEl = document.getElementById(kpiId);
+  if (kpiEl) kpiEl.querySelector('.kv').textContent = fireLabel;
+
+  // 購入直後チェック結果
+  const hasNG = buys.some(b => !b.ok);
+  document.getElementById(buy10Id).innerHTML = hasNG
+    ? '<span style="color:#e53935">❌ 割れあり（下表参照）</span>'
+    : '<span style="color:#00b88a">✅ 全取得でクリア</span>';
+
+  // ===== 月次テーブル =====
+  let h = '<table class="mt"><thead><tr>';
+  h += '<th>年月</th><th>イベント / 状況</th><th>棟</th><th>CF年</th>';
+  h += '<th>現金</th><th>レバナス</th><th>その他</th><th>流動計</th>';
+  h += '<th>総資産</th><th>総負債</th><th>純資産</th><th>純資産比</th>';
+  h += '</tr></thead><tbody>';
+
+  let prevY = null, fireDone = false;
+  for (const r of rows) {
+    const ysep    = r.y !== prevY ? ' ysep' : '';
+    prevY = r.y;
+    const isFire  = r.cf >= 750;
+    const first   = isFire && !fireDone;
+    if (first) fireDone = true;
+
+    let cls = '';
+    if (r.isBuy && !r.ok)     cls = 'ng-r';
+    else if (r.isBuy || first) cls = isFire ? 'fire-r' : 'buy-r';
+    else if (isFire)           cls = 'fire-r';
+
+    let evH = '';
+    if (r.isBuy)      evH  = `<span class="ev-buy">${r.event}</span>`;
+    if (first && !r.isBuy) evH = '<span class="ev-fire">🎉 FIRE達成！</span>';
+    else if (first)   evH += ' <span class="ev-fire">🎉 FIRE</span>';
+    else if (isFire && !r.isBuy) evH = '<span class="ev-fire">FIRE継続</span>';
+
+    const ymStr = `${r.y}/${String(r.mo).padStart(2,'0')}`;
+    h += `<tr class="${cls}${ysep}">`;
+    h += `<td>${ymStr}</td><td>${evH}</td>`;
+    h += `<td class="pos">${r.bldg}棟</td>`;
+    h += `<td>${r.cf}万</td>`;
+    h += `<td>${f(r.cash)}万</td>`;
+    h += `<td>${f(r.lev)}万</td>`;
+    h += `<td>${f(r.other)}万</td>`;
+    h += `<td>${f(r.liq)}万</td>`;
+    h += `<td>${f(r.ta)}万</td>`;
+    h += `<td>${f(r.tl)}万</td>`;
+    h += `<td class="${r.na>=0?'pos':'ng'}">${f(r.na)}万</td>`;
+    h += `<td>${pct(r.rt, r.ok)}</td>`;
+    h += '</tr>';
+  }
+  h += '</tbody></table>';
+  document.getElementById(tblId).innerHTML = h;
+
+  // ===== 購入直後10%ルールチェック =====
+  let bc = '<div class="bc-wrap">';
+  bc += '<div class="bc-title">⚡ 購入直後10%ルールチェック（ローン追加の瞬間）</div>';
+  bc += hasNG
+    ? '<div class="note-ng">⚠️ 下記の購入イベントで、ローン追加直後に純資産比率が10%を下回っています。</div>'
+    : '<div class="note-ok">✅ 全ての購入直後で10%ルールをクリアしています。</div>';
+  bc += '<table class="mt"><thead><tr>';
+  bc += '<th style="text-align:left">購入イベント</th><th>時期</th>';
+  bc += '<th>総資産</th><th>総負債</th><th>純資産</th><th>純資産比</th><th>判定</th>';
+  bc += '</tr></thead><tbody>';
+  for (const b of buys) {
+    const cls2 = b.ok ? 'buy-r' : 'ng-r';
+    const diff  = (b.rt - 10).toFixed(1);
+    bc += `<tr class="${cls2}">`;
+    bc += `<td style="text-align:left">${b.ok ? '' : '<strong>'}${b.event}${b.ok ? '' : '</strong>'}</td>`;
+    bc += `<td>${b.y}年${b.mo}月</td>`;
+    bc += `<td>${f(b.ta)}万</td><td>${f(b.tl)}万</td><td>${f(b.na)}万</td>`;
+    bc += `<td>${pct(b.rt, b.ok)}</td>`;
+    bc += `<td class="${b.ok?'ok':'ng'}">${b.ok?'✅':'❌'} (${b.ok?'+':''}${diff}pt)</td>`;
+    bc += '</tr>';
+  }
+  bc += '</tbody></table>';
+  if (hasNG) {
+    bc += `<div style="font-size:11px;color:#555;padding:8px 10px;margin-top:6px;background:#f9f9f9;border-radius:5px">
+      💡 <strong>対策：</strong>取得タイミングを数ヶ月遅らせてCFと積立を積み増すか、取得直前にレバナス評価額が10%ルールをクリアしているか確認してから実行してください。
+    </div>`;
+  }
+  bc += '</div>';
+  document.getElementById(bcId).innerHTML = bc;
+}
+
+// ===== メイン =====
+window.addEventListener('DOMContentLoaded', () => {
+  const sA = simSeq(0.00);
+  const sB = simSeq(0.30);
+  const sC = simBurst();
+
+  render(sA.rows, sA.buys, 'tbl-A', 'bc-A', 'fire-A', 'buy10-A', 'kpi-A');
+  render(sB.rows, sB.buys, 'tbl-B', 'bc-B', 'fire-B', 'buy10-B', 'kpi-B');
+  render(sC.rows, sC.buys, 'tbl-C', 'bc-C', 'fire-C', 'buy10-C', 'kpi-C');
+});
+
+function switchTab(id) {
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['A','B','C'][i] === id);
+  });
+  document.querySelectorAll('.tab-panel').forEach(p => {
+    p.classList.toggle('active', p.id === 'panel-' + id);
+  });
+}
+</script>
+</body>
+</html>
