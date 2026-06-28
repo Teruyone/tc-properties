@@ -86,7 +86,7 @@ footer { text-align: center; color: #aaa; font-size: 10px; padding: 18px; }
     <div class="kpi" id="kpi-A" style="background:rgba(0,229,160,.12)"><div class="kl">シナリオA 0%逐次</div><div class="kv" style="color:#00e5a0">—</div><div class="ku">保守ベースライン</div></div>
     <div class="kpi" id="kpi-B" style="background:rgba(255,215,0,.12)"><div class="kl">シナリオB 30%逐次</div><div class="kv" style="color:#ffd700">—</div><div class="ku">レバナス30%/年</div></div>
     <div class="kpi" id="kpi-C" style="background:rgba(255,107,53,.18)"><div class="kl">シナリオC 30%一気</div><div class="kv" style="color:#ff9966">—</div><div class="ku">🥇 最速FIRE</div></div>
-    <div class="kpi" style="background:rgba(255,184,77,.12)"><div class="kl">10%ルール</div><div class="kv" style="color:#ffb84d">全月</div><div class="ku">純資産/総資産 ≥ 10%</div></div>
+    <div class="kpi" style="background:rgba(255,184,77,.12)"><div class="kl">10%ルール</div><div class="kv" style="color:#ffb84d">購入時</div><div class="ku">流動資産/総負債 ≥ 10%</div></div>
     <div class="kpi"><div class="kl">取得棟数</div><div class="kv">4</div><div class="ku">棟（4棟でFIRE — 8%効果）</div></div>
   </div>
 </div>
@@ -105,7 +105,7 @@ footer { text-align: center; color: #aaa; font-size: 10px; padding: 18px; }
     <div class="ci"><div class="cl">CF率（税引前）</div><div class="cv">≥ 1.0%</div><div class="cn">物件価格比</div></div>
     <div class="ci"><div class="cl">CCR</div><div class="cv">≥ 15%</div><div class="cn">自己資金収益率</div></div>
     <div class="ci"><div class="cl">積算比率</div><div class="cv">≥ 60%</div><div class="cn">土地+建物/物件価格</div></div>
-    <div class="ci hl"><div class="cl">10%ルール（購入直後）</div><div class="cv">≥ 10%</div><div class="cn">純資産/総資産 — 購入の瞬間も維持</div></div>
+    <div class="ci hl"><div class="cl">10%ルール（購入直後）</div><div class="cv">≥ 10%</div><div class="cn">流動資産/総負債 — 購入直後も10%以上を維持</div></div>
   </div>
   <div class="loan-row">
     <div class="lb">
@@ -213,11 +213,13 @@ function snap(st, m, event, isBuy) {
   const pv  = st.bldg * 10000;
   const ta  = Math.round(pv + Math.max(0, st.cash) + Math.max(0, st.lev) + Math.max(0, st.other));
   const na  = ta - tl;
-  const rt  = ta > 0 ? +(na / ta * 100).toFixed(1) : 0;
+  const liq = Math.round(st.cash + st.lev + st.other);
+  // 購入可否: 流動資産/総負債 ≥ 10%（負債なし時は安全とみなす）
+  const rt  = tl > 0 ? +(liq / tl * 100).toFixed(1) : 100;
   const { y, mo } = ym(m);
   const cf = CF_TABLE[Math.min(st.bldg, 6)];
   return { y, mo, bldg: st.bldg, cf, cash: Math.round(st.cash), lev: Math.round(st.lev),
-           other: Math.round(st.other), liq: Math.round(st.cash + st.lev + st.other),
+           other: Math.round(st.other), liq,
            ta, tl, na, rt, ok: rt >= 10, event, isBuy };
 }
 
@@ -323,7 +325,7 @@ function render(rows, buys, tblId, bcId, fireId, buy10Id, kpiId) {
   let h = '<table class="mt"><thead><tr>';
   h += '<th>年月</th><th>イベント / 状況</th><th>棟</th><th>CF年</th>';
   h += '<th>現金</th><th>レバナス</th><th>その他</th><th>流動計</th>';
-  h += '<th>総資産</th><th>総負債</th><th>純資産</th><th>純資産比</th>';
+  h += '<th>総資産</th><th>総負債</th><th>純資産</th><th>流動/負債比</th>';
   h += '</tr></thead><tbody>';
 
   let prevY = null, fireDone = false;
@@ -371,7 +373,7 @@ function render(rows, buys, tblId, bcId, fireId, buy10Id, kpiId) {
     : '<div class="note-ok">✅ 全ての購入直後で10%ルールをクリアしています。</div>';
   bc += '<table class="mt"><thead><tr>';
   bc += '<th style="text-align:left">購入イベント</th><th>時期</th>';
-  bc += '<th>総資産</th><th>総負債</th><th>純資産</th><th>純資産比</th><th>判定</th>';
+  bc += '<th>流動資産</th><th>総負債</th><th>流動/負債比</th><th>判定</th>';
   bc += '</tr></thead><tbody>';
   for (const b of buys) {
     const cls2 = b.ok ? 'buy-r' : 'ng-r';
@@ -379,7 +381,7 @@ function render(rows, buys, tblId, bcId, fireId, buy10Id, kpiId) {
     bc += `<tr class="${cls2}">`;
     bc += `<td style="text-align:left">${b.ok ? '' : '<strong>'}${b.event}${b.ok ? '' : '</strong>'}</td>`;
     bc += `<td>${b.y}年${b.mo}月</td>`;
-    bc += `<td>${f(b.ta)}万</td><td>${f(b.tl)}万</td><td>${f(b.na)}万</td>`;
+    bc += `<td>${f(b.liq)}万</td><td>${f(b.tl)}万</td>`;
     bc += `<td>${pct(b.rt, b.ok)}</td>`;
     bc += `<td class="${b.ok?'ok':'ng'}">${b.ok?'✅':'❌'} (${b.ok?'+':''}${diff}pt)</td>`;
     bc += '</tr>';
@@ -387,7 +389,7 @@ function render(rows, buys, tblId, bcId, fireId, buy10Id, kpiId) {
   bc += '</tbody></table>';
   if (hasNG) {
     bc += `<div style="font-size:11px;color:#555;padding:8px 10px;margin-top:6px;background:#f9f9f9;border-radius:5px">
-      💡 <strong>対策：</strong>取得タイミングを数ヶ月遅らせてCFと積立を積み増すか、取得直前にレバナス評価額が10%ルールをクリアしているか確認してから実行してください。
+      💡 <strong>対策：</strong>取得タイミングを数ヶ月遅らせてCFと積立を積み増すか、取得直前に「流動資産 ÷ 総負債 ≥ 10%」をクリアしているか確認してから実行してください。
     </div>`;
   }
   bc += '</div>';
