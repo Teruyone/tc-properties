@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ベラビスタオーシャンテラス — チーム精査レポート</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif; background: #eef0f4; color: #2d3748; font-size: 14px; line-height: 1.7; }
+.page-header { background: linear-gradient(135deg, #0f2944 0%, #1e4d8c 100%); color: #fff; padding: 32px 40px; }
+.page-header h1 { font-size: 1.6em; font-weight: 700; letter-spacing: 0.02em; margin-bottom: 6px; }
+.page-header .meta { opacity: 0.75; font-size: 0.9em; }
+.container { max-width: 1280px; margin: 0 auto; padding: 28px 24px; }
+.alert-danger { background: #b91c1c; color: #fff; border-radius: 10px; padding: 24px 28px; margin-bottom: 24px; box-shadow: 0 4px 14px rgba(185,28,28,0.35); }
+.alert-danger h2 { font-size: 1.35em; margin-bottom: 6px; letter-spacing: 0.02em; }
+.alert-danger p { opacity: 0.95; font-size: 0.95em; }
+.card { background: #fff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); margin-bottom: 24px; overflow: hidden; }
+.card-hdr { padding: 14px 22px; font-weight: 700; font-size: 1.05em; color: #fff; }
+.card-hdr.navy   { background: #1a3a5c; }
+.card-hdr.teal   { background: #0d7377; }
+.card-hdr.orange { background: #d97706; }
+.card-hdr.blue   { background: #1e40af; }
+.card-hdr.green  { background: #047857; }
+.card-hdr.brown  { background: #7c2d12; }
+.card-hdr.purple { background: #5b21b6; }
+.card-hdr.slate  { background: #334155; }
+.card-body { padding: 22px 24px; }
+.info-table { width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 6px; }
+.info-table th { background: #f1f5f9; color: #475569; font-weight: 600; text-align: left; padding: 9px 12px; width: 28%; border: 1px solid #e2e8f0; }
+.info-table td { padding: 9px 12px; border: 1px solid #e2e8f0; color: #1e293b; }
+.criteria-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+.criteria-table th { background: #f1f5f9; color: #475569; font-weight: 600; text-align: center; padding: 9px 10px; border: 1px solid #e2e8f0; }
+.criteria-table td { padding: 9px 10px; border: 1px solid #e2e8f0; text-align: center; color: #1e293b; }
+.ok  { color: #059669; font-weight: 700; }
+.ng  { color: #dc2626; font-weight: 700; }
+.wr  { color: #d97706; font-weight: 700; }
+.hazard-box { background: #fef2f2; border: 2px solid #dc2626; border-radius: 8px; padding: 16px; margin: 10px 0; }
+.hazard-box h4 { color: #b91c1c; margin-bottom: 8px; }
+.hazard-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 0.92em; }
+.hazard-row .label { color: #64748b; }
+.hazard-row .value { font-weight: 600; }
+.link-btn { display: inline-block; background: #1e4d8c; color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; margin: 4px 6px 4px 0; font-size: 0.85em; font-weight: 600; }
+.link-btn:hover { background: #0f2944; }
+.link-btn.danger { background: #b91c1c; }
+.link-btn.success { background: #059669; }
+.link-btn.orange { background: #d97706; }
+.link-btn.purple { background: #5b21b6; }
+.link-btn.teal { background: #0d7377; }
+ul.risk-list { list-style: none; padding: 0; margin: 8px 0; }
+ul.risk-list li { padding: 8px 0; padding-left: 24px; position: relative; border-bottom: 1px solid #f1f5f9; font-size: 0.92em; }
+ul.risk-list li::before { position: absolute; left: 0; top: 8px; font-weight: 700; }
+ul.risk-list li.ok::before { content: '✓'; color: #059669; }
+ul.risk-list li.wr::before { content: '⚠'; color: #d97706; }
+ul.risk-list li.ng::before { content: '✗'; color: #dc2626; }
+ul.risk-list li.qm::before { content: '?'; color: #64748b; }
+.q-note { background: #fef9c3; border-left: 4px solid #eab308; padding: 12px 16px; margin: 10px 0; font-size: 0.92em; color: #854d0e; border-radius: 4px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 12px 0; }
+.stat-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; text-align: center; }
+.stat-card .lbl { font-size: 0.8em; color: #64748b; margin-bottom: 4px; }
+.stat-card .val { font-size: 1.5em; font-weight: 700; color: #0f2944; }
+.stat-card .sub { font-size: 0.75em; color: #94a3b8; margin-top: 2px; }
+.section-label { font-weight: 600; color: #334155; margin: 14px 0 6px 0; font-size: 0.95em; }
+.foot-team { text-align: center; color: #94a3b8; padding: 30px 0 12px; font-size: 0.86em; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+<h1>ベラビスタオーシャンテラス — チーム精査レポート</h1>
+<div class="meta">精査日: 2026年7月4日 / 精査チーム: 不動産仕入部（ハルト・リョウ・アキ・村田先生）</div>
+</div>
+
+<div class="container">
+
+<!-- ⚠️ 最重要警告 -->
+<div class="alert-danger">
+<h2>⚠️ ハザードリスクにより見送り推奨</h2>
+<p>ハルトのハザードマップ実測により、本物件は<strong>土砂災害特別警戒区域（レッドゾーン）</strong>に該当することが確定しました。キャプテン基準「レッドゾーン即NG」に完全該当。融資出しが困難・出口ネック・保険料アップ・重要事項説明義務の四重負荷が発生します。</p>
+</div>
+
+<!-- 物件サマリー -->
+<div class="card">
+<div class="card-hdr navy">物件サマリー</div>
+<div class="card-body">
+<table class="info-table">
+<tr><th>物件名</th><td>ベラビスタオーシャンテラス</td></tr>
+<tr><th>所在地</th><td>神奈川県横浜市磯子区丸山1丁目30番21号（地番: 330番4）</td></tr>
+<tr><th>交通</th><td>横浜市営地下鉄ブルーライン「蒔田」駅 徒歩14分 / 京急本線「南太田」駅 徒歩22分</td></tr>
+<tr><th>価格</th><td>5,280万円</td></tr>
+<tr><th>表面利回り（資料）</th><td>7.455%（満室年収 3,936,000円）</td></tr>
+<tr><th>表面利回り（スマサテ査定）</th><td class="ok">8.32%（査定61,000円/戸 × 6戸 × 12ヶ月 = 4,392,000円）</td></tr>
+<tr><th>構造・築年</th><td>木造軸組2階建・2019年9月竣工（築6年）・準耐火建築物イ-2</td></tr>
+<tr><th>延床 / 土地</th><td>149.04㎡（45.16坪） / 165.28㎡（50坪・公簿）</td></tr>
+<tr><th>間取・戸数</th><td>1K×6戸（全戸24.84㎡・ロフト付き・満室稼働中）</td></tr>
+<tr><th>用途地域</th><td>第一種住居地域・準防火・市街化区域・第4種高度地区</td></tr>
+<tr><th>取引態様</th><td>仲介（株式会社TOEM／トーエム）</td></tr>
+<tr><th>積算評価</th><td>44,694,205円（84.6%）</td></tr>
+<tr><th>備考</th><td class="ng">土砂災害警戒区域内・急傾斜地崩壊危険区域内（物件概要書明記）</td></tr>
+</table>
+</div>
+</div>
+
+<!-- キャプテン基準 -->
+<div class="card">
+<div class="card-hdr slate">キャプテン基準チェック</div>
+<div class="card-body">
+<table class="criteria-table">
+<tr><th>基準</th><th>閾値</th><th>本物件</th><th>判定</th></tr>
+<tr><td>築年数</td><td>10年以内</td><td>築6年</td><td class="ok">○</td></tr>
+<tr><td>価格</td><td>1億円以内</td><td>5,280万円</td><td class="ok">○</td></tr>
+<tr><td>表面利回り</td><td>8.0%以上</td><td>7.455%（資料）／8.32%（スマサテ査定）</td><td class="wr">△</td></tr>
+<tr><td>エリア</td><td>16号内側</td><td>磯子区丸山</td><td class="ok">○</td></tr>
+<tr><td>積算比率</td><td>60%以上</td><td>84.6%（IG+計算では88.5%）</td><td class="ok">○</td></tr>
+<tr><td>CCR</td><td>ハルト基準相当</td><td>オリックス 9.61% / 神奈川銀行 7.70%</td><td class="ng">✗</td></tr>
+<tr><td>ハザード</td><td>レッドゾーンNG</td><td><strong class="ng">土砂災害特別警戒区域該当</strong></td><td class="ng">✗ 即NG</td></tr>
+</table>
+</div>
+</div>
+
+<!-- 🗺️ 路線価・ハザード・スマサテ -->
+<div class="card">
+<div class="card-hdr teal">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</div>
+<div class="card-body">
+
+<div class="section-label">相続路線価（chikamap.jp 令和7年分）</div>
+<table class="info-table">
+<tr><th>路線価</th><td>15.5万円/㎡（155千円/㎡）</td></tr>
+<tr><th>借地権割合</th><td>D（60%）</td></tr>
+<tr><th>路線価評価額</th><td>約2,562万円（15.5万円 × 165.28㎡）</td></tr>
+</table>
+
+<div class="hazard-box">
+<h4>🗺️ 重ねるハザードマップ判定（国土交通省）</h4>
+<div class="hazard-row"><span class="label">洪水浸水想定</span><span class="value ok">✅ 非該当</span></div>
+<div class="hazard-row"><span class="label">土砂災害警戒</span><span class="value ng">❌ レッドゾーン該当（急傾斜地崩壊・特別警戒区域指定済）</span></div>
+<div class="hazard-row"><span class="label">津波浸水想定</span><span class="value ok">✅ 非該当</span></div>
+<div class="hazard-row"><span class="label">液状化危険度</span><span class="value">確認不可</span></div>
+<div class="hazard-row"><span class="label">内水浸水</span><span class="value ok">✅ 非該当</span></div>
+<div class="hazard-row" style="border-top: 1px solid #fca5a5; margin-top: 8px; padding-top: 8px;"><span class="label"><strong>総合判定</strong></span><span class="value ng"><strong>即NG</strong></span></div>
+</div>
+
+<div class="section-label">🏠 スマサテ賃料査定</div>
+<div class="stat-grid">
+<div class="stat-card"><div class="lbl">査定賃料（礼金0）</div><div class="val">61,000<span style="font-size:0.5em;">円</span></div><div class="sub">/戸/月</div></div>
+<div class="stat-card"><div class="lbl">資料記載賃料（平均）</div><div class="val">51,667<span style="font-size:0.5em;">円</span></div><div class="sub">/戸/月</div></div>
+<div class="stat-card"><div class="lbl">乖離</div><div class="val ok">+18.1%</div><div class="sub">賃料余地あり</div></div>
+<div class="stat-card"><div class="lbl">スマサテ利回り</div><div class="val ok">8.32<span style="font-size:0.5em;">%</span></div><div class="sub">表面利回り</div></div>
+</div>
+
+<div style="margin-top: 16px;">
+<a class="link-btn teal" href="20260704_iso-belavista_survey.html" target="_blank">🔍 物件調査レポート（スマサテ・路線価・ハザード詳細）</a>
+</div>
+
+</div>
+</div>
+
+<!-- ハルト -->
+<div class="card">
+<div class="card-hdr orange">🌅 ハルト（エリア・利回り分析）</div>
+<div class="card-body">
+<p><strong>結論：即NG（レッドゾーン該当）</strong></p>
+<p>スマサテ+18.1%の賃料余力、スマサテ考慮利回り8.32%、積算84.6%、築6年、蒔田駅徒歩14分——<strong>表面のスペックは光っていた</strong>。ただしハザードマップ実測で土砂災害特別警戒区域（レッドゾーン）該当が確定。キャプテンの「レッドゾーン即NG」ルールに完全該当。融資（オリックス・auじぶん銀行）でも出口（売却時）でも保険（火災+土砂）でも全てにマイナス圧力がかかる。</p>
+
+<div class="section-label">蒔田駅エリアの将来性</div>
+<ul class="risk-list">
+<li class="ok">蒔田駅（横浜市営地下鉄ブルーライン）: 1日平均乗降人員 20,818人（令和2年度）</li>
+<li class="ok">横浜駅・関内・上大岡へ直結、単身需要は堅い</li>
+<li class="wr">蒔田駅1K相場8.5万円（駅近・新築寄り）に対し、徒歩14分築6年24.84㎡なら5.0〜6.5万円レンジが妥当</li>
+<li class="ng">丸山1丁目は急傾斜地の下にあり、女性単身層は敬遠傾向</li>
+<li class="ng">京急南太田駅（徒歩22分）は実質使えない</li>
+</ul>
+
+<div class="q-note">
+<strong>ハルトの一言：</strong>千三つ万八の「三つ」に見えたけど、ハザードで消えた。切り替えて次の候補探します。
+</div>
+</div>
+</div>
+
+<!-- リョウ -->
+<div class="card">
+<div class="card-hdr blue">🔍 リョウ（DD）</div>
+<div class="card-body">
+<p><strong>リスクレベル: 中〜高</strong></p>
+
+<div class="section-label">確認済み（融資適格ポイント）</div>
+<ul class="risk-list">
+<li class="ok">検査済証: 令和1年9月20日 第19KAK建済02625号（融資適格）</li>
+<li class="ok">確認済証: 平成31年2月8日 第18KAK建変00364号</li>
+<li class="ok">登記済 現所有者: 谷中 努氏（令和1年9月27日取得）</li>
+<li class="ok">満室稼働中（月328,000円 / 年3,936,000円）</li>
+<li class="ok">前面道路: 幅員4m 公道（法42条2項道路）、接道長15.86m</li>
+<li class="ok">新耐震基準クリア（2019年新築）</li>
+</ul>
+
+<div class="section-label">リスクフラグ（要対処）</div>
+<ul class="risk-list">
+<li class="ng"><strong>FLAG-1（最重大）: 土砂災害警戒区域＋急傾斜地崩壊危険区域二重指定</strong><br>宅建業法35条重説義務・融資担保評価減額・出口ネック・保険料アップ</li>
+<li class="wr">FLAG-2: 前面道路が法42条2項道路 → セットバック済み書面要取得</li>
+<li class="wr">FLAG-3: 建築主(株)オーケー→令和1年に個人が取得 → 転売スキーム確認</li>
+<li class="wr">FLAG-4: 1K全戸24.84㎡単身特化＝退去時入替リスクあり</li>
+</ul>
+
+<div class="section-label">未確認・要入手</div>
+<ul class="risk-list">
+<li class="qm">修繕履歴3年分（給湯器・エアコンの型式年式）</li>
+<li class="qm">賃借人属性・平均入居期間・現契約開始日（レントロール空欄）</li>
+<li class="qm">サブリース契約の有無、PM会社名・PM契約条件</li>
+<li class="qm">公課証明書・固都税納税通知書</li>
+<li class="qm">セットバック完了書面</li>
+<li class="qm">承継敷金の内訳（クリーニング代控除後の返還額）</li>
+<li class="qm">火災保険の現状加入内容（水災・土砂の付保有無）</li>
+<li class="qm">現地擁壁・崖の状態</li>
+</ul>
+
+<div style="margin-top: 14px;">
+<a class="link-btn" href="https://teruyone.github.io/tc-properties/properties/20260704_iso-belavista_DD.html" target="_blank">📋 DDチェックリスト（入力済み）</a>
+</div>
+</div>
+</div>
+
+<!-- アキ -->
+<div class="card">
+<div class="card-hdr green">💰 アキ（IG+収支計算 + 玉川式）</div>
+<div class="card-body">
+
+<div class="section-label">収益・費用サマリー</div>
+<table class="info-table">
+<tr><th>満室収入</th><td>393.6万円/年（月328,000円）</td></tr>
+<tr><th>実収入（空室5%控除）</th><td>373.9万円/年</td></tr>
+<tr><th>費用合計</th><td>▲108.5万円/年（PM・BM・保険・固都税374千・修繕・原状回復・AD）</td></tr>
+<tr><th>NOI</th><td>265.4万円 / NOI利回り 5.03%</td></tr>
+<tr><th>積算評価</th><td>46,728千円 / <strong class="ok">積算比率 88.5%</strong></td></tr>
+</table>
+
+<div class="section-label">ローン試算</div>
+<table class="criteria-table">
+<tr><th>パターン</th><th>条件</th><th>月返済</th><th>CF/年</th><th>CF率</th><th>CCR</th></tr>
+<tr><td>オリックス</td><td>100%・2.6%・35年</td><td>191,599円</td><td>35.5万</td><td class="ng">0.67%</td><td class="ng">9.61%</td></tr>
+<tr><td>神奈川銀行</td><td>90%・2.25%・35年</td><td>163,581円</td><td>69.2万</td><td class="wr">1.31%</td><td class="ng">7.70%</td></tr>
+</table>
+
+<div class="q-note">
+<strong>指値ライン: 4,900万円</strong>（▲380万・7.2%off）で買付なら表面利回り8.03%となり基準クリア。満額の5,280万は見送りライン。
+</div>
+
+<div class="section-label">キャプテンへの確認事項</div>
+<ul class="risk-list">
+<li class="qm">指値方針: 4,900万円で買付を出す方向で問題ないですか？</li>
+<li class="qm">賃料水準確認: スマサテ査定61,000円/戸で+18.1%余地あり → 現行賃料アップは可能か？</li>
+<li class="qm">10年目税引後IRR: 玉川式シートをブラウザで開いて要確認</li>
+</ul>
+
+<div style="margin-top: 14px;">
+<a class="link-btn success" href="https://teruyone.github.io/tc-properties/ig-sheet/?price=5280&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.455&floorArea=149.04&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=6&taxRateIncome=20&pi_price_inp=8100&pi_age_inp=13&pi_yield_inp=7.45&pi_area_inp=150&pi_rooms_inp=6&ik_land_area=165.28&ik_route_price=15.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E7%A3%AF%E5%AD%90%E5%8C%BA%E4%B8%B8%E5%B1%B11%E4%B8%81%E7%9B%AE30%E7%95%AA21%E5%8F%B7" target="_blank">📊 InvestGate+【資料賃料】収支試算</a>
+<a class="link-btn success" href="https://teruyone.github.io/tc-properties/ig-sheet/?price=5280&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=8.318&floorArea=149.04&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=6&taxRateIncome=20&pi_price_inp=8100&pi_age_inp=13&pi_yield_inp=8.318&pi_area_inp=150&pi_rooms_inp=6&ik_land_area=165.28&ik_route_price=15.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E7%A3%AF%E5%AD%90%E5%8C%BA%E4%B8%B8%E5%B1%B11%E4%B8%81%E7%9B%AE30%E7%95%AA21%E5%8F%B7" target="_blank">📊 InvestGate+【スマサテ賃料】収支試算</a>
+<a class="link-btn purple" href="../../knowledge/tamagawa-analysis/20260704_iso-belavista_TG.html" target="_blank">📈 玉川式収益試算シート</a>
+</div>
+</div>
+</div>
+
+<!-- 村田先生 -->
+<div class="card">
+<div class="card-hdr brown">🏗️ 村田先生（建築士コメント）</div>
+<div class="card-body">
+<p><em>「現場を見ないと断言はできませんが」を前提に、35年のキャリアから率直にお伝えします。</em></p>
+
+<div class="section-label">建物本体評価: ★★★★☆</div>
+<ul class="risk-list">
+<li class="ok">準耐火建築物（イ-2）+ 検査済証あり+ 設計者資格明記＝「まっとうに建てられた木造共同住宅」</li>
+<li class="ok">基礎: ベタ基礎 + 基礎パッキン工法 + 地耐力20kN/㎡ → 現行スタンダード</li>
+<li class="ok">軸組: 通柱105角、筋交い90×45 → 共同住宅として標準〜妥当</li>
+<li class="ok">土台ベイマツ注入材 → シロアリ対策妥当</li>
+<li class="ok">ロフト計画変更（階高2.875→3.780m等）は正規ルート、隠れた違反リスク低</li>
+</ul>
+
+<div class="section-label">立地評価: ★★☆☆☆（土砂災害警戒区域内）</div>
+<ul class="risk-list">
+<li class="wr">土砂災害警戒区域（イエロー）自体は建築制限なし。ただし将来のレッドゾーン再指定リスクあり</li>
+<li class="wr">急傾斜地崩壊危険区域 → のり面切土・盛土に県知事許可必要、修繕コスト1〜2割アップ要因</li>
+<li class="ng"><strong>ハルトのハザードマップ実測でレッドゾーン該当確定 → 居室建物は構造規制対象</strong></li>
+</ul>
+
+<div class="section-label">修繕リスク予算感</div>
+<ul class="risk-list">
+<li class="qm">直近3年（築6→9年）: 30〜60万円（給湯器点検・エアコン更新）</li>
+<li class="qm">5〜10年後（築11〜16年）: 250〜400万円（外壁塗装・コーキング・屋根塗装・給湯器一斉交換）</li>
+<li class="qm">15〜20年後（築21〜26年）: 500〜800万円（給水管更新・屋根葺き替え・外壁2回目）</li>
+</ul>
+
+<div class="q-note">
+<strong>村田の最重要指摘：擁壁の状態が「本件の生命線」</strong><br>
+擁壁がRC造+検査済証あり → 木造アパートとして十分買える。<br>
+擁壁がCB積み・築年不明・水抜きなし・亀裂あり → 数百万〜1000万円級の改修リスク。<br>
+仲介経由で「擁壁関連書類（別棟扱いの検査済証があるはず）」を追加請求してください。
+</div>
+
+<div class="section-label">現地必須チェック</div>
+<ul class="risk-list">
+<li class="qm">擁壁の種類・高さ・築年・検査済証、水抜き穴、のり面亀裂・ふくらみ</li>
+<li class="qm">ロフト天井高メジャー実測（1400mm厳守・超えると重大違反）</li>
+<li class="qm">ロフトの固定階段化がないか</li>
+<li class="qm">敷地内の排水経路が擁壁背面に集中していないか</li>
+<li class="qm">界壁が小屋裏まで達しているか（点検口から確認）</li>
+</ul>
+
+</div>
+</div>
+
+<!-- キャプテンへの確認事項 -->
+<div class="card">
+<div class="card-hdr purple">📌 キャプテンへの確認事項まとめ</div>
+<div class="card-body">
+<ul class="risk-list">
+<li class="ng"><strong>【最重要】土砂災害特別警戒区域（レッドゾーン）該当の受容判断</strong><br>キャプテン基準では「即NG」。しかし物件スペック（築6年・検査済証・満室・スマサテ+18.1%）は光っていた。見送り確定でよいか？</li>
+<li class="qm">レッドゾーンOK前提でも「4,900万円指値」で買付を出す方向か？</li>
+<li class="qm">仲介（株式会社TOEM）担当者名・連絡先を教えてください（contacts/brokers.mdへ登録用）</li>
+<li class="qm">引渡時期の希望（現在「相談」）→ 融資段取り逆算に必要</li>
+<li class="qm">サブリース契約の有無</li>
+<li class="qm">PM会社（現行を承継 or BRICKS等に切替）</li>
+<li class="qm">融資打診の優先順位（オリックス／auじぶん／SBI等、レッドゾーン耐性順で並べ替え要）</li>
+<li class="qm">擁壁関連書類の追加請求可否</li>
+<li class="qm">セットバック完了書面の追加請求</li>
+</ul>
+</div>
+</div>
+
+<!-- 総合所見 -->
+<div class="card">
+<div class="card-hdr navy">🎯 チーム総合所見</div>
+<div class="card-body">
+<p><strong>総合判断: 【見送り推奨】</strong></p>
+
+<div class="section-label">プラス材料</div>
+<ul class="risk-list">
+<li class="ok">築6年・木造準耐火・検査済証あり・満室稼働中</li>
+<li class="ok">積算比率84.6%（IG+計算では88.5%）</li>
+<li class="ok">スマサテ査定+18.1%の賃料余地 → 潜在利回り8.32%</li>
+<li class="ok">蒔田駅徒歩14分・横浜駅アクセス圏</li>
+<li class="ok">価格5,280万円は1棟目レンジ内</li>
+</ul>
+
+<div class="section-label">マイナス材料</div>
+<ul class="risk-list">
+<li class="ng">土砂災害特別警戒区域（レッドゾーン）該当 → キャプテン基準即NG</li>
+<li class="ng">融資出しが困難（オリックス・auじぶんとも原則NG）</li>
+<li class="ng">出口ネック（売却時の重要事項説明・買い手2割減想定）</li>
+<li class="ng">表面利回り7.455% < キャプテン基準8.0%（v5・2026-06-28引き上げ）</li>
+<li class="ng">CCR両パターンとも基準未達（オリ9.61%・神奈川銀7.70%）</li>
+</ul>
+
+<div class="q-note" style="background: #fee2e2; border-left-color: #dc2626; color: #7f1d1d;">
+<strong>最大リスク:</strong> 土砂災害特別警戒区域（レッドゾーン）該当。将来居室建物への構造規制、融資難、出口難、保険料アップの四重負荷。<br>
+<strong>次のアクション:</strong> ①キャプテン判断（見送りor条件付き前進）、②見送りなら次候補探索、③前進なら擁壁書類請求＋レッドゾーン耐性ある融資行洗い出し
+</div>
+
+</div>
+</div>
+
+<div class="foot-team">
+チーム: ハルト（朝倉晴斗）・リョウ（黒沢涼）・アキ（三宅亜紀）・村田先生（村田誠一）<br>
+精査日: 2026年7月4日
+</div>
+
+</div>
+
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260704_iso-belavista_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260704_iso-belavista_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
