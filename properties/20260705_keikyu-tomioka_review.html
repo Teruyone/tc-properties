@@ -2,13 +2,14 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>京急富岡（仮称） 精査レポート | TC Capitals 仕入部</title>
+<title>京急富岡（仮称） 再精査レポート | TC Capitals 仕入部</title>
 <style>
   body { font-family: 'Segoe UI', 'Hiragino Sans', sans-serif; background: #f5f7fa; margin: 0; padding: 20px; color: #223; line-height: 1.7; }
   .container { max-width: 1000px; margin: 0 auto; }
   .hdr { background: #1e3a5f; color: #fff; padding: 24px 30px; border-radius: 10px 10px 0 0; }
   .hdr h1 { margin: 0; font-size: 24px; }
   .hdr .sub { color: #cfd9e5; margin-top: 6px; font-size: 14px; }
+  .re-banner { background: #dc2626; color: #fff; padding: 8px 16px; margin: 0 0 12px 0; border-radius: 6px; font-weight: bold; font-size: 14px; }
   .card { background: #fff; padding: 22px 28px; margin-bottom: 18px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
   .card h2 { margin-top: 0; font-size: 18px; padding-bottom: 8px; border-bottom: 2px solid #eee; }
   .h-haruto { color: #d97706; border-bottom-color: #fbbf24 !important; }
@@ -25,6 +26,7 @@
   .box-alert { background: #fef2f2; border-left: 4px solid #dc2626; padding: 12px 16px; margin: 10px 0; }
   .box-warn { background: #fffbeb; border-left: 4px solid #d97706; padding: 12px 16px; margin: 10px 0; }
   .box-info { background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 12px 16px; margin: 10px 0; }
+  .box-diff { background: #fff7ed; border-left: 4px solid #ea580c; padding: 12px 16px; margin: 10px 0; }
   ul { padding-left: 22px; }
   a { color: #1d4ed8; text-decoration: none; }
   a:hover { text-decoration: underline; }
@@ -38,56 +40,83 @@
 <body>
 <!-- TC Link Bar -->
 <div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
-<a href="https://teruyone.github.io/tc-properties/properties/20260705_keikyu-tomioka_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8100&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.45&floorArea=150&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=13&taxRateIncome=20&pi_price_inp=8369&pi_age_inp=0&pi_yield_inp=7.80&pi_area_inp=200&pi_rooms_inp=8&ik_land_area=130&ik_route_price=10&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E9%87%91%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%87%91%E6%B2%A2%E5%8C%BA%E5%AF%8C%E5%B2%A1%E8%A5%BF3%E4%B8%81%E7%9B%AE" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8100&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.45&floorArea=150&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=13&taxRateIncome=20&pi_price_inp=8369&pi_age_inp=0&pi_yield_inp=7.69&pi_area_inp=200&pi_rooms_inp=8&ik_land_area=130&ik_route_price=10&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E9%87%91%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%87%91%E6%B2%A2%E5%8C%BA%E5%AF%8C%E5%B2%A1%E8%A5%BF3%E4%B8%81%E7%9B%AE" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260705_keikyu-tomioka_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20260705_keikyu-tomioka_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+<a href="https://teruyone.github.io/tc-properties/properties/20260705_keikyu-tomioka_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8369&ltvInput=94&ltvRatio=94&costsRate=7&loanTerm=35&intRate=2.4&grossYield=7.80&floorArea=180.5&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=8&taxRateIncome=20&pi_price_inp=8369&pi_age_inp=8&pi_yield_inp=7.80&pi_area_inp=180.5&pi_rooms_inp=10&ik_land_area=347.87&ik_route_price=13.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%87%91%E6%B2%A2%E5%8C%BA%E5%AF%8C%E5%B2%A1%E8%A5%BF3%E4%B8%81%E7%9B%AE" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8369&ltvInput=94&ltvRatio=94&costsRate=7&loanTerm=35&intRate=2.4&grossYield=7.03&floorArea=180.5&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=8&taxRateIncome=20&pi_price_inp=8369&pi_age_inp=8&pi_yield_inp=7.03&pi_area_inp=180.5&pi_rooms_inp=10&ik_land_area=347.87&ik_route_price=13.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%87%91%E6%B2%A2%E5%8C%BA%E5%AF%8C%E5%B2%A1%E8%A5%BF3%E4%B8%81%E7%9B%AE" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260705_keikyu-tomioka_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20260705_keikyu-tomioka_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
 </div>
 <div style="margin-top:48px;">
 
 <div class="container">
 
 <div class="hdr">
-  <h1>🏢 京急富岡（仮称） 精査レポート</h1>
-  <div class="sub">TC Capitals 仕入部チーム | 精査日: 2026-07-05 | 精査員: ハルト・リョウ・アキ・村田先生</div>
+  <h1>🏢 京急富岡（仮称） 再精査レポート</h1>
+  <div class="sub">TC Capitals 仕入部チーム | 再精査日: 2026-07-05 | 精査員: ハルト・リョウ・アキ・村田先生</div>
 </div>
 
+<div class="re-banner">🔁 再精査版: 志水氏email（07-04）の実データ（築8年・10戸・347.87㎡・180.5㎡・木造2階建・auじぶん銀行9.4割評価済み・相続路線価13.5万円/㎡等）を全面反映</div>
+
 <div class="card">
-  <h2>📋 物件サマリー</h2>
+  <h2>📋 物件サマリー（実データ反映済み）</h2>
   <table class="summary-table">
     <tr><th>所在地</th><td>神奈川県横浜市金沢区富岡西3丁目</td></tr>
     <tr><th>交通</th><td>京急本線『京急富岡』駅 徒歩9分／『能見台』駅 徒歩16分（京急富岡駅 乗降客約20,000人/日）</td></tr>
-    <tr><th>価格</th><td>8,369万円</td></tr>
-    <tr><th>表面利回り</th><td>7.80%（満室想定年収 約652.8万円）</td></tr>
-    <tr><th>構造・築年</th><td><span class="warn">未確認</span>（新築木造アパート想定・要キャプテン確認）</td></tr>
-    <tr><th>戸数・面積</th><td><span class="warn">未確認</span>（推定 8戸／延床200㎡／土地130㎡・1K25㎡想定）</td></tr>
-    <tr><th>取引態様</th><td>仲介（センチュリー21 ハウスウェル 志水氏／非公開・★ローンブレイク★）</td></tr>
+    <tr><th>価格</th><td>8,369万円（指値交渉可）</td></tr>
+    <tr><th>表面利回り</th><td>7.80%（資料想定・満室年収 652.78万円）／<span class="warn">スマサテ査定ベース 7.03%</span></td></tr>
+    <tr><th>構造・築年</th><td class="ok">木造2階建・2018年3月建築（築8年）</td></tr>
+    <tr><th>戸数・面積</th><td class="ok">1K×10戸／延床 180.5㎡（1戸平均 18.05㎡・<span class="warn">狭小</span>）／土地 347.87㎡（約105.23坪）</td></tr>
+    <tr><th>用途地域</th><td>第一種低層住居専用地域</td></tr>
+    <tr><th>権利</th><td>所有権</td></tr>
+    <tr><th>検査済証</th><td class="ok">有</td></tr>
+    <tr><th>劣化対策等級</th><td>2級（30年融資枠は対象外・25年枠のみ）</td></tr>
+    <tr><th>取引態様</th><td>仲介（センチュリー21 ハウスウェル 志水氏／★ローンブレイク再販★）</td></tr>
+    <tr><th>融資評価</th><td class="ok">auじぶん銀行 評価済み（35年／2.4%／上限9.4割）</td></tr>
   </table>
 </div>
 
 <div class="card">
-  <h2>🎯 キャプテン基準チェック</h2>
+  <h2>🔁 前回精査からの主な変更点</h2>
+  <div class="box-diff">
+    <table class="basis-table">
+      <tr><th>項目</th><th>前回（推定）</th><th>今回（実データ）</th><th>影響</th></tr>
+      <tr><td>築年</td><td>新築0年（推定）</td><td class="ok">築8年（2018年3月）</td><td>基準クリア／減価償却・修繕費上振れ</td></tr>
+      <tr><td>戸数</td><td>8戸（推定）</td><td>10戸（1K）</td><td>1戸あたり賃料↓</td></tr>
+      <tr><td>延床面積</td><td>200㎡（推定）</td><td>180.5㎡</td><td>1戸平均18.05㎡＝狭小</td></tr>
+      <tr><td>土地面積</td><td>130㎡（推定）</td><td class="ok">347.87㎡（+167%）</td><td>積算大幅↑</td></tr>
+      <tr><td>構造</td><td>木造3階建（推定）</td><td>木造2階建</td><td>構造計算リスク低下</td></tr>
+      <tr><td>相続路線価</td><td>10万円/㎡（暫定）</td><td class="ok">13.5万円/㎡（志水氏確認）</td><td>積算比率↑</td></tr>
+      <tr><td>検査済証</td><td>未確認</td><td class="ok">有</td><td>融資適格</td></tr>
+      <tr><td>劣化対策等級</td><td>未確認</td><td>2級</td><td>30年融資枠は使えず</td></tr>
+      <tr><td>融資</td><td>神奈川銀行推奨（未評価）</td><td class="ok">auじぶん銀行9.4割評価済み</td><td>実務打診が即可能</td></tr>
+      <tr><td>スマサテ査定</td><td>67,000円/戸（25㎡想定）</td><td class="ng">49,000円/戸（18㎡実寸）</td><td>資料▲11%乖離＝過大＝空室リスク</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="card">
+  <h2>🎯 キャプテン基準チェック（実データ反映後）</h2>
   <table class="basis-table">
     <tr><th>項目</th><th>基準</th><th>実績</th><th>判定</th></tr>
     <tr><td>物件価格</td><td>≤ 1億円</td><td>8,369万円</td><td><span class="pill pill-ok">OK</span></td></tr>
-    <tr><td>表面利回り</td><td>≥ 8.0%</td><td>7.80%</td><td><span class="pill pill-ng">NG（0.2pt割れ）</span></td></tr>
-    <tr><td>築年</td><td>≤ 10年</td><td>未確認（新築想定）</td><td><span class="pill pill-warn">要確認</span></td></tr>
+    <tr><td>表面利回り</td><td>≥ 8.0%</td><td>7.80%（資料）／7.03%（スマサテ）</td><td><span class="pill pill-ng">NG</span></td></tr>
+    <tr><td>築年</td><td>≤ 10年</td><td>築8年</td><td><span class="pill pill-ok">OK ★新規クリア</span></td></tr>
     <tr><td>エリア</td><td>16号内側</td><td>金沢区（16号外側）</td><td><span class="pill pill-ng">NG</span></td></tr>
+    <tr><td>積算比率</td><td>≥ 60%</td><td>84.9%（土地4,696万+建物2,412万÷8,369万）</td><td><span class="pill pill-ok">OK ★大幅クリア</span></td></tr>
     <tr><td>10年目税引後IRR</td><td>≥ 25%</td><td>玉川式シート要確認</td><td><span class="pill pill-warn">要確認</span></td></tr>
   </table>
   <div class="box-warn">
-    <strong>総合基準判定:</strong> 利回り0.2pt割れ＋16号外側の<strong>ダブル基準外</strong>。<br>
-    ローンブレイク物件のため<strong>指値10〜15%（7,100〜7,530万円）で利回り8.6〜9.2%到達</strong>が現実的なリカバリー戦略。
+    <strong>総合基準判定:</strong> 築年・積算・価格はクリア。<strong>利回り0.2pt割れ＋16号外側の2点が引き続きNG</strong>。<br>
+    スマサテ査定7.03%は資料7.80%を大きく下回り、<strong>実質収益はさらに低い可能性</strong>。指値7,900万で利回り8.26%到達がリカバリー線。
   </div>
 </div>
 
 <div class="card">
-  <h2 class="h-hazard">🗺️ 路線価・ハザードマップ・スマサテ査定（事前調査）</h2>
+  <h2 class="h-hazard">🗺️ 路線価・ハザードマップ・スマサテ査定（再確認）</h2>
 
   <h3 style="color:#0f766e;">💰 相続路線価</h3>
-  <div class="box-warn">
-    <strong>要確認（chikamap取得失敗）</strong> — 住所入力フィールド不検出でエラー。統合レポートの計算では暫定10万円/㎡を使用。
-    <br>参考: 金沢区住宅地の相場は概ね9〜11万円/㎡水準。国税庁 <a href="https://www.rosenka.nta.go.jp/main_r07/tokyo/kanagawa/prices/city_frm.htm" target="_blank">令和7年分神奈川県路線価図</a> で富岡西3丁目を要検索。
+  <div class="box-info">
+    <strong>13.5万円/㎡（志水氏email確認済み）</strong> — chikamap自動取得は今回も失敗（住所選択後クリック探索で該当路線価未検出）。志水氏の資料値 135,000円/㎡ = 13.5万円/㎡ を採用。<br>
+    土地路線価総額 = 347.87㎡ × 13.5万円/㎡ = <strong>4,696万円</strong>（対売買価格 56.1% ← 志水氏「土地積算約56%」と整合）
   </div>
 
-  <h3 style="color:#0f766e;">🏔️ 重ねるハザードマップ</h3>
+  <h3 style="color:#0f766e;">🏔️ 重ねるハザードマップ（再取得）</h3>
   <table class="basis-table">
     <tr><th>洪水浸水想定</th><td>✅ 非該当</td></tr>
     <tr><th>土砂災害警戒</th><td><span class="ng">⚠️ イエローゾーン（急傾斜地の崩壊 警戒区域）</span></td></tr>
@@ -97,180 +126,214 @@
   </table>
   <p style="font-size:12px;color:#666;margin-top:6px;">座標: 北緯35.36816°／東経139.62367° | 出典: 国土交通省・国土地理院「重ねるハザードマップ」</p>
 
-  <h3 style="color:#0f766e;">🏠 スマサテ賃料査定</h3>
+  <h3 style="color:#0f766e;">🏠 スマサテ賃料査定（実寸で再査定）</h3>
   <table class="basis-table">
-    <tr><th>査定条件</th><td>木造・1K・専有面積25.5㎡・築0年・京急富岡駅徒歩9分</td></tr>
-    <tr><th>標準賃料</th><td><strong>67,000円/戸</strong>（単価 2,723円/㎡・9,000円/坪）</td></tr>
-    <tr><th>資料想定賃料</th><td>68,000円/戸（推定）</td></tr>
-    <tr><th>乖離</th><td>▲1.5%（<span class="ok">賃料設定はほぼ適正</span>）</td></tr>
+    <tr><th>査定条件</th><td>木造・1K・専有面積<strong>18.05㎡</strong>・築<strong>8年</strong>・京急富岡駅徒歩9分</td></tr>
+    <tr><th>標準賃料</th><td class="ng">49,000円/戸（単価 2,857円/㎡・9,446円/坪）</td></tr>
+    <tr><th>資料想定賃料</th><td>54,400円/戸（8,369万円×7.80%÷10戸÷12ヶ月）</td></tr>
+    <tr><th>乖離</th><td class="ng">+11.0%（<strong>資料が高め＝賃料設定過大＝空室リスク要注意</strong>）</td></tr>
+    <tr><th>スマサテ実勢利回り</th><td class="ng">7.03%（49,000×10×12÷8,369万×100）</td></tr>
   </table>
 
-  <p>➡ <strong><a href="{survey_url}" target="_blank">📄 物件調査レポート（スマサテ査定・ハザードマップ詳細）</a></strong></p>
+  <p>➡ <strong><a href="https://teruyone.github.io/tc-properties/properties/20260705_keikyu-tomioka_survey.html" target="_blank">📄 物件調査レポート（スマサテ査定・ハザードマップ詳細）</a></strong></p>
 </div>
 
 <div class="card">
   <h2 class="h-haruto">🧑‍💼 ハルト（エリア・利回り分析）</h2>
-  <p><strong>結論: ⚠️ 様子見（指値前提でイチオシ格上げ可能性あり）</strong></p>
+  <p><strong>結論: ⚠️ 依然として様子見（築年クリアで格上げ候補だが、スマサテ▲11%乖離で減点）</strong></p>
   <ul>
-    <li><strong>エリア評価:</strong> 金沢区は当社municipality-dbで<strong>Dランク（1pt）・16号外側・人口▲5,660人・転入超過▲482人</strong>と最低評価。エリア単体では逆風。</li>
-    <li><strong>駅力:</strong> 京急富岡駅乗降2万人・品川約35分・横浜約15分。都心通勤圏に入るが上位ではない。ラッシュ時は快特通過駅で不便。能見台徒歩16分は実質使えない → 京急富岡単独駅前提。</li>
-    <li><strong>賃貸需要:</strong> 富岡西3丁目は高低差ある古い分譲地・ファミリー主体エリア。単身1K需要は駅5〜7分圏に集中し、徒歩9分はやや弱含み。</li>
-    <li><strong>相場感:</strong> 京急沿線・金沢区・新築木造は7.5〜8.2%が中央値。<strong>7.80%は相場並みで優位性なし</strong>。</li>
-    <li><strong>過去履歴:</strong> 2026-06-24に同駅Footwork物件（8,300万/6.49%/築8年/8戸/19.85㎡）を⚡基準外注目でピックアップ済み。狭小戸19〜20㎡なら賃料65,000円/戸まで下振れリスク。</li>
-    <li><strong>イエローゾーン影響:</strong> 賃貸需要への直接影響は限定的だが、出口戦略で法人買主・金融機関評価に響く。</li>
+    <li><strong>エリア評価:</strong> 金沢区はmunicipality-dbで<strong>Dランク（1pt）・16号外側・人口▲5,660人・転入超過▲482人</strong>で最低評価。エリア単体では逆風変わらず。</li>
+    <li><strong>駅力:</strong> 京急富岡駅 乗降2万人・品川約35分・横浜約15分。快特通過駅で通勤利便性は準上位。徒歩9分は許容範囲。</li>
+    <li><strong>賃貸需要:</strong> 富岡西3丁目は高低差ある古い分譲地。<strong>1戸18㎡狭小・築8年</strong>は駅5〜7分圏の新築5万円台と競合し、スマサテ査定49,000円が示す通り<strong>需給的にも弱含み</strong>。</li>
+    <li><strong>相場感:</strong> 京急沿線・金沢区・築5〜10年木造は7.8〜8.5%が中央値。<strong>資料7.80%は下限・スマサテ実勢7.03%は明確に劣勢</strong>。</li>
+    <li><strong>過去履歴:</strong> 2026-06-24に同駅Footwork物件（8,300万/6.49%/築8年/8戸/19.85㎡）を⚡基準外注目でピックアップ済み。<strong>本件は狭小1K×10戸で戸あたり賃料が同駅Footwork物件より低い可能性</strong>。</li>
+    <li><strong>築年:</strong> 築8年で<strong>キャプテン基準内クリア（★NEW）</strong>。基準6項目中3項目クリアで前進。</li>
+    <li><strong>イエローゾーン影響:</strong> auじぶん銀行が既評価済のため融資リスクは実質クリア。ただし出口戦略で法人買主・他行評価に響く可能性は残る。</li>
   </ul>
   <div class="box-info">
-    <strong>ハルトからの必須アクション:</strong>
-    ① 築年・戸数・専有面積の即時取得、② 19〜20㎡狭小戸ならスマサテ再査定、③ イエローゾーンのオリックス/auじぶん融資可否確認（融資部ケンジ）、④ 志水氏に指値余地ヒアリング（7,900万で8.26%到達目標）。
+    <strong>ハルトからの必須アクション（再精査版）:</strong>
+    ① <strong>スマサテ査定49,000円/戸 vs 資料54,400円/戸の乖離を志水氏にぶつける</strong>（現況レントロールの提示要求）、② 現況空室率と直近3年の稼働推移確認、③ auじぶん9.4割評価済みの「評価条件」（LTV上限・金利・築年）を志水氏経由で確認、④ 指値レンジ（7,900万→8.26%）を提示。
   </div>
 </div>
 
 <div class="card">
-  <h2 class="h-ryo">🕵️ リョウ（DDチェックリスト）</h2>
-  <p><strong>結論: 判定保留（要情報開示）</strong> — 構造・築年・戸数すら未確定で、土砂イエロー＋ローンブレイクの二重難易度。開示が渋いなら手を引くべき。</p>
+  <h2 class="h-ryo">🕵️ リョウ（DDチェックリスト・再精査）</h2>
+  <p><strong>結論: 前進あり／未確認事項も残る</strong> — 志水emailで戸数・面積・築年・検査済証・劣化等級・路線価等の基礎情報が判明。ただし擁壁・現況レントロール等の重要論点は未開示。</p>
 
-  <h3 style="color:#1d4ed8;">🚩 リスクフラグ</h3>
+  <h3 style="color:#1d4ed8;">✅ 今回開示された事項</h3>
   <ul>
-    <li><strong>土砂災害イエローゾーン（急傾斜地）:</strong> オリックス・auじぶんの標準スキームでLTV減額もしくは謝絶リスク大。金沢区富岡西は台地端で高低差地形が多く、擁壁付帯の可能性高。</li>
-    <li><strong>ローンブレイク再販:</strong> 前回買主で融資が落ちた事実がDDの重要材料。土砂起因なら次の買主も同じ壁に当たる。</li>
-    <li><strong>非公開物件:</strong> 情報開示が段階的になりやすい。プロフィールシート提出前に構造・築年すら開示されないパターンあり。</li>
-    <li><strong>利回り7.80%:</strong> キャプテン基準8.0%を0.2%割れ。指値10〜15%で8.6〜9.2%到達がリカバリー案。</li>
+    <li>構造: 木造2階建（3階建てではない → 構造計算リスク低）</li>
+    <li>築年月: 2018年3月（築8年）</li>
+    <li>戸数・間取り: 1K × 10戸</li>
+    <li>延床/土地: 180.5㎡／347.87㎡</li>
+    <li>用途地域: 第一種低層住居専用地域</li>
+    <li>検査済証: 有（検査済証番号もあり）</li>
+    <li>劣化対策等級: 2級</li>
+    <li>相続税路線価: 135,000円/㎡</li>
+    <li>融資: auじぶん銀行 評価済み（35年/2.4%/上限9.4割）</li>
   </ul>
 
-  <h3 style="color:#1d4ed8;">🎯 最大リスクと対処</h3>
-  <p><strong>最大リスク: 土砂イエローゾーン起因のローン否決の再発</strong></p>
+  <h3 style="color:#1d4ed8;">🚩 依然としてのリスクフラグ</h3>
   <ul>
-    <li>事前診断: 志水氏に(a)前回否決の金融機関名と理由、(b)敷地のイエロー被り範囲図、(c)擁壁の有無と設置年、を<strong>買付前に必ず開示させる</strong></li>
-    <li>融資ルート切替: 既存プラン（オリックス→auじぶん）ではなく<strong>神奈川銀行（イエローゾーン救済枠）を第一候補</strong>に切替。融資部ケンジに神奈川銀行の金沢区・イエロー取扱条件を先行照会</li>
+    <li><strong>スマサテ査定 vs 資料想定の▲11%乖離:</strong> 現況レントロール未開示。実際は空室があり、想定満室が非現実的な可能性。</li>
+    <li><strong>土砂災害イエローゾーン（急傾斜地）:</strong> auじぶん銀行は評価済みだが、他行（オリックス・SBJ等）は減額・謝絶の可能性大。出口戦略の売却先が限定される。</li>
+    <li><strong>擁壁の位置・種類・検査済証:</strong> 富岡西3丁目は台地端で高低差地形が多く、擁壁付帯の可能性大。未開示。</li>
+    <li><strong>ローンブレイク再販:</strong> 前回否決の金融機関・理由が未開示。auじぶん銀行が既評価済なら「借主属性の問題」の可能性も。</li>
+    <li><strong>劣化対策等級2級:</strong> 融資期間30年枠は使えず25年枠のみ。auじぶん35年で借りるならこの制約は問題ないが、他行は影響。</li>
+    <li><strong>非公開物件:</strong> 段階的情報開示。プロフィールシート提出が前提。</li>
+    <li><strong>1戸18㎡狭小:</strong> 将来的な賃料下落リスクが標準的な25㎡物件より大きい。</li>
   </ul>
 
-  <p>➡ <strong><a href="{dd_url}" target="_blank">📋 DDチェックリスト（入力済み）</a></strong></p>
+  <h3 style="color:#1d4ed8;">🎯 最大リスクと対処（再精査版）</h3>
+  <p><strong>最大リスク: スマサテ▲11%乖離が示す「想定家賃の過大設定」＝実質利回り7%割れリスク</strong></p>
+  <ul>
+    <li>事前診断: 志水氏に(a)現況レントロール（各戸賃料・空室状況）、(b)直近3年の稼働推移、(c)擁壁位置図・検査済証、(d)前回ローンブレイクの金融機関名と理由 の開示を<strong>買付前に必ず要求</strong></li>
+    <li>融資: auじぶん銀行の評価条件（LTV・金利・築年）を志水氏から書面取得。プロフィールシート提出前に本件の「評価済み」の中身を確認</li>
+    <li>指値: 現況家賃が資料想定より10%低ければ指値7,530万→8.66%利回り水準を交渉根拠に</li>
+  </ul>
+
+  <p>➡ <strong><a href="https://teruyone.github.io/tc-properties/properties/20260705_keikyu-tomioka_DD.html" target="_blank">📋 DDチェックリスト（更新済み）</a></strong></p>
 </div>
 
 <div class="card">
-  <h2 class="h-aki">💰 アキ（IG+収支計算 + 玉川式）</h2>
-  <p><strong>結論: 数字は合格ラインギリギリ</strong> — CF率・CCRは健全水準だが、利回り0.2pt割れが痛い。決定打は<strong>路線価の実額</strong>と<strong>戸数・面積の確定</strong>。</p>
+  <h2 class="h-aki">💰 アキ（IG+収支計算 + 玉川式・再計算）</h2>
+  <p><strong>結論: 資料版はギリギリ耐性、スマサテ版はCCR一桁台まで低下</strong> — 実質収益の当たり外れが大きい。現況レントロール確認が決定打。</p>
 
-  <h3 style="color:#059669;">📊 収支2パターン</h3>
+  <h3 style="color:#059669;">📊 収支2パターン（auじぶん銀行9.4割・2.4%・35年 元利均等）</h3>
   <table class="basis-table">
-    <tr><th>指標</th><th>パターンA（オリックス 100%・2.6%・35年）</th><th>パターンB（神奈川銀行 90%・2.25%・35年）</th></tr>
-    <tr><td>満室年収</td><td>652.8万円</td><td>652.8万円</td></tr>
-    <tr><td>実効年収（空室率5%）</td><td>620.2万円</td><td>620.2万円</td></tr>
-    <tr><td>NOI</td><td>約 493万円（NOI率 5.89%）</td><td>約 493万円</td></tr>
-    <tr><td>年間返済</td><td>約 369.4万円</td><td>約 311.4万円</td></tr>
-    <tr><td>CF</td><td><span class="ok">123.7万円</span></td><td><span class="ok">181.8万円</span></td></tr>
-    <tr><td>CF率</td><td><span class="ok">1.48%</span></td><td><span class="ok">2.17%</span></td></tr>
-    <tr><td>CCR</td><td><span class="ok">21.1%（B以上）</span></td><td><span class="ng">12.8%（NG）</span></td></tr>
-    <tr><td>返済比率</td><td>56.6%</td><td>47.7%</td></tr>
-    <tr><td>積算比率</td><td colspan="2">65.7%（路線価10万円/㎡仮定・要確認）</td></tr>
+    <tr><th>指標</th><th>パターンA（資料賃料 68,000円/戸相当・実質54,400円/戸想定）</th><th>パターンB（スマサテ賃料 49,000円/戸）</th></tr>
+    <tr><td>満室年収</td><td>652.78万円</td><td>588.0万円</td></tr>
+    <tr><td>表面利回り</td><td>7.80%</td><td class="ng">7.03%</td></tr>
+    <tr><td>実効年収（空室率5%）</td><td>620.14万円</td><td>558.6万円</td></tr>
+    <tr><td>NOI</td><td>約 473万円（NOI率 5.66%）</td><td>約 421万円（NOI率 5.03%）</td></tr>
+    <tr><td>融資額</td><td>7,867万円</td><td>7,867万円</td></tr>
+    <tr><td>自己資金</td><td>1,088万円（自己6% + 諸費用7%）</td><td>1,088万円</td></tr>
+    <tr><td>年間返済</td><td>約 332.7万円（月27.7万円）</td><td>約 332.7万円</td></tr>
+    <tr><td>CF</td><td class="ok">約 140.5万円</td><td class="warn">約 88.9万円</td></tr>
+    <tr><td>CF率</td><td class="ok">1.68%</td><td class="warn">1.06%</td></tr>
+    <tr><td>CCR</td><td class="warn">12.9%（Cグレード）</td><td class="ng">8.9%（Dグレード）</td></tr>
+    <tr><td>返済比率</td><td>53.7%</td><td>59.6%</td></tr>
+    <tr><td>積算比率</td><td colspan="2" class="ok">84.9%（土地4,696万円＋建物2,412万円＝7,108万円÷8,369万円・大幅クリア）</td></tr>
   </table>
 
-  <h3 style="color:#059669;">🔁 スマサテ賃料版</h3>
-  <p>スマサテ査定 67,000円/戸 × 8戸 × 12ヶ月 = 6,432,000円 → 表面利回り <strong>7.69%</strong>（資料より▲0.11pt）。パターンA CF: 約115万円・CF率1.37%で耐性あり。</p>
-
-  <h3 style="color:#059669;">✅ キャプテン基準6指標</h3>
+  <h3 style="color:#059669;">✅ キャプテン基準6指標（再計算）</h3>
   <table class="basis-table">
-    <tr><th>指標</th><th>基準</th><th>結果（パターンA）</th></tr>
-    <tr><td>価格</td><td>≤1億</td><td><span class="ok">OK</span></td></tr>
-    <tr><td>利回り</td><td>≥8.0%</td><td><span class="ng">NG（7.80%）</span></td></tr>
-    <tr><td>CF率</td><td>-</td><td><span class="ok">OK（1.48%）</span></td></tr>
-    <tr><td>CCR</td><td>-</td><td><span class="ok">OK（21.1%）</span></td></tr>
-    <tr><td>積算比率</td><td>≥60%</td><td><span class="ok">OK（65.7%仮）</span></td></tr>
-    <tr><td>10年目税引後IRR</td><td>≥25%</td><td><span class="warn">玉川式で要確認</span></td></tr>
+    <tr><th>指標</th><th>基準</th><th>結果（パターンA）</th><th>結果（パターンB=スマサテ）</th></tr>
+    <tr><td>価格</td><td>≤1億</td><td><span class="ok">OK</span></td><td><span class="ok">OK</span></td></tr>
+    <tr><td>利回り</td><td>≥8.0%</td><td><span class="ng">NG（7.80%）</span></td><td><span class="ng">NG（7.03%）</span></td></tr>
+    <tr><td>築年</td><td>≤10年</td><td><span class="ok">OK（築8年）★NEW</span></td><td><span class="ok">OK</span></td></tr>
+    <tr><td>CF率</td><td>—</td><td><span class="ok">OK（1.68%）</span></td><td><span class="warn">要注意（1.06%）</span></td></tr>
+    <tr><td>CCR</td><td>—</td><td><span class="warn">C（12.9%）</span></td><td><span class="ng">D（8.9%）</span></td></tr>
+    <tr><td>積算比率</td><td>≥60%</td><td><span class="ok">OK（84.9%）★大幅クリア</span></td><td><span class="ok">OK</span></td></tr>
+    <tr><td>10年目税引後IRR</td><td>≥25%</td><td><span class="warn">玉川式で要確認</span></td><td><span class="warn">玉川式で要確認</span></td></tr>
+  </table>
+
+  <h3 style="color:#059669;">📉 指値シナリオ（利回り8.0%到達ライン）</h3>
+  <table class="basis-table">
+    <tr><th>指値価格</th><th>資料想定賃料での表面利回り</th><th>スマサテ賃料での表面利回り</th></tr>
+    <tr><td>7,900万円（▲5.6%）</td><td>8.26%</td><td>7.44%</td></tr>
+    <tr><td>7,530万円（▲10.0%）</td><td>8.67%</td><td>7.81%</td></tr>
+    <tr><td>7,100万円（▲15.2%）</td><td class="ok">9.19%</td><td class="ok">8.28%</td></tr>
+    <tr><td>6,750万円（▲19.3%）</td><td class="ok">9.67%</td><td class="ok">8.71%</td></tr>
   </table>
 
   <p>
-    ➡ <strong><a href="{ig_url}" target="_blank">📊 InvestGate+【資料賃料】収支試算</a></strong><br>
-    ➡ <strong><a href="{ig_sumasate_url}" target="_blank">📊 InvestGate+【スマサテ賃料】収支試算</a></strong><br>
-    ➡ <strong><a href="{tg_url}" target="_blank">📈 玉川式収益試算シート（35年CF・10年目IRR）</a></strong>
+    ➡ <strong><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8369&ltvInput=94&ltvRatio=94&costsRate=7&loanTerm=35&intRate=2.4&grossYield=7.80&floorArea=180.5&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=8&taxRateIncome=20&pi_price_inp=8369&pi_age_inp=8&pi_yield_inp=7.80&pi_area_inp=180.5&pi_rooms_inp=10&ik_land_area=347.87&ik_route_price=13.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%87%91%E6%B2%A2%E5%8C%BA%E5%AF%8C%E5%B2%A1%E8%A5%BF3%E4%B8%81%E7%9B%AE" target="_blank">📊 InvestGate+【資料賃料】収支試算</a></strong><br>
+    ➡ <strong><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8369&ltvInput=94&ltvRatio=94&costsRate=7&loanTerm=35&intRate=2.4&grossYield=7.03&floorArea=180.5&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=8&taxRateIncome=20&pi_price_inp=8369&pi_age_inp=8&pi_yield_inp=7.03&pi_area_inp=180.5&pi_rooms_inp=10&ik_land_area=347.87&ik_route_price=13.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%87%91%E6%B2%A2%E5%8C%BA%E5%AF%8C%E5%B2%A1%E8%A5%BF3%E4%B8%81%E7%9B%AE" target="_blank">📊 InvestGate+【スマサテ賃料】収支試算</a></strong><br>
+    ➡ <strong><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260705_keikyu-tomioka_TG.html" target="_blank">📈 玉川式収益試算シート（35年CF・10年目IRR）</a></strong>
   </p>
 </div>
 
 <div class="card">
-  <h2 class="h-murata">🏗️ 村田先生（一級建築士コメント）</h2>
-  <p><em>「現場を見ないと断言はできませんが、資料段階の見立てをお伝えします。」</em></p>
+  <h2 class="h-murata">🏗️ 村田先生（一級建築士コメント・再精査）</h2>
+  <p><em>「現場を見ないと断言はできませんが、実データが揃った今の見立てをお伝えします。」</em></p>
 
   <ul>
-    <li><strong>構造推定:</strong> 木造3階建て・8〜9戸のワンルーム新築が濃厚。3階建て木造は<strong>構造計算書（許容応力度計算）</strong>が必須。準耐火建築物・耐力壁バランス・接合金物（Zマーク）・ベタ基礎配筋の4点を確認。</li>
-    <li><strong>土砂災害イエローゾーン:</strong> 建築基準法上の直接制限はないが、富岡西は起伏地形で<strong>横浜市がけ条例</strong>が高確率で適用される。<strong>擁壁の検査済証</strong>が最重要。既存不適格の空石積み・大谷石擁壁・二段擁壁だと将来数百万〜1千万コースの再構築負担。</li>
-    <li><strong>修繕サイクル（新築仮定）:</strong>
+    <li><strong>構造再評価:</strong> 木造<strong>2階建</strong>10戸（前回は3階建て推定）。<strong>構造計算書は法定は不要（3階以上木造で必須）</strong>ですが、劣化対策等級2級で審査通過している以上、住宅性能評価の実施記録（設計評価・建設評価）が存在するはず。プロフィールシートと一緒に取り寄せてください。</li>
+    <li><strong>劣化対策等級2級:</strong> 構造躯体は概ね2〜3世代（50〜60年）想定。1級（20〜30年）よりは長寿命だが、3級（75〜90年）ほどではない。融資期間で言うと「30年枠は使えないが25年枠は通しやすい」ライン。auじぶん35年借入では等級による優遇はないので実務影響は限定的。</li>
+    <li><strong>土砂災害イエローゾーン:</strong> 建築基準法上の直接制限はないが、富岡西は起伏地形で<strong>横浜市がけ条例</strong>が高確率で適用される。<strong>擁壁の検査済証</strong>が最重要（依然として未開示）。第一種低層住居専用地域なので周辺は戸建て中心、崖側の湿気・法面管理は要現地確認。</li>
+    <li><strong>1戸18㎡狭小の耐久性:</strong> 木造で1戸18㎡×10戸＝延床180.5㎡は<strong>壁バランスがシビア</strong>。耐力壁の集中配置か・接合金物の仕様書（Zマークプレート）を確認したい。築8年経過なので、シロアリ被害・雨漏り履歴の開示を要求。</li>
+    <li><strong>修繕サイクル（築8年時点想定・向こう10年）:</strong>
       <ul>
-        <li>5年目: シロアリ防除再施工 15〜25万円</li>
-        <li>10〜12年目: 外壁塗装・シーリング打替 <strong>80〜120万円</strong></li>
-        <li>10〜15年目: 屋根点検・補修 30〜80万円</li>
-        <li>10年目: 給湯器交換順次 約100万円（戸数×12万円）</li>
-        <li>15年目: バルコニー防水・鉄部塗装 40〜60万円</li>
+        <li>1〜2年目: シロアリ防除再施工（築10年の目安）15〜25万円</li>
+        <li>2〜4年目: 外壁塗装・シーリング打替（築10〜12年） <strong>90〜130万円</strong></li>
+        <li>2〜7年目: 屋根点検・補修（築10〜15年） 30〜80万円</li>
+        <li>2年目: 給湯器交換順次スタート（築10年） 約120万円（10戸×12万円）</li>
+        <li>7〜10年目: バルコニー防水・鉄部塗装 40〜60万円</li>
+        <li><strong>合計10年で 300〜400万円規模の修繕発生</strong>を織り込みたい</li>
       </ul>
     </li>
-    <li><strong>法令適合性確認:</strong> ①確認済証・検査済証（新築必須）、②構造計算書、③接道（4m/42条種別・セットバック）、④用途地域、⑤横浜市がけ条例適合証明、⑥宅地造成等規制法許可有無、⑦準防火・建蔽容積</li>
-    <li><strong>現地確認必須:</strong> ①急傾斜地の位置関係（敷地内 or 敷地外）、②擁壁の種類・築年・検査済証、③隣地との高低差、④雨水排水（浸透 or 側溝）、⑤基礎立ち上がり・水切り、⑥外壁シーリング、⑦バルコニー防水立ち上がり、⑧崖側の湿気状況</li>
+    <li><strong>法令適合性確認:</strong> ①<strong>検査済証</strong>（既開示）、②劣化対策等級2級の性能評価書、③接道（4m/42条種別・セットバック）、④第一種低層住居専用地域の適合性、⑤横浜市がけ条例適合証明、⑥宅地造成等規制法許可有無、⑦建蔽率50%/容積率100or150%への適合</li>
+    <li><strong>現地確認必須:</strong> ①急傾斜地の位置関係（敷地内 or 敷地外）、②擁壁の種類・築年・検査済証、③隣地との高低差、④雨水排水（浸透 or 側溝）、⑤基礎立ち上がり・水切り、⑥外壁シーリング（築8年で劣化開始時期）、⑦バルコニー防水立ち上がり、⑧崖側の湿気状況、⑨シロアリ痕跡</li>
   </ul>
 
   <div class="box-warn">
-    <strong>村田先生の総合コメント:</strong><br>
-    ローンブレイクの原因は<strong>「土砂災害イエローゾーン＋急傾斜地」を金融機関が担保評価で嫌った可能性が高い</strong>。オリックス・SBJ・スルガは土砂警戒区域を明確に減点、地銀も土地評価を保守的に見る。<br>
-    <strong>擁壁が敷地内にあり検査済証が無い or 既存不適格の場合は「見送り推奨」</strong>。将来の売却でも同じ理由でローンが付かず出口が閉じる。逆に擁壁が敷地外・建物が平坦地・がけ条例クリア証明ありなら、他行で通せる可能性は十分。<br>
-    <strong>キャプテン、まずは「擁壁の位置と検査済証の有無」を最優先で確認してください。これがイエス/ノーを分ける最大の論点です。</strong>
+    <strong>村田先生の総合コメント（再精査版）:</strong><br>
+    実データで<strong>木造2階建・築8年・検査済証有・劣化対策等級2級</strong>が判明し、構造リスクは大幅に低下しました。auじぶん銀行が既に評価済みという事実は、金融機関側の土地評価が通っている強い証拠です。<br>
+    ただし依然として<strong>「擁壁の位置と検査済証の有無」が最大論点</strong>であることに変わりはありません。第一種低層住居専用地域で起伏地形なので、敷地内擁壁の存在確率は高いです。この点だけは志水氏に必ず開示させてください。<br>
+    <strong>キャプテン、実データ判明で「見送り推奨」ではなく「擁壁確認＋現況レントロール確認で買付判断可」の段階に上がりました。</strong>ただし築8年で向こう10年の修繕は300〜400万円規模を想定した上で、指値ロジックに織り込むことを推奨します。
   </div>
 </div>
 
 <div class="card">
-  <h2>❓ キャプテンへの確認事項まとめ</h2>
+  <h2>❓ キャプテンへの確認事項まとめ（再精査版）</h2>
   <div class="box-info">
     <p><strong>【志水氏へ即時開示要求】</strong></p>
     <ol>
-      <li>構造・築年・階数・戸数・各戸間取り・専有面積・延床/土地面積</li>
-      <li>建築確認日・検査済証の有無・構造計算書（3階建て木造なら必須）</li>
-      <li>用途地域・容積率・建ぺい率・接道（幅員・種別・間口・セットバック）</li>
-      <li>現況レントロール・入居者属性・原状回復履歴</li>
-      <li><strong>擁壁の位置（敷地内 or 敷地外）・種類・築年・検査済証</strong>（村田先生・リョウ最優先）</li>
-      <li><strong>イエローゾーンの敷地内被り範囲図</strong>（融資減額判定材料）</li>
+      <li><strong>現況レントロール（各戸家賃・入居/空室・入居年月・敷礼・契約更新月）</strong>← 最重要・スマサテ▲11%乖離の原因究明</li>
+      <li>直近3年の稼働推移（年別平均入居率）</li>
+      <li><strong>擁壁の位置（敷地内 or 敷地外）・種類・築年・検査済証</strong>← 村田先生・リョウ最優先</li>
+      <li>敷地内のイエローゾーン被り範囲図</li>
+      <li>建築確認日・検査済証書類コピー</li>
+      <li>劣化対策等級2級の性能評価書（設計・建設）</li>
       <li><strong>ローンブレイクの経緯</strong>（前回申込金融機関・落ちた理由・時期）</li>
+      <li>auじぶん銀行の「評価済み」の中身（LTV上限・金利・築年制限・保証料）</li>
       <li>修繕履歴・修繕予定・雨漏り/シロアリ/漏水事故歴</li>
-      <li>境界確定書・越境物・私道負担</li>
-      <li>現管理会社・管理形態・空室ラグ</li>
+      <li>境界確定書・越境物・私道負担・接道（4mか等）</li>
+      <li>現管理会社・管理形態・空室ラグ・原状回復費</li>
       <li>固都税実額（納税通知書）・土地建物固定資産税評価額</li>
-      <li>相続路線価の実額（chikamap失敗のため要マニュアル確認）</li>
-      <li>劣化対策等級（等級3なら融資30年・積算アップ）</li>
       <li><strong>指値可否</strong>（7,100〜7,900万円レンジ・利回り8.26〜9.19%到達）</li>
     </ol>
 
-    <p><strong>【融資部ケンジへ先行照会】</strong></p>
+    <p><strong>【融資部ケンジへ照会】</strong></p>
     <ul>
-      <li>神奈川銀行の金沢区・土砂イエローゾーン取扱条件（LTV・金利・築年）</li>
-      <li>オリックス・auじぶんのイエローゾーン取扱姿勢</li>
+      <li>auじぶん銀行の一般的な評価条件（LTV上限・築年・エリア減額有無）</li>
+      <li>プロフィールシート提出時のキャプテン属性でどこまで引けるか（フルローン狙い可否）</li>
+      <li>本件が本部決裁か支店長決裁か</li>
     </ul>
   </div>
 </div>
 
 <div class="card">
-  <h2>🎯 チーム総合所見</h2>
+  <h2>🎯 チーム総合所見（再精査版）</h2>
 
   <table class="basis-table">
-    <tr><th>担当</th><th>判定</th></tr>
-    <tr><td>ハルト（エリア）</td><td><span class="warn">⚠️ 様子見（指値前提でイチオシ格上げ可能性）</span></td></tr>
-    <tr><td>リョウ（DD）</td><td><span class="warn">⚠️ 判定保留（要情報開示・開示渋なら見送り）</span></td></tr>
-    <tr><td>アキ（収支）</td><td><span class="warn">⚠️ 合格ラインギリギリ（利回り0.2pt割れ・積算要確認）</span></td></tr>
-    <tr><td>村田先生（建築）</td><td><span class="warn">⚠️ 擁壁次第（敷地内・検査済証なしなら見送り推奨）</span></td></tr>
+    <tr><th>担当</th><th>前回判定</th><th>今回判定</th></tr>
+    <tr><td>ハルト（エリア）</td><td>⚠️ 様子見</td><td><span class="warn">⚠️ 様子見継続（築年クリアだがスマサテ▲11%乖離で減点）</span></td></tr>
+    <tr><td>リョウ（DD）</td><td>⚠️ 判定保留</td><td><span class="warn">⚠️ 前進あり（基礎情報開示済）／擁壁・現況レント未確認</span></td></tr>
+    <tr><td>アキ（収支）</td><td>⚠️ 合格ラインギリギリ</td><td><span class="warn">⚠️ 資料版CCR12.9%・スマサテ版CCR8.9%（積算85%は大幅クリア）</span></td></tr>
+    <tr><td>村田先生（建築）</td><td>⚠️ 擁壁次第</td><td><span class="warn">⚠️ 構造リスク低下／擁壁確認継続論点</span></td></tr>
   </table>
 
   <div class="box-alert">
-    <p><strong>チーム総合判定: 「情報開示待ち」→「指値+融資設計次第で復活」</strong></p>
-    <p><strong>最大リスク:</strong> 土砂災害イエローゾーン起因のローン否決の再発</p>
+    <p><strong>チーム総合判定: 「見送り推奨」→「擁壁＋現況レント確認で買付判断可」に前進</strong></p>
+    <p><strong>最大リスク:</strong> スマサテ査定▲11%乖離が示す<strong>「想定家賃過大＝実質利回り7%割れ」リスク</strong></p>
+    <p><strong>プラス材料:</strong> ①築8年で基準クリア、②積算85%大幅クリア、③auじぶん9.4割評価済み、④検査済証・劣化等級2級で融資適格</p>
+    <p><strong>マイナス材料:</strong> ①利回り0.2pt割れ変わらず、②16号外側変わらず、③スマサテ▲11%、④土砂イエロー、⑤1戸18㎡狭小</p>
     <p><strong>次のアクション（キャプテンお願いします）:</strong></p>
     <ol>
-      <li><strong>志水氏に14項目の情報開示要求</strong>（構造・築年・戸数・擁壁・ローンブレイク経緯 等）</li>
-      <li><strong>融資部ケンジに神奈川銀行事前照会</strong>（金沢区・イエロー取扱条件）</li>
+      <li><strong>志水氏に13項目の情報開示要求</strong>（最優先：現況レントロール＋擁壁位置図＋auじぶん評価条件）</li>
+      <li><strong>融資部ケンジにauじぶん銀行の評価条件を照会</strong></li>
       <li>擁壁関連の情報が揃い次第、村田先生に再確認</li>
-      <li>指値ロジック設計（7,900万→8.26%、7,530万→8.66%、7,100万→9.19%）</li>
-      <li>実際の戸数・専有面積が判明したらスマサテ再査定＆IG+/玉川式を実賃料で再計算</li>
+      <li>指値ロジック提示（現況家賃が資料▲10%なら7,530万→8.67%を根拠に）</li>
+      <li>プロフィールシート提出とauじぶん銀行本申込のタイミング判断</li>
     </ol>
-    <p style="margin-top:10px;font-size:13px;color:#666;">※過去に同駅Footwork物件（8,300万/6.49%）を⚡基準外注目でピックアップ済み。同駅の再提案はキャプテンの心証に注意。</p>
+    <p style="margin-top:10px;font-size:13px;color:#666;">※過去に同駅Footwork物件（8,300万/6.49%）を⚡基準外注目でピックアップ済み。同駅の再提案となる点にご留意ください。</p>
   </div>
 </div>
 
 <div class="footer">
-  © TC Capitals 仕入部 | 精査ID: 20260705_keikyu-tomioka | Team: ハルト・リョウ・アキ・村田先生
+  © TC Capitals 仕入部 | 再精査ID: 20260705_keikyu-tomioka_v2 | Team: ハルト・リョウ・アキ・村田先生
 </div>
 
 </div>
