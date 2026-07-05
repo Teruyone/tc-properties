@@ -98,7 +98,7 @@ thead th.year-hdr{background:#2c5282}
     <option value="22">木造(22年)</option>
   </select>
 </div>
-<div class="form-row"><label>物件築年(西暦)</label><input type="number" id="built_year" value="2026"><span class="unit">年</span></div>
+<div class="form-row"><label>物件築年(西暦)</label><input type="number" id="built_year" value="2018"><span class="unit">年</span></div>
 <div class="form-row"><label>経過年数</label><input type="number" id="elapsed_years" value="30" readonly><span class="unit">年</span><span class="hint">自動計算</span></div>
 <div class="form-row"><label>残存耐用年数</label><input type="number" id="remaining_life" value="17" readonly><span class="unit">年</span><span class="hint">自動計算</span></div>
 <div class="form-row"><label>税務上耐用年数</label><input type="number" id="tax_life" value="23" readonly><span class="unit">年</span><span class="hint">自動計算</span></div>
@@ -123,8 +123,8 @@ thead th.year-hdr{background:#2c5282}
 
 <div class="form-section">
 <h3>借入条件</h3>
-<div class="form-row"><label>自己資金割合％（または自己資金額）</label><input type="number" id="equity_ratio" value="0"><span class="unit">%</span></div>
-<div class="form-row"><label>借入金利</label><input type="number" id="loan_rate" value="2.6" step="0.1"><span class="unit">%</span></div>
+<div class="form-row"><label>自己資金割合％（または自己資金額）</label><input type="number" id="equity_ratio" value="6"><span class="unit">%</span></div>
+<div class="form-row"><label>借入金利</label><input type="number" id="loan_rate" value="2.4" step="0.1"><span class="unit">%</span></div>
 <div class="form-row"><label>ローン年数</label><input type="number" id="loan_years" value="35"><span class="unit">年</span></div>
 <div class="form-row"><label>借入額</label><input type="text" id="loan_amount" value="255,000,000" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
 <div class="form-row"><label>自己資金</label><input type="text" id="equity_amount" value="45,000,000" readonly><span class="unit">円</span><span class="hint">自動計算</span></div>
@@ -139,17 +139,17 @@ thead th.year-hdr{background:#2c5282}
 <div class="form-row"><label>平均原状回復費用(ヶ月)</label><input type="number" id="avg_restore_cost" value="0.5"><span class="unit">ヶ月分</span></div>
 <div class="form-row"><label>入居率推奨値</label><input type="number" id="occupancy_rec" value="95.49" readonly><span class="unit">%</span><span class="hint">自動計算</span></div>
 <div class="form-row"><label>入居率</label><input type="number" id="occupancy" value="95.49" step="0.01"><span class="unit">%</span></div>
-<div class="form-row"><label>PM管理会社委託費用(対年間現況賃料)</label><input type="number" id="pm_rate" value="2.75" step="0.1"><span class="unit">%</span></div>
-<div class="form-row"><label>BM費用月額</label><input type="text" id="bm_monthly" value="12100"><span class="unit">円/月</span></div>
-<div class="form-row"><label>火災保険・地震保険等年額</label><input type="text" id="insurance" value="99840"><span class="unit">円/年</span></div>
+<div class="form-row"><label>PM管理会社委託費用(対年間現況賃料)</label><input type="number" id="pm_rate" value="5" step="0.1"><span class="unit">%</span></div>
+<div class="form-row"><label>BM費用月額</label><input type="text" id="bm_monthly" value="10920"><span class="unit">円/月</span></div>
+<div class="form-row"><label>火災保険・地震保険等年額</label><input type="text" id="insurance" value="90090"><span class="unit">円/年</span></div>
 <div class="form-row"><label>毎年発生その他費用</label><input type="text" id="other_annual" value="200,000"><span class="unit">円/年</span></div>
 </div>
 
 <div class="form-section">
 <h3>固定資産税・都市計画税計算</h3>
 <div class="form-row"><label>評価証明（土地の評価額）</label><input type="text" id="land_eval" value="70,000,000"><span class="unit">円</span></div>
-<div class="form-row"><label>評価証明（建物の評価額）</label><input type="text" id="bldg_eval" value="16600000"><span class="unit">円</span></div>
-<div class="form-row"><label>評価証明（土地の固定資産税課税標準額）</label><input type="text" id="land_tax_base" value="1700000"><span class="unit">円</span></div>
+<div class="form-row"><label>評価証明（建物の評価額）</label><input type="text" id="bldg_eval" value="29632000"><span class="unit">円</span></div>
+<div class="form-row"><label>評価証明（土地の固定資産税課税標準額）</label><input type="text" id="land_tax_base" value="6848000"><span class="unit">円</span></div>
 <div class="form-row"><label>評価証明（建物の固定資産税課税標準額）</label><input type="text" id="bldg_tax_base" value="30,000,000" readonly><span class="unit">円</span><span class="hint">自動計算（建物評価額と同じ）</span></div>
 </div>
 
