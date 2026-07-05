@@ -1,356 +1,297 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>アバンス岡村 — 不動産仕入部 精査レポート</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f0f4f8; color: #1a1a2e; line-height: 1.6; }
-    .header { background: linear-gradient(135deg, #1a3a5c 0%, #0d2137 100%); color: white; padding: 32px 40px; }
-    .header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
-    .header .subtitle { font-size: 0.95rem; opacity: 0.85; margin-bottom: 8px; }
-    .header .meta { font-size: 0.85rem; opacity: 0.7; }
-    .container { max-width: 1000px; margin: 0 auto; padding: 24px 20px; }
-    .card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
-    .top-warning { background: #b71c1c; color: white; padding: 20px 24px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 16px rgba(183,28,28,0.35); }
-    .top-warning .warn-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 6px; letter-spacing: 0.5px; }
-    .top-warning .warn-body { font-size: 0.95rem; opacity: 0.95; line-height: 1.7; }
-    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid; }
-    .section-header .icon { font-size: 1.4rem; }
-    .section-header h2 { font-size: 1.15rem; font-weight: 700; }
-    .survey .section-header { border-color: #009688; }
-    .survey .section-header h2 { color: #009688; }
-    .haruto .section-header { border-color: #e67e22; }
-    .haruto .section-header h2 { color: #e67e22; }
-    .ryo .section-header { border-color: #2980b9; }
-    .ryo .section-header h2 { color: #2980b9; }
-    .aki .section-header { border-color: #27ae60; }
-    .aki .section-header h2 { color: #27ae60; }
-    .murata .section-header { border-color: #8b5e3c; }
-    .murata .section-header h2 { color: #8b5e3c; }
-    .confirm-card .section-header { border-color: #8e44ad; }
-    .confirm-card .section-header h2 { color: #8e44ad; }
-    .verdict .section-header { border-color: #c0392b; }
-    .verdict .section-header h2 { color: #c0392b; }
-    .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
-    .summary-item { background: #f8fafc; border-radius: 8px; padding: 12px; }
-    .summary-item .label { font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-    .summary-item .value { font-size: 1.05rem; font-weight: 700; color: #1a3a5c; }
-    .summary-item .sub { font-size: 0.8rem; color: #888; }
-    .criteria-table { width: 100%; border-collapse: collapse; }
-    .criteria-table th { background: #1a3a5c; color: white; padding: 10px 14px; text-align: left; font-size: 0.85rem; }
-    .criteria-table td { padding: 10px 14px; border-bottom: 1px solid #eef2f7; font-size: 0.9rem; }
-    .criteria-table tr:last-child td { border-bottom: none; }
-    .badge-ok { display: inline-block; background: #d4edda; color: #1e7e34; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
-    .badge-ng { display: inline-block; background: #f8d7da; color: #721c24; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
-    .badge-check { display: inline-block; background: #fff3cd; color: #856404; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
-    .analysis-content { font-size: 0.9rem; line-height: 1.75; }
-    .analysis-content h3 { font-size: 0.95rem; font-weight: 700; margin: 16px 0 8px; padding-left: 8px; border-left: 3px solid; }
-    .haruto .analysis-content h3 { border-color: #e67e22; }
-    .ryo .analysis-content h3 { border-color: #2980b9; }
-    .aki .analysis-content h3 { border-color: #27ae60; }
-    .murata .analysis-content h3 { border-color: #8b5e3c; }
-    .survey .analysis-content h3 { border-color: #009688; }
-    .analysis-content p { margin-bottom: 10px; }
-    .analysis-content ul { margin: 8px 0 12px 20px; }
-    .analysis-content li { margin-bottom: 4px; }
-    .metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
-    .metric-box { background: #f8fafc; border-radius: 8px; padding: 14px; }
-    .metric-box .m-label { font-size: 0.75rem; color: #666; margin-bottom: 4px; }
-    .metric-box .m-value { font-size: 1.2rem; font-weight: 700; }
-    .m-ok { color: #27ae60; } .m-ng { color: #c0392b; } .m-neutral { color: #2980b9; }
-    .loan-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.88rem; }
-    .loan-table th { background: #f0f4f8; padding: 8px 12px; text-align: left; }
-    .loan-table td { padding: 8px 12px; border-bottom: 1px solid #eef; }
-    .loan-table tr:last-child td { border-bottom: none; }
-    .confirm-list { list-style: none; }
-    .confirm-list li { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eef2f7; font-size: 0.9rem; }
-    .confirm-list li:last-child { border-bottom: none; }
-    .confirm-num { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; color: white; background: #8e44ad; }
-    .verdict-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
-    .verdict-item { background: #f8fafc; border-radius: 8px; padding: 14px; }
-    .verdict-item .v-label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
-    .risk-flag { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 6px; font-size: 0.88rem; font-weight: 700; margin: 4px 4px 4px 0; }
-    .risk-critical { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-    .risk-high { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
-    .risk-medium { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
-    .link-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 8px; font-size: 0.88rem; font-weight: 600; text-decoration: none; margin: 8px 8px 0 0; }
-    .link-btn-blue { background: #2980b9; color: white; }
-    .link-btn-green { background: #27ae60; color: white; }
-    .link-btn-orange { background: #e65100; color: white; }
-    .link-btn-teal { background: #009688; color: white; }
-    .alert-danger { background: #f8d7da; border-left: 4px solid #dc3545; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
-    .alert-warning { background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
-    .alert-info { background: #d1ecf1; border-left: 4px solid #17a2b8; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
-    .footer { text-align: center; padding: 24px; color: #999; font-size: 0.8rem; }
-    @media (max-width: 600px) { .summary-grid { grid-template-columns: repeat(2, 1fr); } .metrics-grid { grid-template-columns: 1fr; } .verdict-grid { grid-template-columns: 1fr; } }
-  </style>
+<meta charset="UTF-8">
+<title>アバンス岡村 精査レポート | TC Capitals 仕入部</title>
+<style>
+  body { font-family: 'Segoe UI', 'Hiragino Sans', sans-serif; background: #f5f7fa; margin: 0; padding: 20px; color: #223; line-height: 1.7; }
+  .container { max-width: 1000px; margin: 0 auto; }
+  .hdr { background: #1e3a5f; color: #fff; padding: 24px 30px; border-radius: 10px 10px 0 0; }
+  .hdr h1 { margin: 0; font-size: 24px; }
+  .hdr .sub { color: #cfd9e5; margin-top: 6px; font-size: 14px; }
+  .ng-banner { background: #dc2626; color: #fff; padding: 12px 20px; margin: 0 0 12px 0; border-radius: 6px; font-weight: bold; font-size: 16px; text-align: center; }
+  .card { background: #fff; padding: 22px 28px; margin-bottom: 18px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .card h2 { margin-top: 0; font-size: 18px; padding-bottom: 8px; border-bottom: 2px solid #eee; }
+  .h-haruto { color: #d97706; border-bottom-color: #fbbf24 !important; }
+  .h-ryo    { color: #1d4ed8; border-bottom-color: #60a5fa !important; }
+  .h-aki    { color: #059669; border-bottom-color: #34d399 !important; }
+  .h-murata { color: #92400e; border-bottom-color: #d6a878 !important; }
+  .h-hazard { color: #0f766e; border-bottom-color: #5eead4 !important; }
+  .summary-table, .basis-table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+  .summary-table td, .summary-table th, .basis-table td, .basis-table th { padding: 8px 12px; border-bottom: 1px solid #e5e7eb; text-align: left; font-size: 14px; }
+  .summary-table th, .basis-table th { background: #f3f4f6; }
+  .ok { color: #16a34a; font-weight: bold; }
+  .ng { color: #dc2626; font-weight: bold; }
+  .warn { color: #d97706; font-weight: bold; }
+  .box-alert { background: #fef2f2; border-left: 4px solid #dc2626; padding: 12px 16px; margin: 10px 0; }
+  .box-warn { background: #fffbeb; border-left: 4px solid #d97706; padding: 12px 16px; margin: 10px 0; }
+  .box-info { background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 12px 16px; margin: 10px 0; }
+  ul { padding-left: 22px; }
+  a { color: #1d4ed8; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .pill { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; margin-right: 5px; }
+  .pill-ng { background: #fecaca; color: #b91c1c; }
+  .pill-ok { background: #bbf7d0; color: #166534; }
+  .pill-warn { background: #fde68a; color: #92400e; }
+  .footer { text-align: center; color: #94a3b8; font-size: 12px; margin-top: 30px; }
+</style>
 </head>
 <body>
-  <div class="header">
-    <h1>アバンス岡村 — 不動産仕入部 精査レポート</h1>
-    <div class="subtitle">神奈川県横浜市磯子区岡村4丁目1-18 ／ 横浜市営地下鉄ブルーライン 蒔田駅 徒歩13分</div>
-    <div class="meta">精査日: 2026-07-05 ／ チーム: ハルト・リョウ・アキ・村田先生</div>
+
+<div class="container">
+
+<div class="hdr">
+  <h1>🏢 アバンス岡村 精査レポート</h1>
+  <div class="sub">TC Capitals 仕入部チーム | 精査日: 2026-07-05 | 精査員: ハルト・リョウ・アキ・村田先生</div>
+</div>
+
+<div class="ng-banner">⚠️ ハザードリスク該当(土砂災害特別警戒区域=レッドゾーン)により<u>見送り推奨</u> — キャプテン基準の自動NGトリガー抵触</div>
+
+<div class="card">
+  <h2>📋 物件サマリー</h2>
+  <table class="summary-table">
+    <tr><th>所在地</th><td>神奈川県横浜市磯子区岡村4丁目1-18</td></tr>
+    <tr><th>交通</th><td>横浜市営地下鉄ブルーライン『蒔田』駅 徒歩13分</td></tr>
+    <tr><th>価格</th><td>9,500万円</td></tr>
+    <tr><th>表面利回り</th><td>7.59%(資料想定)/<span class="ng">6.69%(スマサテ査定)</span></td></tr>
+    <tr><th>構造・築年</th><td>木造・2017年6月築(築9年)</td></tr>
+    <tr><th>戸数・面積</th><td>10戸(想定1K)/延床200㎡想定(1戸約20㎡・<span class="warn">狭小警戒</span>)/土地216.59㎡(chikamap実測)</td></tr>
+    <tr><th>取引態様</th><td>要確認(健美家新着メール・仲介想定)</td></tr>
+    <tr><th>情報ソース</th><td>健美家 https://www.kenbiya.com/pp2/s/kanagawa/yokohama-shi/6/re_4573834vc0/</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2>🎯 キャプテン基準チェック</h2>
+  <table class="basis-table">
+    <tr><th>項目</th><th>基準</th><th>実績</th><th>判定</th></tr>
+    <tr><td>物件価格</td><td>≤ 1億円</td><td>9,500万円</td><td><span class="pill pill-ok">OK</span></td></tr>
+    <tr><td>表面利回り</td><td>≥ 8.0%(築6-10年8.2%)</td><td>7.59%(資料)/6.69%(スマサテ)</td><td><span class="pill pill-ng">NG</span></td></tr>
+    <tr><td>築年</td><td>≤ 10年</td><td>築9年</td><td><span class="pill pill-ok">OK</span></td></tr>
+    <tr><td>エリア</td><td>16号内側(一都三県)</td><td>横浜市磯子区</td><td><span class="pill pill-ok">OK</span></td></tr>
+    <tr><td>徒歩</td><td>10分以内</td><td>13分</td><td><span class="pill pill-ng">NG(+3分)</span></td></tr>
+    <tr><td>戸数</td><td>6-8戸前後</td><td>10戸</td><td><span class="pill pill-warn">超過</span></td></tr>
+    <tr><td>専有面積</td><td>≥ 18㎡(自動NG閾値)</td><td>約20㎡(想定)</td><td><span class="pill pill-warn">ギリギリ</span></td></tr>
+    <tr><td>積算比率</td><td>≥ 60%</td><td>54.6%</td><td><span class="pill pill-ng">NG</span></td></tr>
+    <tr><td>ハザード</td><td>レッドゾーン非該当</td><td class="ng">土砂災害特別警戒区域(レッド)</td><td><span class="pill pill-ng">自動NG</span></td></tr>
+    <tr><td>10年目税引後IRR</td><td>≥ 25%</td><td>玉川式で要確認</td><td><span class="pill pill-warn">要確認</span></td></tr>
+  </table>
+  <div class="box-alert">
+    <strong>総合基準判定: 見送り推奨</strong> — 表面利回り・徒歩・積算比率・ハザードの4項目でNG。特にレッドゾーン該当は自動NGトリガーであり、価格交渉での救済不可の水準。
+  </div>
+</div>
+
+<div class="card">
+  <h2 class="h-hazard">🗺️ 路線価・ハザードマップ・スマサテ査定(ハルト調査)</h2>
+
+  <h3 style="color:#0f766e;">💰 相続路線価(chikamap.jp 令和7年分)</h3>
+  <div class="box-info">
+    <strong>12.5万円/㎡(D地域・借地権割合60%)</strong><br>
+    土地路線価総額 = 216.59㎡ × 12.5万円/㎡ = <strong>2,707万円</strong><br>
+    公示地価換算(×1.25) = 16.3万円/㎡ → 3,533万円<br>
+    健美家記載145,000円/㎡とは▲2万円差(chikamap実測を採用)
   </div>
 
-  <div class="container">
+  <h3 style="color:#0f766e;">🏔️ 重ねるハザードマップ</h3>
+  <table class="basis-table">
+    <tr><th>洪水浸水想定</th><td>✅ 非該当</td></tr>
+    <tr><th>土砂災害警戒</th><td class="ng">❌ レッドゾーン該当(土砂災害特別警戒区域・急傾斜地の崩壊)</td></tr>
+    <tr><th>津波浸水想定</th><td>✅ 非該当</td></tr>
+    <tr><th>液状化危険度</th><td>確認不可</td></tr>
+    <tr><th>総合ハザード判定</th><td class="ng">❌ 即NG(レッドゾーン該当)</td></tr>
+  </table>
+  <p style="font-size:12px;color:#666;margin-top:6px;">岡村4丁目は谷戸地形の住宅地。周辺一帯が土砂災害警戒区域(イエロー・レッド混在)。出典: 国土交通省・国土地理院「重ねるハザードマップ」</p>
 
-    <!-- 冒頭警告：ハザードリスク即NG -->
-    <div class="top-warning">
-      <div class="warn-title">⚠️ ハザードリスクにより見送り推奨</div>
-      <div class="warn-body">
-        重ねるハザードマップにて<strong>土砂災害特別警戒区域（レッドゾーン）指定済</strong>と確認。
-        レッドゾーン指定物件は建替時の構造規制・融資評価大幅ダウン・物理リスクいずれも大きく、
-        キャプテン基準および仕入部の即NG条件に該当。数字面（利回り・築年・アクセス）は良好だが、
-        物理リスクが全てを上書きするため<strong>見送り推奨</strong>。
-      </div>
-    </div>
+  <h3 style="color:#0f766e;">🏠 スマサテ賃料査定</h3>
+  <table class="basis-table">
+    <tr><th>査定条件</th><td>木造・1K想定・専有<strong>約20㎡</strong>・築<strong>9年</strong>・蒔田駅徒歩13分</td></tr>
+    <tr><th>標準賃料</th><td class="ng">53,000円/戸(単価 2,790円/㎡・9,225円/坪)</td></tr>
+    <tr><th>資料想定賃料</th><td>60,060円/戸(9,500万×7.59%÷12÷10戸)</td></tr>
+    <tr><th>乖離</th><td class="ng">▲7,060円/戸・▲11.8%(<strong>資料が高め=賃料設定過大=空室リスク要注意</strong>)</td></tr>
+    <tr><th>スマサテ実勢利回り</th><td class="ng">6.69%(53,000×10×12÷9,500万×100)</td></tr>
+  </table>
 
-    <!-- 物件サマリー -->
-    <div class="card">
-      <div class="summary-grid">
-        <div class="summary-item"><div class="label">価格</div><div class="value">9,500万円</div><div class="sub">1億円以下</div></div>
-        <div class="summary-item"><div class="label">表面利回り</div><div class="value">7.59%</div><div class="sub">スマサテ考慮 8.21%</div></div>
-        <div class="summary-item"><div class="label">構造</div><div class="value">木造</div><div class="sub">10戸</div></div>
-        <div class="summary-item"><div class="label">築年月</div><div class="value">2017年6月</div><div class="sub">築9年</div></div>
-        <div class="summary-item"><div class="label">エリア</div><div class="value">横浜市磯子区岡村4丁目</div><div class="sub">蒔田駅 徒歩13分</div></div>
-        <div class="summary-item"><div class="label">取引態様</div><div class="value">要確認</div><div class="sub">健美家経由</div></div>
-      </div>
-    </div>
+  <p>➡ <strong><a href="acquisition/pipeline/20260705_avance-okamura_survey.html" target="_blank">📄 物件調査レポート(スマサテ査定・路線価・ハザードマップ詳細)</a></strong></p>
+</div>
 
-    <!-- キャプテン基準チェック -->
-    <div class="card">
-      <div class="section-header" style="border-color:#1a3a5c;"><span class="icon">📋</span><h2 style="color:#1a3a5c;">キャプテン基準（v5）チェック</h2></div>
-      <table class="criteria-table">
-        <thead><tr><th>項目</th><th>基準</th><th>本物件</th><th>判定</th></tr></thead>
-        <tbody>
-          <tr><td>築年数</td><td>10年以内</td><td>築9年</td><td><span class="badge-ok">OK</span></td></tr>
-          <tr><td>価格</td><td>1億円以下</td><td>9,500万円</td><td><span class="badge-ok">OK</span></td></tr>
-          <tr><td>表面利回り</td><td>8.0%以上</td><td>7.59%（スマサテ考慮 8.21%）</td><td><span class="badge-check">△ 資料上未達／スマサテ考慮でクリア</span></td></tr>
-          <tr><td>エリア</td><td>16号内側・首都圏</td><td>横浜市磯子区</td><td><span class="badge-check">△ 16号外だが横浜市内</span></td></tr>
-          <tr><td>ハザード</td><td>レッドゾーン外・浸水2m未満</td><td>土砂災害特別警戒区域（レッドゾーン）指定済</td><td><span class="badge-ng">❌ 即NG</span></td></tr>
-        </tbody>
-      </table>
-    </div>
+<div class="card">
+  <h2 class="h-haruto">🧑‍💼 ハルト(エリア・利回り分析)</h2>
+  <p><strong>結論: 🚨 見送り推奨(4重NG)</strong></p>
+  <ul>
+    <li><strong>エリア評価:</strong> 蒔田駅(横浜市営地下鉄ブルーライン) — 横浜9分・上大岡2分でアクセス良好。ただし岡村4丁目は谷戸地形の住宅地で急傾斜地に囲まれた谷底立地。</li>
+    <li><strong>賃貸需要:</strong> 蒔田駅圏1K需要は堅調だが徒歩13分は駅遠感が強く家賃レンジは駅近1Kより1割弱ダウン。</li>
+    <li><strong>相場感:</strong> 蒔田駅圏(徒歩10-15分)築5-10年木造は利回り8.0-8.5%が相場。<strong>本物件7.59%は相場より0.4〜0.9pt割高</strong>。9,500万→8,800万(▲700万・7.4%指値)でようやく8.19%到達で築6-10年基準ライン。</li>
+    <li><strong>競合内包:</strong> 同エリアには自社進行中「ベラビスタオーシャンテラス(丸山1丁目・5,280万・7.45%・2019年築・6戸)」が★イチオシ物件として存在。競合を自社で抱える形。</li>
+    <li><strong>ハザード:</strong> 土砂災害特別警戒区域(レッドゾーン)該当 → 自動NGトリガー抵触。</li>
+    <li><strong>スマサテ実質利回り6.69%:</strong> 資料▲11.8%乖離。実勢賃料で見ると9,500万は明らかに過大。</li>
+  </ul>
+  <div class="box-alert">
+    <strong>ハルトからの率直な評価:</strong> 「9,500万→7,500万以下(▲2,000万・21%指値)でようやく利回り9.6%・スマサテ考慮利回り8.5%到達 → 現実的な指値レンジを大幅に超えるため見送り。同エリア進行中案件『ベラビスタ(蒔田14分・5,280万・スマサテ8.59%)』の方が価格・立地条件で優位。リソースはベラビスタのレッド/イエロー確定精査へ集中すべき。」
+  </div>
+</div>
 
-    <!-- 🗺️ 路線価・ハザード・スマサテ -->
-    <div class="card survey">
-      <div class="section-header"><span class="icon">🗺️</span><h2>路線価・ハザードマップ・スマサテ査定（ハルト調査）</h2></div>
-      <div class="analysis-content">
-        <h3>相続路線価（chikamap.jp 令和7年分）</h3>
-        <p><strong>路線価: 12.5万円/㎡</strong>（借地権割合: D 60%）／岡村4丁目周辺で7回検出の最多値を採用</p>
+<div class="card">
+  <h2 class="h-ryo">🕵️ リョウ(DDチェックリスト)</h2>
+  <p><strong>結論: リスクレベル 高</strong> — レッドゾーン該当が確定なら自動NGルールに従い見送り。積算55%・スマサテ乖離もあり、価格交渉で救済できるレベルではない。</p>
 
-        <h3>重ねるハザードマップ（国土交通省・国土地理院）</h3>
-        <table class="loan-table">
-          <tr><th>洪水浸水想定</th><td>✅ 非該当</td></tr>
-          <tr><th>土砂災害警戒</th><td><strong style="color:#c0392b;">❌ 土砂災害特別警戒区域（レッドゾーン）指定済 — 即NG</strong></td></tr>
-          <tr><th>津波浸水想定</th><td>✅ 非該当</td></tr>
-          <tr><th>液状化危険度</th><td>確認不可</td></tr>
-          <tr><th>内水氾濫</th><td>✅ 非該当</td></tr>
-          <tr><th>総合判定</th><td><span class="badge-ng">❌ 即NG（レッドゾーン）</span></td></tr>
-        </table>
-        <div class="alert-danger">
-          <strong>原文抜粋:</strong>「土砂災害の危険性：急傾斜地の崩壊（土砂災害特別警戒区域（指定済））」<br>
-          岡村地域は谷戸・急傾斜地形が広く指定されているエリア。周辺物件も同様のリスクを抱える可能性が高い。
-        </div>
+  <h3 style="color:#1d4ed8;">🚩 赤フラグ(絶対確認事項・NG判定要素)</h3>
+  <ul>
+    <li><strong>新耐震基準:</strong> 2017年6月築 → クリア</li>
+    <li><strong>ハザードマップ:</strong> 土砂災害特別警戒区域(レッドゾーン)該当 → キャプテン基準で自動NG</li>
+    <li><strong>擁壁・崖:</strong> 未確認。岡村4丁目は斜面地。レッドゾーン該当ということは高低差・擁壁の可能性極めて高い</li>
+    <li><strong>登記簿権利関係:</strong> 差押・仮登記・抵当権要確認</li>
+    <li><strong>再建築可否:</strong> 接道幅員・道路種別(42条何号か)要確認</li>
+  </ul>
 
-        <h3>スマサテ賃料査定</h3>
-        <table class="loan-table">
-          <tr><th>想定条件</th><td>木造1K / 25㎡ / 築9年 / 蒔田駅徒歩13分</td></tr>
-          <tr><th>査定賃料（礼金0）</th><td><strong>65,000円/戸/月</strong></td></tr>
-          <tr><th>資料想定単価</th><td>60,100円/戸/月</td></tr>
-          <tr><th>㎡単価 / 坪単価</th><td>2,721円/㎡ ／ 8,993円/坪</td></tr>
-          <tr><th>乖離</th><td><strong style="color:#27ae60;">+4,900円（+8.2%上振れ余地）</strong></td></tr>
-        </table>
-        <p style="margin-top:8px;">スマサテ考慮利回り＝65,000 × 10戸 × 12ヶ月 ÷ 9,500万円 = <strong>8.21%</strong>（キャプテン基準8.0%クリア）</p>
+  <h3 style="color:#1d4ed8;">🟡 黄フラグ(収支精査に必要)</h3>
+  <ul>
+    <li>レントロール未入手 → スマサテ実質53,000円/戸で実質利回り6.69%まで低下</li>
+    <li>公課証明書・修繕履歴・確認済証・検査済証・延床面積の実測 いずれも未確認</li>
+  </ul>
 
-        <p style="margin-top:12px;"><a class="link-btn link-btn-teal" href="20260705_avance-okamura_survey.html" target="_blank">🔍 物件調査レポート（スマサテ入力・ハザードスクショ）</a></p>
-      </div>
-    </div>
+  <h3 style="color:#1d4ed8;">🎯 最大リスクと対処方法</h3>
+  <p><strong>最大リスク: 土砂災害特別警戒区域(レッドゾーン)該当</strong></p>
+  <ul>
+    <li>実害: (a) キャプテン基準で自動NG (b) 融資行の担保評価が大幅ディスカウント (c) 万一被災した場合の再建築規制・移転勧告リスク (d) 出口の流動性が著しく悪化</li>
+    <li>対処方法: 一次NGとして即座に見送り。ただしキャプテンが例外検討を望む場合は「積算相当(約5,700万円)まで下げられれば土地値買い」で再評価。融資は現金or低LTV前提に切り替え</li>
+    <li>再現防止として「レッドゾーン一発NGフラグ」をpickup段階で機械的に立てる仕組み化を推奨</li>
+  </ul>
 
-    <!-- ハルト -->
-    <div class="card haruto">
-      <div class="section-header"><span class="icon">🏃</span><h2>ハルト（エリア・利回り分析）</h2></div>
-      <div class="analysis-content">
-        <h3>エリア評価（横浜市磯子区岡村・蒔田駅徒歩13分）</h3>
-        <ul>
-          <li><strong>蒔田駅</strong>：横浜市営地下鉄ブルーライン。横浜駅まで乗換なし約8分、上大岡・戸塚方面へも直結。乗降客数約14,000人/日の中規模駅。単身・DINKS需要は堅い</li>
-          <li><strong>岡村エリア</strong>：住宅地。徒歩13分はブルーライン沿線としてはやや長め。周辺は坂道が多く標高26.5mの高台立地。単身者にはやや不利、本来はファミリー向けと相性</li>
-          <li><strong>1K・木造アパートで10戸</strong>は磯子区岡村の住宅街・ファミリー中心のエリア特性とややミスマッチの懸念</li>
-        </ul>
-        <h3>利回り評価</h3>
-        <p>資料利回り7.59%はキャプテン基準8.0%に対し▲0.41%未達。ただしスマサテ査定65,000円/戸ベースで再計算すると<strong>8.21%</strong>でクリア。現況賃料次第で見え方が変わる案件だが、専有面積・階数の実データ未確認のため誤差含み。</p>
-        <h3>ハルトの率直な評価</h3>
-        <div class="alert-danger">
-          <strong>★ 即NG（土砂災害特別警戒区域）</strong><br>
-          キャプテン、これは残念ですが<strong>土砂災害特別警戒区域（レッドゾーン）指定済み</strong>という致命的な物理リスクが確認できました。
-          レッドゾーン指定物件は建替時に構造規制（防護壁等）が課され、金融機関の融資評価も大幅ダウン。地震・豪雨時の物理リスクも現実的で、オリックス・auじぶんとも融資は事実上厳しいです。
-        </div>
-        <div class="alert-warning">
-          <strong>数字だけ見ると惜しい</strong>：スマサテ考慮利回り8.21%（+0.62%）、蒔田駅アクセス良好、築9年木造で本来なら注目したい水準。ただし物理リスクが全てを上書きします。
-        </div>
-        <p><strong>結論</strong>：見送り推奨。悔しいですがレッドゾーンは動かせません。引き続き磯子区でも平坦地（森・上中里・洋光台の一部）または隣接の南区・港南区で候補を継続します。</p>
-      </div>
-    </div>
+  <p>➡ <strong><a href="https://teruyone.github.io/tc-properties/properties/20260705_avance-okamura_DD.html" target="_blank">📋 DDチェックリスト</a></strong></p>
+</div>
 
-    <!-- リョウ -->
-    <div class="card ryo">
-      <div class="section-header"><span class="icon">🔍</span><h2>リョウ（DD精査）</h2></div>
-      <div class="analysis-content">
-        <h3>確認済み</h3>
-        <ul>
-          <li>新耐震基準（2000年基準含む）クリア。木造でも耐震性は問題なし</li>
-          <li>築浅：築9年で大規模修繕コストは当面発生しづらい</li>
-          <li>総戸数10戸、価格9,500万円でキャプテン基準1億円以下を充足</li>
-        </ul>
-        <h3>リスクフラグ</h3>
-        <p><span class="risk-flag risk-critical">🚨 岡村＝斜面地・高低差リスク</span><span class="risk-flag risk-high">🚩 木造築9年＋耐用年数残13年で融資期間短縮</span><span class="risk-flag risk-high">🚩 利回り7.59%は資料上キャプテンv5基準未達</span></p>
-        <ul>
-          <li><strong>斜面地・擁壁リスク</strong>：岡村4丁目は磯子区でも典型的な丘陵住宅地。神奈川県建築基準条例（がけ条例）対象の可能性。融資行NG（オリックス・auじぶんとも斜面地・擁壁付き木造は嫌う）の可能性を事前排除必須</li>
-          <li><strong>融資期間短縮リスク</strong>：オリックス・auじぶんの木造融資は原則「耐用年数-築年数=残存年数」。木造22年-築9年=13年しか引けない可能性。9,500万÷13年でCFが出ない懸念。SBJ・楽天など長期対応行を並走打診</li>
-          <li><strong>利回り</strong>：実質利回りは満室想定でも6%台前半に落ちる可能性大。レントロールで現況賃料・空室を精査必要</li>
-        </ul>
-        <h3>未確認・要入手</h3>
-        <ul>
-          <li>取引態様（仲介/売主）・仲介業者・担当者名</li>
-          <li>土地面積・延床面積・前面道路幅員・接道状況</li>
-          <li>高低差・擁壁の有無（航空写真・現地写真）</li>
-          <li>ハザードマップ ← <strong>本精査で判明：レッドゾーン</strong></li>
-          <li>レントロール・公課証明書・修繕履歴・確認済証・検査済証・登記簿謄本</li>
-        </ul>
-        <p style="margin-top:12px;"><a class="link-btn link-btn-blue" href="https://teruyone.github.io/tc-properties/properties/20260705_avance-okamura_DD.html" target="_blank">📋 入力済みDDリスト</a></p>
-      </div>
-    </div>
+<div class="card">
+  <h2 class="h-aki">💰 アキ(IG+収支計算 + 玉川式)</h2>
+  <p><strong>結論: 資料賃料でもCCR基準未達＋積算NG。スマサテ実力賃料ではCF基準割れ。厳しい案件</strong></p>
 
-    <!-- アキ -->
-    <div class="card aki">
-      <div class="section-header"><span class="icon">📊</span><h2>アキ（IG+収支計算 + 玉川式）</h2></div>
-      <div class="analysis-content">
-        <h3>収益（IG+）</h3>
-        <p>満室収入 721.05万円/年（9500 × 7.59%）→ 実収入（空室5%控除）684.99万円<br>費用合計 ▲192.65万円 → <strong>NOI 492.34万円（NOI利回り 5.18%）</strong></p>
+  <h3 style="color:#059669;">📊 収支比較(オリックス vs 神奈川銀行)</h3>
+  <table class="basis-table">
+    <tr><th>指標</th><th>①オリックス(100%・2.6%・35年)</th><th>②神奈川銀行(90%・2.25%・35年)</th></tr>
+    <tr><td>借入</td><td>9,500万円</td><td>8,550万円</td></tr>
+    <tr><td>自己資金</td><td>665万円(諸費用のみ)</td><td>1,615万円(頭金950+諸費用665)</td></tr>
+    <tr><td>年間返済</td><td>▲413.7万円</td><td>▲353.2万円</td></tr>
+    <tr><td colspan="3" style="background:#fef3c7;"><strong>資料賃料版(7.59%・満室721万円)</strong></td></tr>
+    <tr><td>CF/CF率</td><td>93.7万円 / <span class="warn">0.99%</span></td><td>154.1万円 / <span class="ok">1.62%</span></td></tr>
+    <tr><td>CCR</td><td class="ng">14.1%(B未達)</td><td class="ng">9.5%</td></tr>
+    <tr><td>返済比率</td><td>60.4%</td><td>51.6%</td></tr>
+    <tr><td colspan="3" style="background:#fee2e2;"><strong>スマサテ賃料版(6.69%・満室635.5万円)</strong></td></tr>
+    <tr><td>CF/CF率</td><td>26.4万円 / <span class="ng">0.28%</span></td><td>86.9万円 / <span class="ng">0.91%</span></td></tr>
+    <tr><td>CCR</td><td class="ng">4.0%</td><td class="ng">5.4%</td></tr>
+    <tr><td>返済比率</td><td class="ng">68.5%(危険水域)</td><td>58.5%</td></tr>
+  </table>
 
-        <h3>ローン試算</h3>
-        <table class="loan-table">
-          <thead><tr><th>指標</th><th>オリックス（100%・2.6%・35年）</th><th>神奈川銀行（90%・2.25%・35年）</th></tr></thead>
-          <tbody>
-            <tr><td>借入額</td><td>9,500万円</td><td>8,550万円</td></tr>
-            <tr><td>年間返済</td><td>▲414.87万</td><td>▲353.11万</td></tr>
-            <tr><td>年間CF</td><td><strong>77.47万</strong></td><td><strong>139.23万</strong></td></tr>
-            <tr><td>CF率</td><td>0.82%</td><td>1.47%</td></tr>
-            <tr><td>返済比率</td><td>57.5%</td><td>48.9%</td></tr>
-            <tr><td>自己資金</td><td>665万（諸費用7%）</td><td>1,615万（頭金950+諸費665）</td></tr>
-            <tr><td>CCR</td><td>11.65%</td><td>8.62%</td></tr>
-          </tbody>
-        </table>
-
-        <h3>積算評価（暫定・路線価要確認）</h3>
-        <p>建物 3,580万円（250㎡×21万×残存0.6818）／土地 3,000万円（200㎡×15万仮）→ <strong>積算合計 6,580万円（積算比率 69.3%）</strong>※延床・土地面積・路線価が確定次第再計算</p>
-
-        <h3>キャプテン基準6項目チェック</h3>
-        <table class="loan-table">
-          <tr><th>項目</th><th>オリックス</th><th>神奈川銀行</th></tr>
-          <tr><td>価格 ≤ 1億</td><td><span class="badge-ok">OK</span></td><td><span class="badge-ok">OK</span></td></tr>
-          <tr><td>利回り ≥ 7.1%</td><td><span class="badge-ok">OK 7.59%</span></td><td><span class="badge-ok">OK 7.59%</span></td></tr>
-          <tr><td>CF率 ≥ 1%</td><td><span class="badge-ng">NG 0.82%</span></td><td><span class="badge-ok">OK 1.47%</span></td></tr>
-          <tr><td>CCR ≥ 15%</td><td><span class="badge-ng">NG 11.65%</span></td><td><span class="badge-ng">NG 8.62%</span></td></tr>
-          <tr><td>積算 ≥ 60%</td><td><span class="badge-check">△ 69% 暫定</span></td><td><span class="badge-check">△ 69% 暫定</span></td></tr>
-          <tr><td>10年目IRR ≥ 25%</td><td colspan="2">玉川式シートでブラウザ確認</td></tr>
-        </table>
-
-        <h3>アキからひとこと</h3>
-        <p>築9年木造10戸で7.59%は磯子区としては悪くない水準。ただしオリックスフルローンだとCF率0.82%でC評価未満、CCR11.6%でB評価未満。神奈川銀行の頭金950万でCF率は1.47%まで改善するがCCRは自己資金増でむしろ悪化。積算はほぼ土地価格次第。減価償却が15年取れるので、少なくとも5年程度は税引後CFがフルで残る税効率の良い物件でした。<strong>ハザードで即NGなのが本当に惜しい案件です。</strong></p>
-
-        <p style="margin-top:12px;">
-          <a class="link-btn link-btn-green" href="https://teruyone.github.io/tc-properties/ig-sheet/?price=9500&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.59&floorArea=200&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=9&taxRateIncome=20&pi_price_inp=9500&pi_age_inp=9&pi_yield_inp=7.59&pi_area_inp=200&pi_rooms_inp=10&ik_land_area=216.59&ik_route_price=12.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E9%87%91%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E7%A3%AF%E5%AD%90%E5%8C%BA%E5%B2%A1%E6%9D%914%E4%B8%81%E7%9B%AE1-18" target="_blank">📊 IG+【資料賃料】</a>
-          <a class="link-btn link-btn-green" href="https://teruyone.github.io/tc-properties/ig-sheet/?price=9500&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.59&floorArea=200&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=9&taxRateIncome=20&pi_price_inp=9500&pi_age_inp=9&pi_yield_inp=6.69&pi_area_inp=200&pi_rooms_inp=10&ik_land_area=216.59&ik_route_price=12.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E9%87%91%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E7%A3%AF%E5%AD%90%E5%8C%BA%E5%B2%A1%E6%9D%914%E4%B8%81%E7%9B%AE1-18" target="_blank">📊 IG+【スマサテ賃料 8.21%】</a>
-          <a class="link-btn link-btn-orange" href="knowledge/tamagawa-analysis/20260705_avance-okamura_TG.html" target="_blank">📈 玉川式シート</a>
-        </p>
-      </div>
-    </div>
-
-    <!-- 村田先生 -->
-    <div class="card murata">
-      <div class="section-header"><span class="icon">🏗️</span><h2>村田先生（一級建築士コメント）</h2></div>
-      <div class="analysis-content">
-        <p><em>※現場を見ないと断言はできませんが、資料から読み取れることをお伝えします。</em></p>
-
-        <h3>構造・築年数の評価</h3>
-        <p>木造/築9年/2017年6月築 → 2000年基準改正後・改正省エネ基準（2016年施行）にも適合世代。10戸アパートは在来軸組（金物工法）が主流。4号特例内で構造計算書は義務外だが、施工品質は業者次第。築9年なら躯体・耐震性は基本問題なし。</p>
-
-        <h3>修繕リスク</h3>
-        <ul>
-          <li><strong>直近5年</strong>：外壁シーリング打ち替え（築10〜12年目安・80〜150万円）／給湯器順次交換（10戸×10〜15万円＝100〜150万円）</li>
-          <li><strong>5〜10年</strong>：外壁塗装・屋根メンテ（築15年前後・200〜350万円）／鉄骨階段・手摺サビ止め塗装（50〜80万円）</li>
-          <li><strong>10〜15年</strong>：給排水管点検・部分更新（100〜200万円）</li>
-        </ul>
-
-        <h3>法令・規制上の留意点</h3>
-        <p>検査済証・確認済証は必ず取得。岡村4丁目は第一種中高層住居専用地域が主。要確認：接道幅員（2項道路の可能性）、建蔽率・容積率の充足、既存不適格の有無。</p>
-
-        <h3>現地で必ず確認してほしいこと</h3>
-        <ul>
-          <li><strong>擁壁の有無と築造年・検査済</strong>：岡村は谷戸地形、擁壁があれば所有者・築造年・2m超なら工作物確認申請の履歴要チェック。擁壁修繕は数百万〜千万規模になり得る</li>
-          <li>蒔田駅からの徒歩ルートの坂道勾配（実測13分では済まない可能性）</li>
-          <li>外壁シーリング・軒天・バルコニー防水の劣化状況</li>
-          <li>隣地境界と越境物、共用部の管理レベル</li>
-        </ul>
-
-        <h3>総合所感</h3>
-        <p>築9年・2000年基準以降の木造としては<strong>建物リスクは低め</strong>。問題は「建物」より「土地」です。岡村の谷戸地形は擁壁リスクが本体建物より高くつくケースがある。今回はレッドゾーン指定が判明したため、現地精査に進む前段階で見送り判断が妥当。</p>
-      </div>
-    </div>
-
-    <!-- キャプテンへの確認事項 -->
-    <div class="card confirm-card">
-      <div class="section-header"><span class="icon">❓</span><h2>キャプテンへの確認事項</h2></div>
-      <ul class="confirm-list">
-        <li><span class="confirm-num">1</span><span>メール転送元の仲介業者はどこですか？（BRICKS・大和財託・他？）</span></li>
-        <li><span class="confirm-num">2</span><span>販売図面PDFまたはマイソク画像はありますか？（土地/延床面積・接道・間取り把握のため）</span></li>
-        <li><span class="confirm-num">3</span><span>レントロールは入手済みですか？（現況入居率・想定→現況家賃の乖離チェック）</span></li>
-        <li><span class="confirm-num">4</span><span>現地写真・Googleストリートビュー確認済みですか？（斜面地・擁壁の有無）</span></li>
-        <li><span class="confirm-num">5</span><span>ハザード即NG判明のため、原則見送り推奨ですが、追加情報を踏まえて再検討しますか？</span></li>
-      </ul>
-    </div>
-
-    <!-- 総合所見 -->
-    <div class="card verdict">
-      <div class="section-header"><span class="icon">🎯</span><h2>チーム総合所見</h2></div>
-      <div class="verdict-grid">
-        <div class="verdict-item">
-          <div class="v-label">総合判定</div>
-          <div style="font-size:1.2rem;font-weight:800;color:#c0392b;">見送り推奨（即NG）</div>
-        </div>
-        <div class="verdict-item">
-          <div class="v-label">最大リスク</div>
-          <div style="font-size:0.95rem;font-weight:700;color:#c0392b;">土砂災害特別警戒区域（レッドゾーン）指定済</div>
-        </div>
-      </div>
-      <div class="alert-danger">
-        <strong>最大リスク詳細</strong>：<br>
-        重ねるハザードマップにて<strong>急傾斜地の崩壊（土砂災害特別警戒区域）指定済</strong>と確認。
-        レッドゾーン指定物件は<br>
-        ① 建替時の構造規制（防護壁義務等）／② 金融機関融資評価の大幅ダウン／③ 地震・豪雨時の物理リスク現実化<br>
-        の3重リスクを抱え、キャプテン基準および仕入部の即NG条件に該当します。
-      </div>
-      <div class="alert-warning">
-        <strong>数字面は良好だが物理リスクが全てを上書き</strong>：<br>
-        スマサテ考慮利回り8.21%・築9年木造・蒔田駅ブルーライン直結と、レッドゾーンでなければ注目したい水準。
-        岡村4丁目は谷戸地形が広く指定されているため、この番地帯自体を候補から外し、
-        磯子区でも平坦地（森・上中里・洋光台の一部）または隣接の南区・港南区で継続探索を推奨。
-      </div>
-      <div class="alert-info">
-        <strong>次のアクション</strong>：<br>
-        ① 見送り判断確定→ハルトが同エリア別候補（平坦地）を継続探索<br>
-        ② 万一続けるなら現地写真・擁壁・確認済証・接道の実物確認と金融機関打診（融資評価大幅ダウン前提）
-      </div>
-    </div>
-
+  <h3 style="color:#059669;">🏗️ 積算評価</h3>
+  <div class="box-warn">
+    土地: 216.59㎡ × 12.5万円/㎡ = <strong>2,707万円</strong><br>
+    建物: 200㎡ × 21万円/㎡ × (1-9/22) = <strong>2,482万円</strong><br>
+    積算合計: <strong>5,189万円</strong> / <strong class="ng">積算比率54.6%(60%基準未達)</strong>
   </div>
 
-  <div class="footer">
-    TC Capitals 不動産仕入部 — 2026-07-05
+  <h3 style="color:#059669;">✅ キャプテン基準6指標</h3>
+  <table class="basis-table">
+    <tr><th>基準</th><th>閾値</th><th>①オリックス</th><th>②神奈川銀</th></tr>
+    <tr><td>価格</td><td>≤ 1億円</td><td><span class="ok">OK</span></td><td><span class="ok">OK</span></td></tr>
+    <tr><td>利回り</td><td>≥ 8.0%</td><td><span class="ng">NG(7.59%)</span></td><td><span class="ng">NG(7.59%)</span></td></tr>
+    <tr><td>CF率(資料)</td><td>≥ 1.0%</td><td><span class="ng">0.99%</span></td><td><span class="ok">1.62%</span></td></tr>
+    <tr><td>CCR(資料)</td><td>≥ 15.0%</td><td><span class="ng">14.1%</span></td><td><span class="ng">9.5%</span></td></tr>
+    <tr><td>積算</td><td>≥ 60.0%</td><td><span class="ng">54.6%</span></td><td><span class="ng">54.6%</span></td></tr>
+    <tr><td>10年目IRR</td><td>≥ 25%</td><td><span class="warn">玉川式で要確認</span></td><td><span class="warn">玉川式で要確認</span></td></tr>
+  </table>
+
+  <p>
+    ➡ <strong><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=9500&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.59&floorArea=200&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=9&taxRateIncome=20&pi_price_inp=9500&pi_age_inp=9&pi_yield_inp=7.59&pi_area_inp=200&pi_rooms_inp=10&ik_land_area=216.59&ik_route_price=12.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E9%87%91%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E7%A3%AF%E5%AD%90%E5%8C%BA%E5%B2%A1%E6%9D%914%E4%B8%81%E7%9B%AE1-18" target="_blank">📊 InvestGate+【資料賃料】収支試算</a></strong><br>
+    ➡ <strong><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=9500&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=6.69&floorArea=200&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=9&taxRateIncome=20&pi_price_inp=9500&pi_age_inp=9&pi_yield_inp=6.69&pi_area_inp=200&pi_rooms_inp=10&ik_land_area=216.59&ik_route_price=12.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E9%87%91%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E7%A3%AF%E5%AD%90%E5%8C%BA%E5%B2%A1%E6%9D%914%E4%B8%81%E7%9B%AE1-18" target="_blank">📊 InvestGate+【スマサテ賃料】収支試算</a></strong><br>
+    ➡ <strong><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260705_avance-okamura_TG.html" target="_blank">📈 玉川式収益試算シート(35年CF・10年目IRR)</a></strong>
+  </p>
+</div>
+
+<div class="card">
+  <h2 class="h-murata">🏗️ 村田先生(一級建築士コメント)</h2>
+  <p><em>「現場を見ないと断言はできませんが、資料から読み取れる範囲でお伝えします。今回はハザードの件があるので、いつもより慎重にいきましょう。」</em></p>
+
+  <ul>
+    <li><strong>構造再評価:</strong> 2017年6月築 → 2000年基準(木造耐震規定強化後)クリア。10戸規模の木造ワンルームは枠組壁工法(2×4)または軸組＋構造用合板の耐力壁併用型が主流。</li>
+    <li><strong>築9年時点の一般状態:</strong> 建物本体の主要構造には問題ない年数。ただし施工品質のばらつきが表に出始める築7〜10年に該当。外壁シーリング切れ・バルコニー防水の初期劣化が想定される。</li>
+    <li><strong>レッドゾーン(急傾斜地の崩壊)該当の建築的意味:</strong> 土砂災害防止法第24条による構造規制の対象エリア。居室を有する建築物は想定される土砂等の力に耐える構造(RC造の待ち受け擁壁・鉄筋コンクリート壁体・防護柵など)が必要。2017年建築時にレッドゾーン指定済だったかどうかが最大論点。</li>
+    <li><strong>レッドゾーン指定タイミングの照合が必須:</strong> 神奈川県のレッドゾーン指定は段階的に進んでおり、指定前に建てた建物は「既存不適格」となる。<strong>建築後の指定なら再建築不可の可能性、建築前の指定なら特別な構造措置(防護擁壁等)があるはず</strong>。設計図書で確認必須。</li>
+    <li><strong>谷戸地形の木造アパートは相性の悪い地形:</strong> 背後斜面からの土砂リスク、谷底立地=地下水位が高い=基礎周辺の湿気・シロアリリスク大、日照・通風が悪い=外壁北面の苔・カビの進行が早い。木造にとって最弱点の立地。</li>
+    <li><strong>擁壁・基礎の懸念:</strong> レッドゾーン該当地の木造10戸は敷地内/隣地に既存擁壁、または深基礎・杭基礎、あるいは指定前建築の既存不適格のいずれか。擁壁の所有権・築年数・検査済かどうかを絶対に押さえる必要あり。</li>
+  </ul>
+
+  <h3 style="color:#92400e;">修繕サイクル(築9年時点想定・向こう10年)</h3>
+  <table class="basis-table">
+    <tr><th>時期</th><th>項目</th><th>概算費用</th></tr>
+    <tr><td>直近3年(築9〜12年)</td><td>外壁シーリング打替 / バルコニー防水 / 給湯器交換順次</td><td>260〜370万円</td></tr>
+    <tr><td>中期(築14〜19年)</td><td>外壁塗装(初回大規模) / 屋根塗装 / 給水管点検 / LED化</td><td>370〜630万円</td></tr>
+    <tr><td>谷戸/レッド追加</td><td>基礎まわりの防湿対策 / 擁壁の点検・補修</td><td>50〜数千万円(擁壁次第)</td></tr>
+  </table>
+
+  <div class="box-warn">
+    <strong>村田先生の総合コメント:</strong><br>
+    「築9年・木造・利回り7.59%という数字だけ見れば悪くない案件です。2000年基準クリア世代の木造で建物本体の見立ては現時点で問題を感じません。<strong>ただ、この物件の本質的な論点は『建物』ではなく『敷地』です</strong>。土砂災害特別警戒区域(レッドゾーン)の共同住宅は、『買っていいかどうか』よりも先に『入居者の命を預かる責任』の問題が来ます。<br>
+    現場を見ないと断言はできませんが、『絶対に買うな』でも『安いから買え』でもなく、<strong>『見るべきものを全部見てから判断してください』というのが私の結論</strong>です。擁壁と斜面の写真、そして確認申請書一式が出てきたら、もう一段深いコメントを出せます。」
   </div>
+</div>
+
+<div class="card">
+  <h2>❓ キャプテンへの確認事項まとめ</h2>
+  <div class="box-info">
+    <p><strong>【最優先・見送り前に確認】</strong></p>
+    <ol>
+      <li><strong>ハザードマップのレッドゾーン該当を最新版で再確認</strong>(自動判定の精度確認)</li>
+      <li>健美家掲載の仲介業者を確認(取引態様=仲介か売主か)</li>
+      <li>本物件の実際の間取り・専有面積(20㎡想定でよいか)</li>
+      <li>2026-06-10のリブライフ小山経由「誤NG判定」の経緯は何か(再判定材料)</li>
+    </ol>
+    <p><strong>【例外検討する場合の追加確認】</strong></p>
+    <ul>
+      <li>建築時のレッドゾーン指定状況(建築前指定か・建築後指定か)</li>
+      <li>擁壁の位置(敷地内 or 敷地外)・種類・築年・検査済証</li>
+      <li>確認済証・検査済証・構造計算書一式</li>
+      <li>火災保険・地震保険の見積(レッドゾーンは通常の1.5〜2倍)</li>
+      <li>現況レントロール(スマサテ▲11.8%乖離の実態)</li>
+      <li>指値可否(積算相当5,700万円レンジまで下げられるか)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <h2>🎯 チーム総合所見</h2>
+  <table class="basis-table">
+    <tr><th>担当</th><th>判定</th><th>コメント</th></tr>
+    <tr><td>ハルト(エリア)</td><td><span class="pill pill-ng">🚨 見送り推奨</span></td><td>4重NG(利回り・スマサテ・ハザード・積算)</td></tr>
+    <tr><td>リョウ(DD)</td><td><span class="pill pill-ng">🚨 リスクレベル高</span></td><td>レッドゾーン該当で自動NG。価格交渉で救済不可</td></tr>
+    <tr><td>アキ(収支)</td><td><span class="pill pill-ng">🚨 6指標中5項目NG</span></td><td>スマサテ実力賃料では返済比率68.5%の危険水域</td></tr>
+    <tr><td>村田先生(建築)</td><td><span class="pill pill-warn">⚠️ 敷地が本質論点</span></td><td>建物は問題なし。ただし擁壁・レッドゾーン指定時期の確認が絶対条件</td></tr>
+  </table>
+
+  <div class="box-alert">
+    <p><strong>チーム総合判定: 🚨 見送り推奨(自動NGトリガー抵触)</strong></p>
+    <p><strong>最大リスク:</strong> 土砂災害特別警戒区域(レッドゾーン)該当 — キャプテン基準の自動NG</p>
+    <p><strong>NG要因(4重):</strong></p>
+    <ol>
+      <li>キャプテン基準未達: 利回り7.59%<基準8.0-8.2%(▲0.6pt)</li>
+      <li>スマサテ実質利回り6.69%: 資料▲11.8%乖離。実勢賃料で9,500万は過大</li>
+      <li>ハザードマップ土砂災害レッドゾーン該当(自動NG基準抵触)</li>
+      <li>積算評価54.6%(基準60%未達): 融資でも評価減額リスク</li>
+    </ol>
+    <p><strong>次のアクション(キャプテンお願いします):</strong></p>
+    <ol>
+      <li><strong>本物件は見送り</strong>を推奨。健美家新着ソースへの返信不要</li>
+      <li>リソースは同エリアの★イチオシ「ベラビスタオーシャンテラス」のレッド/イエロー確定精査へ集中</li>
+      <li>例外検討を望む場合は、上記「確認事項まとめ」の全項目開示を条件に</li>
+      <li>再現防止として「レッドゾーン一発NGフラグ」をpickup段階で機械的に立てる仕組み化を推奨</li>
+    </ol>
+    <p style="margin-top:10px;font-size:13px;color:#666;">※2026-06-10 03:00 JSTにリブライフ小山経由で同一物件を「価格超」で誤NG判定した経緯あり。今回改めてフル精査した結果、築年・価格は基準内でも、利回り・ハザード・積算の三方向で実質NGが確定。</p>
+  </div>
+</div>
+
+<div class="footer">
+  © TC Capitals 仕入部 | 精査ID: 20260705_avance-okamura | Team: ハルト・リョウ・アキ・村田先生
+</div>
+
+</div>
+
 
 <!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260705_avance-okamura_review.html -->
 <style>
