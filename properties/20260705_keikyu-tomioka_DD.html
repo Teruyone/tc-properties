@@ -616,7 +616,7 @@
         <label>構造</label>
         <select id="prop-struct">
           <option value="">選択</option>
-          <option value="木造">木造（耐用22年）</option>
+          <option value="木造" selected>木造（耐用22年）</option>
           <option value="軽量鉄骨">軽量鉄骨（耐用19年）</option>
           <option value="重量鉄骨">重量鉄骨（耐用34年）</option>
           <option value="RC">RC造（耐用47年）</option>
@@ -624,7 +624,7 @@
       </div>
       <div class="info-field">
         <label>築年月（確認申請日）</label>
-        <input type="text" id="prop-age" placeholder="例: 2019年3月（築6年）">新築想定（未確認）</div>
+        <input type="text" id="prop-age" placeholder="例: 2019年3月（築6年）">2018年3月（築8年）</div>
       <div class="info-field">
         <label>物件価格（万円）</label>
         <input type="number" id="prop-price" placeholder="例: 8500">8,369万円</div>
@@ -633,18 +633,18 @@
         <input type="number" step="0.01" id="prop-yield" placeholder="例: 7.27">7.80%</div>
       <div class="info-field">
         <label>部屋数・間取り</label>
-        <input type="text" id="prop-rooms" placeholder="例: 1K×12戸">未確認（推定8戸／1K25.5㎡想定）</div>
+        <input type="text" id="prop-rooms" placeholder="例: 1K×12戸">1K×10戸（各約18.05㎡）</div>
       <div class="info-field">
         <label>延床面積（㎡）</label>
-        <input type="number" id="prop-floor" placeholder="例: 194">未確認</div>
+        <input type="number" id="prop-floor" placeholder="例: 194">180.5</div>
       <div class="info-field">
         <label>土地面積（㎡）</label>
-        <input type="number" id="prop-land" placeholder="例: 558">未確認（推定130㎡）</div>
+        <input type="number" id="prop-land" placeholder="例: 558">347.87</div>
       <div class="info-field">
         <label>取引態様</label>
         <select id="prop-torihiki">
           <option value="">選択</option>
-          <option value="仲介">仲介（諸費用7%）</option>
+          <option value="仲介" selected>仲介（諸費用7%）</option>
           <option value="売主">売主（諸費用4%）</option>
         </select>
       </div>
@@ -656,7 +656,7 @@
         <input type="date" id="prop-date">2026-07-05</div>
       <div class="info-field full">
         <label>初見メモ・特記事項</label>
-        <textarea id="prop-memo" placeholder="例: 路線価180千円/㎡・積算108%・静岡銀行Aプランで融資打診可能…">★ローンブレイク物件★  ハザード: 土砂災害イエローゾーン（急傾斜地の崩壊警戒区域）該当。洪水・津波・液状化は非該当。スマサテ賃料査定 67,000円/戸(1K/25.5㎡/新築)。</textarea>
+        <textarea id="prop-memo" placeholder="例: 路線価180千円/㎡・積算108%・静岡銀行Aプランで融資打診可能…">★ローンブレイク物件★ 築8年（2018年3月）／1K×10戸／延床180.5㎡（1戸18.05㎡）／土地347.87㎡（105.23坪）／木造2階建／用途:第一種低層住居専用地域／検査済証有／劣化対策等級2級／相続税路線価13.5万円/㎡（志水氏確認済）／土地積算56%相当／auじぶん銀行9.4割評価済み(35年/2.4%)。ハザード:土砂災害イエローゾーン（急傾斜地の崩壊警戒区域）該当。洪水・津波・液状化は非該当。スマサテ賃料査定49,000円/戸(1K/18㎡/築8年) vs 資料想定54,400円/戸 → +11%乖離＝賃料設定過大＝空室リスク要注意。</textarea>
       </div>
     </div>
 
