@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>PLAC 川口市桜町6丁目 チーム精査レポート</title>
+<style>
+  body { font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif; margin: 0; background: #f4f6fa; color: #222; line-height: 1.7; }
+  header { background: #1a3660; color: #fff; padding: 24px 32px; }
+  header h1 { margin: 0 0 4px 0; font-size: 22px; }
+  header .sub { font-size: 13px; opacity: 0.85; }
+  main { max-width: 980px; margin: 24px auto; padding: 0 16px; }
+  .card { background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); padding: 20px 24px; margin-bottom: 20px; }
+  .card h2 { font-size: 17px; margin: 0 0 12px 0; padding-bottom: 6px; border-bottom: 2px solid #eee; }
+  .card.haruto h2 { color: #d97706; border-bottom-color: #d97706; }
+  .card.ryo h2 { color: #2563eb; border-bottom-color: #2563eb; }
+  .card.aki h2 { color: #059669; border-bottom-color: #059669; }
+  .card.murata h2 { color: #7c3517; border-bottom-color: #7c3517; }
+  .card.survey h2 { color: #0f766e; border-bottom-color: #0f766e; }
+  .card.summary h2 { color: #1a3660; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 12px 0; font-size: 13.5px; }
+  th, td { border: 1px solid #dbe0e8; padding: 6px 10px; text-align: left; vertical-align: top; }
+  th { background: #eef2f7; }
+  .ok { color: #059669; font-weight: 700; }
+  .ng { color: #dc2626; font-weight: 700; }
+  .caution { color: #d97706; font-weight: 700; }
+  .banner-ng { background: #fee2e2; border: 2px solid #dc2626; padding: 14px 18px; border-radius: 6px; margin-bottom: 20px; color: #7f1d1d; font-weight: 700; }
+  .banner-ng .title { font-size: 16px; margin-bottom: 4px; }
+  .banner-caution { background: #fef3c7; border: 2px solid #d97706; padding: 14px 18px; border-radius: 6px; margin-bottom: 20px; color: #78350f; font-weight: 700; }
+  ul { margin: 6px 0 10px 20px; padding: 0; }
+  li { margin-bottom: 4px; }
+  a { color: #2563eb; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .flex { display: flex; gap: 12px; flex-wrap: wrap; }
+  .metric { flex: 1; min-width: 160px; background: #f8fafc; border: 1px solid #dbe0e8; border-radius: 6px; padding: 10px 12px; }
+  .metric .label { font-size: 11px; color: #64748b; margin-bottom: 2px; }
+  .metric .value { font-size: 16px; font-weight: 700; }
+  .file-link { background: #eff6ff; border-left: 4px solid #2563eb; padding: 10px 14px; margin: 8px 0; }
+  .file-link.green { background: #ecfdf5; border-left-color: #059669; }
+  .file-link.orange { background: #fff7ed; border-left-color: #d97706; }
+  .file-link.teal { background: #ecfeff; border-left-color: #0f766e; }
+  .note { font-size: 12px; color: #64748b; margin-top: 4px; }
+  .quote { border-left: 3px solid #cbd5e1; padding: 4px 12px; margin: 8px 0; color: #475569; font-style: italic; }
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260705_kawaguchi-sakuracho6_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=4480&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=6.6&floorArea=102&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=7&taxRateIncome=20&pi_price_inp=4480&pi_age_inp=7&pi_yield_inp=6.66&pi_area_inp=102&pi_rooms_inp=4&ik_land_area=100&ik_route_price=12.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%9F%BC%E7%8E%89%E7%9C%8C%E5%B7%9D%E5%8F%A3%E5%B8%82%E5%85%83%E9%83%B73%E4%B8%81%E7%9B%AE" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=4480&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=6.6&floorArea=102&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=7&taxRateIncome=20&pi_price_inp=4480&pi_age_inp=7&pi_yield_inp=6.64&pi_area_inp=102&pi_rooms_inp=4&ik_land_area=100&ik_route_price=12.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%9F%BC%E7%8E%89%E7%9C%8C%E5%B7%9D%E5%8F%A3%E5%B8%82%E5%85%83%E9%83%B73%E4%B8%81%E7%9B%AE" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260705_kawaguchi-sakuracho6_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20260705_kawaguchi-sakuracho6_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+<header>
+  <h1>🏢 PLAC 川口市桜町6丁目 チーム精査レポート</h1>
+  <div class="sub">精査日: 2026-07-05 ／ チーム: ハルト・リョウ・アキ・村田先生 ／ 提案元: PLAC営業（健美家経由）</div>
+</header>
+<main>
+
+<div class="banner-ng">
+  <div class="title">⚠️ 総合判定: 見送り推奨（現価格での買付NG）</div>
+  利回り6.66%はキャプテン基準8.0%に▲1.34pt未達。8%到達には▲745万（▲16.6%）指値が必要。加えてハザード「洪水浸水想定＋土砂災害イエロー」判定あり（要現地・自治体マップ再確認）。詳細URL非公開のためレントロール等一次資料も未入手。
+</div>
+
+<!-- 物件サマリー -->
+<div class="card">
+  <h2>📋 物件サマリー</h2>
+  <div class="flex">
+    <div class="metric"><div class="label">価格</div><div class="value ok">4,480万円</div><div class="note">基準1億以下 → OK</div></div>
+    <div class="metric"><div class="label">表面利回り</div><div class="value ng">6.66%</div><div class="note">基準8.0% → NG（▲1.34pt）</div></div>
+    <div class="metric"><div class="label">構造・築年</div><div class="value">木造・築7年</div><div class="note">令和1年築（2019）</div></div>
+    <div class="metric"><div class="label">満室想定年収</div><div class="value">298.8万円</div><div class="note">スマサテとほぼ一致</div></div>
+  </div>
+  <table>
+    <tr><th>項目</th><th>内容</th></tr>
+    <tr><td>所在地</td><td>埼玉県川口市桜町6丁目</td></tr>
+    <tr><td>交通</td><td>埼玉高速鉄道 新井宿駅 徒歩10分（南北線・目黒線直通／SR8駅中乗降最下位 約6,230人）</td></tr>
+    <tr><td>取引態様</td><td>要確認（仲介想定）</td></tr>
+    <tr><td>戸数・延床・土地</td><td>資料非開示 → 想定4戸・1K25.5㎡・延床102㎡・土地100㎡でデフォルト計算</td></tr>
+    <tr><td>詳細資料</td><td class="caution">健美家提案URLがキャプテン専用のためハルト側で取得不可。PLAC営業へマイソク・レントロール要請必須</td></tr>
+  </table>
+</div>
+
+<!-- キャプテン基準 -->
+<div class="card summary">
+  <h2>✅ キャプテン基準6項目チェック</h2>
+  <table>
+    <tr><th>基準</th><th>閾値</th><th>本物件</th><th>判定</th></tr>
+    <tr><td>価格</td><td>≤ 1億円</td><td>4,480万円</td><td class="ok">✅ OK</td></tr>
+    <tr><td>表面利回り</td><td>≥ 8.0%</td><td>6.66%</td><td class="ng">❌ NG（▲1.34pt）</td></tr>
+    <tr><td>築年</td><td>≤ 10年</td><td>築7年</td><td class="ok">✅ OK</td></tr>
+    <tr><td>エリア</td><td>16号内側</td><td>川口市（16号内側）</td><td class="ok">✅ OK</td></tr>
+    <tr><td>CF率</td><td>≥ 1.0%</td><td>0.21%（オリックス）/0.85%（神奈川）</td><td class="ng">❌ NG</td></tr>
+    <tr><td>CCR</td><td>≥ 15%</td><td>3.01%（オリックス）/4.98%（神奈川）</td><td class="ng">❌ NG</td></tr>
+    <tr><td>積算比率</td><td>≥ 60%</td><td>60.5%</td><td class="ok">✅ OK（ギリ）</td></tr>
+    <tr><td>10年目税引後IRR</td><td>≥ 25%</td><td>玉川式シート要確認</td><td class="caution">⚠️ 要確認</td></tr>
+  </table>
+  <p><strong>結論:</strong> 8項目中3項目NG＋1項目要確認。利回り基準を大きく下回るため、指値なしでの購入判断は不可。</p>
+</div>
+
+<!-- 路線価・ハザード・スマサテ -->
+<div class="card survey">
+  <h2>🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</h2>
+  <table>
+    <tr><th>項目</th><th>結果</th></tr>
+    <tr><td>相続路線価</td><td class="ok">12.5万円/㎡（借地権割合D 60%・chikamap.jp 令和7年分）</td></tr>
+    <tr><td>洪水浸水想定</td><td class="caution">⚠️ 浸水区域内（深度要確認・自治体マップ再チェック必須）</td></tr>
+    <tr><td>土砂災害警戒</td><td class="caution">⚠️ イエローゾーン（要注意・レッドではないので即NGではない）</td></tr>
+    <tr><td>津波浸水想定</td><td class="ok">✅ 非該当</td></tr>
+    <tr><td>液状化危険度</td><td class="caution">確認不可（軟弱地盤エリアのため要調査）</td></tr>
+    <tr><td>総合ハザード判定</td><td class="caution">⚠️ 要注意（重説必須／融資評価にマイナス影響／水災保険マスト）</td></tr>
+    <tr><td>スマサテ賃料査定</td><td class="ok">62,000円/月/戸（1K25.5㎡） 単価2,555円/㎡・資料想定と-0.4%乖離 → <strong>賃料設定適正</strong></td></tr>
+  </table>
+  <p class="note">※ハザード自動判定は「浸水・イエロー」を検出したが、ズーム50mスクショでは桜町(六)自体は該当色なし。判定ロジックの近隣拾い誤検出の可能性あり。現地・自治体ハザードマップで最終確認必須。</p>
+  <div class="file-link teal">
+    🔍 <a href="./20260705_kawaguchi-sakuracho6_survey.html">物件調査レポート（スマサテ賃料査定・路線価・ハザード全掲載）</a>
+  </div>
+</div>
+
+<!-- ハルト -->
+<div class="card haruto">
+  <h2>👨‍💼 ハルト（エリア・利回り・空室リスク）</h2>
+  <table>
+    <tr><th>観点</th><th>コメント</th></tr>
+    <tr><td>キャプテン基準照合</td><td>4軸中3軸クリアだが<strong>利回り8.0%基準に▲1.34pt未達</strong>で致命的</td></tr>
+    <tr><td>駅の集客力</td><td>新井宿駅は<strong>埼玉高速鉄道8駅中乗降最下位</strong>（約6,230人／日）。運賃も割高でプレミアム乗せづらい</td></tr>
+    <tr><td>ミクロ立地</td><td>徒歩10分は賃料相場が下がる境目。桜町は戸建て中心の準郊外住宅街</td></tr>
+    <tr><td>相場感</td><td>新井宿・築7年木造の適正利回りは<strong>7.5〜8.0%レンジ</strong>。6.66%はエリア相場より安売り値付け</td></tr>
+    <tr><td>空室リスク</td><td>4戸物件は1戸空室=稼働75%直撃。<strong>1戸空室で利回り5.55%まで低下</strong>し融資返済ギリギリ</td></tr>
+    <tr><td>過去類似案件</td><td>PLAC/エスロジー系の川口新築（南鳩ケ谷・元郷）は6%台押しで<strong>すべて即NG判断</strong>のパターン</td></tr>
+  </table>
+  <div class="quote">
+    「PLACの川口新築系は過去2物件（南鳩ケ谷・エスロジー）とも即NGでした。本件も同じパターンです。<strong>見送り推奨</strong>で、スマサテ査定は『賃料設定は適正・買値が高すぎる』という結論のみです。次のもっと利回りが乗る球を追いかけます！」— ハルト
+  </div>
+</div>
+
+<!-- リョウ -->
+<div class="card ryo">
+  <h2>🔍 リョウ（DD・法務リスク）</h2>
+  <h3 style="font-size:14px;margin:8px 0 4px 0;">確認済み</h3>
+  <ul>
+    <li>令和1年築 → <strong>新耐震クリア確定</strong>（1981年6月以降）</li>
+    <li>賃料水準: 記載62,250円 vs スマサテ62,000円 → 乖離+0.4%・適正</li>
+    <li>南北線直通の埼玉高速鉄道アクセス圏</li>
+  </ul>
+  <h3 style="font-size:14px;margin:12px 0 4px 0;">リスクフラグ（重大）</h3>
+  <ul>
+    <li class="caution">洪水浸水想定区域内 → 融資行によっては即NGの可能性（オリックスは特に厳しい）</li>
+    <li class="caution">土砂災害イエローゾーン → 重説告知義務発生・売却時マイナス材料</li>
+    <li class="caution">液状化リスク確認不可 → 川口市は旧河川沿い低地で液状化リスク高い地域</li>
+    <li class="ng">利回り6.66%が基準未達 → 都心アクセスと築浅に偏重した価格設定</li>
+    <li class="ng">健美家キャプテン専用URL詳細不可 → 全一次資料が未入手</li>
+  </ul>
+  <h3 style="font-size:14px;margin:12px 0 4px 0;">未確認・要入手（優先度順）</h3>
+  <ol>
+    <li>マイソク／物件概要書（<strong>PLAC営業に即依頼</strong>）</li>
+    <li>全戸のレントロール（想定4戸か・空室有無・現況賃料内訳）</li>
+    <li>登記簿謄本（土地・建物）</li>
+    <li>建築確認済証・検査済証</li>
+    <li>公図・地積測量図</li>
+    <li>用途地域・建ぺい率・容積率・防火指定</li>
+    <li>修繕履歴・原状回復履歴</li>
+    <li>公課証明書または固都税納税通知書</li>
+  </ol>
+  <div class="quote">
+    「ハザード二重リスク＋利回り基準未達で、現時点では前向きに進める根拠が弱いです。ハルトの★イチオシが出ても、洪水区域の融資可否確認前は<strong>保留</strong>が私の意見。<strong>リスクレベル: 高</strong>」— リョウ
+  </div>
+  <div class="file-link">
+    📋 <a href="https://teruyone.github.io/tc-properties/properties/20260705_kawaguchi-sakuracho6_DD.html">入力済みDDチェックリストを開く</a>
+  </div>
+</div>
+
+<!-- アキ -->
+<div class="card aki">
+  <h2>💰 アキ（IG+収支計算 + 玉川式）</h2>
+  <h3 style="font-size:14px;margin:8px 0 4px 0;">収益・費用サマリー（資料賃料版）</h3>
+  <table>
+    <tr><th>項目</th><th>金額</th></tr>
+    <tr><td>満室収入</td><td>298.80万円/年</td></tr>
+    <tr><td>実収入（空室5%控除）</td><td>283.86万円</td></tr>
+    <tr><td>費用合計</td><td>▲79.35万円</td></tr>
+    <tr><td>NOI</td><td>204.51万円（NOI利回り4.56%）</td></tr>
+  </table>
+  <h3 style="font-size:14px;margin:12px 0 4px 0;">ローン試算</h3>
+  <table>
+    <tr><th>パターン</th><th>年返済</th><th>CF</th><th>CF率</th><th>返済比率</th><th>自己資金</th><th>CCR</th></tr>
+    <tr><td>①オリックス（100%・2.6%・35年）</td><td>▲195.08万</td><td class="ng">+9.43万</td><td class="ng">0.21%</td><td class="ng">65.29%</td><td>313.6万</td><td class="ng">3.01%</td></tr>
+    <tr><td>②神奈川銀行（90%・2.25%・35年）</td><td>▲166.56万</td><td class="caution">+37.95万</td><td class="ng">0.85%</td><td class="ok">55.74%</td><td>761.6万</td><td class="ng">4.98%</td></tr>
+  </table>
+  <h3 style="font-size:14px;margin:12px 0 4px 0;">積算評価</h3>
+  <p>建物1,460.45万＋土地1,250.00万＝合計<strong>2,710.45万円（積算比率60.5%）</strong> ※土地面積が判明すれば要再計算</p>
+  <h3 style="font-size:14px;margin:12px 0 4px 0;">スマサテ賃料版</h3>
+  <p>年収297.60万（資料版と-0.4%）→ CF・CCRとも微差でキャプテン基準判定は資料版と同一</p>
+  <h3 style="font-size:14px;margin:12px 0 4px 0;">★指値逆算</h3>
+  <table>
+    <tr><th>目標</th><th>到達価格</th><th>現行からの値下げ</th></tr>
+    <tr><td>表面利回り≥8.0%</td><td>3,735万円</td><td>▲745万（▲16.6%）</td></tr>
+    <tr><td>CF率≥1.0%（オリックス）</td><td>3,800万円</td><td>▲680万（▲15.2%）</td></tr>
+    <tr><td>CF率≥1.0%（神奈川）</td><td>4,200万円</td><td>▲280万（▲6.3%）</td></tr>
+    <tr><td class="ok"><strong>全指標クリア（オリックス）</strong></td><td class="ok"><strong>3,700万円</strong></td><td class="ok"><strong>▲780万（▲17.4%）</strong></td></tr>
+  </table>
+  <div class="quote">
+    「数字は正直で厳しいです。オリックスフルローン想定でCF月8千円は<strong>保有する意味がないライン</strong>。3,700万円まで指値できれば全指標クリア（利回り8.08%・CF率1.17%・CCR16.75%・積算73.3%）。売主がPLAC＝販売業者なら16%引きは大胆でも交渉余地はあるかも」— アキ
+  </div>
+  <div class="file-link green">📊 <a href="./20260705_kawaguchi-sakuracho6_IG.html">InvestGate+【資料賃料】収支試算</a></div>
+  <div class="file-link green">📊 <a href="./20260705_kawaguchi-sakuracho6_IG_sumasate.html">InvestGate+【スマサテ賃料】収支試算</a></div>
+  <div class="file-link orange">📈 <a href="./20260705_kawaguchi-sakuracho6_TG.html">玉川式収益試算シート（10年目IRR確認）</a></div>
+</div>
+
+<!-- 村田先生 -->
+<div class="card murata">
+  <h2>🏗️ 村田先生（一級建築士・35年）</h2>
+  <table>
+    <tr><th>観点</th><th>コメント</th></tr>
+    <tr><td>築7年木造の総評</td><td>「建物として一番元気な時期」。<strong>2000年基準（耐震大幅強化）＋新耐震クリア</strong>で耐震性は現行最高水準</td></tr>
+    <tr><td>直近5年の修繕</td><td>給湯器交換（40〜60万）・バルコニーFRPトップコート（20〜40万）程度。<strong>大きな出費なし＝CF積み上げ黄金期</strong></td></tr>
+    <tr><td>中期10年の修繕</td><td>外壁シーリング打ち替え＋塗装（80〜100万）・屋根防水（50〜100万）。年30〜40万積み立てで対応可</td></tr>
+    <tr><td>桜町6丁目の地盤評価</td><td class="caution"><strong>荒川・芝川水系の沖積低地エリア（軟弱地盤）</strong>。ハザード浸水判定は地形的に整合する結果で誤検出ではない可能性</td></tr>
+    <tr><td>建築士として必須の入手書類</td><td>①検査済証 ②地盤調査報告書（SWS試験） ③地盤改良工事記録 ④住宅瑕疵担保保険証券 の<strong>4点セット</strong></td></tr>
+    <tr><td>浸水想定への対策</td><td>1階床高（GL+50cm標準）・分電盤/給湯器/エアコン室外機の設置位置を高床に。<strong>火災保険は水災補償マスト</strong></td></tr>
+  </table>
+  <h3 style="font-size:14px;margin:12px 0 4px 0;">現地で必ず確認したい4点（築7年木造の急所）</h3>
+  <ol>
+    <li>外壁シーリングの状態（南面・西面の紫外線劣化）</li>
+    <li>バルコニーFRP防水のトップコート剥離・膨れ</li>
+    <li>基礎クラック（0.3mm以上／白華現象は要注意）</li>
+    <li>1階床の傾き（軟弱地盤エリアなので特に）</li>
+  </ol>
+  <div class="quote">
+    「現場を見ないと断言はできませんが、建物自体は築7年で優等生。<strong>問題は地盤・立地リスクをどう評価するか</strong>。私だったら4点セットを買付前に取り寄せます。揃わないなら価格交渉の材料に。<strong>『建物は正直者』</strong>です」— 村田
+  </div>
+</div>
+
+<!-- キャプテン確認事項 -->
+<div class="card summary">
+  <h2>📞 キャプテンへの確認事項まとめ（PLAC営業への打診事項）</h2>
+  <h3 style="font-size:14px;margin:8px 0 4px 0;">最優先（マイソク＆基本情報）</h3>
+  <ol>
+    <li><strong>取引態様</strong>（仲介 or 売主）— 諸費用が150万円変動</li>
+    <li><strong>正確な戸数・レントロール</strong>（4戸想定・現況家賃・空室有無）</li>
+    <li><strong>土地面積・延床面積</strong>（積算比率と土地評価に直結）</li>
+    <li><strong>構造詳細</strong>（木造在来／2×4／軽鉄で耐用年数変わる）</li>
+    <li><strong>前面道路幅員・接道状況</strong>（再建築可否）</li>
+    <li><strong>用途地域・建ぺい率・容積率・防火指定</strong></li>
+  </ol>
+  <h3 style="font-size:14px;margin:12px 0 4px 0;">建物・法令</h3>
+  <ol start="7">
+    <li>検査済証・建築確認済証（副本）</li>
+    <li>地盤調査報告書（SWS試験・N値・支持層深さ）</li>
+    <li>地盤改良工事記録（柱状改良か表層改良か）</li>
+    <li>住宅瑕疵担保保険証券</li>
+    <li>修繕履歴・原状回復履歴</li>
+  </ol>
+  <h3 style="font-size:14px;margin:12px 0 4px 0;">交渉・価格</h3>
+  <ol start="12">
+    <li><strong>売主指値の柔軟性</strong>（利回り8%到達には3,735万・全指標クリアには3,700万）</li>
+    <li>契約不適合責任の条件（売主が個人か法人か・免責特約の有無）</li>
+    <li>公課証明書または固都税納税通知書（実額）</li>
+  </ol>
+  <h3 style="font-size:14px;margin:12px 0 4px 0;">融資</h3>
+  <ol start="15">
+    <li>洪水浸水想定深の確認（0.5m未満なら融資可の行あり）</li>
+    <li>神奈川銀行またはauじぶん銀行への事前ヒアリング推奨</li>
+  </ol>
+</div>
+
+<!-- チーム総合所見 -->
+<div class="card summary">
+  <h2>🎯 チーム総合所見</h2>
+  <table>
+    <tr><th>観点</th><th>判定・コメント</th></tr>
+    <tr><td>総合判定</td><td class="ng"><strong>見送り推奨（現価格4,480万での買付NG）</strong></td></tr>
+    <tr><td>最大リスク</td><td>①利回り6.66%＝キャプテン基準8%に▲1.34pt未達<br>②ハザード二重リスク（洪水想定＋土砂イエロー）<br>③4戸小規模＋1戸空室で利回り5.55%まで低下</td></tr>
+    <tr><td>最大の魅力</td><td>①築7年・新耐震＋2000年基準クリアで建物優等生<br>②南北線直通の都心アクセス圏<br>③スマサテ査定と資料賃料が一致（賃料上振れ余地なし＝ダウンサイド少）</td></tr>
+    <tr><td>次のアクション</td><td>
+      1. PLAC営業へマイソク・レントロール・4点書類要請<br>
+      2. 取引態様・戸数・土地面積を確定させて再計算<br>
+      3. 買うなら<strong>3,700万円（▲17.4%）の指値打診</strong>。飲まなければ即撤退<br>
+      4. 過去のPLAC/エスロジー系新築（南鳩ケ谷・元郷）と同パターンのため、指値を飲む可能性は低い
+    </td></tr>
+    <tr><td>キャプテンへの一言</td><td>「築7年・4,480万・16号内側と3軸クリアで惜しく見えますが、新井宿駅は路線最下位で運賃プレミアム乗せづらく、6.66%はエリア相場より安売り値付け。<strong>指値なしなら見送り、指値打診するなら3,700万円が最終防衛ライン</strong>です」（チーム一同）</td></tr>
+  </table>
+</div>
+
+</main>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260705_kawaguchi-sakuracho6_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260705_kawaguchi-sakuracho6_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
