@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>京急富岡（仮称） 精査レポート | TC Capitals 仕入部</title>
+<style>
+  body { font-family: 'Segoe UI', 'Hiragino Sans', sans-serif; background: #f5f7fa; margin: 0; padding: 20px; color: #223; line-height: 1.7; }
+  .container { max-width: 1000px; margin: 0 auto; }
+  .hdr { background: #1e3a5f; color: #fff; padding: 24px 30px; border-radius: 10px 10px 0 0; }
+  .hdr h1 { margin: 0; font-size: 24px; }
+  .hdr .sub { color: #cfd9e5; margin-top: 6px; font-size: 14px; }
+  .card { background: #fff; padding: 22px 28px; margin-bottom: 18px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .card h2 { margin-top: 0; font-size: 18px; padding-bottom: 8px; border-bottom: 2px solid #eee; }
+  .h-haruto { color: #d97706; border-bottom-color: #fbbf24 !important; }
+  .h-ryo    { color: #1d4ed8; border-bottom-color: #60a5fa !important; }
+  .h-aki    { color: #059669; border-bottom-color: #34d399 !important; }
+  .h-murata { color: #92400e; border-bottom-color: #d6a878 !important; }
+  .h-hazard { color: #0f766e; border-bottom-color: #5eead4 !important; }
+  .summary-table, .basis-table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+  .summary-table td, .summary-table th, .basis-table td, .basis-table th { padding: 8px 12px; border-bottom: 1px solid #e5e7eb; text-align: left; font-size: 14px; }
+  .summary-table th, .basis-table th { background: #f3f4f6; }
+  .ok { color: #16a34a; font-weight: bold; }
+  .ng { color: #dc2626; font-weight: bold; }
+  .warn { color: #d97706; font-weight: bold; }
+  .box-alert { background: #fef2f2; border-left: 4px solid #dc2626; padding: 12px 16px; margin: 10px 0; }
+  .box-warn { background: #fffbeb; border-left: 4px solid #d97706; padding: 12px 16px; margin: 10px 0; }
+  .box-info { background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 12px 16px; margin: 10px 0; }
+  ul { padding-left: 22px; }
+  a { color: #1d4ed8; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .pill { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; margin-right: 5px; }
+  .pill-ng { background: #fecaca; color: #b91c1c; }
+  .pill-ok { background: #bbf7d0; color: #166534; }
+  .pill-warn { background: #fde68a; color: #92400e; }
+  .footer { text-align: center; color: #94a3b8; font-size: 12px; margin-top: 30px; }
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260705_keikyu-tomioka_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8100&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.45&floorArea=150&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=13&taxRateIncome=20&pi_price_inp=8369&pi_age_inp=0&pi_yield_inp=7.80&pi_area_inp=200&pi_rooms_inp=8&ik_land_area=130&ik_route_price=10&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E9%87%91%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%87%91%E6%B2%A2%E5%8C%BA%E5%AF%8C%E5%B2%A1%E8%A5%BF3%E4%B8%81%E7%9B%AE" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8100&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.45&floorArea=150&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=13&taxRateIncome=20&pi_price_inp=8369&pi_age_inp=0&pi_yield_inp=7.69&pi_area_inp=200&pi_rooms_inp=8&ik_land_area=130&ik_route_price=10&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E9%87%91%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%87%91%E6%B2%A2%E5%8C%BA%E5%AF%8C%E5%B2%A1%E8%A5%BF3%E4%B8%81%E7%9B%AE" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260705_keikyu-tomioka_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20260705_keikyu-tomioka_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+<div class="container">
+
+<div class="hdr">
+  <h1>🏢 京急富岡（仮称） 精査レポート</h1>
+  <div class="sub">TC Capitals 仕入部チーム | 精査日: 2026-07-05 | 精査員: ハルト・リョウ・アキ・村田先生</div>
+</div>
+
+<div class="card">
+  <h2>📋 物件サマリー</h2>
+  <table class="summary-table">
+    <tr><th>所在地</th><td>神奈川県横浜市金沢区富岡西3丁目</td></tr>
+    <tr><th>交通</th><td>京急本線『京急富岡』駅 徒歩9分／『能見台』駅 徒歩16分（京急富岡駅 乗降客約20,000人/日）</td></tr>
+    <tr><th>価格</th><td>8,369万円</td></tr>
+    <tr><th>表面利回り</th><td>7.80%（満室想定年収 約652.8万円）</td></tr>
+    <tr><th>構造・築年</th><td><span class="warn">未確認</span>（新築木造アパート想定・要キャプテン確認）</td></tr>
+    <tr><th>戸数・面積</th><td><span class="warn">未確認</span>（推定 8戸／延床200㎡／土地130㎡・1K25㎡想定）</td></tr>
+    <tr><th>取引態様</th><td>仲介（センチュリー21 ハウスウェル 志水氏／非公開・★ローンブレイク★）</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2>🎯 キャプテン基準チェック</h2>
+  <table class="basis-table">
+    <tr><th>項目</th><th>基準</th><th>実績</th><th>判定</th></tr>
+    <tr><td>物件価格</td><td>≤ 1億円</td><td>8,369万円</td><td><span class="pill pill-ok">OK</span></td></tr>
+    <tr><td>表面利回り</td><td>≥ 8.0%</td><td>7.80%</td><td><span class="pill pill-ng">NG（0.2pt割れ）</span></td></tr>
+    <tr><td>築年</td><td>≤ 10年</td><td>未確認（新築想定）</td><td><span class="pill pill-warn">要確認</span></td></tr>
+    <tr><td>エリア</td><td>16号内側</td><td>金沢区（16号外側）</td><td><span class="pill pill-ng">NG</span></td></tr>
+    <tr><td>10年目税引後IRR</td><td>≥ 25%</td><td>玉川式シート要確認</td><td><span class="pill pill-warn">要確認</span></td></tr>
+  </table>
+  <div class="box-warn">
+    <strong>総合基準判定:</strong> 利回り0.2pt割れ＋16号外側の<strong>ダブル基準外</strong>。<br>
+    ローンブレイク物件のため<strong>指値10〜15%（7,100〜7,530万円）で利回り8.6〜9.2%到達</strong>が現実的なリカバリー戦略。
+  </div>
+</div>
+
+<div class="card">
+  <h2 class="h-hazard">🗺️ 路線価・ハザードマップ・スマサテ査定（事前調査）</h2>
+
+  <h3 style="color:#0f766e;">💰 相続路線価</h3>
+  <div class="box-warn">
+    <strong>要確認（chikamap取得失敗）</strong> — 住所入力フィールド不検出でエラー。統合レポートの計算では暫定10万円/㎡を使用。
+    <br>参考: 金沢区住宅地の相場は概ね9〜11万円/㎡水準。国税庁 <a href="https://www.rosenka.nta.go.jp/main_r07/tokyo/kanagawa/prices/city_frm.htm" target="_blank">令和7年分神奈川県路線価図</a> で富岡西3丁目を要検索。
+  </div>
+
+  <h3 style="color:#0f766e;">🏔️ 重ねるハザードマップ</h3>
+  <table class="basis-table">
+    <tr><th>洪水浸水想定</th><td>✅ 非該当</td></tr>
+    <tr><th>土砂災害警戒</th><td><span class="ng">⚠️ イエローゾーン（急傾斜地の崩壊 警戒区域）</span></td></tr>
+    <tr><th>津波浸水想定</th><td>✅ 非該当</td></tr>
+    <tr><th>液状化危険度</th><td>確認不可</td></tr>
+    <tr><th>総合ハザード判定</th><td><span class="warn">⚠️ 要注意（レッド非該当・イエロー該当）</span></td></tr>
+  </table>
+  <p style="font-size:12px;color:#666;margin-top:6px;">座標: 北緯35.36816°／東経139.62367° | 出典: 国土交通省・国土地理院「重ねるハザードマップ」</p>
+
+  <h3 style="color:#0f766e;">🏠 スマサテ賃料査定</h3>
+  <table class="basis-table">
+    <tr><th>査定条件</th><td>木造・1K・専有面積25.5㎡・築0年・京急富岡駅徒歩9分</td></tr>
+    <tr><th>標準賃料</th><td><strong>67,000円/戸</strong>（単価 2,723円/㎡・9,000円/坪）</td></tr>
+    <tr><th>資料想定賃料</th><td>68,000円/戸（推定）</td></tr>
+    <tr><th>乖離</th><td>▲1.5%（<span class="ok">賃料設定はほぼ適正</span>）</td></tr>
+  </table>
+
+  <p>➡ <strong><a href="{survey_url}" target="_blank">📄 物件調査レポート（スマサテ査定・ハザードマップ詳細）</a></strong></p>
+</div>
+
+<div class="card">
+  <h2 class="h-haruto">🧑‍💼 ハルト（エリア・利回り分析）</h2>
+  <p><strong>結論: ⚠️ 様子見（指値前提でイチオシ格上げ可能性あり）</strong></p>
+  <ul>
+    <li><strong>エリア評価:</strong> 金沢区は当社municipality-dbで<strong>Dランク（1pt）・16号外側・人口▲5,660人・転入超過▲482人</strong>と最低評価。エリア単体では逆風。</li>
+    <li><strong>駅力:</strong> 京急富岡駅乗降2万人・品川約35分・横浜約15分。都心通勤圏に入るが上位ではない。ラッシュ時は快特通過駅で不便。能見台徒歩16分は実質使えない → 京急富岡単独駅前提。</li>
+    <li><strong>賃貸需要:</strong> 富岡西3丁目は高低差ある古い分譲地・ファミリー主体エリア。単身1K需要は駅5〜7分圏に集中し、徒歩9分はやや弱含み。</li>
+    <li><strong>相場感:</strong> 京急沿線・金沢区・新築木造は7.5〜8.2%が中央値。<strong>7.80%は相場並みで優位性なし</strong>。</li>
+    <li><strong>過去履歴:</strong> 2026-06-24に同駅Footwork物件（8,300万/6.49%/築8年/8戸/19.85㎡）を⚡基準外注目でピックアップ済み。狭小戸19〜20㎡なら賃料65,000円/戸まで下振れリスク。</li>
+    <li><strong>イエローゾーン影響:</strong> 賃貸需要への直接影響は限定的だが、出口戦略で法人買主・金融機関評価に響く。</li>
+  </ul>
+  <div class="box-info">
+    <strong>ハルトからの必須アクション:</strong>
+    ① 築年・戸数・専有面積の即時取得、② 19〜20㎡狭小戸ならスマサテ再査定、③ イエローゾーンのオリックス/auじぶん融資可否確認（融資部ケンジ）、④ 志水氏に指値余地ヒアリング（7,900万で8.26%到達目標）。
+  </div>
+</div>
+
+<div class="card">
+  <h2 class="h-ryo">🕵️ リョウ（DDチェックリスト）</h2>
+  <p><strong>結論: 判定保留（要情報開示）</strong> — 構造・築年・戸数すら未確定で、土砂イエロー＋ローンブレイクの二重難易度。開示が渋いなら手を引くべき。</p>
+
+  <h3 style="color:#1d4ed8;">🚩 リスクフラグ</h3>
+  <ul>
+    <li><strong>土砂災害イエローゾーン（急傾斜地）:</strong> オリックス・auじぶんの標準スキームでLTV減額もしくは謝絶リスク大。金沢区富岡西は台地端で高低差地形が多く、擁壁付帯の可能性高。</li>
+    <li><strong>ローンブレイク再販:</strong> 前回買主で融資が落ちた事実がDDの重要材料。土砂起因なら次の買主も同じ壁に当たる。</li>
+    <li><strong>非公開物件:</strong> 情報開示が段階的になりやすい。プロフィールシート提出前に構造・築年すら開示されないパターンあり。</li>
+    <li><strong>利回り7.80%:</strong> キャプテン基準8.0%を0.2%割れ。指値10〜15%で8.6〜9.2%到達がリカバリー案。</li>
+  </ul>
+
+  <h3 style="color:#1d4ed8;">🎯 最大リスクと対処</h3>
+  <p><strong>最大リスク: 土砂イエローゾーン起因のローン否決の再発</strong></p>
+  <ul>
+    <li>事前診断: 志水氏に(a)前回否決の金融機関名と理由、(b)敷地のイエロー被り範囲図、(c)擁壁の有無と設置年、を<strong>買付前に必ず開示させる</strong></li>
+    <li>融資ルート切替: 既存プラン（オリックス→auじぶん）ではなく<strong>神奈川銀行（イエローゾーン救済枠）を第一候補</strong>に切替。融資部ケンジに神奈川銀行の金沢区・イエロー取扱条件を先行照会</li>
+  </ul>
+
+  <p>➡ <strong><a href="{dd_url}" target="_blank">📋 DDチェックリスト（入力済み）</a></strong></p>
+</div>
+
+<div class="card">
+  <h2 class="h-aki">💰 アキ（IG+収支計算 + 玉川式）</h2>
+  <p><strong>結論: 数字は合格ラインギリギリ</strong> — CF率・CCRは健全水準だが、利回り0.2pt割れが痛い。決定打は<strong>路線価の実額</strong>と<strong>戸数・面積の確定</strong>。</p>
+
+  <h3 style="color:#059669;">📊 収支2パターン</h3>
+  <table class="basis-table">
+    <tr><th>指標</th><th>パターンA（オリックス 100%・2.6%・35年）</th><th>パターンB（神奈川銀行 90%・2.25%・35年）</th></tr>
+    <tr><td>満室年収</td><td>652.8万円</td><td>652.8万円</td></tr>
+    <tr><td>実効年収（空室率5%）</td><td>620.2万円</td><td>620.2万円</td></tr>
+    <tr><td>NOI</td><td>約 493万円（NOI率 5.89%）</td><td>約 493万円</td></tr>
+    <tr><td>年間返済</td><td>約 369.4万円</td><td>約 311.4万円</td></tr>
+    <tr><td>CF</td><td><span class="ok">123.7万円</span></td><td><span class="ok">181.8万円</span></td></tr>
+    <tr><td>CF率</td><td><span class="ok">1.48%</span></td><td><span class="ok">2.17%</span></td></tr>
+    <tr><td>CCR</td><td><span class="ok">21.1%（B以上）</span></td><td><span class="ng">12.8%（NG）</span></td></tr>
+    <tr><td>返済比率</td><td>56.6%</td><td>47.7%</td></tr>
+    <tr><td>積算比率</td><td colspan="2">65.7%（路線価10万円/㎡仮定・要確認）</td></tr>
+  </table>
+
+  <h3 style="color:#059669;">🔁 スマサテ賃料版</h3>
+  <p>スマサテ査定 67,000円/戸 × 8戸 × 12ヶ月 = 6,432,000円 → 表面利回り <strong>7.69%</strong>（資料より▲0.11pt）。パターンA CF: 約115万円・CF率1.37%で耐性あり。</p>
+
+  <h3 style="color:#059669;">✅ キャプテン基準6指標</h3>
+  <table class="basis-table">
+    <tr><th>指標</th><th>基準</th><th>結果（パターンA）</th></tr>
+    <tr><td>価格</td><td>≤1億</td><td><span class="ok">OK</span></td></tr>
+    <tr><td>利回り</td><td>≥8.0%</td><td><span class="ng">NG（7.80%）</span></td></tr>
+    <tr><td>CF率</td><td>-</td><td><span class="ok">OK（1.48%）</span></td></tr>
+    <tr><td>CCR</td><td>-</td><td><span class="ok">OK（21.1%）</span></td></tr>
+    <tr><td>積算比率</td><td>≥60%</td><td><span class="ok">OK（65.7%仮）</span></td></tr>
+    <tr><td>10年目税引後IRR</td><td>≥25%</td><td><span class="warn">玉川式で要確認</span></td></tr>
+  </table>
+
+  <p>
+    ➡ <strong><a href="{ig_url}" target="_blank">📊 InvestGate+【資料賃料】収支試算</a></strong><br>
+    ➡ <strong><a href="{ig_sumasate_url}" target="_blank">📊 InvestGate+【スマサテ賃料】収支試算</a></strong><br>
+    ➡ <strong><a href="{tg_url}" target="_blank">📈 玉川式収益試算シート（35年CF・10年目IRR）</a></strong>
+  </p>
+</div>
+
+<div class="card">
+  <h2 class="h-murata">🏗️ 村田先生（一級建築士コメント）</h2>
+  <p><em>「現場を見ないと断言はできませんが、資料段階の見立てをお伝えします。」</em></p>
+
+  <ul>
+    <li><strong>構造推定:</strong> 木造3階建て・8〜9戸のワンルーム新築が濃厚。3階建て木造は<strong>構造計算書（許容応力度計算）</strong>が必須。準耐火建築物・耐力壁バランス・接合金物（Zマーク）・ベタ基礎配筋の4点を確認。</li>
+    <li><strong>土砂災害イエローゾーン:</strong> 建築基準法上の直接制限はないが、富岡西は起伏地形で<strong>横浜市がけ条例</strong>が高確率で適用される。<strong>擁壁の検査済証</strong>が最重要。既存不適格の空石積み・大谷石擁壁・二段擁壁だと将来数百万〜1千万コースの再構築負担。</li>
+    <li><strong>修繕サイクル（新築仮定）:</strong>
+      <ul>
+        <li>5年目: シロアリ防除再施工 15〜25万円</li>
+        <li>10〜12年目: 外壁塗装・シーリング打替 <strong>80〜120万円</strong></li>
+        <li>10〜15年目: 屋根点検・補修 30〜80万円</li>
+        <li>10年目: 給湯器交換順次 約100万円（戸数×12万円）</li>
+        <li>15年目: バルコニー防水・鉄部塗装 40〜60万円</li>
+      </ul>
+    </li>
+    <li><strong>法令適合性確認:</strong> ①確認済証・検査済証（新築必須）、②構造計算書、③接道（4m/42条種別・セットバック）、④用途地域、⑤横浜市がけ条例適合証明、⑥宅地造成等規制法許可有無、⑦準防火・建蔽容積</li>
+    <li><strong>現地確認必須:</strong> ①急傾斜地の位置関係（敷地内 or 敷地外）、②擁壁の種類・築年・検査済証、③隣地との高低差、④雨水排水（浸透 or 側溝）、⑤基礎立ち上がり・水切り、⑥外壁シーリング、⑦バルコニー防水立ち上がり、⑧崖側の湿気状況</li>
+  </ul>
+
+  <div class="box-warn">
+    <strong>村田先生の総合コメント:</strong><br>
+    ローンブレイクの原因は<strong>「土砂災害イエローゾーン＋急傾斜地」を金融機関が担保評価で嫌った可能性が高い</strong>。オリックス・SBJ・スルガは土砂警戒区域を明確に減点、地銀も土地評価を保守的に見る。<br>
+    <strong>擁壁が敷地内にあり検査済証が無い or 既存不適格の場合は「見送り推奨」</strong>。将来の売却でも同じ理由でローンが付かず出口が閉じる。逆に擁壁が敷地外・建物が平坦地・がけ条例クリア証明ありなら、他行で通せる可能性は十分。<br>
+    <strong>キャプテン、まずは「擁壁の位置と検査済証の有無」を最優先で確認してください。これがイエス/ノーを分ける最大の論点です。</strong>
+  </div>
+</div>
+
+<div class="card">
+  <h2>❓ キャプテンへの確認事項まとめ</h2>
+  <div class="box-info">
+    <p><strong>【志水氏へ即時開示要求】</strong></p>
+    <ol>
+      <li>構造・築年・階数・戸数・各戸間取り・専有面積・延床/土地面積</li>
+      <li>建築確認日・検査済証の有無・構造計算書（3階建て木造なら必須）</li>
+      <li>用途地域・容積率・建ぺい率・接道（幅員・種別・間口・セットバック）</li>
+      <li>現況レントロール・入居者属性・原状回復履歴</li>
+      <li><strong>擁壁の位置（敷地内 or 敷地外）・種類・築年・検査済証</strong>（村田先生・リョウ最優先）</li>
+      <li><strong>イエローゾーンの敷地内被り範囲図</strong>（融資減額判定材料）</li>
+      <li><strong>ローンブレイクの経緯</strong>（前回申込金融機関・落ちた理由・時期）</li>
+      <li>修繕履歴・修繕予定・雨漏り/シロアリ/漏水事故歴</li>
+      <li>境界確定書・越境物・私道負担</li>
+      <li>現管理会社・管理形態・空室ラグ</li>
+      <li>固都税実額（納税通知書）・土地建物固定資産税評価額</li>
+      <li>相続路線価の実額（chikamap失敗のため要マニュアル確認）</li>
+      <li>劣化対策等級（等級3なら融資30年・積算アップ）</li>
+      <li><strong>指値可否</strong>（7,100〜7,900万円レンジ・利回り8.26〜9.19%到達）</li>
+    </ol>
+
+    <p><strong>【融資部ケンジへ先行照会】</strong></p>
+    <ul>
+      <li>神奈川銀行の金沢区・土砂イエローゾーン取扱条件（LTV・金利・築年）</li>
+      <li>オリックス・auじぶんのイエローゾーン取扱姿勢</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <h2>🎯 チーム総合所見</h2>
+
+  <table class="basis-table">
+    <tr><th>担当</th><th>判定</th></tr>
+    <tr><td>ハルト（エリア）</td><td><span class="warn">⚠️ 様子見（指値前提でイチオシ格上げ可能性）</span></td></tr>
+    <tr><td>リョウ（DD）</td><td><span class="warn">⚠️ 判定保留（要情報開示・開示渋なら見送り）</span></td></tr>
+    <tr><td>アキ（収支）</td><td><span class="warn">⚠️ 合格ラインギリギリ（利回り0.2pt割れ・積算要確認）</span></td></tr>
+    <tr><td>村田先生（建築）</td><td><span class="warn">⚠️ 擁壁次第（敷地内・検査済証なしなら見送り推奨）</span></td></tr>
+  </table>
+
+  <div class="box-alert">
+    <p><strong>チーム総合判定: 「情報開示待ち」→「指値+融資設計次第で復活」</strong></p>
+    <p><strong>最大リスク:</strong> 土砂災害イエローゾーン起因のローン否決の再発</p>
+    <p><strong>次のアクション（キャプテンお願いします）:</strong></p>
+    <ol>
+      <li><strong>志水氏に14項目の情報開示要求</strong>（構造・築年・戸数・擁壁・ローンブレイク経緯 等）</li>
+      <li><strong>融資部ケンジに神奈川銀行事前照会</strong>（金沢区・イエロー取扱条件）</li>
+      <li>擁壁関連の情報が揃い次第、村田先生に再確認</li>
+      <li>指値ロジック設計（7,900万→8.26%、7,530万→8.66%、7,100万→9.19%）</li>
+      <li>実際の戸数・専有面積が判明したらスマサテ再査定＆IG+/玉川式を実賃料で再計算</li>
+    </ol>
+    <p style="margin-top:10px;font-size:13px;color:#666;">※過去に同駅Footwork物件（8,300万/6.49%）を⚡基準外注目でピックアップ済み。同駅の再提案はキャプテンの心証に注意。</p>
+  </div>
+</div>
+
+<div class="footer">
+  © TC Capitals 仕入部 | 精査ID: 20260705_keikyu-tomioka | Team: ハルト・リョウ・アキ・村田先生
+</div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260705_keikyu-tomioka_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260705_keikyu-tomioka_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
