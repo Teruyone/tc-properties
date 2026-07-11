@@ -605,15 +605,15 @@
     <div class="info-grid">
       <div class="info-field wide">
         <label>物件名・通称</label>
-        <input type="text" id="prop-name" placeholder="例: ○○アパート 上大岡" oninput="updatePropName(this.value)" value="我孫子市つくし野7丁目 新築アパート">
+        <input type="text" id="prop-name" placeholder="例: ○○アパート 上大岡" oninput="updatePropName(this.value)" value="我孫子市つくし野7丁目アパート">
       </div>
       <div class="info-field wide">
         <label>所在地（住所）</label>
-        <input type="text" id="prop-addr" placeholder="例: 横浜市南区大岡4丁目〇〇" value="千葉県我孫子市つくし野7丁目985番7、985-1の一部">
+        <input type="text" id="prop-addr" placeholder="例: 横浜市南区大岡4丁目〇〇" value="千葉県我孫子市つくし野7丁目985-7">
       </div>
       <div class="info-field">
         <label>交通アクセス</label>
-        <input type="text" id="prop-access" placeholder="例: 京急 上大岡駅 徒歩9分" value="JR常磐線 我孫子駅 徒歩16分">
+        <input type="text" id="prop-access" placeholder="例: 京急 上大岡駅 徒歩9分" value="JR常磐線「我孫子」駅 徒歩16分">
       </div>
       <div class="info-field">
         <label>構造</label>
@@ -627,39 +627,39 @@
       </div>
       <div class="info-field">
         <label>築年月（確認申請日）</label>
-        <input type="text" id="prop-age" placeholder="例: 2019年3月（築6年）" value="2026年7月完成予定（新築）">
+        <input type="text" id="prop-age" placeholder="例: 2019年3月（築6年）" value="新築（2026年12月完成予定）">
       </div>
       <div class="info-field">
         <label>物件価格（万円）</label>
-        <input type="number" id="prop-price" placeholder="例: 8500" value="3400">
+        <input type="number" id="prop-price" placeholder="例: 8500" value="3,400万円">
       </div>
       <div class="info-field">
         <label>表面利回り（%）</label>
-        <input type="number" step="0.01" id="prop-yield" placeholder="例: 7.27" value="7.06">
+        <input type="number" step="0.01" id="prop-yield" placeholder="例: 7.27" value="想定7.0%（資料）/ スマサテ査定7.27%">
       </div>
       <div class="info-field">
         <label>部屋数・間取り</label>
-        <input type="text" id="prop-rooms" placeholder="例: 1K×12戸" value="1R×2+1DK×2（4戸）">
+        <input type="text" id="prop-rooms" placeholder="例: 1K×12戸" value="4戸（1R×2、1DK×2）">
       </div>
       <div class="info-field">
         <label>延床面積（㎡）</label>
-        <input type="number" id="prop-floor" placeholder="例: 194" value="80.57">
+        <input type="number" id="prop-floor" placeholder="例: 194" value="80.57㎡">
       </div>
       <div class="info-field">
         <label>土地面積（㎡）</label>
-        <input type="number" id="prop-land" placeholder="例: 558" value="100">
+        <input type="number" id="prop-land" placeholder="例: 558" value="92.37㎡（公簿）">
       </div>
       <div class="info-field">
         <label>取引態様</label>
         <select id="prop-torihiki">
           <option value="">選択</option>
-          <option value="仲介" selected>仲介（諸費用7%）</option>
-          <option value="売主">売主（諸費用4%）</option>
+          <option value="仲介">仲介（諸費用7%）</option>
+          <option value="売主" selected>売主（諸費用4%）</option>
         </select>
       </div>
       <div class="info-field">
         <label>仲介業者・担当者</label>
-        <input type="text" id="prop-broker" placeholder="例: 藤仁エステート 工藤" value="株式会社Brain Trust from The Sun / 中上和則">
+        <input type="text" id="prop-broker" placeholder="例: 藤仁エステート 工藤" value="売主直販（仲介手数料なし）">
       </div>
       <div class="info-field">
         <label>情報入手日</label>
@@ -667,7 +667,7 @@
       </div>
       <div class="info-field full">
         <label>初見メモ・特記事項</label>
-        <textarea id="prop-memo" placeholder="例: 路線価180千円/㎡・積算108%・静岡銀行Aプランで融資打診可能…">路線価9.2万円/㎡（D60%）・積算比率76.8%・洪水浸水10-20m即NG該当・地耐力データ仮定値（着工前実測）・位置指定道路4.0m×38.3m・融資検討先=滋賀銀行</textarea>
+        <textarea id="prop-memo" placeholder="例: 路線価180千円/㎡・積算108%・静岡銀行Aプランで融資打診可能…">主要用途「長屋(4世帯)」／建築確認 第26UDI1W建00699号（令和8年5月7日・ユーディーアイ確認検査）／確認済証に「必ず着工前に地耐力調査を行い当機関に報告」の条件付き／私道4.0m・接道2.0m／★洪水浸水想定10-20m（家屋倒壊等氾濫想定区域相当・見送り推奨）</textarea>
       </div>
     </div>
 
