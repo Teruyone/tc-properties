@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ブリックス生田 チーム精査レポート | TC Capitals 仕入部</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', 'Hiragino Sans', 'Meiryo', sans-serif; background: #f5f7fa; color: #333; margin: 0; padding: 0; line-height: 1.65; }
+  .header { background: linear-gradient(135deg, #1a3a6b 0%, #2c5aa0 100%); color: #fff; padding: 32px 40px; }
+  .header h1 { margin: 0 0 8px; font-size: 26px; letter-spacing: 0.02em; }
+  .header .meta { font-size: 13px; opacity: 0.9; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 24px 32px 60px; }
+  .card { background: #fff; border-radius: 8px; padding: 24px 28px; margin: 20px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+  .card h2 { margin: 0 0 16px; font-size: 18px; padding-bottom: 10px; border-bottom: 3px solid; }
+  .card.summary h2 { border-color: #1a3a6b; color: #1a3a6b; }
+  .card.criteria h2 { border-color: #6b21a8; color: #6b21a8; }
+  .card.haruto h2 { border-color: #f97316; color: #c2410c; }
+  .card.ryo h2 { border-color: #2563eb; color: #1d4ed8; }
+  .card.aki h2 { border-color: #16a34a; color: #15803d; }
+  .card.murata h2 { border-color: #92400e; color: #78350f; }
+  .card.captain h2 { border-color: #dc2626; color: #b91c1c; }
+  .card.overall h2 { border-color: #1a3a6b; color: #1a3a6b; }
+  .card.hazard h2 { border-color: #0d9488; color: #0f766e; }
+  .alert-ng { background: #fee2e2; border: 2px solid #dc2626; color: #7f1d1d; padding: 20px 24px; border-radius: 8px; margin: 24px 0; font-weight: bold; font-size: 16px; }
+  .alert-ng .big { font-size: 20px; display: block; margin-bottom: 8px; }
+  table.info { width: 100%; border-collapse: collapse; margin: 8px 0; }
+  table.info th, table.info td { text-align: left; padding: 8px 12px; border-bottom: 1px solid #e5e7eb; font-size: 14px; }
+  table.info th { background: #f9fafb; color: #4b5563; width: 35%; font-weight: 600; }
+  table.crit { width: 100%; border-collapse: collapse; }
+  table.crit th, table.crit td { text-align: left; padding: 10px 14px; border: 1px solid #e5e7eb; font-size: 14px; }
+  table.crit th { background: #6b21a8; color: #fff; }
+  table.crit td.ok { background: #dcfce7; color: #14532d; font-weight: 600; text-align: center; }
+  table.crit td.ng { background: #fee2e2; color: #7f1d1d; font-weight: 600; text-align: center; }
+  .ok-badge { display: inline-block; background: #16a34a; color: #fff; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-right: 6px; }
+  .ng-badge { display: inline-block; background: #dc2626; color: #fff; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-right: 6px; }
+  .warn-badge { display: inline-block; background: #f59e0b; color: #fff; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-right: 6px; }
+  .info-badge { display: inline-block; background: #2563eb; color: #fff; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-right: 6px; }
+  ul { padding-left: 24px; }
+  li { margin: 4px 0; }
+  .link-list a { display: inline-block; background: #eff6ff; color: #1d4ed8; padding: 8px 14px; border-radius: 6px; margin: 4px 8px 4px 0; text-decoration: none; font-size: 13px; border: 1px solid #bfdbfe; }
+  .link-list a:hover { background: #dbeafe; }
+  .hazard-line { display: flex; padding: 6px 0; border-bottom: 1px dashed #e5e7eb; font-size: 14px; }
+  .hazard-line .label { width: 200px; color: #4b5563; }
+  .hazard-line .val { flex: 1; }
+  .quote { background: #f3f4f6; border-left: 4px solid #6b7280; padding: 10px 16px; margin: 10px 0; font-style: italic; color: #4b5563; font-size: 13px; }
+  h3 { color: #1a3a6b; margin: 16px 0 6px; font-size: 15px; }
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260713_brix-ikuta_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8450&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=6.72&floorArea=134.71&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=8&taxRateIncome=20&pi_price_inp=8450&pi_age_inp=8&pi_yield_inp=6.72&pi_area_inp=134.71&pi_rooms_inp=8&ik_land_area=138.67&ik_route_price=17.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&buildStruct=%E6%9C%A8%E9%80%A0&pi_struct_sel=%E6%9C%A8%E9%80%A0&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E5%B7%9D%E5%B4%8E%E5%B8%82%E5%A4%9A%E6%91%A9%E5%8C%BA%E7%94%9F%E7%94%B0%E4%BA%94%E4%B8%81%E7%9B%AE1-25" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8450&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=6.72&floorArea=134.71&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=8&taxRateIncome=20&pi_price_inp=8450&pi_age_inp=8&pi_yield_inp=6.72&pi_area_inp=134.71&pi_rooms_inp=8&ik_land_area=138.67&ik_route_price=17.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&buildStruct=%E6%9C%A8%E9%80%A0&pi_struct_sel=%E6%9C%A8%E9%80%A0&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E5%B7%9D%E5%B4%8E%E5%B8%82%E5%A4%9A%E6%91%A9%E5%8C%BA%E7%94%9F%E7%94%B0%E4%BA%94%E4%B8%81%E7%9B%AE1-25" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260713_brix-ikuta_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20260713_brix-ikuta_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+<div class="header">
+  <h1>🏢 ブリックス生田（Maison fiere生田）チーム精査レポート</h1>
+  <div class="meta">精査日: 2026-07-13 | チーム: ハルト・リョウ・アキ・村田先生 | TC Capitals 不動産仕入部</div>
+</div>
+
+<div class="container">
+
+  <div class="alert-ng">
+    <span class="big">⚠️ ハザードリスクにより見送り推奨</span>
+    土砂災害特別警戒区域（レッドゾーン・急傾斜地の崩壊）に該当。キャプテン基準の絶対NG条件です。<br>
+    加えて表面利回り6.72%はキャプテン基準（v5=8.0%）未達。買付見送りが妥当と判断します。
+  </div>
+
+  <!-- ① 物件サマリー -->
+  <div class="card summary">
+    <h2>📋 物件サマリー</h2>
+    <table class="info">
+      <tr><th>物件名</th><td>ブリックス生田（Maison fiere生田）</td></tr>
+      <tr><th>所在地</th><td>神奈川県川崎市多摩区生田五丁目1-25</td></tr>
+      <tr><th>交通</th><td>小田急小田原線『生田』駅徒歩8分・『読売ランド前』駅徒歩20分</td></tr>
+      <tr><th>販売価格</th><td><b>8,450万円</b></td></tr>
+      <tr><th>表面利回り</th><td><b>6.72%</b>（満室時・年収5,676,000円）</td></tr>
+      <tr><th>構造・築年</th><td>木造スレート葺2階建 / 築8年（2017年10月築）</td></tr>
+      <tr><th>面積</th><td>延床134.71㎡ / 土地138.67㎡（公簿・所有権）</td></tr>
+      <tr><th>戸数</th><td>1K×8戸（全戸満室）</td></tr>
+      <tr><th>用途地域</th><td>第1種低層住居専用地域（建蔽率50% / 容積率100%）</td></tr>
+      <tr><th>接道</th><td>北東側公道幅員約4m・接道約6m</td></tr>
+      <tr><th>取引形態</th><td>媒介（ブリックス株式会社・担当澤井様）</td></tr>
+      <tr><th>備考</th><td>境界非明示・契約不適合責任免責・LPガス</td></tr>
+    </table>
+  </div>
+
+  <!-- ② キャプテン基準 -->
+  <div class="card criteria">
+    <h2>🎯 キャプテン基準チェック（v5）</h2>
+    <table class="crit">
+      <tr><th>指標</th><th>基準</th><th>実測</th><th>判定</th></tr>
+      <tr><td>物件価格</td><td>≤ 1億円</td><td>8,450万円</td><td class="ok">OK</td></tr>
+      <tr><td>築年数</td><td>≤ 10年</td><td>築8年</td><td class="ok">OK</td></tr>
+      <tr><td>表面利回り</td><td>≥ 8.0%</td><td>6.72%</td><td class="ng">NG</td></tr>
+      <tr><td>エリア</td><td>一都三県16号内側</td><td>川崎市多摩区</td><td class="ok">OK</td></tr>
+      <tr><td>ハザードリスク</td><td>レッドゾーン・浸水2m以上NG</td><td>土砂災害レッドゾーン該当</td><td class="ng">即NG</td></tr>
+      <tr><td>10年目税引後IRR</td><td>≥ 25%</td><td>玉川式シートで確認</td><td class="ng">未達見込み</td></tr>
+    </table>
+  </div>
+
+  <!-- ③ 路線価・ハザード・スマサテ -->
+  <div class="card hazard">
+    <h2>🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</h2>
+
+    <h3>📐 相続路線価（chikamap.jp 令和7年分）</h3>
+    <div class="hazard-line"><div class="label">路線価</div><div class="val"><b>17.5万円/㎡</b>（借地権割合 D 60%）</div></div>
+    <div class="hazard-line"><div class="label">資料記載</div><div class="val">16.5万円/㎡（販売図面）→ chikamap実測はわずかに上振れ</div></div>
+
+    <h3>🌊 ハザードマップ（重ねるハザードマップ）</h3>
+    <div class="hazard-line"><div class="label">座標</div><div class="val">北緯35.61829° 東経139.541153°（標高68.2m・多摩丘陵）</div></div>
+    <div class="hazard-line"><div class="label">洪水浸水想定</div><div class="val">✅ 非該当</div></div>
+    <div class="hazard-line"><div class="label">土砂災害警戒</div><div class="val"><span class="ng-badge">即NG</span> <b>土砂災害特別警戒区域（レッドゾーン）該当</b> — 急傾斜地の崩壊</div></div>
+    <div class="hazard-line"><div class="label">津波浸水想定</div><div class="val">✅ 非該当</div></div>
+    <div class="hazard-line"><div class="label">液状化危険度</div><div class="val">確認不可</div></div>
+    <div class="hazard-line"><div class="label">総合判定</div><div class="val"><span class="ng-badge">即NG</span> 土砂災害レッドゾーンによりキャプテン基準絶対NG</div></div>
+
+    <h3>🏠 スマサテ賃料査定</h3>
+    <div class="hazard-line"><div class="label">査定結果</div><div class="val"><span class="warn-badge">取得不可</span> スマサテ側で「査定住所と駅（生田駅／JR田沢湖線）は離れすぎています」バリデーションエラー — 駅名重複により査定実行不可</div></div>
+    <div class="hazard-line"><div class="label">資料賃料</div><div class="val">平均 56,125円/戸（賃料）+ 共益費3,000円 = 59,125円/戸</div></div>
+    <div class="hazard-line"><div class="label">補足</div><div class="val">生田駅は小田急小田原線（神奈川）とJR田沢湖線（秋田）で駅名重複あり。スマサテは住所と離れた田沢湖線側を選択したため査定エラー。手動査定または住所ベースの再試行が必要</div></div>
+
+    <div class="link-list" style="margin-top: 16px;">
+      <a href="{survey_url}" target="_blank">🔍 物件調査レポート（スマサテフォーム・路線価・ハザードマップスクショ）</a>
+    </div>
+  </div>
+
+  <!-- ④ ハルト -->
+  <div class="card haruto">
+    <h2>🌅 ハルト（朝倉 晴斗）— エリア・利回り分析</h2>
+
+    <h3>キャプテン基準チェック</h3>
+    <ul>
+      <li><span class="ok-badge">OK</span> 築8年（≤10年）</li>
+      <li><span class="ok-badge">OK</span> 価格8,450万円（≤1億円）</li>
+      <li><span class="ng-badge">NG</span> 利回り6.72%（≥8.0%基準未達）</li>
+      <li><span class="ok-badge">OK</span> 川崎市多摩区（16号内側・一都三県）</li>
+    </ul>
+
+    <h3>エリアの将来性</h3>
+    <ul>
+      <li>小田急小田原線『生田』駅は新宿まで直通約28分。急行停車駅の向ヶ丘遊園まで1駅で乗継良好</li>
+      <li>明治大学生田キャンパス・専修大学生田キャンパスが至近 → <b>安定した学生需要</b></li>
+      <li>川崎市多摩区は昼夜人口比率が低く（住宅地色が濃い）、単身向け1Kは学生・若手社会人の需要が中心</li>
+      <li>川崎北部の住宅地として底堅い需要はあるが、賃料上昇余地は限定的</li>
+    </ul>
+
+    <h3>表面利回り6.72%の相場感</h3>
+    <ul>
+      <li>多摩区・築8年木造1Kの相場は表面利回り6.5〜7.5%レンジ → <b>相場並み・割安感なし</b></li>
+      <li>キャプテン基準（8.0%以上）との差1.28ポイントは指値約6.9%（450〜500万円弱の指値）で解消できるが、売主受諾は難しい</li>
+    </ul>
+
+    <h3>空室リスク</h3>
+    <ul>
+      <li>1K×8戸・現状満室稼働。生田駅8分は徒歩圏として無理なし</li>
+      <li>ロフト4.3帖付きで実質1DK相当の使い勝手 → 単身者に人気の間取り</li>
+      <li>204号室2026.05に退室補修費計上 → 直近退去あり。募集状況と入居履歴の確認要</li>
+      <li>周辺競合（明大生田キャンパス周辺）は多め。学期変わり目（3・9月）の空室リスクあり</li>
+    </ul>
+
+    <h3>ハルトの結論</h3>
+    <div class="quote">
+      新耐震・満室・生田駅8分と表面は綺麗だけど、キャプテン基準で見ると<b>利回り6.72%は明確にNG</b>だね。しかも今回は<b>土砂災害レッドゾーンで即NG</b>が出た以上、これは物件そのものを見送るしかない。<br>
+      仮に指値で利回り8%圏に押し込めても、レッドゾーンの土砂リスクは金融機関の担保評価にも影響するし、将来の売却時にも足枷になる。<br>
+      「築8年満室でキレイ」に惑わされずに、<b>次の物件</b>に切り替えたい。
+    </div>
+  </div>
+
+  <!-- ⑤ リョウ -->
+  <div class="card ryo">
+    <h2>🔍 リョウ（黒沢 涼）— DD（デューデリジェンス）</h2>
+
+    <h3>確認済み ✅</h3>
+    <ul>
+      <li>新耐震基準クリア（2017年10月築）</li>
+      <li>用途地域: 第1種低層住居専用地域・市街化区域（適法）</li>
+      <li>接道: 北東側公道幅員約4m・接道約6m（42条1項1号道路の可能性大）</li>
+      <li>全8戸満室稼働・レントロール全戸賃料明示</li>
+      <li>固都税: 令和7年度299,140円/年</li>
+      <li>減価償却: 法定22年 − 8年 = 残14年</li>
+      <li>積算参考: 土地約2,427万+建物約1,286万＝約3,713万円（販売価格の44%）</li>
+    </ul>
+
+    <h3>リスクフラグ 🚩</h3>
+    <ul>
+      <li><span class="ng-badge">重大</span> <b>表面利回り6.72%</b> → キャプテン基準7.1〜8.0%未達。指値なしでは対象外</li>
+      <li><span class="ng-badge">重大</span> <b>境界非明示</b> → 将来の売却・建替時に隣地とのトラブルリスク</li>
+      <li><span class="ng-badge">重大</span> <b>契約不適合責任免責</b> → 引渡し後の隠れた瑕疵（雨漏り・シロアリ・給排水管漏水等）は買主負担</li>
+      <li><span class="warn-badge">中</span> <b>LPガス</b> → 給湯器交換時期（設置10年で交換目安 → 残2年）</li>
+      <li><span class="warn-badge">中</span> <b>第1種低層住居専用地域</b> → 建替時の高さ制限・北側斜線・日影規制でボリュームアップ困難</li>
+      <li><span class="warn-badge">中</span> <b>204号室退室補修費38,500円計上（2026.05）</b> → 退去または修繕発生の履歴。新規入居状況要確認</li>
+      <li><span class="warn-badge">中</span> <b>駐車場なし</b> → 単身向けで大きな問題ではないが多摩区の需要要確認</li>
+      <li><span class="warn-badge">中</span> <b>積算評価44%</b> → フルローン評価が厳しい可能性</li>
+    </ul>
+
+    <h3>未確認・要入手 ❓</h3>
+    <ul>
+      <li>登記簿謄本（土地・建物）</li>
+      <li>確認済証・検査済証</li>
+      <li>擁壁・高低差の有無（生田は多摩丘陵の起伏地形）→ <b>今回のハザード結果と符合</b></li>
+      <li>建物図面（平面図・立面図・矩計図）</li>
+      <li>修繕履歴・保険付保状況</li>
+      <li>各戸賃貸借契約書（現況賃料の裏付け・敷金・更新時期）</li>
+      <li>204号室現況（新規入居済か・空室か）</li>
+      <li>LPガス供給業者との契約内容（給湯器無償貸与の縛りの有無）</li>
+    </ul>
+
+    <h3>リョウの総合判定</h3>
+    <div class="quote">
+      ちょっと待ってください — 表層は良好ですが、<b>現状のままでは買付NG</b>です。<br>
+      理由3つ:<br>
+      ① 利回り6.72%がキャプテン基準未達（絶対条件クリア不可）<br>
+      ② 境界非明示 + 契約不適合責任免責の二重リスク（買主側の防御手段が皆無）<br>
+      ③ 積算44%で融資評価が厳しい（フルローン困難・自己資金要増）<br>
+      さらに今回のハザード結果で<b>土砂災害レッドゾーン</b>が判明した以上、DDを深掘りする必要すらありません。ここで打ち止めが妥当です。
+    </div>
+
+    <div class="link-list">
+      <a href="{dd_url}" target="_blank">📋 DDチェックリスト（入力済み）</a>
+    </div>
+  </div>
+
+  <!-- ⑥ アキ -->
+  <div class="card aki">
+    <h2>💰 アキ（三宅 亜紀）— IG+収支計算 + 玉川式</h2>
+
+    <h3>収益・費用</h3>
+    <ul>
+      <li>満室年収: 567.6万円 → 実収入（空室5%控除）539.2万円</li>
+      <li>費用合計: 約119.0万円（賃貸管理26.96万 + 建物管理9.78万 + 共用水光熱2.45万 + 災害保険6.72万 + 固都税29.91万 + 修繕11.21万 + 原状回復10.19万 + 募集AD11.83万）</li>
+      <li><b>NOI: 約420.2万円（NOI利回り 4.97%）</b></li>
+    </ul>
+
+    <h3>ローン試算</h3>
+    <table class="crit">
+      <tr><th>指標</th><th>オリックス（100%・2.6%・35年）</th><th>神奈川銀行（90%・2.25%・35年）</th></tr>
+      <tr><td>年間返済額</td><td>▲363.3万円</td><td>▲311.1万円</td></tr>
+      <tr><td>CF</td><td>56.9万円</td><td>109.1万円</td></tr>
+      <tr><td>CF率</td><td class="ng">0.67%（NG）</td><td class="ok">1.29%（OK）</td></tr>
+      <tr><td>返済比率</td><td>67.4%</td><td>57.7%</td></tr>
+      <tr><td>CCR</td><td class="ng">9.6%（NG）</td><td class="ng">7.6%（NG）</td></tr>
+    </table>
+
+    <h3>積算評価（chikamap実測 17.5万円/㎡ベース）</h3>
+    <ul>
+      <li>建物: 134.71㎡ × 210,000 × (22-8)/22 = 約1,799.6万円</li>
+      <li>土地: 138.67㎡ × 17.5万 = 約2,426.7万円</li>
+      <li>積算合計: 約4,226.3万円 / <b>積算比率: 約50.0%（60%基準未達）</b></li>
+    </ul>
+
+    <h3>キャプテン基準チェック</h3>
+    <table class="crit">
+      <tr><th>指標</th><th>基準</th><th>オリックス</th><th>神奈川銀行</th></tr>
+      <tr><td>価格≤1億</td><td>—</td><td class="ok">OK</td><td class="ok">OK</td></tr>
+      <tr><td>表面利回り≥8.0%</td><td>6.72%</td><td class="ng">NG</td><td class="ng">NG</td></tr>
+      <tr><td>CF率≥1.0%</td><td>—</td><td class="ng">NG(0.67%)</td><td class="ok">OK(1.29%)</td></tr>
+      <tr><td>CCR≥15%</td><td>—</td><td class="ng">NG(9.6%)</td><td class="ng">NG(7.6%)</td></tr>
+      <tr><td>積算比率≥60%</td><td>50.0%</td><td class="ng">NG</td><td class="ng">NG</td></tr>
+      <tr><td>10年目税引後IRR≥25%</td><td>—</td><td colspan="2">玉川式シートで確認</td></tr>
+    </table>
+
+    <h3>アキからひとこと</h3>
+    <div class="quote">
+      1円の誤差も見逃しませんが、この物件は数字を見た瞬間つらいです。表面6.72%はキャプテン基準を下回り、NOI利回りも4.97%まで削られます。オリックス100%だとCF率0.67%と1%を割り、両行ともCCRは7〜10%台で15%基準に遠く及びません。積算50%も60%基準未達。<br>
+      指値で6,800〜7,000万円まで下がれば表面8%圏に入ってくるので、<b>指値交渉ありき</b>で検討すべき物件です。ただし今回のレッドゾーンで議論が変わる可能性が高いです。
+    </div>
+
+    <div class="link-list">
+      <a href="{ig_url}" target="_blank">📊 IG+【資料賃料版】</a>
+      <a href="{ig_sumasate_url}" target="_blank">📊 IG+【スマサテ賃料版】</a>
+      <a href="{tg_url}" target="_blank">📈 玉川式収益試算シート</a>
+    </div>
+  </div>
+
+  <!-- ⑦ 村田先生 -->
+  <div class="card murata">
+    <h2>🏗️ 村田 誠一 先生 — 建築士コメント</h2>
+    <div class="quote">現場を見ないと断言はできませんが、資料から読み取れることを率直にお伝えします。</div>
+
+    <h3>構造・工法</h3>
+    <ul>
+      <li>1K×8戸+外階段+共用廊下型 → <b>在来軸組工法の可能性大</b></li>
+      <li>2017年10月築 → <b>2000年基準（現行木造基準・最上位グレード）</b>適合。壁量計算・N値法・接合部金物規定を全て満たす</li>
+      <li>スレート葺（コロニアル系）→ ノンアスベスト製品と推定。将来の葺替・処分費が通常のコロニアルより安く済む反面、経年で表面塗膜が痩せると割れやすい弱点あり</li>
+      <li>絶対高さ制限10m以下に対し木造2階建（軒高6〜7m程度）→ 余裕あり</li>
+    </ul>
+
+    <h3>修繕リスク（築8年→直近5年）</h3>
+    <ul>
+      <li>外壁塗装（シーリング打替）: 築10〜12年目 → <b>120〜180万円</b></li>
+      <li>屋根スレート塗装: 築10〜15年目 → <b>40〜70万円</b></li>
+      <li>給湯器交換（LPガス・8戸）: 築10〜15年目に順次 → <b>80〜120万円</b></li>
+      <li>入退去時原状回復: 5〜10万円/戸</li>
+      <li><b>直近5年の修繕予備費として300〜400万円確保推奨</b></li>
+    </ul>
+
+    <h3>中長期修繕（築13年以降）</h3>
+    <ul>
+      <li>外階段・共用廊下鉄骨部塗装: 30〜60万円</li>
+      <li>2回目外壁塗装（築20〜22年）: 150〜200万円</li>
+      <li>屋根スレート葺替 or カバー工法（築30年前後）: 150〜350万円</li>
+    </ul>
+
+    <h3>法令適合性</h3>
+    <ul>
+      <li>検査済証の有無を必ず確認</li>
+      <li>建蔽率50%: 実測は1階水平投影面積÷土地面積で判定。2階建で1階約67㎡なら約48%と推定 → 適合の可能性大</li>
+      <li>容積率100%: 延床134.71÷土地138.67=97% → 適合</li>
+      <li>4m接道: 建築基準法接道義務クリア。ただし42条2項道路（みなし道路）の可能性ありセットバック要確認</li>
+      <li>境界非明示 → 現地確認の最重要項目</li>
+    </ul>
+
+    <h3>現地必須確認8項目</h3>
+    <ul>
+      <li>① 外壁シーリングの状態（築8年→そろそろ劣化開始）</li>
+      <li>② 屋根スレートの浮き・欠け・苔</li>
+      <li>③ 共用外階段・共用廊下の鉄骨部サビ</li>
+      <li>④ 給湯器（LPガス）の製造年・設置場所 → 一斉交換タイミングの見極め</li>
+      <li>⑤ ロフト梯子・手掛りの安全性 → 入居者事故時のオーナー賠償責任</li>
+      <li>⑥ 境界杭の現存・越境物（樹木・エアコン室外機・雨樋）</li>
+      <li>⑦ 床下（基礎点検口）・小屋裏（天井点検口）の目視 → シロアリ・雨漏り・断熱ズレ</li>
+      <li>⑧ 戸境壁・上下階遮音性能（空室での実測）</li>
+    </ul>
+
+    <h3>村田先生の総合所感</h3>
+    <div class="quote">
+      2017年築・木造・2000年基準適合という条件は建築的には手堅い部類です。ただし木造アパートは築10〜12年目に必ず最初の大規模修繕サイクルが来ます。購入直後にこれが待ち構えている物件なので、<b>購入価格8,450万円とは別に、直近5年で修繕予備費300〜400万円を必ず確保</b>してください。<br>
+      境界非明示・契約不適合免責という2点は買主側の事前調査で埋めるべき情報の空白です。ここを埋めずに買うと購入後にトラブルが来る可能性があります。<br>
+      現場を見ないと断言はできませんが、資料上は「10年目大規模修繕を織り込めば長期保有に耐える手堅い建物」です。ただし今回のハザード結果（土砂災害レッドゾーン）は建物の質とは別の次元で見送り判断が正しいでしょう。
+    </div>
+  </div>
+
+  <!-- ⑧ キャプテンへの確認事項 -->
+  <div class="card captain">
+    <h2>❓ キャプテンへの確認事項</h2>
+    <ul>
+      <li><b>①【最優先】</b> ハザード結果で土砂災害レッドゾーン即NG判定。<b>本件は見送りでよろしいですか？</b> 通常はここで打ち切りです</li>
+      <li><b>②</b> 万一検討継続の場合、レッドゾーン内の物件をキャプテン基準例外として取得する意思はありますか？（融資評価・出口戦略に影響）</li>
+      <li><b>③</b> スマサテ査定が駅名重複エラー（生田駅／田沢湖線側を誤選択）で取得不可でした。手動査定を実施しますか？</li>
+      <li><b>④</b> 万一検討継続の場合、指値6,800〜7,000万円（表面利回り8%圏）で打診しますか？</li>
+      <li><b>⑤</b> 万一検討継続の場合、境界確定を売主負担・引渡し前実施の特約を条件提示しますか？</li>
+      <li><b>⑥</b> 万一検討継続の場合、契約不適合責任免責の一部撤廃（主要構造部・雨漏り・給排水管について3ヶ月責任残置）交渉しますか？</li>
+      <li><b>⑦</b> 204号室の退室補修費計上について、現在の入居状況（新規入居済/空室）を澤井様に確認しますか？</li>
+    </ul>
+  </div>
+
+  <!-- ⑨ 総合所見 -->
+  <div class="card overall">
+    <h2>🎯 チーム総合所見</h2>
+
+    <h3>4名の判定</h3>
+    <ul>
+      <li>🌅 <b>ハルト</b>: 見送り。土砂災害レッドゾーンで議論の余地なし。次の物件へ切替</li>
+      <li>🔍 <b>リョウ</b>: 見送り。利回り+境界+契約不適合の三重リスクに加えレッドゾーンで打ち止め</li>
+      <li>💰 <b>アキ</b>: 見送り。キャプテン基準5指標NG（利回り・CF率・CCR・積算・ハザード）</li>
+      <li>🏗️ <b>村田先生</b>: 建物としては手堅いが、ハザード結果で見送り判断が正しい</li>
+    </ul>
+
+    <h3>最大リスク</h3>
+    <div class="alert-ng" style="margin-top: 8px;">
+      <span class="big">🚨 土砂災害特別警戒区域（レッドゾーン）該当</span>
+      急傾斜地の崩壊による指定済み特別警戒区域。多摩丘陵の起伏地形（標高68.2m）に位置し、キャプテン基準の絶対NG条件。<br>
+      将来の売却・融資評価・入居者募集すべてに影響する構造的リスク。物件そのものの優位性を上回るネガティブ要因です。
+    </div>
+
+    <h3>次のアクション</h3>
+    <ul>
+      <li><b>推奨:</b> 本件見送り。ブリックス澤井様にお断りの連絡</li>
+      <li>ハルトに次候補の物件探し（生田・向ヶ丘遊園・宿河原・登戸エリアで築10年以内・利回り8%以上）を依頼</li>
+      <li>教訓: 起伏地形（多摩丘陵・横浜丘陵）の物件は仕入初期段階でハザードマップ必須</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260713_brix-ikuta_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260713_brix-ikuta_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
