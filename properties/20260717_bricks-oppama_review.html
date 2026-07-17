@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ブリックス追浜 チーム精査レポート — 2026-07-17</title>
+<style>
+  body { font-family: 'Yu Gothic UI', 'Meiryo', sans-serif; background: #f5f7fa; margin: 0; padding: 20px; color: #333; line-height: 1.7; }
+  .container { max-width: 1080px; margin: 0 auto; }
+  header { background: #1a3a5c; color: #fff; padding: 24px 32px; border-radius: 8px 8px 0 0; }
+  header h1 { margin: 0 0 6px; font-size: 24px; }
+  header .subtitle { font-size: 14px; opacity: 0.85; }
+  .card { background: #fff; padding: 24px 32px; margin-bottom: 16px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .card h2 { margin: 0 0 16px; padding-bottom: 10px; border-bottom: 3px solid #1a3a5c; font-size: 20px; }
+  .card h2.orange { border-color: #e67e22; color: #d35400; }
+  .card h2.blue { border-color: #2980b9; color: #2471a3; }
+  .card h2.green { border-color: #27ae60; color: #1e8449; }
+  .card h2.brown { border-color: #8b4513; color: #6e3410; }
+  .card h2.teal { border-color: #008b8b; color: #006b6b; }
+  .card h2.captain { border-color: #c0392b; color: #a52714; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; font-size: 14px; }
+  th { background: #eaeef3; font-weight: 600; }
+  .ok { color: #1e8449; font-weight: bold; }
+  .ng { color: #c0392b; font-weight: bold; }
+  .warn { color: #d35400; font-weight: bold; }
+  ul { padding-left: 22px; }
+  ul li { margin: 4px 0; }
+  .highlight { background: #fff8e1; padding: 12px 16px; border-left: 4px solid #f39c12; border-radius: 4px; margin: 12px 0; }
+  .danger { background: #ffeaea; padding: 12px 16px; border-left: 4px solid #c0392b; border-radius: 4px; margin: 12px 0; }
+  .info { background: #e8f4fd; padding: 12px 16px; border-left: 4px solid #2980b9; border-radius: 4px; margin: 12px 0; }
+  .link-list { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0; }
+  .link-list a { background: #1a3a5c; color: #fff; padding: 10px 16px; text-decoration: none; border-radius: 6px; font-size: 14px; }
+  .link-list a:hover { background: #2c5680; }
+  .link-list a.orange { background: #e67e22; }
+  .link-list a.green { background: #27ae60; }
+  .link-list a.blue { background: #2980b9; }
+  .link-list a.teal { background: #008b8b; }
+  .footer { text-align: center; padding: 20px; color: #888; font-size: 12px; }
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260717_bricks-oppama_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8980&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=6.57&floorArea=141.96&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=2.75&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=8980&pi_age_inp=0&pi_yield_inp=6.57&pi_area_inp=141.96&pi_rooms_inp=8&ik_land_area=153.44&ik_route_price=7.7&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&buildStruct=%E6%9C%A8%E9%80%A0&pi_struct_sel=%E6%9C%A8%E9%80%A0&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E9%A0%88%E8%B3%80%E5%B8%82%E8%BF%BD%E6%B5%9C%E6%9C%AC%E7%94%BA1%E4%B8%81%E7%9B%AE" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8980&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=6.41&floorArea=141.96&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=2.75&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=8980&pi_age_inp=0&pi_yield_inp=6.41&pi_area_inp=141.96&pi_rooms_inp=8&ik_land_area=153.44&ik_route_price=7.7&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&buildStruct=%E6%9C%A8%E9%80%A0&pi_struct_sel=%E6%9C%A8%E9%80%A0&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E9%A0%88%E8%B3%80%E5%B8%82%E8%BF%BD%E6%B5%9C%E6%9C%AC%E7%94%BA1%E4%B8%81%E7%9B%AE" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260717_bricks-oppama_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20260717_bricks-oppama_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+<div class="container">
+  <header>
+    <h1>ブリックス追浜 — チーム物件精査レポート</h1>
+    <div class="subtitle">精査日: 2026-07-17 / チーム: ハルト・リョウ・アキ・村田先生</div>
+  </header>
+
+  <div class="card">
+    <h2>物件サマリー</h2>
+    <table>
+      <tr><th>物件名</th><td>ブリックス追浜（横須賀市 / 追浜本町1丁目 新築AP）</td></tr>
+      <tr><th>所在地</th><td>神奈川県横須賀市追浜本町1丁目（詳細番地は以下未定）</td></tr>
+      <tr><th>交通</th><td>京急本線「追浜」駅 徒歩4分</td></tr>
+      <tr><th>販売価格</th><td>8,980万円</td></tr>
+      <tr><th>想定利回り</th><td>表面6.57%（想定年収 5,904,000円 / 想定月収 492,000円）</td></tr>
+      <tr><th>構造・戸数</th><td>木造2階建て 1K×8戸（全室ロフト付・独立洗面台）</td></tr>
+      <tr><th>築年数</th><td>新築（2027年1月完成予定）</td></tr>
+      <tr><th>土地・建物面積</th><td>土地153.44㎡（所有権・公簿）／延床141.96㎡（1F 70.98㎡+2F 70.98㎡）</td></tr>
+      <tr><th>接道</th><td>西側公道約2.2m（42条2項道路）・SB約1m済・接道約3m</td></tr>
+      <tr><th>用途地域</th><td>第1種住居地域／第1種高度地区／準防火地域／宅地造成等工事規制区域（建蔽60%／容積200%）</td></tr>
+      <tr><th>設備</th><td>LPガス（売主指定）・東京電力・公営水道・公共下水／防犯カメラ・宅配ボックス・カラーモニタインターホン</td></tr>
+      <tr><th>住宅性能</th><td>劣化対策等級3級（設計・建設）取得予定</td></tr>
+      <tr><th>取引態様</th><td>仲介（BRICKS株式会社・担当 澤井様）</td></tr>
+      <tr><th>その他</th><td>別途水道加入金 1,320,000円（税込）／賃貸管理BRICKS指定／火災保険・司法書士・家屋調査士 売主指定</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>キャプテン基準チェック（新築基準）</h2>
+    <table>
+      <tr><th>基準項目</th><th>目標</th><th>実績</th><th>判定</th></tr>
+      <tr><td>物件価格</td><td>1億円以内</td><td>8,980万円</td><td class="ok">✅ OK</td></tr>
+      <tr><td>築年数</td><td>築10年以内</td><td>新築（築0年）</td><td class="ok">✅ OK</td></tr>
+      <tr><td>表面利回り</td><td>7.1%以上（新築基準）</td><td>6.57%（△0.53pt）</td><td class="ng">❌ NG</td></tr>
+      <tr><td>エリア</td><td>16号内側・一都三県</td><td>神奈川県横須賀市・京急本線・16号内側</td><td class="ok">✅ OK</td></tr>
+      <tr><td>CF率</td><td>1%以上</td><td>オリックス0.84% / 神奈川銀行1.47%</td><td class="warn">△ 銀行選択次第</td></tr>
+      <tr><td>CCR</td><td>15%以上</td><td>オリックス9.9% / 神奈川銀行8.0%</td><td class="ng">❌ NG</td></tr>
+      <tr><td>積算比率</td><td>60%以上</td><td>約58%（路線価7.7万円ベース）</td><td class="warn">△ 惜しい</td></tr>
+      <tr><td>10年目税引後IRR</td><td>25%以上</td><td>要玉川式シートで確認</td><td class="warn">△ 要確認</td></tr>
+    </table>
+    <div class="danger">
+      <strong>⚠️ 表面利回り6.57%はキャプテン基準7.1%を明確に未達。</strong>
+      現状では追浜駅前の立地魅力を差し引いても、指値なしで見送り推奨水準。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="teal">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</h2>
+
+    <h3>相続税路線価</h3>
+    <table>
+      <tr><th>路線価</th><td>7.7万円/㎡（借地権割合 D 60% / chikamap.jp 令和7年分）</td></tr>
+      <tr><th>土地評価額（概算）</th><td>7.7万円 × 153.44㎡ = <strong>約1,181万円</strong></td></tr>
+    </table>
+
+    <h3>🗺️ 重ねるハザードマップ判定</h3>
+    <table>
+      <tr><th>洪水浸水想定</th><td class="ok">✅ 非該当</td></tr>
+      <tr><th>土砂災害警戒区域</th><td class="ok">✅ 非該当（物件ピンポイント）</td></tr>
+      <tr><th>津波浸水想定</th><td class="ok">✅ 非該当（物件ピンポイント）</td></tr>
+      <tr><th>液状化危険度</th><td>確認不可</td></tr>
+      <tr><th>総合判定</th><td class="ok">✅ 問題なし</td></tr>
+    </table>
+    <div class="highlight">
+      <strong>⚠️ 周辺エリア注意情報（rawText）:</strong><br>
+      物件ピンポイントは「非該当」ですが、周辺には <strong>高潮浸水想定50cm〜3m</strong>・<strong>津波浸水想定50cm〜3m</strong>・<strong>急傾斜地の崩壊</strong>想定区域が広がります。標高0.2m（湾岸低地）で1階居室（101〜104）は南海トラフ等の大規模災害時にリスクゼロではありません。
+    </div>
+
+    <h3>スマサテ賃料査定</h3>
+    <table>
+      <tr><th>スマサテ標準賃料</th><td>60,000円/戸</td></tr>
+      <tr><th>資料想定賃料（8戸平均）</th><td>61,500円/戸（共益費3,000円含む）</td></tr>
+      <tr><th>単価</th><td>3,529円/㎡ ・ 11,666円/坪</td></tr>
+      <tr><th>乖離</th><td>▲2.4%（<span class="ok">賃料設定は概ね適正</span>）</td></tr>
+      <tr><th>スマサテ換算利回り</th><td>6.41%（資料6.57%より0.16pt低下）</td></tr>
+    </table>
+
+    <div class="link-list">
+      <a class="teal" href="{survey_url}">🔍 物件調査レポート（survey.html・スマサテ入力/路線価/ハザード注入済み）</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="orange">📊 ハルト（エリア・利回り分析）</h2>
+    <h3>エリア将来性</h3>
+    <ul>
+      <li><strong>京急本線「追浜」駅徒歩4分</strong> — 品川直通で都心アクセス良好（品川まで約45分）。駅近好立地。</li>
+      <li>日産追浜工場（EV拠点として再生産方針）・防衛大学校・湘南国際村エリアの<strong>単身社会人・工場勤務者・自衛官・大学院生の賃貸需要あり</strong>。</li>
+      <li>横須賀市は人口減少局面（2020年40.9万人→2040年推計32万人程度・年▲1%）。追浜地区は特に高齢化が進行中。</li>
+      <li>単身1K需要は日産工場・自衛官ローテーションに依存する<strong>景気連動リスク</strong>あり。</li>
+    </ul>
+
+    <h3>想定利回り6.57%の妥当性</h3>
+    <ul>
+      <li>横須賀市・京急沿線・新築1Kは表面<strong>6.0〜7.5%</strong>が相場 → 6.57%は<strong>相場並み</strong>（売主の値付けは市場妥当）。</li>
+      <li>ただし<strong>キャプテン基準7.1%（新築）を明確に下回る</strong>。エリア×スペックの構造的問題で、値引き交渉でも埋まらない差。</li>
+    </ul>
+
+    <h3>空室リスク</h3>
+    <ul>
+      <li>プラス: 駅徒歩4分・新築・劣化等級3・独立洗面台・ロフト・宅配ボックス完備 → 空室戦略は組みやすい。</li>
+      <li>マイナス: 全8戸1K単身層一本足・専有17.47〜18.02㎡は狭小1Kゾーン・LPガス指定で光熱費割高・横須賀人口減少トレンド。</li>
+    </ul>
+
+    <h3>積算評価（概算）</h3>
+    <ul>
+      <li>土地: 7.7万円 × 153.44㎡ = 1,181万円</li>
+      <li>建物: 建築費約4,500万円想定 × 70% = 3,150万円（新築木造）</li>
+      <li>積算合計: 約4,331万円 / <strong>積算率48%</strong>（IG+の劣化等級3反映で58%まで押し上げ可）</li>
+    </ul>
+
+    <div class="highlight">
+      <strong>ハルトの結論:</strong> <span class="ng">利回り面で見送り推奨</span>。ただし追浜駅徒歩4分・新築の希少性は認めるので、<strong>指値7,800〜8,000万円で表面7.4%超</strong>まで交渉できるなら再検討したい。それが無理なら、同じ8,980万円の予算で別エリア（16号内側の京急・小田急・東急沿線築浅）を探す方が期待値が高い。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="blue">📋 リョウ（DD・デューデリジェンス）</h2>
+
+    <h3>確認済み ✅</h3>
+    <ul>
+      <li>構造・戸数（木造2階建・1K×8戸・全戸ロフト付）</li>
+      <li>駅距離（京急追浜駅徒歩4分・16号内側）</li>
+      <li>劣化対策等級3級取得予定（IG+で耐用27年扱い可能）</li>
+      <li>BRICKS管理指定（管理費2.75%・AD1.5ヶ月・キャプテン馴染み条件）</li>
+      <li>販売元との関係: BRICKS澤井様 = auじぶん銀行内諾ルート・オリックス連帯債務情報の中核担当</li>
+    </ul>
+
+    <h3>リスクフラグ 🚩</h3>
+    <ol>
+      <li><strong>【最大リスク】接道2.2m + SB約1m済（42条2項道路）</strong>
+        <ul>
+          <li>SB済み扱いで建築確認は下りるはずだが、<strong>融資行によっては42条2項道路の再建築可否を厳しく見る</strong>ケースあり</li>
+          <li>確認済証コピーで幅員・接道長を書面確認必須</li>
+          <li>融資否認 → 買付撤回リスクに直結</li>
+        </ul>
+      </li>
+      <li><strong>利回り6.57% → キャプテン基準7.1%未達（△0.53pt）</strong>
+        <ul>
+          <li>基準到達には販売価格<strong>8,315万まで交渉（△665万・△7.4%指値）</strong>が必要</li>
+        </ul>
+      </li>
+      <li><strong>未完成物件（2027年1月完成予定）＝6ヶ月先物</strong>
+        <ul>
+          <li>金利上昇リスク（現状政策金利0.75%・年内1.0%予測）</li>
+          <li>手付金の返還条件・完成遅延ペナルティ条項を売買契約書で書面確認必須</li>
+        </ul>
+      </li>
+      <li><strong>番地未定</strong> — 建築確認申請書・地番確定資料を要求</li>
+      <li><strong>売主指定4点セット</strong>（火災保険・司法書士・家屋調査士・LPガス）
+        <ul>
+          <li>特にLPガス売主指定は「無償貸与契約」の可能性大 → 15-20年契約解約時の残債請求リスク</li>
+          <li>各業者名・報酬額・LPガス契約年数と解約条件を書面開示要求</li>
+        </ul>
+      </li>
+      <li><strong>宅地造成等工事規制区域</strong> — 造成許可証・完了検査済証の確認必須</li>
+      <li><strong>1K+ロフト17.47-18.02㎡（狭小）</strong> — スマサテ実勢賃料の下振れリスク</li>
+      <li><strong>別途水道加入金132万円</strong> — 実質的な取得原価は9,112万に上振れ（利回り実質6.48%）</li>
+    </ol>
+
+    <div class="link-list">
+      <a class="blue" href="{dd_url}">📋 DDチェックリスト（入力済み）</a>
+    </div>
+
+    <div class="danger">
+      <strong>リョウの総合判定: リスクレベル 中〜高</strong><br>
+      「ちょっと待ってください」— 現時点では買付ゴーサインを出せません。①利回り基準未達（6.57% &lt; 7.1%）・②接道2.2mの融資リスク・③未完成×金利上昇局面のダブルリスク。ただしBRICKS澤井様の関係性温存・追浜A銀行95%融資承認事例あり・BRICKS標準条件で運用開始できる救い所もあり。<strong>指値・融資可否事前確認・実勢賃料検証の3点を澤井様経由で進めてから判断すべき</strong>。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="green">💹 アキ（IG+収支計算 + 玉川式）</h2>
+
+    <h3>収益・費用サマリー</h3>
+    <table>
+      <tr><th>満室収入</th><td>5,904,000円/年</td></tr>
+      <tr><th>実収入（空室5%控除）</th><td>5,608,800円/年</td></tr>
+      <tr><th>費用合計</th><td>▲946,839円 <br>（PM管理2.75%▲154,242／BM管理▲103,063／共用光熱▲25,766／火災保険▲70,856／固都税7%▲392,616／修繕0.1%▲23,619／原状回復▲53,679／募集AD▲123,000）</td></tr>
+      <tr><th>NOI</th><td>4,661,961円 <span class="warn">（NOI利回り 5.19%）</span></td></tr>
+    </table>
+
+    <h3>ローン試算（2パターン）</h3>
+    <table>
+      <tr><th>項目</th><th>①オリックス 100%・2.6%・35年</th><th>②神奈川銀行 90%・2.25%・35年</th></tr>
+      <tr><td>借入額</td><td>8,980万円</td><td>8,082万円</td></tr>
+      <tr><td>年間返済</td><td>▲3,910,368円</td><td>▲3,338,544円</td></tr>
+      <tr><td>キャッシュフロー</td><td>751,593円</td><td>1,323,417円</td></tr>
+      <tr><td>CF率</td><td class="ng">0.84% ❌</td><td class="ok">1.47% ✅</td></tr>
+      <tr><td>返済比率</td><td>66.2%</td><td>56.5%</td></tr>
+      <tr><td>自己資金</td><td>約761万円（諸費用+水道加入金）</td><td>約1,659万円（頭金898万+諸費用+加入金）</td></tr>
+      <tr><td>CCR</td><td class="ng">9.9% ❌</td><td class="ng">8.0% ❌</td></tr>
+    </table>
+
+    <h3>積算評価（劣化対策等級3級反映）</h3>
+    <table>
+      <tr><th>建物積算</th><td>34,070,400円（141.96㎡ × 24万円/㎡ × 築0年）</td></tr>
+      <tr><th>土地積算</th><td>11,814,880円（路線価7.7万円/㎡ × 153.44㎡）</td></tr>
+      <tr><th>積算合計</th><td>約45,885,280円</td></tr>
+      <tr><th>積算比率</th><td class="warn">51.1%（60%基準に△9pt）</td></tr>
+    </table>
+
+    <h3>スマサテ賃料版 参考</h3>
+    <table>
+      <tr><th>スマサテ想定年収</th><td>5,760,000円（60,000円×8戸×12）</td></tr>
+      <tr><th>スマサテ換算利回り</th><td>6.41%</td></tr>
+    </table>
+
+    <div class="link-list">
+      <a class="green" href="{ig_url}">📊 IG+【資料賃料】</a>
+      <a class="green" href="{ig_sumasate_url}">📊 IG+【スマサテ賃料】</a>
+      <a class="green" href="{tg_url}">📈 玉川式シート（10年目IRR ≥ 25% 目標）</a>
+    </div>
+
+    <div class="highlight">
+      <strong>アキからひとこと:</strong><br>
+      表面利回り6.57%はキャプテン基準7.1%を割っており、資料賃料のままでは厳しい水準。CF率は神奈川銀行(90%)ならギリギリ1%を超えて1.47%、CCRは両パターンとも15%届かず。<strong>別途水道加入金132万円</strong>を諸費用に加算するとCCRがさらに1〜2pt下がります。唯一の光は劣化等級3で積算比率が押し上げられている点。<strong>最終判断は玉川式シートの10年目税引後IRR ≥ 25%が出るかどうか次第</strong>です。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="brown">🏗️ 村田先生（一級建築士コメント）</h2>
+
+    <h3>構造・工法の評価</h3>
+    <ul>
+      <li>各戸のスパンが1,820mm（1間）または3,640mm（2間）で構成 → 木造在来軸組工法として<strong>標準的でクセのない設計</strong></li>
+      <li>1F・2F平面がほぼ一致（総二階に近い）で<strong>直下率が高く耐震性能上有利</strong></li>
+      <li>断熱: 内部GW50φ/24K・屋根裏まで施工。準防火地域仕様として最低限は確保</li>
+      <li>界壁: 両面石膏ボードt=12.5×2重貼り+屋根裏まで施工 → 遮音・防火の界壁仕様は法令準拠</li>
+      <li>屋根: 5/10勾配（26.5度）寄棟。標準的で問題なし</li>
+      <li>ロフト（H≦1,400mm・小屋裏物置扱い）は容積不算入。夏場の暑さクレーム対策で天井断熱厚を現地確認推奨</li>
+    </ul>
+
+    <h3>法令適合性</h3>
+    <ul>
+      <li><strong>接道:</strong> 「公道 42条2項道」（市道41号）で確定。SB約1m済み。有効接道長さ約6.9m。</li>
+      <li>ただし反対側敷地の後退次第で実質幅員は2.2m〜3mの狭あい道路。<strong>工事車両搬入・引越しトラック・救急車両の進入に注意</strong></li>
+      <li><strong>第1種高度地区:</strong> 最高高さ9.22m &lt; 10m高度地区 → クリア</li>
+      <li><strong>準防火地域:</strong> 開口部EB認定品・強化石膏ボードt=12.5・軒裏軒天下地ボード → <strong>防火性能は合格点</strong></li>
+      <li><strong>宅地造成規制区域:</strong> 配置図に「切土・盛土なし」明記 → 造成擁壁リスク低。ただしCB9段H1800mmの控え壁・鉄筋補強が適法か現地確認必須</li>
+      <li><strong>建蔽率55.7%（60%以下）・容積率92.5%（200%以下）</strong> → 適合</li>
+    </ul>
+
+    <h3>劣化対策等級3級の意義</h3>
+    <ul>
+      <li>75〜90年相当の耐久性能を担保 → 融資期間延長評価の可能性</li>
+      <li>住宅性能表示制度による<strong>第三者検査が入り、施工品質が担保される</strong>（最大メリット）</li>
+      <li>積算評価も24万/㎡で計算可能（IG+反映済）</li>
+    </ul>
+
+    <h3>修繕リスク（30年周期）</h3>
+    <ul>
+      <li>5-10年目: 給湯器交換 80-120万 / 外壁シーリング 60-80万</li>
+      <li>10-15年目: 外壁塗装・シーリング 150-200万 / 屋根点検・部分補修 30-50万</li>
+      <li>20-30年目: 給水管更新 240-400万 / 排水管更新 160-320万 / 屋根葺替 150-250万</li>
+    </ul>
+
+    <h3>現地で必ず確認すべきこと</h3>
+    <ol>
+      <li>前面道路の実測幅員と後退線杭の位置</li>
+      <li>敷地境界杭の有無と隣地建物との離隔</li>
+      <li>ブロック塀CB9段H1800mmの控え壁・鉄筋の有無（2018年大阪北部地震以降の所有者責任）</li>
+      <li>地盤調査報告書（追浜は丘陵地形。地耐力不足時の改良費100-300万は誰負担？）</li>
+      <li>建築確認申請書一式（耐震等級・断熱等級・住宅性能評価書の各種等級）</li>
+      <li>引渡時の完了検査済証と住宅性能評価書（設計・建設の両方交付を契約特約に明記）</li>
+      <li>施工中の場合は現場監理体制・施工会社の実績</li>
+      <li>界壁の遮音仕様・ロフト部の断熱厚（1Kアパートの最多クレーム源）</li>
+      <li>屋外階段の防錆処理（塩害エリア・溶融亜鉛メッキか塗装か）</li>
+      <li>土砂災害警戒区域の指定有無（丘陵地・宅造規制区域内）</li>
+    </ol>
+
+    <div class="highlight">
+      <strong>村田先生の総合所見:</strong><br>
+      「現場を見ないと断言はできませんが」、意匠図を拝見した限り<strong>設計内容は木造1Kアパートとして標準〜やや上のクオリティ</strong>で、大きな設計上の問題は見当たりません。むしろ好印象な点が3つ:①総二階に近い平面で直下率が高く耐震性能上有利、②劣化対策等級3級で第三者検査が入る、③準防火・界壁の遮音防火仕様が丁寧。<strong>この物件のリスクは「建物」ではなく「立地条件（狭あい道路・丘陵地形）」と「収益性」にあります</strong>。購入するなら「住宅性能評価書（設計・建設）の両方交付」「地盤改良費の負担明確化」「引渡時の完了検査済証提出」の3点を契約特約に必ず入れてください。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="captain">📌 キャプテンへの確認事項まとめ</h2>
+    <ol>
+      <li><strong>利回り6.57%は新築基準7.1%を明確に未達。</strong> 指値7,800〜8,315万円で7.4%基準到達を交渉するか、それとも見送るか？</li>
+      <li><strong>接道2.2m（42条2項道路）</strong>の融資可否を、澤井様経由でauじぶん銀行・オリックスに事前確認するか？</li>
+      <li><strong>別途水道加入金132万円</strong>の扱い（諸費用に追加 or 売主負担交渉）— CCRに1〜2pt影響</li>
+      <li><strong>売主指定4点</strong>（火災保険・司法書士・家屋調査士・LPガス）の実額・条件を書面開示要求するか？</li>
+      <li><strong>未完成6ヶ月先物×金利上昇局面</strong> → 2027年1月完成時の想定金利で収支再計算するか？</li>
+      <li><strong>建築確認申請書・地盤調査報告書・住宅性能評価書</strong>の入手（村田先生指摘の3点特約含む）</li>
+      <li><strong>リブライフ鈴田氏配信</strong>との条件比較（同一物件疑い・別ルートでの融資条件検証）</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2 class="captain">🎯 チーム総合所見</h2>
+
+    <table>
+      <tr><th>ハルト（エリア・利回り）</th><td class="warn">見送り推奨（指値7,800〜8,000万で再検討）</td></tr>
+      <tr><th>リョウ（DD）</th><td class="warn">リスクレベル中〜高（指値・融資可否・実勢賃料の3点確認後判断）</td></tr>
+      <tr><th>アキ（収支）</th><td class="warn">CF率・CCRとも基準未達（10年目IRR次第）</td></tr>
+      <tr><th>村田先生（建築）</th><td class="ok">設計品質は合格点（建物リスクは相対的に小さい）</td></tr>
+    </table>
+
+    <div class="danger">
+      <strong>チーム総合判断: ⚠️ 現状では「指値なし見送り」推奨</strong><br><br>
+      <strong>最大リスク:</strong> ①表面利回り6.57%がキャプテン基準7.1%を大幅未達（△0.53pt）／②接道2.2mの融資否認リスク／③未完成×金利上昇のダブルリスク。<br><br>
+      <strong>次のアクション:</strong>
+      <ol>
+        <li>BRICKS澤井様に<strong>指値8,000〜8,315万</strong>の可否を打診（表面7.4%まで届けば新築基準クリア）</li>
+        <li>並行して澤井様経由で<strong>auじぶん銀行への融資可否事前確認</strong>（接道2.2mの2項道路SB済・追浜駅前・95%融資可否）</li>
+        <li>リブライフ鈴田氏配信との<strong>同一物件・条件比較</strong>照合</li>
+        <li>建築確認申請書・住宅性能評価書・地盤調査報告書の3点入手</li>
+        <li>①〜③がクリアできた場合のみ、玉川式シートで10年目IRR≥25%を再確認して意思決定</li>
+      </ol>
+    </div>
+
+    <div class="info">
+      <strong>ポジティブサマリ:</strong> BRICKS澤井様との関係性は温存すべき（auじぶん・オリックスへの内諾ルート）。追浜駅徒歩4分・新築・劣化等級3級・BRICKS管理という設計品質は良好。指値と融資条件次第では十分検討余地あり。感情ではなく数字で判断を。
+    </div>
+  </div>
+
+  <div class="footer">
+    TC Capitals 不動産仕入部 チーム精査レポート ／ 精査日 2026-07-17<br>
+    ハルト・リョウ・アキ・村田先生
+  </div>
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260717_bricks-oppama_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260717_bricks-oppama_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
