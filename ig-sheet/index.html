@@ -161,6 +161,7 @@ body{padding-bottom:62px;}
     <div class="metric-name">返済比率</div>
     <div><span class="grade-badge grade-D" id="m_repay_grade">D</span></div>
     <div class="grade-sub" id="m_repay_val">—%</div>
+    <div id="m_dscr" style="font-size:11px;color:var(--muted);margin-top:4px;font-weight:600;">DSCR —</div>
     <div id="breakEvenVacancy" style="font-size:10px;color:var(--muted);margin-top:3px;">—</div>
   </div>
   <div class="metric-cell">
@@ -179,6 +180,7 @@ body{padding-bottom:62px;}
 <div class="note-bar">
   ※いずれも初年の評価です<br>
   ※<b>返済比率</b>の評価は、50.0%以下：A、50.1〜60.0%：B、61.0%〜65.0%：C、65.1%以上：Dです<br>
+  ※<b>DSCR</b>（NOI÷年間返済額）の目安は、1.3以上：緑（健全）、1.2〜1.3：黄、1.0〜1.2：橙、1.0未満：赤（赤字）です<br>
   ※<b>キャッシュフロー率</b>の評価は、2%以上：A、1.5%以上：B、1.0%以上：C、1.0%未満：Dです<br>
   ※<b>CCR（自己資金利回り）</b>の評価は、20%以上：A、15%以上：B、10%以上：C、10%未満：Dです<br>
   ※<b>積算比率</b>の評価は、物件価格比で100%以上：A、80%以上：B、60%以上：C、60%未満：Dです
@@ -1233,6 +1235,7 @@ function calc(){
   const cfYen     = noiYen - annualRepay;
   const cfRatePct = price > 0 ? cfYen / (price * 10000) * 100 : 0;
   const repayPct  = totalGrossInc > 0 ? annualRepay / rentTotalYen * 100 : 0;
+  const dscr      = annualRepay > 0 ? noiYen / annualRepay : 0;
   const ccrPct    = ownCash > 0 ? cfYen / (ownCash * 10000) * 100 : 0;
 
   // 月額賃料坪単価
@@ -1377,6 +1380,17 @@ function calc(){
   applyGrade('m_ccr_grade',    'm_ccr_val',    gCCR,   fmt2(ccrPct),    '%');
   applyGrade('m_repay_grade',  'm_repay_val',  gRepay, fmt2(repayPct),  '%');
   applyGrade('m_cfrate_grade', 'm_cfrate_val', gCFR,   fmt2(cfRatePct), '%');
+
+  // DSCR 表示
+  const dscrEl = el('m_dscr');
+  if (annualRepay > 0) {
+    const dscrColor = dscr >= 1.3 ? '#1e8e3e' : dscr >= 1.2 ? '#b8860b' : dscr >= 1.0 ? '#e65100' : '#c62828';
+    dscrEl.textContent = 'DSCR ' + fmt2(dscr);
+    dscrEl.style.color = dscrColor;
+  } else {
+    dscrEl.textContent = 'DSCR —';
+    dscrEl.style.color = 'var(--muted)';
+  }
 
   // キャプテン基準
   applyCheck('ck_price',  'ckv_price',  'ckb_price',  price <= 10000,    price + '万円');
