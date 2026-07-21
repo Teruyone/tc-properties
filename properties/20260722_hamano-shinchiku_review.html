@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>(仮称)浜野町新築計画 チーム精査レポート — TC Capitals 仕入部</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", "Hiragino Sans", "Yu Gothic", sans-serif; margin: 0; padding: 0; background: #f4f6fa; color: #1c2440; line-height: 1.7; }
+  header { background: linear-gradient(135deg, #1a2b6a 0%, #2a437a 100%); color: #fff; padding: 28px 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  header h1 { margin: 0 0 6px; font-size: 24px; letter-spacing: 0.03em; }
+  header .sub { font-size: 13px; opacity: 0.85; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 24px 32px 64px; }
+  .card { background: #fff; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin: 18px 0; padding: 22px 28px; }
+  .card h2 { margin-top: 0; font-size: 17px; padding-bottom: 10px; border-bottom: 2px solid; letter-spacing: 0.02em; }
+  .card h2.haruto { color: #d97a2a; border-color: #d97a2a; }
+  .card h2.ryo    { color: #2a63b5; border-color: #2a63b5; }
+  .card h2.aki    { color: #2e8f5e; border-color: #2e8f5e; }
+  .card h2.murata { color: #8b5a2b; border-color: #8b5a2b; }
+  .card h2.summary{ color: #1a2b6a; border-color: #1a2b6a; }
+  .card h2.check  { color: #b3435e; border-color: #b3435e; }
+  .card h2.hazard { color: #148a80; border-color: #148a80; }
+  .card h2.captain{ color: #6b3d99; border-color: #6b3d99; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 14px; }
+  th, td { padding: 8px 10px; border: 1px solid #d8dde8; text-align: left; }
+  th { background: #f0f3fa; font-weight: 600; }
+  .prop-summary td:nth-child(odd) { background: #f0f3fa; font-weight: 600; width: 18%; }
+  .ok { color: #2e8f5e; font-weight: 700; }
+  .ng { color: #c93a3a; font-weight: 700; }
+  .warn { color: #d97a2a; font-weight: 700; }
+  .link-btn { display: inline-block; background: #1a2b6a; color: #fff; padding: 8px 16px; border-radius: 5px; text-decoration: none; margin: 4px 6px 4px 0; font-size: 13px; }
+  .link-btn:hover { background: #2a437a; }
+  .link-btn.aki { background: #2e8f5e; }
+  .link-btn.ryo { background: #2a63b5; }
+  .link-btn.haruto { background: #d97a2a; }
+  .alert { background: #fff5f5; border-left: 4px solid #c93a3a; padding: 12px 16px; margin: 10px 0; border-radius: 4px; }
+  .warn-box { background: #fff8ec; border-left: 4px solid #d97a2a; padding: 12px 16px; margin: 10px 0; border-radius: 4px; }
+  .info-box { background: #eef7f2; border-left: 4px solid #2e8f5e; padding: 12px 16px; margin: 10px 0; border-radius: 4px; }
+  pre { background: #f6f8fc; padding: 10px 14px; border-radius: 5px; font-size: 12px; overflow-x: auto; }
+  ul.check-list { padding-left: 22px; }
+  ul.check-list li { margin: 4px 0; }
+  .team-badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px; color: #fff; margin-left: 6px; }
+  .badge-haruto { background: #d97a2a; }
+  .badge-ryo    { background: #2a63b5; }
+  .badge-aki    { background: #2e8f5e; }
+  .badge-murata { background: #8b5a2b; }
+  .badge-warn   { background: #d97a2a; }
+  .badge-ok     { background: #2e8f5e; }
+  .badge-ng     { background: #c93a3a; }
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260722_hamano-shinchiku_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=15690&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.7&floorArea=378.86&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=15690&pi_age_inp=0&pi_yield_inp=7.7&pi_area_inp=378.86&pi_rooms_inp=15&ik_land_area=182.19&ik_route_price=7&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%8D%83%E8%91%89%E7%9C%8C%E5%8D%83%E8%91%89%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E6%B5%9C%E9%87%8E%E7%94%BA1389" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=15690&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&floorArea=378.86&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=15690&pi_age_inp=0&pi_area_inp=378.86&pi_rooms_inp=15&ik_land_area=182.19&ik_route_price=7&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%8D%83%E8%91%89%E7%9C%8C%E5%8D%83%E8%91%89%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E6%B5%9C%E9%87%8E%E7%94%BA1389" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260722_hamano-shinchiku_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20260722_hamano-shinchiku_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+<header>
+  <h1>(仮称)浜野町新築計画 — チーム精査レポート</h1>
+  <div class="sub">TC Capitals 仕入部 4名チーム / 精査日: 2026年7月22日</div>
+</header>
+
+<div class="container">
+
+  <div class="alert">
+    <strong>⚠️ 重要注意事項</strong><br>
+    ① <strong>洪水・高潮浸水想定区域内（0.5〜3.0m・標高3.7m低地）</strong>→ 火災保険水災付き必須、1階5戸の水害リスク要検討<br>
+    ② <strong>総事業費1.57億円はキャプテン基準1億円超過</strong>（+5,690万円）→ 融資戦略の再設計必須<br>
+    ③ <strong>前買主の融資不成立で再募集</strong>→ 原因（買主属性or物件評価）の特定が最優先確認事項
+  </div>
+
+  <div class="card">
+    <h2 class="summary">📋 物件サマリー</h2>
+    <table class="prop-summary">
+      <tr><td>物件名</td><td>(仮称)浜野町新築計画</td><td>取引態様</td><td>売主（仲介手数料不要）</td></tr>
+      <tr><td>所在地</td><td>千葉県千葉市中央区浜野町1389,1390,1391</td><td>用途地域</td><td>第一種住居地域</td></tr>
+      <tr><td>交通</td><td>JR内房線「浜野」駅 徒歩2分（約130m）／蘇我約3分／千葉約9分</td><td>竣工予定</td><td>2027年3月（新築・確認申請進行中）</td></tr>
+      <tr><td>土地面積</td><td>182.19㎡（約55.11坪・角地）</td><td>建物構造</td><td>木造3階建</td></tr>
+      <tr><td>延床面積</td><td>378.86㎡（1F:122.62/2F:122.62/3F:122.62）</td><td>戸数</td><td>15戸（1R・1K中心 22.20〜22.77㎡ 14戸 + 33.06㎡ 1戸）</td></tr>
+      <tr><td>土地価格</td><td>5,690万円</td><td>建築費</td><td>10,200万円（税込・約26.9万円/㎡）</td></tr>
+      <tr><td>総事業費</td><td><strong>15,690万円</strong></td><td>想定表面利回り</td><td><strong>7.7%</strong>（想定年収 約1,200.6万円）</td></tr>
+      <tr><td>建蔽率</td><td>69.93%＜70%（角地緩和）</td><td>容積率</td><td>186.54%＜200%</td></tr>
+      <tr><td>融資実績</td><td colspan="3">りそな銀行 支店審査実績あり／七十七銀行 融資内諾実績あり</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2 class="check">🎯 キャプテン基準チェック</h2>
+    <table>
+      <tr><th>項目</th><th>基準</th><th>実績</th><th>判定</th></tr>
+      <tr><td>エリア</td><td>一都三県・16号内側</td><td>千葉市中央区（16号内側）</td><td class="ok">✅ OK</td></tr>
+      <tr><td>築年</td><td>築10年以内</td><td>新築（2027年3月竣工）</td><td class="ok">✅ OK</td></tr>
+      <tr><td>表面利回り</td><td>新築7.1%以上</td><td>7.7%（スマサテ考慮7.60%）</td><td class="ok">✅ OK</td></tr>
+      <tr><td>物件価格</td><td>1億円以内</td><td>1.57億円</td><td class="ng">❌ 超過 +5,690万</td></tr>
+      <tr><td>CF率（オリックス100%・2.6%）</td><td>≥1%</td><td>1.41%</td><td class="ok">✅ OK</td></tr>
+      <tr><td>CCR（オリックス）</td><td>≥15%</td><td>35.2%</td><td class="ok">✅ OK</td></tr>
+      <tr><td>積算比率</td><td>≥60%</td><td>58.8%（路線価暫定7万円/㎡）</td><td class="warn">⚠ 惜しい</td></tr>
+      <tr><td>10年目税引後IRR</td><td>≥25%</td><td>TGシートで要確認</td><td class="warn">→ TGシート確認</td></tr>
+    </table>
+    <div class="warn-box">通過項目 5/8。<strong>価格1億円超過が最大の減点</strong>。融資戦略の再設計が必須。積算比率58.8%は路線価が倍率地域のため暫定値で計算しており、正確な倍率表適用で60%基準を満たす可能性あり。</div>
+  </div>
+
+  <div class="card">
+    <h2 class="hazard">🗺️ 路線価・ハザードマップ・スマサテ査定 <span class="team-badge badge-haruto">ハルト調査</span></h2>
+
+    <h3>相続路線価</h3>
+    <p><strong>倍率地域</strong>（数値路線価なし・要倍率表確認）<br>
+    出典: chikamap.jp 令和7年分<br>
+    倍率表PDF: <a href="https://scr.wagmap.jp/chikamap/BAI/R07/12/B12101.pdf" target="_blank">https://scr.wagmap.jp/chikamap/BAI/R07/12/B12101.pdf</a><br>
+    ※浜野町は幹線道路沿い以外は倍率地域。積算評価は「固定資産税評価額×倍率」で再計算が必要。IG+では暫定7万円/㎡で計算しているため、正確な倍率適用で積算比率がやや変動する可能性あり。</p>
+
+    <h3>ハザードマップ判定（重ねるハザードマップ）</h3>
+    <table>
+      <tr><td>洪水浸水想定</td><td class="warn">⚠️ 浸水区域内 0.5〜3.0m（要注意）</td></tr>
+      <tr><td>高潮浸水想定</td><td class="warn">⚠️ 浸水区域内 0.5〜3.0m</td></tr>
+      <tr><td>土砂災害警戒区域</td><td class="ok">✅ 非該当</td></tr>
+      <tr><td>津波浸水想定</td><td class="ok">✅ 非該当</td></tr>
+      <tr><td>液状化危険度</td><td>確認不可</td></tr>
+      <tr><td>標高</td><td class="warn">3.7m（低地・東京湾沿い）</td></tr>
+      <tr><td><strong>総合判定</strong></td><td class="warn"><strong>要注意</strong>（即NGではないが1階5戸の水害リスクは物理的にある）</td></tr>
+    </table>
+    <div class="warn-box">
+    火災保険は水災付き必須。住宅金融支援機構融資での水害減額の可能性あり。
+    1階の33.06㎡住戸を含む1階5戸は浸水時の対応（電源上げ・什器配置）を建築段階で織り込むべき。
+    </div>
+
+    <h3>スマサテ賃料査定</h3>
+    <table>
+      <tr><td>スマサテ標準賃料（4部屋平均）</td><td><strong>66,244円/戸</strong>（礼金1ヶ月）</td></tr>
+      <tr><td>資料想定賃料</td><td>66,700円/戸</td></tr>
+      <tr><td>乖離</td><td class="ok">▲456円（▲0.7%）→ <strong>ほぼ乖離なし・妥当</strong></td></tr>
+      <tr><td>スマサテ考慮利回り</td><td>7.60%（資料7.7%からほぼ横ばい）</td></tr>
+    </table>
+
+    <p>📸 詳細スクショ・入力パラメータは<strong>物件調査レポート</strong>に集約されています（下記リンク）。</p>
+    <p><a class="link-btn haruto" href="20260722_hamano-shinchiku_survey.html">🔍 物件調査レポート（サーベイHTML）</a></p>
+  </div>
+
+  <div class="card">
+    <h2 class="haruto">🌆 ハルト（エリア・利回り分析）</h2>
+    <h3>浜野駅（JR内房線）の立地評価</h3>
+    <ul>
+      <li>1日乗降客数 約6,700人（JR東日本2023年度）→ 内房線の中でも小規模駅</li>
+      <li>蘇我駅（京葉・外房・内房線 快速停車）まで1駅3分 → 蘇我経由で東京駅約45分</li>
+      <li>千葉駅まで9分 → 千葉市中心部通勤圏として実用性あり</li>
+      <li><strong>駅徒歩2分（130m）は千葉圏で希少レベルの立地優位性</strong></li>
+    </ul>
+    <h3>賃貸需要</h3>
+    <ul>
+      <li>JFEスチール千葉（旧川崎製鉄）の企業城下町 → 単身社員需要が底堅い</li>
+      <li>千葉市中央区南部の1K相場: 5.8-6.5万円中心。浜野駅徒歩2分・新築設備なら6.5-6.7万円が妥当</li>
+      <li>スマサテ査定66,244円は新築プレミアム込みで相場上限に近い妥当水準</li>
+    </ul>
+    <h3>将来性・懸念</h3>
+    <ul>
+      <li>千葉市中央区人口 約20万人（微増傾向）</li>
+      <li><strong>懸念:</strong> JFE製鉄所は将来の生産構造改革リスクあり（2020年に高炉1基休止）。単一大企業依存は10-20年スパンで需要変動要因</li>
+      <li>22.77㎡は基準18㎡超だが「1Kとして最小クラス」。競合新築が大型化した場合の陳腐化早い</li>
+    </ul>
+    <div class="info-box">
+    <strong>ハルトの率直な評価:</strong> 「基準外だが光る点多数・要検討」<br>
+    駅徒歩2分×新築×単身需要地のトリプル揃い。スマサテ乖離▲0.7%は極めて健全。売主取引で仲介手数料470万円節約。<br>
+    ただし総事業費1.57億円は基準+5,690万円超過。融資戦略の見直しが必須。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="ryo">📋 リョウ（DD精査）</h2>
+    <h3>確認済み</h3>
+    <ul class="check-list">
+      <li>立地: JR内房線浜野駅 徒歩2分・角地</li>
+      <li>用途/法令: 第一種住居地域・建蔽69.93%&lt;70%(角地緩和)・容積186.54%&lt;200% 適合</li>
+      <li>構造: 木造3階建・延床378.86㎡・全15戸</li>
+      <li>取引: 売主直（仲介料ゼロ→諸費用4%圏）</li>
+      <li>融資実績: りそな支店審査・七十七銀行内諾（他行実績＝2行）</li>
+      <li>新耐震: 新築のため当然クリア</li>
+    </ul>
+    <h3>🚩 リスクフラグ</h3>
+    <ul class="check-list">
+      <li>🚩 <strong>前買主融資不成立の理由不明</strong> — 最大リスク。買主属性か物件評価か原因特定必須</li>
+      <li>🚩 表面利回り7.7%（新築・木造・15戸）— 千葉市中央区新築としては薄い</li>
+      <li>🚩 未竣工リスク — 建築費上振れ・工期遅延・確認申請未了。手付・違約金・引渡遅延特約の設計が命</li>
+      <li>🚩 1戸だけ33.06㎡が混在 — オーナー住戸/管理人室/一般賃貸のどれか要確認</li>
+      <li>🚩 駐輪15台/駐車0台 — 千葉市中央区で駐車ゼロは車保有層を切り捨て</li>
+      <li>🚩 土地3筆（1389/1390/1391）— 合筆有無・境界確定・地役権・私道持分の確認必要</li>
+      <li>🚩 木造3階建15戸 — 準耐火・防火区画・避難計画の建築確認内容の精査必要</li>
+    </ul>
+    <h3>未確認・要入手</h3>
+    <ul class="check-list">
+      <li>建築確認申請書一式・建築図面・仕様書</li>
+      <li>建築工事請負契約書ドラフト（施工会社・保証・完成保証保険）</li>
+      <li>前買主融資不成立の詳細ヒアリング資料</li>
+      <li>3筆分の登記簿謄本・公図・地積測量図・境界確認書</li>
+      <li>レントロール査定根拠</li>
+      <li>前面道路の幅員・接道長さ・私道有無、都市計画道路の抵触有無</li>
+    </ul>
+    <p><a class="link-btn ryo" href="https://teruyone.github.io/tc-properties/properties/20260722_hamano-shinchiku_DD.html">📋 入力済みDDチェックリスト</a></p>
+  </div>
+
+  <div class="card">
+    <h2 class="aki">💰 アキ（IG+収支計算 + 玉川式）</h2>
+    <h3>実収入・NOI</h3>
+    <table>
+      <tr><td>満室収入</td><td>1,200.6万円/年</td></tr>
+      <tr><td>実収入（空室5%）</td><td>1,140.57万円</td></tr>
+      <tr><td>費用合計</td><td>▲235.81万円（管理57.0+建物管理27.5+水光熱6.9+保険18.9+固都税79.8+修繕6.3+原状回復14.3+募集AD25.0）</td></tr>
+      <tr><td><strong>NOI</strong></td><td><strong>904.76万円（NOI利回り 5.77%）</strong></td></tr>
+    </table>
+
+    <h3>ローン試算（2パターン）</h3>
+    <table>
+      <tr><th>項目</th><th>①オリックス（100%・2.6%・35年）</th><th>②神奈川銀行（90%・2.25%・35年）</th></tr>
+      <tr><td>返済額</td><td>▲683.70万円</td><td>▲585.02万円</td></tr>
+      <tr><td>CF</td><td><span class="ok">221.06万円</span></td><td><span class="ok">319.74万円</span></td></tr>
+      <tr><td>CF率</td><td class="ok">1.41%</td><td class="ok">2.04%</td></tr>
+      <tr><td>返済比率</td><td>59.9%</td><td>51.3%</td></tr>
+      <tr><td>CCR</td><td class="ok">35.2%（自己資金627.6万）</td><td class="warn">14.6%（自己資金2,196.6万）</td></tr>
+      <tr><td>税引後CF</td><td>216.7万円</td><td>315.3万円</td></tr>
+    </table>
+
+    <h3>積算評価</h3>
+    <p>建物: 7,956万円（新築満額）／ 土地: 1,275万円（路線価暫定7万円/㎡）／ <strong>積算合計 9,231万円（積算比率58.8%）</strong>
+    <br>※<strong>路線価は倍率地域</strong>のため、実際の倍率表適用で数値が上下する可能性あり</p>
+
+    <h3>10年目税引後IRR基準（≥25%）</h3>
+    <p>玉川式シートをブラウザで開いて「10年」行のIRRを確認してください。</p>
+
+    <p>
+      <a class="link-btn aki" href="{ig_url}">📊 IG+【資料賃料版】収支試算</a>
+      <a class="link-btn aki" href="{ig_sumasate_url}">📊 IG+【スマサテ賃料版】収支試算</a>
+      <a class="link-btn aki" href="{tg_url}">📈 玉川式収益試算シート</a>
+    </p>
+
+    <div class="info-box">
+    <strong>アキからひとこと:</strong> 新築×15戸×駅徒歩2分でCF率1.41%（オリックス）は中々優秀。神奈川銀行(90%)でCF率2%超が出るのは強み。金利差0.35%で年間98万円/CFが変わる。ただし1棟目としては規模大きめ、法人2棟目以降で検討する方が座りが良い数字。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="murata">🏗️ 村田先生（建築士コメント）</h2>
+    <p><em>※現場を見ないと断言はできませんが、資料から読み取れることをお伝えします。</em></p>
+
+    <h3>構造評価</h3>
+    <p>木造3階建・延床378.86㎡は木造3階建共同住宅として構造計算（許容応力度計算）必須。令和4年省エネ基準義務化（2025年4月〜）対象。竣工2027年3月なら省エネ基準適合が義務化後の物件として仕上がるので、この点は安心材料。3階建はルート2以上、接合金物・耐力壁バランス（4分割法）・ベタ基礎前提が肝心。</p>
+
+    <h3>プランの合理性</h3>
+    <p>22.20〜22.77㎡×14戸は浜野の1R需要（単身社会人）に合致。全15戸で駐車0台は千葉市郊外としてやや弱いが、駅徒歩2分でカバー可能。33.06㎡×1戸は3F角部屋想定なら家賃プレミアム設計として合理的。中央階段型は延焼・避難動線がシンプルで◎、共用廊下の採光・通風は現地確認必須。</p>
+
+    <h3>直近リスク</h3>
+    <ul>
+      <li>建築費10,200万円÷378.86㎡＝約26.9万円/㎡。木造3階共同住宅として妥当〜やや安め（相場27〜32万円/㎡）</li>
+      <li>見積後の鋼材・木材・給湯器・電材の価格スライド条項の有無を契約書で必ず確認</li>
+      <li>竣工が2027年6月以降にズレると初回満室が2027年繁忙期を外す</li>
+    </ul>
+
+    <h3>中期修繕リスク</h3>
+    <ul>
+      <li>10年目: 外壁塗装300〜400万円</li>
+      <li>15年目: 屋上防水80〜120万円／給湯器一斉交換180万円</li>
+      <li>20年目: 給排水管点検／エアコン更新150万円</li>
+      <li>30年サイクル総額: 1,000〜1,300万円（月3万円強/戸の積立目安）</li>
+    </ul>
+
+    <h3>法令適合性の確認ポイント</h3>
+    <ul>
+      <li>確認済証・完了検査済証・住宅瑕疵担保保険付保証明の3点セット必須</li>
+      <li>角地認定要件（2方向道路幅員）を確認</li>
+      <li>容積率186.54%＜200%は前面道路幅員×0.4計算の可能性。前面道路4m未満なら再計算必要</li>
+      <li>第一種住居地域＋準防火地域が濃厚（浜野駅前）。準防火なら木造3階は45分準耐火構造で対応</li>
+      <li>日影規制・北側斜線・道路斜線のクリア図を確認</li>
+    </ul>
+
+    <h3>現地・実物確認事項</h3>
+    <ul>
+      <li>完了検査済証と設計図書の整合（勝手な変更がないか）</li>
+      <li>排水勾配（1/50以上）と共用廊下の防水立上り</li>
+      <li>界壁・界床の遮音性能（1Kは隣室音がクレーム源）</li>
+      <li>駐輪15台の動線（雨天時の入口混雑・防犯灯）</li>
+      <li>給湯器・エアコン室外機の設置位置と更新性</li>
+      <li>サイディングのシーリング初期打設状況</li>
+    </ul>
+
+    <div class="info-box">
+    <strong>村田先生の総合所感:</strong> 現場を見ないと断言はできませんが、駅徒歩2分・省エネ基準適合・実績銀行の融資内諾ありは新築案件として筋が良い。木造3階建は施工品質が寿命を決めるので、施工会社の実績（同規模木造3階建の竣工物件を3件以上）確認と第三者検査（配筋・上棟・完了の3段階）導入を強く推奨。竣工後のアフター2年点検も契約書で明文化を。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="captain">📢 キャプテンへの確認事項まとめ</h2>
+    <h3>最優先（買付前に必須）</h3>
+    <ol>
+      <li><strong>前買主の融資不成立の理由</strong>は「買主属性」か「物件評価」か、売主から聞き出せますか？</li>
+      <li><strong>売主（弊社）の建築実績</strong>・過去の同種物件の稼働状況は把握できますか？</li>
+      <li>りそな/七十七の<strong>融資条件（金利・期間・自己資金）</strong>はキャプテン属性で内諾レベルまで取れそうですか？</li>
+      <li>1.57億円は基準超過。<strong>オリックス100%・35年</strong>が新築1.57億案件に通るか事前打診が必要。神奈川銀行(90%)の自己資金2,200万円は投下可能ですか？</li>
+    </ol>
+    <h3>契約条件（買付〜契約段階）</h3>
+    <ol start="5">
+      <li>契約時に「<strong>建築確認取得を停止条件</strong>」「竣工遅延違約金」「建物完成保証」を入れられますか？</li>
+      <li>手付金の保全（<strong>宅建業法41条の保全措置</strong>）の設計は？未竣工売主物件は保全対象です</li>
+      <li><strong>建築費10,200万円の上限固定</strong>（資材高騰時の増額NG条項）は契約書に入れられますか？</li>
+      <li>33.06㎡×1戸の用途（オーナー住戸/管理人室/一般賃貸）はどれですか？</li>
+    </ol>
+    <h3>物件仕様・確認事項</h3>
+    <ol start="9">
+      <li><strong>浜野町の路線価倍率表</strong>を国税庁で確認して積算比率を確定させる（IG+暫定値7万円/㎡で計算中）</li>
+      <li><strong>火災保険は水災付き必須</strong>（洪水・高潮浸水想定区域内）。融資金融機関の水害減額有無も要確認</li>
+      <li>施工会社の実績（同規模木造3階建の竣工物件を3件以上）と第三者検査導入</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2 class="summary">🎯 チーム総合所見</h2>
+    <h3>総合判断</h3>
+    <div class="warn-box">
+    <strong>「基準外だが光る点多数・要検討」</strong><br>
+    駅徒歩2分×新築×売主取引×融資実績2行は極めて筋が良い案件。ただし①総事業費1.57億が基準1億超過、②浸水想定区域内の物理リスク、③前買主融資不成立の原因未解明——この3点をクリアできるかがGO判断の焦点。
+    </div>
+
+    <h3>最大リスク（優先順）</h3>
+    <ol>
+      <li><strong>融資リスク</strong>: 1.57億円で1棟目としてオリックス/auじぶんが通るか未検証。前買主が融資不成立で流れた事実は物件評価に起因する可能性を否定できない</li>
+      <li><strong>ハザードリスク</strong>: 洪水・高潮浸水区域内（0.5〜3.0m）。標高3.7m低地。長期保有時の水害発生確率と保険料増額を織り込む必要</li>
+      <li><strong>単一企業依存リスク</strong>: JFE製鉄所の生産構造改革（10-20年スパン）で賃貸需要が変動する可能性</li>
+      <li><strong>建築リスク</strong>: 未着工・確認申請進行中。工期遅延・建築費上振れ・完成保証の設計が命</li>
+    </ol>
+
+    <h3>次のアクション（提案）</h3>
+    <ul>
+      <li>【最優先】売主に「前買主融資不成立の詳細」を書面で照会 → 買主属性起因ならGO検討、物件評価起因なら見送り</li>
+      <li>【並行】ケンジ先生に1.57億案件の融資可能性を事前打診（りそな・七十七・オリックス・auじぶん）</li>
+      <li>【並行】路線価倍率表を国税庁で確認して積算比率を確定させる</li>
+      <li>【条件付GO時】買付時に「建築確認取得を停止条件」「手付金保全」「建築費上限固定」の3点を必須</li>
+    </ul>
+
+    <p style="margin-top:20px;font-size:12px;color:#6b7280;">— 精査担当: ハルト（エリア）／リョウ（DD）／アキ（収支）／村田先生（建築）／ 2026年7月22日</p>
+  </div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260722_hamano-shinchiku_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260722_hamano-shinchiku_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
