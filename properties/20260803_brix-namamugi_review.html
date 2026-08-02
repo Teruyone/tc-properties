@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>物件精査レポート｜ブリックス生麦｜TC Capitals</title>
+<style>
+  :root {
+    --primary: #1a237e;
+    --primary-light: #3949ab;
+    --accent: #e65100;
+    --ok: #2e7d32;
+    --ng: #c62828;
+    --warn: #f57f17;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --border: #dde3ee;
+    --text: #1a1a2e;
+    --muted: #607d8b;
+    --haruto: #e65100;
+    --ryo: #1565c0;
+    --aki: #2e7d32;
+    --murata: #4e342e;
+    --teal: #00695c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .site-header {
+    background: var(--primary);
+    color: white;
+    padding: 16px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .site-header h1 { font-size: 17px; font-weight: 700; letter-spacing: 0.05em; }
+  .site-header .sub { font-size: 12px; opacity: 0.75; margin-top: 2px; }
+  .container { max-width: 960px; margin: 0 auto; padding: 24px 16px 80px; }
+
+  .alert-ng {
+    background: #c62828;
+    color: #fff;
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  .alert-ng .lead { font-size: 18px; margin-bottom: 6px; }
+  .alert-ng .sub { font-size: 13px; opacity: 0.92; font-weight: 500; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title.haruto { border-color: var(--haruto); color: var(--haruto); }
+  .card-title.ryo { border-color: var(--ryo); color: var(--ryo); }
+  .card-title.aki { border-color: var(--aki); color: var(--aki); }
+  .card-title.murata { border-color: var(--murata); color: var(--murata); }
+  .card-title.captain { border-color: var(--primary); color: var(--primary); }
+  .card-title.teal { border-color: var(--teal); color: var(--teal); }
+  .card-title.summary { border-color: #37474f; color: #37474f; }
+
+  .prop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .prop-label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px; }
+  .prop-value { font-size: 14px; font-weight: 600; color: var(--text); }
+  .prop-value.highlight { font-size: 20px; color: var(--primary); }
+
+  .criteria-table { width: 100%; border-collapse: collapse; }
+  .criteria-table th {
+    background: #f0f2fa;
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .criteria-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .criteria-table tr:last-child td { border-bottom: none; }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    min-width: 50px;
+    text-align: center;
+  }
+  .badge-ok { background: #e8f5e9; color: var(--ok); }
+  .badge-ng { background: #ffebee; color: var(--ng); }
+  .badge-warn { background: #fff8e1; color: var(--warn); }
+
+  .cf-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 600px) { .cf-grid { grid-template-columns: 1fr; } }
+  .cf-card {
+    background: #f8f9ff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .cf-card h4 { font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 12px; }
+  .cf-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; border-bottom: 1px solid #eef0f8; }
+  .cf-row:last-child { border-bottom: none; }
+  .cf-row.total { font-weight: 700; color: var(--primary); padding-top: 8px; margin-top: 4px; }
+  .cf-label { color: var(--muted); }
+  .cf-value { font-weight: 600; }
+  .cf-value.positive { color: var(--ok); }
+  .cf-value.negative { color: var(--ng); }
+  .cf-value.warn { color: var(--warn); }
+
+  .btn-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+  .btn-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+  .btn-link:hover { opacity: 0.8; }
+  .btn-link.ryo { background: #e3f2fd; color: var(--ryo); border: 1px solid #bbdefb; }
+  .btn-link.aki { background: #e8f5e9; color: var(--aki); border: 1px solid #c8e6c9; }
+  .btn-link.tg { background: #e8f5e9; color: #1b5e20; border: 1px solid #a5d6a7; }
+  .btn-link.teal { background: #e0f2f1; color: var(--teal); border: 1px solid #b2dfdb; }
+
+  .confirm-list { list-style: none; counter-reset: item; }
+  .confirm-item {
+    counter-increment: item;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .confirm-item:last-child { border-bottom: none; }
+  .confirm-num {
+    background: var(--primary);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .confirm-num.urgent { background: var(--ng); }
+  .confirm-title { font-weight: 700; margin-bottom: 2px; }
+  .confirm-desc { color: var(--muted); font-size: 12px; }
+
+  .verdict-box {
+    background: linear-gradient(135deg, #b71c1c 0%, #c62828 100%);
+    color: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 8px;
+  }
+  .verdict-label { font-size: 11px; opacity: 0.7; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+  .verdict-score { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .verdict-text { font-size: 14px; line-height: 1.8; opacity: 0.95; }
+
+  h2.section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 28px 0 10px;
+  }
+  h3.sub-title { font-size: 13px; font-weight: 700; color: var(--muted); margin: 14px 0 8px; text-transform: uppercase; letter-spacing: 0.03em; }
+  ul.plain { list-style: none; }
+  ul.plain li { padding: 5px 0; font-size: 13px; border-bottom: 1px dashed #e8ebf3; }
+  ul.plain li:last-child { border-bottom: none; }
+  .hazard-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed #e8ebf3; font-size: 13px; }
+  .hazard-row:last-child { border-bottom: none; }
+  .hazard-row .label { color: var(--muted); }
+  .hazard-row .val { font-weight: 700; }
+  .hazard-row .val.ng { color: var(--ng); }
+  .hazard-row .val.ok { color: var(--ok); }
+  .hazard-row .val.warn { color: var(--warn); }
+  p.body-text { font-size: 13px; line-height: 1.75; color: #333; margin: 8px 0; }
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260803_brix-namamugi_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=4680&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=6.82&floorArea=98.24&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=10&taxRateIncome=20&pi_price_inp=4680&pi_age_inp=10&pi_yield_inp=6.82&pi_area_inp=98.24&pi_rooms_inp=4&ik_land_area=113.67&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%B6%B4%E8%A6%8B%E5%8C%BA%E6%9D%B1%E5%AF%BA%E5%B0%BE" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=4680&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=6.82&floorArea=98.24&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=10&taxRateIncome=20&pi_price_inp=4680&pi_age_inp=10&pi_area_inp=98.24&pi_rooms_inp=4&ik_land_area=113.67&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%B6%B4%E8%A6%8B%E5%8C%BA%E6%9D%B1%E5%AF%BA%E5%B0%BE" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260803_brix-namamugi_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20260803_brix-namamugi_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+
+<header class="site-header">
+  <h1>📑 チーム物件精査レポート｜TC Capitals 不動産仕入部</h1>
+  <div class="sub">ブリックス 生麦｜精査日: 2026-08-03｜担当: ハルト・リョウ・アキ・村田先生</div>
+</header>
+
+<div class="container">
+
+  <div class="alert-ng">
+    <div class="lead">⚠️ ハザードリスクにより見送り推奨</div>
+    <div class="sub">重ねるハザードマップで<strong>土砂災害特別警戒区域（レッドゾーン）該当</strong>を確認。キャプテン基準の絶対NGラインに該当するため、他指標に関わらず見送りを推奨します。</div>
+  </div>
+
+  <!-- ===== 物件サマリー ===== -->
+  <h2 class="section-label">物件サマリー</h2>
+  <div class="card">
+    <div class="card-title">🏢 物件概要</div>
+    <div class="prop-grid">
+      <div class="prop-item">
+        <div class="prop-label">物件名</div>
+        <div class="prop-value">ブリックス 生麦</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">所在地</div>
+        <div class="prop-value">神奈川県横浜市鶴見区東寺尾</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">交通</div>
+        <div class="prop-value">京急本線「生麦駅」徒歩11分／花月総持寺 徒歩18分／JR新子安 徒歩18分</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">物件価格</div>
+        <div class="prop-value highlight">4,680万円</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">表面利回り</div>
+        <div class="prop-value highlight">6.82%</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">構造・築年</div>
+        <div class="prop-value">木造2階建・2016年8月竣工（築10年）</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">延床面積</div>
+        <div class="prop-value">98.24㎡（29.73坪）</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">土地面積</div>
+        <div class="prop-value">113.67㎡（34.38坪）</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">間取り・戸数</div>
+        <div class="prop-value">1K × 4戸（各24.5㎡）</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">用途地域</div>
+        <div class="prop-value">第二種中高住専（建蔽60%・容積150%）</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">接道</div>
+        <div class="prop-value">第42条2項道路（私道持分あり）</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">取引態様</div>
+        <div class="prop-value">仲介（ブリックス株式会社）</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">満室想定賃料</div>
+        <div class="prop-value">3,192,000円/年（月26.6万円）</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">稼働状況</div>
+        <div class="prop-value">満室</div>
+      </div>
+      <div class="prop-item">
+        <div class="prop-label">劣化対策等級</div>
+        <div class="prop-value">2級取得</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== キャプテン基準チェック ===== -->
+  <h2 class="section-label">キャプテン基準チェック</h2>
+  <div class="card">
+    <div class="card-title captain">⚖️ TC Capitals 仕入基準</div>
+    <table class="criteria-table">
+      <thead>
+        <tr>
+          <th>基準項目</th>
+          <th>基準値</th>
+          <th>本物件</th>
+          <th>判定</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>価格</td>
+          <td>1億円以下</td>
+          <td>4,680万円</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>表面利回り</td>
+          <td>8.0%以上</td>
+          <td><strong>6.82%</strong></td>
+          <td><span class="badge badge-ng">NG</span></td>
+        </tr>
+        <tr>
+          <td>築年数</td>
+          <td>10年以内</td>
+          <td>築10年</td>
+          <td><span class="badge badge-warn">境界</span></td>
+        </tr>
+        <tr>
+          <td>エリア</td>
+          <td>16号内側</td>
+          <td>横浜市鶴見区</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>戸あたり面積</td>
+          <td>18㎡超</td>
+          <td>24.5㎡</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>ハザード（レッド不可）</td>
+          <td>土砂特別警戒NG</td>
+          <td><strong>レッドゾーン該当</strong></td>
+          <td><span class="badge badge-ng">即NG</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== 路線価・ハザード・スマサテ ===== -->
+  <h2 class="section-label">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</h2>
+  <div class="card">
+    <div class="card-title teal">🗺️ 外部データ調査結果</div>
+
+    <h3 class="sub-title">📐 相続税路線価</h3>
+    <p class="body-text"><strong>18万円/㎡</strong>（借地権割合D＝60%・chikamap.jp 令和7年分）／ 土地113.67㎡ × 18万円 = 相続税評価ベース土地約<strong>2,046万円</strong></p>
+
+    <h3 class="sub-title">🌊 ハザード判定（重ねるハザードマップ）</h3>
+    <div class="hazard-row"><span class="label">洪水浸水想定</span><span class="val ok">✅ 非該当</span></div>
+    <div class="hazard-row"><span class="label">土砂災害警戒区域</span><span class="val ng">❌ レッドゾーン（急傾斜地の崩壊・特別警戒）</span></div>
+    <div class="hazard-row"><span class="label">津波浸水想定</span><span class="val ok">✅ 非該当</span></div>
+    <div class="hazard-row"><span class="label">液状化危険度</span><span class="val warn">確認不可</span></div>
+    <div class="hazard-row"><span class="label">内水氾濫</span><span class="val ok">✅ 非該当</span></div>
+    <div class="hazard-row"><span class="label"><strong>総合判定</strong></span><span class="val ng"><strong>❌ 即NG</strong></span></div>
+
+    <h3 class="sub-title">🏠 スマサテ賃料査定</h3>
+    <table class="criteria-table">
+      <tbody>
+        <tr><td>スマサテ標準賃料</td><td><strong>68,000円/戸</strong></td></tr>
+        <tr><td>単価</td><td>2,906円/㎡ ／ 9,605円/坪</td></tr>
+        <tr><td>資料賃料</td><td>66,500円/戸</td></tr>
+        <tr><td>乖離</td><td><strong>+1,500円（+2.3%）</strong> 資料より査定が強い</td></tr>
+        <tr><td>スマサテ考慮満室年収</td><td>326.4万円</td></tr>
+        <tr><td>スマサテ考慮利回り</td><td><strong>6.97%</strong>（基準8.0%に約1pt未達）</td></tr>
+      </tbody>
+    </table>
+
+    <div class="btn-links">
+      <a href="{survey_url}" class="btn-link teal" target="_blank">🔍 物件調査レポート（スマサテ入力・ハザードマップ画像）</a>
+    </div>
+  </div>
+
+  <!-- ===== ハルト ===== -->
+  <h2 class="section-label">ハルト（エリア・利回り分析）</h2>
+  <div class="card">
+    <div class="card-title haruto">🌅 朝倉 晴斗 — 物件探し担当</div>
+
+    <p class="body-text">正直、ここは触れない案件です。</p>
+
+    <h3 class="sub-title">光る点</h3>
+    <ul class="plain">
+      <li>BRICKS管理物件で管理体制は安心（管理費2.75%・AD1.5ヶ月）</li>
+      <li>築10年で満室稼働・スマサテも資料超えで賃料の強さあり</li>
+      <li>生麦は横浜9分・品川25分と単身アクセス良好</li>
+    </ul>
+
+    <h3 class="sub-title">アウトの理由</h3>
+    <ul class="plain">
+      <li>❌ <strong>土砂災害特別警戒区域（レッドゾーン）該当</strong> ← これ一発でNG。融資が組めない・出口も細る・保険/自治体対応の三重リスク</li>
+      <li>❌ 表面6.82%で基準8.0%に1.18pt未達。<strong>スマサテ考慮でも6.97%</strong>で届かない</li>
+      <li>❌ 東寺尾は台地の縁で急傾斜地帯。隣地物件も同じリスクを抱える可能性が高い</li>
+    </ul>
+
+    <h3 class="sub-title">エリア分析</h3>
+    <ul class="plain">
+      <li>生麦駅：京急本線各停のみ停車。横浜9分・品川25分と都心アクセス良好</li>
+      <li>東寺尾：鶴見駅・横浜駅の生活圏で単身賃貸需要は安定</li>
+      <li>地形リスク：東寺尾は台地の縁で急傾斜地が多数存在。今回の該当はエリア構造上の必然</li>
+      <li>相場：木造築10年・1K・徒歩11分でスマサテ68,000円は概ね妥当ライン</li>
+    </ul>
+
+    <p class="body-text"><strong>BRICKS物件で管理は魅力ですが、レッドゾーンはキャプテン基準の絶対NGライン。次の生麦周辺BRICKS案件（低地側 or 内陸側）が出たら即取りに行きます。</strong></p>
+  </div>
+
+  <!-- ===== リョウ ===== -->
+  <h2 class="section-label">リョウ（DD・法務・書類）</h2>
+  <div class="card">
+    <div class="card-title ryo">🔍 黒沢 涼 — DD担当</div>
+
+    <h3 class="sub-title">✅ 確認済み</h3>
+    <ul class="plain">
+      <li>新耐震: 2016年8月竣工 → 完全クリア（現行耐震・省エネ基準対応期）</li>
+      <li>構造: 木造2階建・耐用22年 → 残存耐用12年（融資期間の壁になる可能性）</li>
+      <li>用途地域: 第二種中高住専 → 共同住宅適合・建蔽60/容積150で問題なし</li>
+      <li>現況: 満室（4戸）</li>
+      <li>取扱: ブリックス株式会社（自社ブランド・元付の可能性）</li>
+      <li>立地: 生麦11分・新子安18分の複数路線利用可（16号内側）</li>
+    </ul>
+
+    <h3 class="sub-title">🚩 リスクフラグ</h3>
+    <ul class="plain">
+      <li>🔴 <strong>接道 第42条2項道路（私道持分あり）</strong>：再建築時セットバック必要。私道持分の登記状況・通行掘削承諾書の有無を必ず確認。融資審査で減点対象（オリックス・auじぶんとも私道評価はシビア）</li>
+      <li>🔴 <strong>劣化対策等級 2級（通常水準・75年相当）</strong>：3級（90年相当）ではないためフラット35S金利優遇・住宅性能表示でのプラス評価は限定的。auじぶん銀行の性能加点対象外の可能性</li>
+      <li>🟡 <strong>満室時利回り6.82%</strong>：キャプテンの新基準（8.0%以上）から大幅未達（1.18pt下回り）。指値必須ラインは価格ベースで▲800万円程度（3,880万円で8.22%）</li>
+      <li>🟡 <strong>戸数4戸・全戸単身向け</strong>：1戸空室で稼働率75%に急落する集中リスク</li>
+      <li>🟡 <strong>土地に対し建物余裕あり</strong>：建蔽率使用率41%・容積率使用率58%で拡張余地は残る</li>
+    </ul>
+
+    <h3 class="sub-title">❓ 未確認・要入手</h3>
+    <ul class="plain">
+      <li>レントロール（全戸現況賃料・入居年月・敷金・更新月）</li>
+      <li>公課証明書または固都税納税通知書</li>
+      <li>修繕履歴（築10年 → 外壁・防水の直近実施状況）</li>
+      <li>私道持分の登記事項証明書・通行掘削承諾書</li>
+      <li>建築確認済証・検査済証</li>
+      <li>擁壁・崖の有無（東寺尾は台地部で高低差リスク）</li>
+    </ul>
+
+    <p class="body-text"><strong>リスクレベル: 中〜高</strong>。立地・築浅・満室と表面条件は良いが、①利回り6.82%が新基準未達、②接道42条2項＋私道持分が融資審査の関門、③劣化等級2級でIG+収支の下振れ、の3点で買付前に潰すべき論点が多い。<strong>指値▲800万円＋私道承諾書の確保</strong>が最低条件。</p>
+
+    <div class="btn-links">
+      <a href="{dd_url}" class="btn-link ryo" target="_blank">📋 入力済みDDリスト</a>
+    </div>
+  </div>
+
+  <!-- ===== アキ ===== -->
+  <h2 class="section-label">アキ（収支計算・IG+・玉川式）</h2>
+  <div class="card">
+    <div class="card-title aki">📊 三宅 亜紀 — 収支計算担当</div>
+
+    <h3 class="sub-title">収益</h3>
+    <p class="body-text">満室 319.2万円 → 実収入（空室5%控除）<strong>303.24万円</strong></p>
+
+    <h3 class="sub-title">費用合計: 81.56万円/年</h3>
+    <p class="body-text">管理15.16 ／ BM 7.13 ／ 水光熱1.78 ／ 保険4.90 ／ 固都税30.32 ／ 修繕8.17 ／ 原状回復7.43 ／ AD 6.65</p>
+
+    <h3 class="sub-title">NOI: 221.68万円（NOI利回り 4.74%）</h3>
+
+    <h3 class="sub-title">ローン試算</h3>
+    <div class="cf-grid">
+      <div class="cf-card">
+        <h4>①オリックス（フル・2.6%・35年）</h4>
+        <div class="cf-row"><span class="cf-label">年間返済</span><span class="cf-value negative">▲203.79万</span></div>
+        <div class="cf-row"><span class="cf-label">CF</span><span class="cf-value warn">17.89万</span></div>
+        <div class="cf-row"><span class="cf-label">CF率</span><span class="cf-value negative">0.38%</span></div>
+        <div class="cf-row"><span class="cf-label">返済比率</span><span class="cf-value negative">67.2%</span></div>
+        <div class="cf-row"><span class="cf-label">自己資金</span><span class="cf-value">327.6万</span></div>
+        <div class="cf-row total"><span class="cf-label">CCR</span><span class="cf-value negative">5.46%</span></div>
+      </div>
+      <div class="cf-card">
+        <h4>②神奈川銀行（90%・2.25%・35年）</h4>
+        <div class="cf-row"><span class="cf-label">年間返済</span><span class="cf-value negative">▲173.99万</span></div>
+        <div class="cf-row"><span class="cf-label">CF</span><span class="cf-value positive">47.69万</span></div>
+        <div class="cf-row"><span class="cf-label">CF率</span><span class="cf-value warn">1.02%</span></div>
+        <div class="cf-row"><span class="cf-label">返済比率</span><span class="cf-value warn">57.4%</span></div>
+        <div class="cf-row"><span class="cf-label">自己資金</span><span class="cf-value">795.6万</span></div>
+        <div class="cf-row total"><span class="cf-label">CCR</span><span class="cf-value negative">5.99%</span></div>
+      </div>
+    </div>
+
+    <h3 class="sub-title">キャプテン基準6指標</h3>
+    <table class="criteria-table">
+      <thead>
+        <tr><th>基準</th><th>閾値</th><th>オリックス</th><th>神奈川</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>価格</td><td>≤1億</td><td><span class="badge badge-ok">OK</span></td><td><span class="badge badge-ok">OK</span></td></tr>
+        <tr><td>利回り</td><td>≥7.1%</td><td><span class="badge badge-ng">NG（6.82%）</span></td><td><span class="badge badge-ng">NG</span></td></tr>
+        <tr><td>CF率</td><td>≥1%</td><td><span class="badge badge-ng">NG（0.38%）</span></td><td><span class="badge badge-warn">境界（1.02%）</span></td></tr>
+        <tr><td>CCR</td><td>≥15%</td><td><span class="badge badge-ng">NG（5.46%）</span></td><td><span class="badge badge-ng">NG（5.99%）</span></td></tr>
+        <tr><td>積算</td><td>≥60%</td><td colspan="2">路線価18万円で再計算：建物約1,125万＋土地約2,046万＝<strong>3,171万</strong> → 積算比率<strong>67.8%</strong>（OK）</td></tr>
+        <tr><td>10年目IRR</td><td>≥25%</td><td colspan="2">玉川式シートで要確認</td></tr>
+      </tbody>
+    </table>
+
+    <p class="body-text"><strong>アキひとこと</strong>：表面6.82%は基準割れ。実質NOI利回り4.74%だとフルローン（オリックス）はCF率0.38%で赤ライン。神奈川銀行90%でギリCF率1%超えるが、自己資金795万入れてCCR6%は投資効率が悪い。BRICKS管理費2.75%を反映した玉川式ではもう少しマシになるはずですが、そもそも利回りが低い構造。</p>
+
+    <div class="btn-links">
+      <a href="{ig_url}" class="btn-link aki" target="_blank">📊 IG+【資料賃料】収支試算</a>
+      <a href="{ig_sumasate_url}" class="btn-link aki" target="_blank">📊 IG+【スマサテ賃料】収支試算</a>
+      <a href="{tg_url}" class="btn-link tg" target="_blank">📈 玉川式収益試算シート</a>
+    </div>
+  </div>
+
+  <!-- ===== 村田先生 ===== -->
+  <h2 class="section-label">村田先生（建築士コメント）</h2>
+  <div class="card">
+    <div class="card-title murata">🏗️ 村田 誠一 — 一級建築士（経験35年）</div>
+
+    <p class="body-text"><em>「現場を見ないと断言はできませんが、資料から読み取れることをお伝えします」</em></p>
+
+    <h3 class="sub-title">構造・築10年の評価</h3>
+    <p class="body-text">2016年竣工なので新耐震＋2000年基準（接合金物・基礎規定強化）に完全適合。木造としては最も信頼のおける仕様世代。BRICKS株式会社の自社ブランド企画物件（4戸×24.5㎡・木造2階）は彼らの標準スペック。<strong>築10年は初期不良は出切って大規模修繕はまだ来ない一番の安定期</strong>。躯体そのものへの心配は現時点では最小。</p>
+
+    <h3 class="sub-title">修繕リスク＆概算費用</h3>
+    <ul class="plain">
+      <li><strong>5年以内（築10〜15年）</strong>：外壁塗装・シーリング打替 90〜130万円 ／ 屋根点検・タスペーサー 30〜60万円 ／ 給湯器交換 4戸×約12万＝48万円 ／ バルコニー防水トップコート 10〜20万円</li>
+      <li><strong>10年以内（築15〜20年）</strong>：外壁2回目観察・雨樋部分補修 20〜50万円 ／ エアコン・レンジフード・給湯器複数戸更新 累計50〜100万円</li>
+      <li>5年以内トータル目安: <strong>170〜260万円</strong> ／ 10年以内トータル: <strong>250〜400万円</strong></li>
+    </ul>
+
+    <h3 class="sub-title">劣化対策等級2級の評価</h3>
+    <p class="body-text">2級＝「通常想定される自然条件・維持管理条件下で概ね50〜60年」の耐久性能。3級（75〜90年）ほどではないが、木造としては十分な仕様。<strong>融資評価上のインパクトは大きい</strong>：建物評価目安2級=210万円/㎡、3級=240万円/㎡。今回98.24㎡×210万円=<strong>約2,063万円</strong>の建物評価。3級なら約2,357万円で差額約300万円分やや不利。</p>
+
+    <h3 class="sub-title">接道42条2項（私道持分あり）</h3>
+    <p class="body-text">42条2項道路（みなし道路）は木造アパートで非常に多いパターン。①セットバック済みかどうか、②私道持分の内容（持分割合・掘削承諾の書面）、③建替時の再建築可否は必ず確認。<strong>インフラ更新時のトラブル（給排水管を私道下でやり直す時の承諾）が最大リスク</strong>。</p>
+
+    <h3 class="sub-title">現地で必ず確認すべきこと（優先順）</h3>
+    <ul class="plain">
+      <li>① <strong>外壁・シーリング</strong>：5年以内の外壁塗装要否がCFを左右。南面・西面のシーリング打継ぎ部を目視</li>
+      <li>② <strong>42条2項道路のセットバック状況と私道持分実態</strong>：出口（売却）時に買主の融資可否と価格を直撃</li>
+      <li>③ <strong>検査済証・確認申請書副本の実在確認</strong>：無いと融資と出口で詰む</li>
+      <li>④ <strong>基礎・土台廻り</strong>：ベタ基礎外周の換気口・クラック（0.3mm超要注意）・蟻道の有無</li>
+      <li>⑤ <strong>共用部の鉄部（外階段・手摺・破風板）</strong>：木造で一番早く痛む</li>
+      <li>⑥ <strong>屋根</strong>：スレート屋根なら10年でコケ・色褪せ。板金の浮きは雨漏り直結</li>
+      <li>⑦ <strong>給湯器・室外機の設置年月</strong>：本体製造年シール確認。2016年製のまま=今後5年で4台順次交換確定</li>
+    </ul>
+
+    <p class="body-text"><strong>総合所感</strong>：資料ベースの印象は「築10年・BRICKS標準・満室・新耐震＋2000年基準・劣化等級2級」と、木造アパートとしては極めて手堅い部類。躯体リスクは低く、直近の頭痛の種は外壁塗装くらい。ただし価格と利回りの折り合いはハルト・アキの判断領域。<strong>接道42条2項×私道持分は「今は合法・将来やや面倒」の典型。掘削承諾書と共有者関係だけは購入前に完全にクリアに。</strong></p>
+  </div>
+
+  <!-- ===== キャプテン確認事項 ===== -->
+  <h2 class="section-label">キャプテンへの確認事項</h2>
+  <div class="card">
+    <div class="card-title captain">📞 山口輝大キャプテンへ</div>
+    <ul class="confirm-list">
+      <li class="confirm-item">
+        <span class="confirm-num urgent">1</span>
+        <div class="confirm-body">
+          <div class="confirm-title">土砂災害特別警戒区域（レッドゾーン）該当</div>
+          <div class="confirm-desc">重ねるハザードマップで急傾斜地の崩壊・特別警戒区域指定を確認。キャプテン基準の絶対NG。<strong>この段階で買付は止めるべき</strong>。エビデンス: knowledge/hazardmap-debug/brix-namamugi_hazard_popup.png</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <span class="confirm-num urgent">2</span>
+        <div class="confirm-body">
+          <div class="confirm-title">私道持分・通行掘削承諾書の入手状況</div>
+          <div class="confirm-desc">ブリックスから共有者全員の通行掘削承諾書は入手できていますか？未取得なら融資審査で致命傷。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <span class="confirm-num">3</span>
+        <div class="confirm-body">
+          <div class="confirm-title">レントロール・公課証明書の入手</div>
+          <div class="confirm-desc">全戸現況賃料・入居年月・敷金・更新月。固都税納税通知書。未入手なら至急依頼推奨。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <span class="confirm-num">4</span>
+        <div class="confirm-body">
+          <div class="confirm-title">劣化対策等級2級の認識確認</div>
+          <div class="confirm-desc">3級ではなく2級。IG+の残存耐用・積算評価に反映済み（等級1・2側selected）。フラット35S加点・auじぶん銀行性能加点は限定的。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <span class="confirm-num">5</span>
+        <div class="confirm-body">
+          <div class="confirm-title">ブリックスの取引態様（売主 or 仲介）</div>
+          <div class="confirm-desc">資料は「仲介」記載ですが、ブリックス管理物件なら実質元付の可能性。価格交渉余地の確認を。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <span class="confirm-num">6</span>
+        <div class="confirm-body">
+          <div class="confirm-title">東寺尾エリアの擁壁・高低差の現地確認</div>
+          <div class="confirm-desc">東寺尾は台地部で高低差リスクあり。レッドゾーン該当も含めGoogle Streetでも要チェック。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <span class="confirm-num">7</span>
+        <div class="confirm-body">
+          <div class="confirm-title">10年目税引後IRR（≥25%）</div>
+          <div class="confirm-desc">玉川式シートをブラウザで開いて「10年」行のIRRを確認してください。</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ===== チーム総合所見 ===== -->
+  <h2 class="section-label">チーム総合所見</h2>
+  <div class="verdict-box">
+    <div class="verdict-label">TEAM VERDICT</div>
+    <div class="verdict-score">❌ 見送り推奨</div>
+    <div class="verdict-text">
+      <strong>最大リスク：土砂災害特別警戒区域（レッドゾーン）該当。</strong>キャプテン基準の絶対NGラインに該当し、他の指標（利回り・積算・築年）に関わらず購入不可。融資組成が困難、出口の売却先が細る、保険料の上昇、自治体対応の三重リスクが確定的です。<br><br>
+      仮にハザード条件を無視しても、①表面利回り6.82%（スマサテ考慮でも6.97%）が基準8.0%未達、②接道42条2項＋私道持分の融資審査リスク、③CF率0.38%（フルローン時）の投資効率の悪さ、と重大論点が積み重なります。<br><br>
+      <strong>次のアクション</strong>：本件は見送り。ハルトが指摘する通り、生麦周辺のBRICKS案件（低地側・内陸側でハザードNG回避）が出たら即取りに行きます。BRICKS管理体制と築浅品質は魅力なので、エリアと利回りが揃えば有力候補。
+    </div>
+  </div>
+
+</div>
+
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260803_brix-namamugi_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260803_brix-namamugi_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
