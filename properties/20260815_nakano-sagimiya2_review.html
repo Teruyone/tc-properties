@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>物件精査レポート｜中野区鷺宮二丁目 賃貸併用｜TC Capitals</title>
+<style>
+  :root {
+    --primary: #1a237e;
+    --primary-light: #3949ab;
+    --accent: #e65100;
+    --ok: #2e7d32;
+    --ng: #c62828;
+    --warn: #f57f17;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --border: #dde3ee;
+    --text: #1a1a2e;
+    --muted: #607d8b;
+    --haruto: #e65100;
+    --ryo: #1565c0;
+    --aki: #2e7d32;
+    --murata: #4e342e;
+    --teal: #00695c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Hiragino Sans', 'Yu Gothic UI', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.7; }
+  .site-header { background: var(--primary); color: white; padding: 16px 24px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+  .site-header h1 { font-size: 17px; font-weight: 700; letter-spacing: 0.05em; }
+  .site-header .sub { font-size: 12px; opacity: 0.75; margin-top: 2px; }
+  .container { max-width: 960px; margin: 0 auto; padding: 24px 16px 80px; }
+  .alert-ng { background: #c62828; color: #fff; padding: 14px 18px; border-radius: 10px; font-size: 15px; font-weight: 700; margin-bottom: 20px; line-height: 1.6; }
+  .alert-ng .lead { font-size: 18px; margin-bottom: 6px; }
+  .alert-ng .sub { font-size: 13px; opacity: 0.92; font-weight: 500; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .card-title { font-size: 15px; font-weight: 700; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .card-title.haruto { border-color: var(--haruto); color: var(--haruto); }
+  .card-title.ryo { border-color: var(--ryo); color: var(--ryo); }
+  .card-title.aki { border-color: var(--aki); color: var(--aki); }
+  .card-title.murata { border-color: var(--murata); color: var(--murata); }
+  .card-title.captain { border-color: var(--primary); color: var(--primary); }
+  .card-title.teal { border-color: var(--teal); color: var(--teal); }
+  .card-title.summary { border-color: #37474f; color: #37474f; }
+  .prop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .prop-label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px; }
+  .prop-value { font-size: 14px; font-weight: 600; color: var(--text); }
+  .prop-value.highlight { font-size: 20px; color: var(--primary); }
+  .criteria-table { width: 100%; border-collapse: collapse; }
+  .criteria-table th { background: #f0f2fa; padding: 8px 12px; text-align: left; font-size: 12px; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--border); }
+  .criteria-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .criteria-table tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; min-width: 50px; text-align: center; }
+  .badge-ok { background: #e8f5e9; color: var(--ok); }
+  .badge-ng { background: #ffebee; color: var(--ng); }
+  .badge-warn { background: #fff8e1; color: var(--warn); }
+  .cf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 600px) { .cf-grid { grid-template-columns: 1fr; } }
+  .cf-card { background: #f8f9ff; border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+  .cf-card h4 { font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 12px; }
+  .cf-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; border-bottom: 1px solid #eef0f8; }
+  .cf-row:last-child { border-bottom: none; }
+  .cf-row.total { font-weight: 700; color: var(--primary); padding-top: 8px; margin-top: 4px; }
+  .cf-label { color: var(--muted); }
+  .cf-value { font-weight: 600; }
+  .cf-value.positive { color: var(--ok); }
+  .cf-value.negative { color: var(--ng); }
+  .cf-value.warn { color: var(--warn); }
+  .btn-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+  .btn-link { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600; transition: opacity 0.2s; }
+  .btn-link:hover { opacity: 0.8; }
+  .btn-link.ryo { background: #e3f2fd; color: var(--ryo); border: 1px solid #bbdefb; }
+  .btn-link.aki { background: #e8f5e9; color: var(--aki); border: 1px solid #c8e6c9; }
+  .btn-link.tg { background: #e8f5e9; color: #1b5e20; border: 1px solid #a5d6a7; }
+  .btn-link.teal { background: #e0f2f1; color: var(--teal); border: 1px solid #b2dfdb; }
+  .confirm-list { list-style: none; counter-reset: item; }
+  .confirm-item { counter-increment: item; display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .confirm-item:last-child { border-bottom: none; }
+  .confirm-num { background: var(--primary); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .confirm-num.urgent { background: var(--ng); }
+  .confirm-title { font-weight: 700; margin-bottom: 2px; }
+  .confirm-desc { color: var(--muted); font-size: 12px; }
+  .verdict-box { background: linear-gradient(135deg, #b71c1c 0%, #c62828 100%); color: white; border-radius: 12px; padding: 24px; margin-top: 8px; }
+  .verdict-label { font-size: 11px; opacity: 0.7; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+  .verdict-score { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .verdict-text { font-size: 14px; line-height: 1.8; opacity: 0.95; }
+  h2.section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 28px 0 10px; }
+  h3.sub-title { font-size: 13px; font-weight: 700; color: var(--muted); margin: 14px 0 8px; text-transform: uppercase; letter-spacing: 0.03em; }
+  ul.plain { list-style: none; }
+  ul.plain li { padding: 5px 0; font-size: 13px; border-bottom: 1px dashed #e8ebf3; }
+  ul.plain li:last-child { border-bottom: none; }
+  .hazard-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed #e8ebf3; font-size: 13px; }
+  .hazard-row:last-child { border-bottom: none; }
+  .hazard-row .label { color: var(--muted); }
+  .hazard-row .val { font-weight: 700; }
+  .hazard-row .val.ng { color: var(--ng); }
+  .hazard-row .val.ok { color: var(--ok); }
+  .hazard-row .val.warn { color: var(--warn); }
+  p.body-text { font-size: 13px; line-height: 1.75; color: #333; margin: 8px 0; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>📑 チーム物件精査レポート｜TC Capitals 不動産仕入部</h1>
+  <div class="sub">中野区鷺宮二丁目 賃貸併用住宅｜精査日: 2026-08-15｜担当: ハルト・リョウ・アキ・村田先生</div>
+</header>
+
+<div class="container">
+
+  <div class="alert-ng">
+    <div class="lead">⚠️ 純収益物件としては見送り推奨（賃貸併用戦略の可否を要確認）</div>
+    <div class="sub">キャプテン基準6指標すべてNG。表面4.7%（スマサテ考慮4.21%）で両融資パターンともCFマイナス確定。ただし「賃貸併用として自宅利用」戦略なら別軸で再評価要。方針の確認が最優先です。</div>
+  </div>
+
+  <!-- ===== 物件サマリー ===== -->
+  <h2 class="section-label">物件サマリー</h2>
+  <div class="card">
+    <div class="card-title">🏢 物件概要</div>
+    <div class="prop-grid">
+      <div class="prop-item"><div class="prop-label">物件名</div><div class="prop-value">中野区鷺宮二丁目 賃貸併用住宅</div></div>
+      <div class="prop-item"><div class="prop-label">所在地</div><div class="prop-value">東京都中野区鷺宮2-13-7</div></div>
+      <div class="prop-item"><div class="prop-label">交通</div><div class="prop-value">西武新宿線「都立家政」駅 徒歩9分／「野方」駅 徒歩13分</div></div>
+      <div class="prop-item"><div class="prop-label">物件価格</div><div class="prop-value highlight">10,800万円</div></div>
+      <div class="prop-item"><div class="prop-label">表面利回り</div><div class="prop-value highlight">4.70%</div></div>
+      <div class="prop-item"><div class="prop-label">構造・築年</div><div class="prop-value">鉄骨造3階建・2009年9月竣工（築16年）</div></div>
+      <div class="prop-item"><div class="prop-label">延床面積</div><div class="prop-value">157.38㎡（47.61坪）</div></div>
+      <div class="prop-item"><div class="prop-label">土地面積</div><div class="prop-value">100.88㎡（30.51坪）角地（北西）</div></div>
+      <div class="prop-item"><div class="prop-label">間取り・戸数</div><div class="prop-value">1K×2戸／1R×1戸／2LDK×1戸（オーナー住居想定）計4戸＋駐車場2台</div></div>
+      <div class="prop-item"><div class="prop-label">用途地域</div><div class="prop-value">第一種住居（建蔽70%・容積200%）</div></div>
+      <div class="prop-item"><div class="prop-label">権利</div><div class="prop-value">所有権</div></div>
+      <div class="prop-item"><div class="prop-label">取引態様</div><div class="prop-value">仲介（松崎ハウジング・東京都知事免許第44775号）</div></div>
+      <div class="prop-item"><div class="prop-label">満室想定賃料</div><div class="prop-value">507.6万円/年（月42.3万円）</div></div>
+      <div class="prop-item"><div class="prop-label">稼働状況</div><div class="prop-value">賃貸中</div></div>
+      <div class="prop-item"><div class="prop-label">特記事項</div><div class="prop-value">角地・バストイレ別・<strong>敷地の一部に計画道路が該当</strong></div></div>
+    </div>
+  </div>
+
+  <!-- ===== キャプテン基準チェック ===== -->
+  <h2 class="section-label">キャプテン基準チェック</h2>
+  <div class="card">
+    <div class="card-title captain">⚖️ TC Capitals 仕入基準</div>
+    <table class="criteria-table">
+      <thead><tr><th>基準項目</th><th>基準値</th><th>本物件</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><td>価格</td><td>1億円以下</td><td><strong>1億800万円</strong></td><td><span class="badge badge-ng">NG</span></td></tr>
+        <tr><td>表面利回り</td><td>8.0%以上</td><td><strong>4.70%</strong>（スマサテ4.21%）</td><td><span class="badge badge-ng">NG</span></td></tr>
+        <tr><td>築年数</td><td>10年以内</td><td>築16年</td><td><span class="badge badge-ng">NG</span></td></tr>
+        <tr><td>エリア</td><td>16号内側</td><td>中野区（23区内）</td><td><span class="badge badge-ok">OK</span></td></tr>
+        <tr><td>戸あたり面積</td><td>18㎡超</td><td>平均39.3㎡（1K22㎡想定〜2LDK55㎡想定）</td><td><span class="badge badge-ok">OK</span></td></tr>
+        <tr><td>ハザード（レッド不可）</td><td>土砂特別警戒NG・浸水2m以上NG</td><td>洪水0.5m未満・土砂/津波/液状化非該当</td><td><span class="badge badge-warn">要注意</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== 路線価・ハザード・スマサテ ===== -->
+  <h2 class="section-label">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</h2>
+  <div class="card">
+    <div class="card-title teal">🗺️ 外部データ調査結果</div>
+
+    <h3 class="sub-title">📐 相続税路線価</h3>
+    <p class="body-text"><strong>39万円/㎡</strong>（借地権割合C＝70%・chikamap.jp 令和7年分）／ 土地100.88㎡ × 39万円 = 相続税評価ベース土地約<strong>3,934万円</strong>。中野区らしい高路線価で、積算評価は路線価反映後56.6%まで持ち直します（それでも基準60%未満）。</p>
+
+    <h3 class="sub-title">🌊 ハザード判定（重ねるハザードマップ）</h3>
+    <div class="hazard-row"><span class="label">洪水浸水想定</span><span class="val warn">⚠️ 浸水区域内（0.5m未満・軽微）</span></div>
+    <div class="hazard-row"><span class="label">土砂災害警戒区域</span><span class="val ok">✅ 非該当</span></div>
+    <div class="hazard-row"><span class="label">津波浸水想定</span><span class="val ok">✅ 非該当</span></div>
+    <div class="hazard-row"><span class="label">液状化危険度</span><span class="val warn">確認不可</span></div>
+    <div class="hazard-row"><span class="label">内水氾濫</span><span class="val ok">✅ 非該当</span></div>
+    <div class="hazard-row"><span class="label"><strong>総合判定</strong></span><span class="val warn"><strong>⚠️ 要注意（即NGではない）</strong></span></div>
+    <p class="body-text">レッドゾーン・浸水2m以上には非該当のため、キャプテン基準の絶対NGラインは回避。ただし洪水0.5m未満の浸水区域内のため、購入時の火災保険・水災補償の付帯検討および中野区独自ハザードマップでの妙正寺川関連リスク確認を推奨。</p>
+
+    <h3 class="sub-title">🏠 スマサテ賃料査定</h3>
+    <table class="criteria-table">
+      <tbody>
+        <tr><td>スマサテ標準賃料（3件平均）</td><td><strong>100,907円/戸</strong></td></tr>
+        <tr><td>1K（22㎡・1F・徒歩9分）</td><td>76,246円</td></tr>
+        <tr><td>1R（20㎡・1F・徒歩9分）</td><td>77,678円</td></tr>
+        <tr><td>2LDK（55㎡・3F・徒歩9分）</td><td>148,796円</td></tr>
+        <tr><td>スマサテ考慮満室月収（4戸: 1K×2＋1R＋2LDK）</td><td>378,966円/月</td></tr>
+        <tr><td>スマサテ考慮満室年収</td><td>454.76万円</td></tr>
+        <tr><td>資料賃料（4戸÷507.6万÷12）</td><td>105,750円/戸（4戸均等分配ベース）</td></tr>
+        <tr><td>乖離</td><td><strong>▲52.84万円/年（▲10.4%）</strong> 資料の方が10%高め・賃料下振れリスクあり</td></tr>
+        <tr><td>スマサテ考慮表面利回り</td><td><strong>4.21%</strong>（資料4.70%からさらに0.49pt悪化）</td></tr>
+      </tbody>
+    </table>
+
+    <div class="btn-links">
+      <a href="properties/20260815_nakano-sagimiya2_survey.html" class="btn-link teal" target="_blank">🔍 物件調査レポート（スマサテ入力・路線価・ハザード画像）</a>
+    </div>
+  </div>
+
+  <!-- ===== ハルト ===== -->
+  <h2 class="section-label">ハルト（エリア・利回り分析）</h2>
+  <div class="card">
+    <div class="card-title haruto">🌅 朝倉 晴斗 — 物件探し担当</div>
+
+    <p class="body-text">キャプテン、正直に言います。エリアは超一級品、でも数字が壊滅的です。純収益物件としては触れない案件、でも「賃貸併用で自宅として住む」ならまったく別軸の話になります。</p>
+
+    <h3 class="sub-title">光る点</h3>
+    <ul class="plain">
+      <li>都立家政 徒歩9分・野方 徒歩13分の2駅利用可（西武新宿線）。新宿まで急行20分圏</li>
+      <li>中野区は23区内で人気上位。単身賃貸需要は極めて安定</li>
+      <li>路線価39万円/㎡（借地権割合C）は中野区の中〜上位ライン。土地の資産性は強い</li>
+      <li>2007年適判制度後の鉄骨造3階建・角地・所有権。躯体スペックは優秀</li>
+      <li>賃貸併用なので「自宅として使いつつ賃料も取れる」という戦略が組める</li>
+    </ul>
+
+    <h3 class="sub-title">アウトの理由</h3>
+    <ul class="plain">
+      <li>❌ <strong>表面利回り4.70%</strong>：キャプテン基準8.0%に3.3ptも未達。純収益物件としては論外</li>
+      <li>❌ <strong>スマサテ考慮4.21%</strong>：資料賃料が10%高め設定の可能性。実勢賃料に落とすとさらに悪化</li>
+      <li>❌ <strong>価格1億800万円</strong>：基準1億円オーバー。1棟目でこの価格帯は融資枠を使い切る</li>
+      <li>❌ <strong>築16年</strong>：基準10年以内NG。auじぶん銀行の築浅優遇からも外れる</li>
+      <li>❌ <strong>計画道路一部該当</strong>：中野区は都市計画道路の事業化が進む区。事業決定なら短期保有前提の物件</li>
+    </ul>
+
+    <h3 class="sub-title">エリア分析</h3>
+    <ul class="plain">
+      <li>都立家政駅：西武新宿線各停停車駅。1日乗降人員1.6万人前後（コンパクトな駅）</li>
+      <li>野方駅：西武新宿線急行停車駅・1日乗降人員2.5万人前後。中野区の生活拠点駅</li>
+      <li>鷺宮エリアは中野区内でも住宅街色が濃く、単身〜DINKS層に人気。空室リスクは極めて低い</li>
+      <li>1K・1Rのスマサテ査定7.6〜7.7万円は中野区の相場感（駅徒歩10分圏・築古鉄骨）としては妥当ラインの下限</li>
+      <li>2LDK14.9万円は中野区3F角部屋築16年鉄骨としては強気ライン。オーナー住居想定なので実勢賃料の検証には要注意</li>
+    </ul>
+
+    <p class="body-text"><strong>ハルトのひとこと：エリアは超一級、単身賃貸なら空室リスクほぼゼロ。ただし利回り4.7%は「純投資」としては絶対に成立しない。この物件が意味を持つのは「賃貸併用として自宅にする」戦略に限られます。キャプテンの意図次第で全く別のレポートになるので、まず方針確認をお願いします。</strong></p>
+  </div>
+
+  <!-- ===== リョウ ===== -->
+  <h2 class="section-label">リョウ（DD・法務・書類）</h2>
+  <div class="card">
+    <div class="card-title ryo">🔍 黒沢 涼 — DD担当</div>
+
+    <p class="body-text">ちょっと待ってください。この物件、単純収益として買うか賃貸併用として買うかで論点構造が180度変わります。両パターンで整理します。</p>
+
+    <h3 class="sub-title">✅ 確認済み</h3>
+    <ul class="plain">
+      <li>新耐震: 2009年9月築 → 完全クリア（1981/6以降・2000年基準・2007年適判後）</li>
+      <li>エリア: 中野区・16号内側・都心近接。西武新宿線 都立家政駅 徒歩9分は好立地</li>
+      <li>用途地域: 第一種住居（建蔽70%/容積200%）→ 賃貸併用として問題なし</li>
+      <li>土地形状: 角地（北西）→ 採光・通風・出口戦略で有利</li>
+      <li>取引態様: 仲介（松崎ハウジング・諸費用7%見込）</li>
+      <li>権利: 所有権</li>
+    </ul>
+
+    <h3 class="sub-title">🚩 リスクフラグ</h3>
+    <ul class="plain">
+      <li>🔴 <strong>計画道路が敷地の一部に該当（最大リスク）</strong>：計画線の位置・抵触㎡数・事業決定の有無すべて要確認。事業決定済なら融資評価が大幅減額。中野区は都市計画道路の事業化が動いている区</li>
+      <li>🔴 <strong>表面利回り4.7%はキャプテン基準7.1〜8.0%を大幅未達</strong>：純収益物件としてはNG圏。中野区の資産性・住宅ローン活用でしか成立しない</li>
+      <li>🔴 <strong>賃貸併用の融資戦略が未定</strong>：住宅ローン活用（金利安いが2棟目auじぶん銀行戦略と競合／financing_strategy.md明記）／アパートローン（表面4.7%で返済比率97%破綻）</li>
+      <li>🟡 <strong>住宅ローン適用の50%要件</strong>：自己居住部分（2LDK想定）が延床157.38㎡の50%（78.7㎡）以上必要。2LDKが仮に55㎡なら約35%で住宅ローン適用不可</li>
+      <li>🟡 <strong>築16年・鉄骨造</strong>：大規模修繕（屋根防水・外壁塗装）の実施履歴と次回予定が読めない</li>
+      <li>🟡 <strong>年収507.6万円の帰属が不明</strong>：4戸全部か賃貸3戸のみか。オーナー住居想定分は市場推計か実額か</li>
+    </ul>
+
+    <h3 class="sub-title">❓ 未確認・要入手</h3>
+    <ul class="plain">
+      <li>レントロール（全戸の現況賃料・契約日・空室状況）</li>
+      <li>公課証明書または固都税納税通知書</li>
+      <li>修繕履歴（築16年・鉄骨の大規模修繕状況）</li>
+      <li>建築確認済証・検査済証</li>
+      <li>登記簿謄本（抵当権・差押）</li>
+      <li>建物図面（オーナー住居部分の面積確認・50%要件判定）</li>
+      <li><strong>計画道路詳細図（中野区都市計画課で入手）</strong>：都市計画道路名・幅員・進捗ステータス（計画決定／事業決定／事業認可）</li>
+      <li>前面道路幅員・接道状況</li>
+    </ul>
+
+    <p class="body-text"><strong>リスクレベル: 高</strong>。純収益指標（利回り4.7%）だけ見れば見送り一択。しかし「賃貸併用で自宅として買う」戦略なら別軸で評価可能。ただし住宅ローン活用は2棟目融資戦略と競合するため、方針の再確認が最優先。計画道路リスクは資料入手前に前進不可。</p>
+
+    <div class="btn-links">
+      <a href="https://teruyone.github.io/tc-properties/properties/20260815_nakano-sagimiya2_DD.html" class="btn-link ryo" target="_blank">📋 入力済みDDリスト</a>
+    </div>
+  </div>
+
+  <!-- ===== アキ ===== -->
+  <h2 class="section-label">アキ（収支計算・IG+・玉川式）</h2>
+  <div class="card">
+    <div class="card-title aki">📊 三宅 亜紀 — 収支計算担当</div>
+
+    <p class="body-text">1円の誤差が最終判断を狂わせる、が信条ですが、この物件は誤差以前に構造がNGです。数字で示します。</p>
+
+    <h3 class="sub-title">収益（資料賃料ベース）</h3>
+    <p class="body-text">満室 507.60万円 → 実収入（空室5%控除）<strong>482.22万円</strong>／スマサテ考慮なら満室454.76万円→実収入約432.02万円</p>
+
+    <h3 class="sub-title">費用合計: 130.04万円/年（資料賃料ベース）</h3>
+    <p class="body-text">管理24.11 ／ BM 11.43 ／ 共用光熱2.86 ／ 保険7.86 ／ 固都税48.22 ／ 修繕13.09 ／ 原状回復11.90 ／ AD 10.57</p>
+
+    <h3 class="sub-title">NOI: 352.18万円（NOI利回り 3.26%）</h3>
+    <p class="body-text">NOI利回り3.26%は中野区築古鉄骨としても異常に低い。実質は返済カバー困難ライン。</p>
+
+    <h3 class="sub-title">ローン試算</h3>
+    <div class="cf-grid">
+      <div class="cf-card">
+        <h4>①オリックス（フル・2.6%・35年）</h4>
+        <div class="cf-row"><span class="cf-label">年間返済</span><span class="cf-value negative">▲470.29万</span></div>
+        <div class="cf-row"><span class="cf-label">CF</span><span class="cf-value negative">▲118.11万</span></div>
+        <div class="cf-row"><span class="cf-label">CF率</span><span class="cf-value negative">▲1.09%</span></div>
+        <div class="cf-row"><span class="cf-label">返済比率</span><span class="cf-value negative">97.5%（破綻ライン）</span></div>
+        <div class="cf-row"><span class="cf-label">自己資金</span><span class="cf-value">756万（諸費用のみ）</span></div>
+        <div class="cf-row total"><span class="cf-label">CCR</span><span class="cf-value negative">▲15.62%</span></div>
+      </div>
+      <div class="cf-card">
+        <h4>②神奈川銀行（90%・2.25%・35年）</h4>
+        <div class="cf-row"><span class="cf-label">年間返済</span><span class="cf-value negative">▲401.52万</span></div>
+        <div class="cf-row"><span class="cf-label">CF</span><span class="cf-value negative">▲49.34万</span></div>
+        <div class="cf-row"><span class="cf-label">CF率</span><span class="cf-value negative">▲0.46%</span></div>
+        <div class="cf-row"><span class="cf-label">返済比率</span><span class="cf-value negative">83.3%</span></div>
+        <div class="cf-row"><span class="cf-label">自己資金</span><span class="cf-value">1,836万（頭金1,080万+諸費用756万）</span></div>
+        <div class="cf-row total"><span class="cf-label">CCR</span><span class="cf-value negative">▲2.69%</span></div>
+      </div>
+    </div>
+
+    <h3 class="sub-title">キャプテン基準6指標</h3>
+    <table class="criteria-table">
+      <thead><tr><th>基準</th><th>閾値</th><th>オリックス</th><th>神奈川銀行</th></tr></thead>
+      <tbody>
+        <tr><td>価格</td><td>≤1億</td><td><span class="badge badge-ng">NG（1.08億）</span></td><td><span class="badge badge-ng">NG</span></td></tr>
+        <tr><td>利回り</td><td>≥7.1%</td><td><span class="badge badge-ng">NG（4.70%）</span></td><td><span class="badge badge-ng">NG</span></td></tr>
+        <tr><td>CF率</td><td>≥1%</td><td><span class="badge badge-ng">NG（▲1.09%）</span></td><td><span class="badge badge-ng">NG（▲0.46%）</span></td></tr>
+        <tr><td>CCR</td><td>≥15%</td><td><span class="badge badge-ng">NG（▲15.62%）</span></td><td><span class="badge badge-ng">NG（▲2.69%）</span></td></tr>
+        <tr><td>積算</td><td>≥60%</td><td colspan="2">路線価39万反映：建物約2,180万＋土地約3,934万＝<strong>6,114万</strong>／積算比率<strong>56.6%</strong> <span class="badge badge-ng">NG</span></td></tr>
+        <tr><td>10年目IRR</td><td>≥25%</td><td colspan="2">玉川式シートで要確認（CFマイナス継続でIRRも致命的水準見込）</td></tr>
+      </tbody>
+    </table>
+
+    <p class="body-text"><strong>アキひとこと</strong>：キャプテン、これは"買ってはいけない物件"です。理由を5つに絞ると①フルローンでCF年▲118万・返済比率97.5%は破綻ライン、②神奈川銀行9割融資で頭金1,836万投入してもCFマイナス、③積算比率56.6%（路線価反映後でも基準60%未達）で共同担保に使えず次の物件融資枠を圧迫、④鉄骨残存31年 vs 融資35年で融資期間短縮リスク（実質30年融資でさらに悪化）、⑤スマサテ考慮で年収▲52.8万→CFさらに悪化。<strong>1億円という予算枠を使うなら、利回り7.1%以上・築浅・積算60%以上の物件を待つべきです。</strong></p>
+
+    <div class="btn-links">
+      <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=10800&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=4.7&floorArea=157.38&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=16&taxRateIncome=20&pi_price_inp=10800&pi_age_inp=16&pi_yield_inp=4.7&pi_area_inp=157.38&pi_rooms_inp=4&ik_land_area=100.88&ik_route_price=39&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E4%B8%AD%E9%87%8E%E5%8C%BA%E9%B7%BA%E5%AE%AE2-13-7" class="btn-link aki" target="_blank">📊 IG+【資料賃料】収支試算</a>
+      <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=10800&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=4.21&floorArea=157.38&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=16&taxRateIncome=20&pi_price_inp=10800&pi_age_inp=16&pi_yield_inp=4.21&pi_area_inp=157.38&pi_rooms_inp=4&ik_land_area=100.88&ik_route_price=39&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E4%B8%AD%E9%87%8E%E5%8C%BA%E9%B7%BA%E5%AE%AE2-13-7" class="btn-link aki" target="_blank">📊 IG+【スマサテ賃料】収支試算</a>
+      <a href="tamagawa-analysis/20260815_nakano-sagimiya2_TG.html" class="btn-link tg" target="_blank">📈 玉川式収益試算シート</a>
+    </div>
+  </div>
+
+  <!-- ===== 村田先生 ===== -->
+  <h2 class="section-label">村田先生（建築士コメント）</h2>
+  <div class="card">
+    <div class="card-title murata">🏗️ 村田 誠一 — 一級建築士（経験35年）</div>
+
+    <p class="body-text"><em>「現場を見ないと断言はできませんが、資料から読み取れることを整理してお伝えします」</em></p>
+
+    <h3 class="sub-title">構造・築年数の評価</h3>
+    <p class="body-text">2009年9月築＝2007年6月の建築基準法改正（構造計算適合性判定・適判制度導入）の直後の建築。この時期の物件は姉歯事件後の厳しい審査を通っている可能性が高く、<strong>構造書類の信頼度は比較的高い</strong>。3階建鉄骨は法規上、鉄骨厚6mm超で「重量鉄骨」、以下で「軽量鉄骨」。建物157.38㎡・4戸+駐車場という規模感から重量鉄骨の可能性が高いと見ますが、賃貸併用のコスト重視設計なら軽量鉄骨の可能性もゼロではないため、<strong>確認申請書か構造図で鉄骨肉厚を必ず確認</strong>してください。</p>
+    <ul class="plain">
+      <li>重量鉄骨（厚6mm超）: 税法上耐用34年 → 残存18年</li>
+      <li>軽量鉄骨（厚4mm超6mm以下）: 税法上耐用27年 → 残存11年</li>
+      <li>軽量鉄骨（厚3mm超4mm以下）: 税法上耐用27年（住宅用）→ 残存11年</li>
+    </ul>
+    <p class="body-text">融資年数・減価償却の設計に直結します。ここは絶対に押さえたい情報です。</p>
+
+    <h3 class="sub-title">修繕リスク＆概算費用</h3>
+    <ul class="plain">
+      <li><strong>直近5年以内</strong>：外壁塗装・シーリング打替 120〜180万円 ／ 屋上防水（陸屋根想定・ウレタン10-13年目安）80〜150万円 ／ 給湯器交換 4戸×約12万円=約50万円</li>
+      <li><strong>直近5〜10年</strong>：給水管・排水管の劣化点検（交換なら150〜250万円）／ 鉄部塗装（階段・手摺・鉄骨むき出し部）30〜60万円</li>
+      <li>5年以内トータル目安: <strong>250〜380万円</strong> ／ 10年以内トータル: <strong>430〜690万円</strong></li>
+    </ul>
+    <p class="body-text">鉄骨造は木造より外壁の追従性がないため、シーリング切れからの雨水侵入で鉄骨が錆びるのが最悪シナリオ。塗装履歴は必ず確認してください。</p>
+
+    <h3 class="sub-title">法令・規制上の留意点</h3>
+    <ul class="plain">
+      <li><strong>検査済証の有無</strong>：最重要確認事項。2009年建築なら通常あるはずですが、賃貸併用は完了検査を受けていないケースがまれにあります</li>
+      <li><strong>用途地域（一種住居）</strong>：賃貸併用の適合性は問題なし</li>
+      <li><strong>容積率</strong>：敷地100.88㎡×容積200%=201.76㎡が上限。建物延床157.38㎡は容積率78%で余裕あり</li>
+      <li><strong>角地緩和</strong>：一種住居70%地域で角地緩和適用なら建蔽率が+10%（=80%）。緩和ありきで建てていると、道路後退で角地条件が崩れた時に既存不適格化リスク</li>
+      <li><strong>🔴 計画道路該当リスク（最注意）</strong>：本件最大論点。①事業決定なら数年以内に強制収用の可能性、②事業未決定でも建替時セットバック要、③敷地面積減で容積率・建蔽率が実質縮小、④3階建再建築不可の可能性。中野区都市計画課で「都市計画道路名・幅員・進捗ステータス」を必ず確認してください</li>
+    </ul>
+
+    <h3 class="sub-title">現地で必ず確認すべきこと（優先順）</h3>
+    <ul class="plain">
+      <li>① <strong>計画道路の現地マーキング確認</strong>：敷地のどこにどれだけかかっているか、境界杭近くにマーク・道路標示があるか</li>
+      <li>② <strong>外壁のシーリング切れ・チョーキング・クラック、外階段の錆・塗膜浮き</strong>：東西面・北面のシーリング下端は必ず触る</li>
+      <li>③ <strong>屋上（陸屋根の場合）の防水膜の状態・ドレン周り・笠木のシーリング</strong>：陸屋根の防水切れは室内漏水直結</li>
+      <li>④ <strong>オーナー住居の位置・面積・独立性</strong>：住宅ローン適用の50%要件判定。将来売却時の住宅ローン購入層への訴求も</li>
+      <li>⑤ <strong>鉄骨柱脚部・基礎立ち上がりの錆・塗装状態</strong>：鉄骨造最大のウィークポイント。ここの錆進行は建物寿命を大きく縮める</li>
+      <li>⑥ <strong>確認申請書・検査済証・構造計算書・竣工図の現存</strong>：融資・修繕・売却の全てに影響。特に鉄骨肉厚が分かる構造図</li>
+    </ul>
+
+    <p class="body-text"><strong>総合所感</strong>：築16年・2007年適判制度後の鉄骨造・第一種住居という建物のスペック自体は、正直かなり優良な部類です。この年代の3階建鉄骨で、構造書類がきちんと残っていて、外装メンテがされていれば、あと20年は余裕で使える建物です。ただ、<strong>この物件の運命は「計画道路がどこまで進んでいるか」で完全に決まります</strong>。事業認可前なら「価格に織り込んで買う」判断もあり得ますが、事業認可済みなら「収用ありきの短期保有物件」として全く別の物件になります。私の35年の経験上、計画道路がかかっている物件で失敗する投資家は、ほぼ全員「まだ何十年も先の話でしょ」と楽観視した人です。中野区は23区の中でも都市計画道路の整備が動いている区の一つなので、ここは絶対に舐めないでください。</p>
+  </div>
+
+  <!-- ===== キャプテン確認事項 ===== -->
+  <h2 class="section-label">キャプテンへの確認事項</h2>
+  <div class="card">
+    <div class="card-title captain">📞 山口輝大キャプテンへ</div>
+    <ul class="confirm-list">
+      <li class="confirm-item">
+        <span class="confirm-num urgent">1</span>
+        <div class="confirm-body">
+          <div class="confirm-title">方針確認（最優先）：純収益物件 or 賃貸併用（自宅）？</div>
+          <div class="confirm-desc">この物件は「収益専用」として買うのか、「賃貸併用（自己居住）」として買うのか？住宅ローンを使うと2棟目のauじぶん銀行戦略と競合します（financing_strategy.md記載）。純収益なら数字が壊滅で見送り一択。賃貸併用なら別軸で再分析します。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <span class="confirm-num urgent">2</span>
+        <div class="confirm-body">
+          <div class="confirm-title">計画道路の詳細（中野区都市計画課で確認）</div>
+          <div class="confirm-desc">計画線が土地の何㎡にかかっているか、事業決定の有無、道路名・幅員・進捗ステータス。仲介から資料もらえていますか？事業認可済なら融資評価が大幅減額・実質短期保有物件に。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <span class="confirm-num">3</span>
+        <div class="confirm-body">
+          <div class="confirm-title">年収507.6万円は4戸全部？賃貸3戸のみ？</div>
+          <div class="confirm-desc">オーナー住居想定の2LDK分の賃料は市場推計か実額か。「4戸全部の合計」だと自己居住なら実質年収は3戸分に減少します。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <span class="confirm-num">4</span>
+        <div class="confirm-body">
+          <div class="confirm-title">なぜこの物件を検討候補に入れたのか</div>
+          <div class="confirm-desc">表面4.7%はキャプテン基準7.1〜8.0%から大きく外れています。中野区の資産性・出口重視ですか？賃貸併用として自宅を考えている、が主目的ですか？非数値的な魅力があるか把握したいです。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <span class="confirm-num">5</span>
+        <div class="confirm-body">
+          <div class="confirm-title">レントロール・公課証明書の入手</div>
+          <div class="confirm-desc">全戸現況賃料・入居年月・敷金・更新月。固都税納税通知書。仲介から入手してください。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <span class="confirm-num">6</span>
+        <div class="confirm-body">
+          <div class="confirm-title">鉄骨肉厚（重量鉄骨 or 軽量鉄骨）の確認</div>
+          <div class="confirm-desc">確認申請書または構造計算書で確認。融資年数（重量鉄骨34年 vs 軽量鉄骨27年）・積算評価に直結します。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <span class="confirm-num">7</span>
+        <div class="confirm-body">
+          <div class="confirm-title">オーナー住居部分の面積（住宅ローン50%要件判定）</div>
+          <div class="confirm-desc">建物図面で2LDK部分の面積確認。延床157.38㎡の50%（78.7㎡）未満なら住宅ローン適用不可。</div>
+        </div>
+      </li>
+      <li class="confirm-item">
+        <span class="confirm-num">8</span>
+        <div class="confirm-body">
+          <div class="confirm-title">10年目税引後IRR（≥25%）</div>
+          <div class="confirm-desc">玉川式シートをブラウザで開いて「10年」行のIRRを確認してください。CFマイナス継続なので致命的水準見込。</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ===== チーム総合所見 ===== -->
+  <h2 class="section-label">チーム総合所見</h2>
+  <div class="verdict-box">
+    <div class="verdict-label">TEAM VERDICT</div>
+    <div class="verdict-score">❌ 純収益物件としては見送り推奨</div>
+    <div class="verdict-text">
+      <strong>最大リスク：キャプテン基準6指標すべてNG＋計画道路該当。</strong>純収益物件として買うなら見送り一択。フルローン（オリックス）でCF年▲118万・返済比率97.5%は破綻ライン、神奈川銀行9割融資で頭金1,836万投入してもCF▲49万で「頭金塩漬け＋毎月持ち出し」の最悪パターン。スマサテ考慮で年収▲52.8万→さらに悪化。積算比率56.6%（路線価反映後でも基準60%未達）で共同担保にも使えず、次の物件融資枠を圧迫します。<br><br>
+      <strong>ただし、賃貸併用戦略として自宅利用するなら話は別軸。</strong>中野区・都立家政9分・角地・所有権・鉄骨3階のスペックは魅力的。住宅ローン活用なら金利1%未満で組める可能性はあるが、2棟目auじぶん銀行戦略と競合する点は要慎重判断。<br><br>
+      <strong>次のアクション</strong>：<br>
+      ① <strong>キャプテンに方針確認（純収益 or 賃貸併用）</strong><br>
+      ② 計画道路の詳細確認（中野区都市計画課）<br>
+      ③ 純収益方針なら即見送り。予算1億は利回り7.1%以上・築浅・積算60%以上の物件を待つ<br>
+      ④ 賃貸併用方針なら住宅ローン試算＋2棟目融資戦略との整合性を再検討
+    </div>
+  </div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260815_nakano-sagimiya2_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260815_nakano-sagimiya2_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
