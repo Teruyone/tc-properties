@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>チーム精査レポート — S-harbor Lagoon 下永谷5丁目 新築アパート</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif;background:#f0f2f5;color:#333;font-size:15px;line-height:1.7;}
+.header{background:linear-gradient(135deg,#1e3a5f,#2c5282);color:#fff;padding:32px;text-align:center;}
+.header h1{font-size:1.8em;margin-bottom:6px;}
+.header .sub{font-size:0.95em;opacity:0.85;}
+.container{max-width:960px;margin:0 auto;padding:20px;}
+.warn-banner{background:#e67e22;color:#fff;padding:18px 24px;border-radius:10px;margin:20px 0;font-size:1.05em;font-weight:bold;text-align:center;box-shadow:0 4px 12px rgba(230,126,34,0.4);}
+.warn-banner .warn-detail{font-size:0.85em;font-weight:normal;margin-top:6px;opacity:0.9;}
+.card{background:#fff;border-radius:10px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.card h2{font-size:1.2em;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #eee;}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+.summary-item label{font-size:0.8em;color:#666;display:block;}
+.summary-item .val{font-size:1.05em;font-weight:bold;}
+.criteria-table{width:100%;border-collapse:collapse;}
+.criteria-table th{background:#f7f8fa;padding:10px 12px;text-align:left;font-size:0.9em;color:#555;}
+.criteria-table td{padding:10px 12px;border-bottom:1px solid #f0f0f0;font-size:0.9em;}
+.ok{color:#27ae60;font-weight:bold;}
+.ng{color:#c0392b;font-weight:bold;}
+.warn{color:#e67e22;font-weight:bold;}
+.sec{margin:20px 0;}
+.sec-title{font-size:1.05em;font-weight:bold;padding:12px 18px;border-radius:8px 8px 0 0;color:#fff;}
+.sec-body{background:#fff;border-radius:0 0 8px 8px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.t-hazard .sec-title{background:#0e7c7b;}
+.t-haruto .sec-title{background:#d35400;}
+.t-ryo .sec-title{background:#2980b9;}
+.t-aki .sec-title{background:#27ae60;}
+.t-murata .sec-title{background:#795548;}
+.t-captain .sec-title{background:#6c3483;}
+.t-summary .sec-title{background:#1e3a5f;}
+.link-btn{display:inline-block;background:#1e3a5f;color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-size:0.88em;margin:4px 4px 4px 0;}
+.link-btn.orange{background:#d35400;}
+.link-btn.green{background:#27ae60;}
+.link-btn.blue{background:#2980b9;}
+.link-btn.teal{background:#0e7c7b;}
+table.data{width:100%;border-collapse:collapse;}
+table.data td,table.data th{padding:8px 10px;border-bottom:1px solid #eee;font-size:0.9em;}
+table.data th{background:#f7f8fa;color:#555;}
+ul.check{list-style:none;padding:0;}
+ul.check li{padding:5px 0;border-bottom:1px solid #f5f5f5;font-size:0.9em;}
+.hazard-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.hitem{border-radius:8px;padding:12px 16px;}
+.hitem .hlabel{font-size:0.78em;color:#555;margin-bottom:4px;}
+.hitem .hval{font-weight:bold;}
+.hng{background:#fde8e8;}
+.hok{background:#e8f8e8;}
+.hwarn{background:#fff3cd;}
+.risk-tag{display:inline-block;background:#c0392b;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75em;margin-right:6px;}
+.risk-tag.mid{background:#e67e22;}
+.risk-tag.low{background:#7f8c8d;}
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260905_shimo-nagaya5_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=9780&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.4&floorArea=182.51&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=9780&pi_age_inp=0&pi_yield_inp=7.4&pi_area_inp=182.51&pi_rooms_inp=10&ik_land_area=219.61&ik_route_price=13&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E6%B8%AF%E5%8D%97%E5%8C%BA%E4%B8%8B%E6%B0%B8%E8%B0%B75%E4%B8%81%E7%9B%AE35-1%EF%BC%88S-harbor+Lagoon+%E4%B8%8B%E6%B0%B8%E8%B0%B75%E4%B8%81%E7%9B%AE%EF%BC%89" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=9780&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=8.33&floorArea=182.51&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=9780&pi_age_inp=0&pi_yield_inp=8.33&pi_area_inp=182.51&pi_rooms_inp=10&ik_land_area=219.61&ik_route_price=13&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E6%B8%AF%E5%8D%97%E5%8C%BA%E4%B8%8B%E6%B0%B8%E8%B0%B75%E4%B8%81%E7%9B%AE35-1%EF%BC%88S-harbor+Lagoon+%E4%B8%8B%E6%B0%B8%E8%B0%B75%E4%B8%81%E7%9B%AE%EF%BC%89" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260905_shimo-nagaya5_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20260905_shimo-nagaya5_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+<div class="header">
+<h1>仕入部チーム精査レポート</h1>
+<div class="sub">S-harbor Lagoon 下永谷5丁目 新築アパート ｜ 精査日: 2026年9月5日 ｜ チーム: ハルト・リョウ・アキ・村田先生</div>
+</div>
+<div class="container">
+
+<div class="warn-banner">
+⚠️ 要注意 — 土砂災害イエローゾーン（急傾斜地の崩壊）／利回り7.4%（キャプテン基準8.0%割れ）
+<div class="warn-detail">スマサテ査定ベースでは利回り8.33%まで上振れる可能性あり。ハザード判定は「即NG」ではないが要現地確認。</div>
+</div>
+
+<div class="card">
+<h2>🏠 物件サマリー</h2>
+<div class="summary-grid">
+<div class="summary-item"><label>物件名</label><span class="val">S-harbor Lagoon 下永谷5丁目 新築アパート</span></div>
+<div class="summary-item"><label>所在地</label><span class="val">横浜市港南区下永谷5丁目35-1（2128-5, 2128-35）</span></div>
+<div class="summary-item"><label>交通</label><span class="val">横浜市営地下鉄ブルーライン「下永谷」駅 徒歩14分</span></div>
+<div class="summary-item"><label>価格</label><span class="val">9,780万円（土地5,000+建物4,780・税込水道加入金込）</span></div>
+<div class="summary-item"><label>表面利回り</label><span class="val">7.40%（資料）／ 8.33%（スマサテ査定）</span></div>
+<div class="summary-item"><label>構造・築年</label><span class="val">木造2階建・準耐火・劣化等級3級取得予定 / 2026年7月完成（新築）</span></div>
+<div class="summary-item"><label>延床・土地</label><span class="val">182.51㎡（55.21坪）/ 219.61㎡（66.43坪）</span></div>
+<div class="summary-item"><label>戸数・間取</label><span class="val">1K×10戸（17.38〜18.37㎡・2F4室ロフト付）</span></div>
+<div class="summary-item"><label>取引態様</label><span class="val">売主（トラストライフ株式会社 大臣(1)10871号）</span></div>
+<div class="summary-item"><label>用途地域</label><span class="val">第1種低層住居専用地域（建蔽50/容積80・第1種高度）</span></div>
+<div class="summary-item"><label>路線価</label><span class="val">暫定13万円/㎡（chikamap取得失敗・要正確値確認）</span></div>
+</div>
+</div>
+
+<div class="card">
+<h2>✅ キャプテン基準チェック</h2>
+<table class="criteria-table">
+<tr><th>基準</th><th>閾値</th><th>実績（資料賃料）</th><th>判定</th></tr>
+<tr><td>物件価格</td><td>≤1億円</td><td>9,780万円</td><td class="ok">✅ OK</td></tr>
+<tr><td>表面利回り</td><td>≥8.0%（v5）</td><td>7.40% / 8.33%（スマサテ）</td><td class="warn">⚠️ 資料NG・スマサテOK</td></tr>
+<tr><td>CF率（オリックス100%・2.6%・35年）</td><td>≥1.0%</td><td>1.31%</td><td class="ok">✅ OK</td></tr>
+<tr><td>CCR</td><td>≥15.0%</td><td>32.84%（オリックスFL）</td><td class="ok">✅ OK</td></tr>
+<tr><td>積算比率（路線価暫定13万・等級3）</td><td>≥60.0%</td><td>約70〜75%（暫定）</td><td class="ok">✅ OK</td></tr>
+<tr><td>10年目税引後IRR</td><td>≥25.0%</td><td>玉川式シートで要確認</td><td class="warn">要TG確認</td></tr>
+<tr style="background:#fff3cd;"><td>ハザード（土砂）</td><td>レッド即NG</td><td>イエローゾーン</td><td class="warn">⚠️ 要注意</td></tr>
+</table>
+</div>
+
+<div class="sec t-hazard">
+<div class="sec-title">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</div>
+<div class="sec-body">
+<p><strong>相続路線価</strong></p>
+<p style="margin:6px 0 16px;">⚠️ <strong>要確認（chikamap取得失敗）</strong>　暫定 <strong>13万円/㎡</strong>（下永谷駅周辺 基準地価18.6万/㎡×約70%推定・IG+に反映済み）<br>
+<small style="color:#666;">※正確な路線価は国税庁「令和7年分 財産評価基準書 神奈川県 横浜市港南区」で確認必須。取得後、IG+の <code>ik_route_price</code> を更新のこと。</small></p>
+
+<p><strong>🗺️ 重ねるハザードマップ（国土交通省）</strong></p>
+<p style="margin:6px 0 6px;font-size:0.9em;">座標: 北緯35.410133° 東経139.555618°</p>
+<div class="hazard-grid">
+<div class="hitem hok"><div class="hlabel">洪水浸水想定</div><div class="hval">✅ 非該当</div></div>
+<div class="hitem hwarn"><div class="hlabel">土砂災害警戒</div><div class="hval">⚠️ イエローゾーン（急傾斜地の崩壊）</div></div>
+<div class="hitem hok"><div class="hlabel">津波浸水想定</div><div class="hval">✅ 非該当</div></div>
+<div class="hitem hok"><div class="hlabel">内水氾濫</div><div class="hval">✅ 非該当</div></div>
+<div class="hitem"><div class="hlabel">液状化危険度</div><div class="hval">確認不可（横浜市防災マップで補完要）</div></div>
+<div class="hitem hwarn"><div class="hlabel">総合判定</div><div class="hval">⚠️ 要注意（レッドではない）</div></div>
+</div>
+<p style="font-size:0.85em;color:#555;margin-top:8px;">📸 <a href="https://github.com/teruyone/tc-capitals-share/raw/main/knowledge/hazardmap-debug/shimo-nagaya5_hazard_popup.png" target="_blank">ポップアップ画面</a>／<a href="https://github.com/teruyone/tc-capitals-share/raw/main/knowledge/hazardmap-debug/shimo-nagaya5_hazard_zoom50m.png" target="_blank">縮尺50m拡大</a><br>
+出典: 国土交通省・国土地理院「重ねるハザードマップ」</p>
+
+<hr style="margin:20px 0;border:none;border-top:1px solid #eee;">
+
+<p><strong>🏠 スマサテ賃料査定（自動ブラウザ操作）</strong></p>
+<table class="data" style="margin:10px 0;">
+<tr><th>部屋タイプ</th><th>間取り</th><th>専有面積</th><th>階</th><th>査定賃料</th><th>単価</th></tr>
+<tr><td>Atype（101/102/103/105）</td><td>1R</td><td>17.38㎡</td><td>1F</td><td><strong>66,369円</strong></td><td>3,819円/㎡</td></tr>
+<tr><td>Btype（104）</td><td>1R</td><td>18.37㎡</td><td>1F</td><td><strong>67,154円</strong></td><td>3,656円/㎡</td></tr>
+<tr><td>Ctype（201/202/203/205）</td><td>1R</td><td>17.38㎡</td><td>2F</td><td><strong>68,929円</strong></td><td>3,966円/㎡</td></tr>
+<tr><td>Dtype（204）</td><td>1R</td><td>18.37㎡</td><td>2F</td><td><strong>70,615円</strong></td><td>3,844円/㎡</td></tr>
+</table>
+<p style="margin:8px 0;font-size:0.9em;">
+<strong>10戸合計月額 678,961円 / 年間 8,147,532円（約814.7万円）</strong><br>
+資料記載月額 600,000円 / 年間 720万円<br>
+<strong>乖離: +13.2%（上振れ余地あり）→ スマサテ査定ベース利回り <span class="ok">8.33%</span></strong>
+</p>
+<p style="background:#e8f8e8;padding:10px 14px;border-radius:6px;font-size:0.88em;">
+✅ 賃料設定はやや保守的。査定通り取れれば利回りは基準8.0%を超える。ただし駅徒歩14分・専有17-18㎡狭小のため実際の成約家賃は査定より下振れる可能性も。
+</p>
+
+<p style="margin-top:16px;">
+<a class="link-btn teal" href="{survey_url}" target="_blank">🔍 物件調査レポート（スマサテ・ハザード全画像）</a>
+</p>
+
+<hr style="margin:20px 0;border:none;border-top:1px solid #eee;">
+
+<p><strong>📍 エリア分析（下永谷駅・港南区）</strong></p>
+<ul class="check">
+<li>下永谷駅は横浜市営地下鉄ブルーラインで、横浜駅まで約28分・上大岡駅まで約5分。ベッドタウンとして安定需要。</li>
+<li>港南区の人口は約21万人、単身世帯比率も高く1K需要は根強い。ただし駅徒歩14分は1Kターゲット（学生・単身社会人）には遠め。</li>
+<li>基準地価は下永谷駅周辺で18.6万円/㎡（前年+2.19%）と緩やかな上昇基調。</li>
+<li>類似物件（1K新築17-18㎡帯）の想定家賃相場は5.8〜6.5万円で、スマサテ査定6.6-7.1万円はやや強気。実際の募集は6.0-6.3万円が現実的か。</li>
+</ul>
+</div>
+</div>
+
+<div class="sec t-haruto">
+<div class="sec-title">🔥 ハルトの総合所見（エリア・利回り）</div>
+<div class="sec-body">
+<p><strong>キャプテン、下永谷5丁目いいですね！ただし利回り基準がギリギリです。</strong></p>
+<ul class="check">
+<li>✅ <strong>新築・木造・劣化等級3・売主（諸費用4%）</strong>と条件は良好。</li>
+<li>✅ <strong>スマサテ査定が資料+13%上振れ</strong>したので、実質利回り8.3%まで届く可能性あり。</li>
+<li>⚠️ 資料表示利回り <strong>7.4%はキャプテン基準8.0%（v5）を割っている</strong>ため機械判定はNG。</li>
+<li>⚠️ <strong>駅徒歩14分・専有17-18㎡狭小</strong>は客付力にリスク。スマサテ査定通り取れるかは現地感覚要。</li>
+<li>⚠️ <strong>送電線地役権（2128-35）</strong>は視覚的インパクトあり。内見時の印象で査定が下振れる懸念あり。</li>
+</ul>
+<p style="margin-top:12px;background:#fff3cd;padding:10px 14px;border-radius:6px;">
+<strong>ハルトの推し度: ★★★☆☆</strong>　利回り基準ギリギリのため、スマサテ査定信頼性・送電線印象・土砂イエローゾーンの3点を現地で確認できてから判断。売主取引で諸費用が抑えられる点と積算比率の高さは魅力。
+</p>
+</div>
+</div>
+
+<div class="sec t-ryo">
+<div class="sec-title">📋 リョウのDD（デューデリジェンス）</div>
+<div class="sec-body">
+<p><strong>【リスクフラグ ★重要度順】</strong></p>
+<ul class="check">
+<li><span class="risk-tag">★★★</span><strong>リスクA: 送電線・電線路地役権（2128-35）</strong> — 東電の架空送電線が敷地南西角上空を通過。建物本体は2128-5（193.46㎡）に完全収容されているが、外構・カーポート・アンテナ等の設置制限が永続。融資評価にも影響する可能性。</li>
+<li><span class="risk-tag">★★★</span><strong>リスクB: 売主既存根抵当権4,420万円</strong> — 大光銀行（新潟）による共同根抵当。決済時抹消が必須。土地先行決済条件下では特に順序管理を徹底。</li>
+<li><span class="risk-tag">★★★</span><strong>リスクC: 土地先行決済条件</strong> — 概要書には「上棟時までは土地先行決済」との記載だが、令8.7.28検査済取得済で実質完成済。売主に「土地建物一括決済」への変更交渉可能か要確認。</li>
+<li><span class="risk-tag mid">★★</span><strong>リスクD: 建物固都税未計上</strong> — 公課証明R8は土地のみ（235,476円/年）。建物完成後30〜50万円/年の追加想定。IG+は保守的に7%で計上済。</li>
+<li><span class="risk-tag mid">★★</span><strong>リスクE: 駅徒歩14分×狭小1K</strong> — 客付力に懸念。スマサテ査定の実現性を現地感覚で検証。</li>
+<li><span class="risk-tag mid">★★</span><strong>リスクF: 売主自社設計・自社施工</strong> — トラスト一級建築士事務所（設計）とトラスト建設（施工）は同一グループ。工事監理の独立性が低い。ホームインスペクション推奨。</li>
+<li><span class="risk-tag low">★</span><strong>リスクG: 売主信用</strong> — 大臣(1)10871号＝新設業者（免許取得5年未満）。帝国DB／東商での信用調査推奨。</li>
+<li><span class="risk-tag low">★</span><strong>リスクH: 特定都市河川浸水被害対策法区域</strong> — 舞岡川流域想定。雨水浸透施設の要否を要確認。</li>
+</ul>
+
+<p style="margin-top:16px;"><strong>【確認済み事項】</strong></p>
+<ul class="check">
+<li>✅ 土地謄本2筆（2128-5・2128-35）: 所有権はトラストライフ株式会社（令7.10.10 売買取得）で一元化。差押えなし。</li>
+<li>✅ 検査済証: 第2026SBC-完01299H号（令8.7.28 湘南建築センター交付）— 適法建築確認済み。</li>
+<li>✅ 確認済証: 第2025SBC-確01343Y号（令8.1.27）</li>
+<li>✅ 面積の完全一致: 概要書 延床182.51㎡ ≡ 確認申請 ≡ 検査済 ≡ 意匠図合計。建築面積96.23㎡・建蔽43.76%（法定50%以内）・容積79.94%（法定80%以内）。</li>
+<li>✅ 道路: 北東側幅員6.4-6.5m公道に16.1m接道／西側幅員4.4m公道に19.0m接道（2方向接道・法42-1道路）。</li>
+<li>✅ 境界確定済（境界実測図）。ただし西側公道側で「道路境界確定図と相違あり」の注記あり → 要精査。</li>
+<li>✅ レントロール10戸満室想定720万円/年 → 表面7.36%（概要書7.4%と一致）。</li>
+<li>✅ 公課証明R8（土地のみ）: 2筆合計 固都税+都計税 235,476円/年（更地状態）。</li>
+</ul>
+
+<p style="margin-top:16px;"><strong>【未確認・要入手】</strong></p>
+<ul class="check">
+<li>❓ 重要事項説明書（案）・売買契約書（案）</li>
+<li>❓ 東京電力の「電力設備地役権証明」— 建築・工作物制限の詳細範囲</li>
+<li>❓ 住宅性能評価書（劣化等級3級取得予定 → 実書類）</li>
+<li>❓ 住宅瑕疵担保責任保険の付保証明書</li>
+<li>❓ 構造計算書・地盤調査書・杭工事記録（意匠図に鋼管杭記載あり）</li>
+<li>❓ 建物完成後の固都税試算</li>
+<li>❓ 西側道路境界確定図の相違内容の書面化</li>
+</ul>
+
+<p style="margin-top:16px;">
+<a class="link-btn blue" href="{dd_url}" target="_blank">📋 DDチェックリスト（入力済み）</a>
+</p>
+</div>
+</div>
+
+<div class="sec t-aki">
+<div class="sec-title">💰 アキのIG+収支計算＋玉川式</div>
+<div class="sec-body">
+<p><strong>【収益】</strong>満室収入723.7万円/年 → 空室5%控除実収入 687.5万円</p>
+<p><strong>【費用合計 ▲133.2万円】</strong>PM管理費(5%)34.4 / BM費13.3 / 共用水光熱3.3 / 火災保険9.1 / 固都税(7%新築)48.1 / 修繕費3.0 / 原状回復6.9 / 募集AD15.1</p>
+<p><strong>【NOI】554.3万円（NOI利回り 5.67%）</strong></p>
+
+<h3 style="margin-top:16px;font-size:1em;">📊 ローン試算比較（資料賃料ベース）</h3>
+<table class="data" style="margin-top:8px;">
+<tr><th>項目</th><th>①オリックス（100%・2.6%・35年）</th><th>②神奈川銀行（90%・2.25%・35年）</th></tr>
+<tr><td>借入額</td><td>9,780万円</td><td>8,802万円</td></tr>
+<tr><td>頭金</td><td>0</td><td>978万円</td></tr>
+<tr><td>諸費用（売主4%）</td><td>391.2万円</td><td>391.2万円</td></tr>
+<tr><td>自己資金合計</td><td>391.2万円</td><td>1,369.2万円</td></tr>
+<tr><td>年間返済</td><td>▲425.9万円</td><td>▲363.6万円</td></tr>
+<tr><td>CF</td><td>128.5万円</td><td>190.7万円</td></tr>
+<tr><td>CF率</td><td class="ok">1.31% ✅</td><td class="ok">1.95% ✅</td></tr>
+<tr><td>返済比率</td><td>61.9%</td><td>52.9%</td></tr>
+<tr><td>CCR</td><td class="ok">32.84% ✅</td><td class="ng">13.93% ❌</td></tr>
+<tr><td>税引後CF</td><td>128.5万円</td><td>181.4万円</td></tr>
+</table>
+
+<h3 style="margin-top:16px;font-size:1em;">🏛️ 積算評価（暫定 路線価13万/㎡）</h3>
+<table class="data" style="margin-top:8px;">
+<tr><td>建物評価額（等級3・24万/㎡×182.51㎡×築0年）</td><td class="ok">約4,380万円</td></tr>
+<tr><td>土地評価額（暫定 13万/㎡×219.61㎡）</td><td class="ok">約2,855万円</td></tr>
+<tr><td>積算合計</td><td class="ok">約7,235万円</td></tr>
+<tr><td>積算比率</td><td class="ok">約74%（≥60%基準クリア）</td></tr>
+</table>
+
+<p style="margin-top:12px;background:#fff3cd;padding:10px 14px;border-radius:6px;font-size:0.9em;">
+<strong>スマサテ賃料版の見立て:</strong> 利回りが7.4%→8.33%に上振れると、CF・CCR・NOIすべてが約12%改善。オリックスFLで CF約185万円/年、CCR約47%まで届く見込み。10年目IRRも大幅上昇のはず（玉川式シートで確認要）。
+</p>
+
+<p style="margin-top:16px;">
+<a class="link-btn green" href="{ig_url}" target="_blank">📊 IG+【資料賃料】収支試算</a>
+<a class="link-btn green" href="{ig_sumasate_url}" target="_blank">📊 IG+【スマサテ賃料】収支試算</a>
+<a class="link-btn green" href="{tg_url}" target="_blank">📈 玉川式収益試算シート</a>
+</p>
+<p style="font-size:0.85em;color:#555;margin-top:8px;">※ 10年目税引後IRR ≥ 25%（キャプテン基準）は玉川式シートで「10年」行を確認してください。</p>
+</div>
+</div>
+
+<div class="sec t-murata">
+<div class="sec-title">🏗️ 村田先生の建築士コメント</div>
+<div class="sec-body">
+<p style="font-style:italic;color:#666;">「現場を見ないと断言はできませんが」——</p>
+
+<p style="margin-top:12px;"><strong>【全体印象】</strong> まっとうに設計された無難な木造1K10戸新築アパート。設計・監理・施工がトラストライフグループ内製一貫。突飛な設計ミスや違反リスクは見当たらず、業者としての体裁は整っている。</p>
+
+<p style="margin-top:12px;"><strong>【評価できるポイント】</strong></p>
+<ul class="check">
+<li>✅ <strong>鋼管杭採用</strong>: 造成地（宅造規制区域）としては必須級の判断で良心的。</li>
+<li>✅ <strong>屋外階段が鉄骨造</strong>: 木造階段の腐食・維持コストを回避。</li>
+<li>✅ <strong>屋外廊下FRP防水+下地合板+ケイカル板</strong>: 経年劣化対策として妥当。</li>
+<li>✅ <strong>劣化対策等級3取得予定</strong>: 地震保険料15%割引・積算耐用年数加算・売却時説明材料。</li>
+<li>✅ <strong>断熱高性能GW16K t75</strong>: 省エネ基準相当。</li>
+</ul>
+
+<p style="margin-top:12px;"><strong>【気になる点】</strong></p>
+<ul class="check">
+<li>⚠️ <strong>界壁遮音は告示最低限仕様</strong>（L-65〜60程度）: 隣人音のクレーム覚悟。角部屋（101/105/201/205）が家賃上乗せしやすい。</li>
+<li>⚠️ <strong>ロフト高1,400以下</strong>: 荷物置きと割り切って募集。「収納」表示すべき（宿泊利用はNG）。</li>
+<li>⚠️ <strong>共用廊下を外壁アクセントで支持</strong>: 長期的に廊下床のたわみ懸念。10年目前後の点検必須。</li>
+</ul>
+
+<p style="margin-top:12px;"><strong>【修繕コスト予測】</strong></p>
+<table class="data" style="margin-top:8px;">
+<tr><th>時期</th><th>項目</th><th>概算費用</th></tr>
+<tr><td>〜築5年</td><td>初期不具合対応・給湯器初期不良</td><td>50〜100万円</td></tr>
+<tr><td>築5〜10年</td><td>給湯器・エアコン・シーリング・鉄骨階段錆止め</td><td>300〜400万円</td></tr>
+<tr><td>築10〜20年</td><td>外壁塗装・屋根塗装/カバー・給湯2回目・FRP打ち替え</td><td>累計 800〜1,200万円</td></tr>
+</table>
+<p style="font-size:0.9em;color:#555;margin-top:6px;">→ アキの収支計算で <strong>月2万円/戸×10戸×12ヶ月＝240万円/年</strong> を修繕積立として初年度から確保推奨。</p>
+
+<p style="margin-top:12px;"><strong>【法令適合性 — 要確認事項】</strong></p>
+<ul class="check">
+<li>❓ <strong>緑化地域の緑化率</strong>: 219.95㎡は境界ライン（原則300㎡未満対象外だが要確認）。緑化基準通知書の有無をリョウに要確認。</li>
+<li>❓ <strong>特定都市河川浸水被害対策法</strong>: 雨水本管接続放流の記載のみ。浸透施設の要否を横浜市に確認。</li>
+<li>❓ <strong>既設CB擁壁</strong>: 配置図に「GL+100〜+900」の記載。80cm超なら建築基準法違反の可能性。許可書要確認。</li>
+<li>❓ <strong>西側4.4m公道の道路境界確定図相違</strong>: 境界実測図注記あり。将来のセットバック・道路拡幅時のトラブル種。</li>
+</ul>
+
+<p style="margin-top:12px;"><strong>【現地確認必須事項（村田より）】</strong></p>
+<ul class="check">
+<li>1. <strong>送電線の実物確認</strong>: 高さ・線数・電圧・美観への影響・電磁波不安の有無</li>
+<li>2. <strong>既設CB擁壁</strong>: 高さ80cm超えの有無・クラック・傾き</li>
+<li>3. <strong>西側公道の境界杭・道路現況</strong>: F2〜F6、DK.14、MK16の実物確認</li>
+<li>4. <strong>施工品質</strong>: 外壁シーリング・鉄骨階段防錆・FRP防水トップコート・玄関ドア建付け（10戸全数）</li>
+<li>5. <strong>給湯器10戸のメーカー・型番・保証書</strong>を全数写真撮影</li>
+<li>6. <strong>下水桝の位置・勾配</strong></li>
+<li>7. <strong>隣地関係</strong>（南側2128-4・東側2128-8・北側公道向かい）</li>
+<li>8. <strong>敷地内の水はけ</strong>（造成地）</li>
+</ul>
+
+<p style="margin-top:12px;background:#e8f0fe;padding:10px 14px;border-radius:6px;font-size:0.9em;">
+<strong>建築士としての結論:</strong> 建物そのものは"買い"の水準にあります。ただし土地の3つの権利・境界リスク（送電線・西側道路境界・既設CB擁壁）をリョウのDDでクリアにできれば、キャプテンが積算・キャッシュフローで判断していただく段階に進めます。
+</p>
+</div>
+</div>
+
+<div class="sec t-captain">
+<div class="sec-title">🎯 キャプテンへの確認事項まとめ</div>
+<div class="sec-body">
+<ol style="padding-left:20px;">
+<li style="margin-bottom:8px;"><strong>正確な路線価取得</strong> — chikamap取得失敗のため、国税庁「令和7年分 財産評価基準書」で下永谷5丁目の実路線価を確認し、IG+ <code>ik_route_price</code>を更新。積算比率が変わる可能性あり。</li>
+<li style="margin-bottom:8px;"><strong>送電線地役権</strong> — 現地内見時に敷地上空の送電線の高さ・見え方・美観影響を確認。融資行にも土地評価への影響を事前ヒアリング。</li>
+<li style="margin-bottom:8px;"><strong>土地先行決済の要否</strong> — 完成済につき「土地建物一括決済」への変更交渉可能か売主に確認。</li>
+<li style="margin-bottom:8px;"><strong>売主既存根抵当4,420万円の抹消</strong> — 決済スキームで確実に抹消できる契約設計。あかり合同事務所齋藤先生と要連携。</li>
+<li style="margin-bottom:8px;"><strong>西側公道4.4m道路境界</strong> — 境界実測図の「相違あり」注記について、道路境界確定図の写しを売主または横浜市道路局から取得。</li>
+<li style="margin-bottom:8px;"><strong>既設CB擁壁</strong> — 高さ・許可書・現況確認（村田先生指摘）。</li>
+<li style="margin-bottom:8px;"><strong>スマサテ査定 vs 資料賃料の乖離</strong> — 査定+13%は好条件だが、駅徒歩14分×狭小1Kで実現性はキャプテンの現地感覚要。</li>
+<li style="margin-bottom:8px;"><strong>売主信用調査</strong> — トラストライフ株式会社（大臣(1)10871号・新設業者）の帝国DB／東京商工リサーチ取得（3,000〜5,000円）</li>
+<li style="margin-bottom:8px;"><strong>賃貸募集状況</strong> — 完成後1〜2ヶ月経過。空室のままか賃貸募集開始しているか（新築プレミアム家賃を取れる期間は短い）</li>
+<li style="margin-bottom:8px;"><strong>神奈川銀行パターンのCCR13.93%</strong> — 基準15%を▲1.07pt割れ。自己資金1,369万円の運用効率をどう評価するか判断要。</li>
+<li style="margin-bottom:8px;"><strong>ホームインスペクション実施の可否</strong> — 売主自社設計・自社施工のため、第三者建物診断（10〜15万円）推奨。</li>
+<li style="margin-bottom:8px;"><strong>住宅性能評価書（劣化等級3）の発行時期</strong> — 契約時までに間に合うか、または引渡し時に確実に交付される特約が付いているか。</li>
+</ol>
+</div>
+</div>
+
+<div class="sec t-summary">
+<div class="sec-title">🏆 チーム総合所見</div>
+<div class="sec-body">
+<p><strong>【総合判定】保留 → 現地確認＋追加調査後に判断</strong></p>
+
+<p style="margin-top:12px;"><strong>【好材料】</strong></p>
+<ul class="check">
+<li>✅ 新築・木造・劣化等級3・売主取引で諸費用4%と資金効率が良い</li>
+<li>✅ スマサテ査定が資料賃料+13%上振れ → 実質利回り8.33%まで届く可能性</li>
+<li>✅ 積算比率約74%（暫定）・CF率1.31%・オリックスFLでCCR32.84%と資金効率◎</li>
+<li>✅ 面積・書類の整合性は完璧。検査済証・確認済証・境界確定書類完備</li>
+<li>✅ 鋼管杭・鉄骨屋外階段・FRP防水など長期耐久性を意識した仕様</li>
+</ul>
+
+<p style="margin-top:12px;"><strong>【最大リスク（優先順）】</strong></p>
+<ol style="padding-left:20px;">
+<li><strong>送電線地役権（2128-35）</strong> — 恒久的な使用制限・融資評価への影響・賃借人心理</li>
+<li><strong>土砂災害イエローゾーン</strong> — 即NGではないが要現地確認</li>
+<li><strong>資料利回り7.4%はキャプテン基準8.0%割れ</strong> — スマサテ査定信頼性が判断の鍵</li>
+<li><strong>売主既存根抵当4,420万円</strong> — 決済時抹消の契約設計が必須</li>
+<li><strong>既設CB擁壁の適法性</strong> — 造成地の宿命的リスク</li>
+</ol>
+
+<p style="margin-top:12px;"><strong>【次のアクション】</strong></p>
+<ol style="padding-left:20px;">
+<li>キャプテンによる現地内見（送電線・CB擁壁・西側道路・敷地水はけ・周辺相場感覚）</li>
+<li>国税庁で正確な路線価取得 → 積算再計算</li>
+<li>売主に重要事項説明書（案）・売買契約書（案）・住宅瑕疵保険付保証明を請求</li>
+<li>売主に土地建物一括決済への変更交渉</li>
+<li>東京電力に電力設備地役権証明の請求（範囲書面化）</li>
+<li>オリックス／auじぶんに送電線・地役権・売主抵当抹消の事前打診</li>
+<li>玉川式シートで10年目税引後IRRを確認（≥25%か否か）</li>
+<li>ホームインスペクション実施の可否検討</li>
+</ol>
+
+<p style="margin-top:16px;background:#e8f0fe;padding:12px 16px;border-radius:8px;">
+<strong>チーム総括:</strong><br>
+「NGとは言えないが慎重な追加調査が必要」——という位置づけです。<br>
+利回り7.4%はキャプテン v5基準を割っていますが、スマサテ査定通り取れれば8.33%まで届き、諸費用4%（売主取引）・積算74%・オリックスFLでCCR32.84%と、キャプテンの2棟目候補として十分検討可能な物件です。<br>
+最終判断は<strong>「現地内見での送電線印象」「賃貸市場の実感覚」「土地境界・擁壁の実況」</strong>次第。この3点をクリアできれば買付候補に昇格します。
+</p>
+</div>
+</div>
+
+<div class="card" style="text-align:center;background:#1e3a5f;color:#fff;">
+<p style="margin:0;font-size:0.9em;">仕入部チーム: ハルト（エリア）・リョウ（DD）・アキ（IG+）・村田先生（建築士） ｜ 精査日: 2026年9月5日</p>
+</div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260905_shimo-nagaya5_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260905_shimo-nagaya5_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
