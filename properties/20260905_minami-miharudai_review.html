@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>South Lagoon 三春台 A棟 精査レポート — TC Capitals 仕入部</title>
+<style>
+body { font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif; margin: 0; padding: 0; background: #f4f6f9; color: #263238; line-height: 1.7; }
+.header { background: linear-gradient(135deg, #1a237e 0%, #283593 100%); color: #fff; padding: 32px 24px; text-align: center; }
+.header h1 { margin: 0 0 8px 0; font-size: 26px; font-weight: 700; }
+.header .sub { font-size: 14px; opacity: 0.9; }
+.container { max-width: 900px; margin: 0 auto; padding: 24px; }
+.card { background: #fff; border-radius: 8px; padding: 20px 24px; margin: 16px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.card h2 { margin-top: 0; padding-left: 12px; padding-bottom: 6px; border-left: 5px solid #1a237e; font-size: 20px; }
+h2.haruto { border-left-color: #f57c00; color: #e65100; }
+h2.ryo { border-left-color: #1976d2; color: #0d47a1; }
+h2.aki { border-left-color: #388e3c; color: #1b5e20; }
+h2.murata { border-left-color: #6d4c41; color: #4e342e; }
+h2.hazard { border-left-color: #00695c; color: #00695c; }
+h2.captain { border-left-color: #c62828; color: #b71c1c; }
+h2.summary { border-left-color: #6a1b9a; color: #4a148c; }
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+th, td { padding: 8px 10px; border: 1px solid #cfd8dc; text-align: left; }
+th { background: #eceff1; font-weight: 600; }
+.ok { color: #2e7d32; font-weight: 700; }
+.ng { color: #c62828; font-weight: 700; }
+.warn { color: #ef6c00; font-weight: 700; }
+.big-price { font-size: 28px; font-weight: 700; color: #1a237e; }
+.btn-bar { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
+.btn { display: inline-block; padding: 10px 18px; background: #1a237e; color: #fff !important; border-radius: 6px; font-size: 14px; font-weight: 600; text-decoration: none; }
+.btn.dd { background: #1976d2; }
+.btn.ig { background: #388e3c; }
+.btn.igs { background: #558b2f; }
+.btn.tg { background: #f57c00; }
+.btn.sv { background: #00695c; }
+.btn.rv { background: #6a1b9a; }
+.alert { background: #ffebee; border-left: 5px solid #c62828; padding: 12px 16px; margin: 12px 0; border-radius: 4px; }
+.info { background: #e3f2fd; border-left: 5px solid #1976d2; padding: 12px 16px; margin: 12px 0; border-radius: 4px; }
+ul { padding-left: 20px; }
+li { margin: 4px 0; }
+.footer { text-align: center; padding: 24px; color: #78909c; font-size: 12px; }
+.sig { text-align: right; color: #78909c; font-size: 13px; margin-top: 8px; font-style: italic; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🏢 South Lagoon 三春台 A棟（新築AP）— 精査レポート</h1>
+  <div class="sub">精査日: 2026年9月5日｜TC Capitals 不動産仕入部（ハルト・リョウ・アキ・村田先生）</div>
+</div>
+
+<div class="container">
+
+<!-- 物件サマリー -->
+<div class="card">
+<h2>📋 物件サマリー</h2>
+<table>
+<tr><th>物件名</th><td>South Lagoon 三春台（新築AP・A棟）</td></tr>
+<tr><th>所在地</th><td>神奈川県横浜市南区三春台146-6, 146-8</td></tr>
+<tr><th>交通</th><td>京急本線 南太田駅 徒歩12分</td></tr>
+<tr><th>価格</th><td class="big-price">6,460万円</td></tr>
+<tr><th>表面利回り</th><td>7.00%（資料・管理費込ベース）／ 7.12%（スマサテ査定賃料ベース）</td></tr>
+<tr><th>土地／建物</th><td>131.99㎡（39.92坪）／ 111.62㎡（33.76坪）</td></tr>
+<tr><th>構造・戸数</th><td>木造3階建・全6戸（1K×4戸・1R×2戸）</td></tr>
+<tr><th>専有面積</th><td>17.39〜20.39㎡（201/202はロフト付）</td></tr>
+<tr><th>用途地域</th><td>第一種住居地域 60/200% 準防火 第4種高度地区</td></tr>
+<tr><th>完成予定</th><td>2026年12月（<strong>現在建築中・現物なし</strong>）</td></tr>
+<tr><th>取引態様</th><td>売主（トラストライフ株式会社）＝<strong>仲介手数料ゼロ</strong></td></tr>
+<tr><th>特記事項</th><td><strong>劣化対策等級3級 取得予定</strong></td></tr>
+</table>
+</div>
+
+<!-- キャプテン基準 -->
+<div class="card">
+<h2 class="captain">🎯 キャプテン基準チェック</h2>
+<table>
+<tr><th>指標</th><th>基準</th><th>本件</th><th>判定</th></tr>
+<tr><td>価格</td><td>≤1億円</td><td>6,460万円</td><td class="ok">✅ OK</td></tr>
+<tr><td>表面利回り</td><td>≥8.0%</td><td>7.00%（資料）／ 7.12%（スマサテ）</td><td class="ng">❌ 未達</td></tr>
+<tr><td>築年</td><td>≤10年</td><td>新築</td><td class="ok">✅ OK</td></tr>
+<tr><td>エリア</td><td>一都三県</td><td>神奈川県横浜市</td><td class="ok">✅ OK</td></tr>
+<tr><td>16号内側</td><td>圏央道内側</td><td>横浜市南区（内側）</td><td class="ok">✅ OK</td></tr>
+</table>
+<div class="alert">
+<strong>⚠️ 利回り基準未達（8%→7%）。ただし売主取引・新築・劣化等級3級・横浜駅3分アクセス等の強みあり。価格交渉次第で追いかける価値ありとチーム判断。</strong>
+</div>
+</div>
+
+<!-- 路線価・ハザード・スマサテ -->
+<div class="card">
+<h2 class="hazard">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</h2>
+
+<h3 style="margin-top:16px;">📊 相続税路線価</h3>
+<table>
+<tr><th>chikamap取得結果</th><td class="warn">⚠️ 取得失敗（chikamap.jpサイト側障害でタイムアウト2回）</td></tr>
+<tr><th>暫定路線価</th><td>約18万円/㎡（三春台公示地価22.6万円/㎡×0.8で暫定）</td></tr>
+<tr><th>固定資産税評価額（実測）</th><td>10.16万円/㎡（公課証明・土地146-6分13,053,474円/128.49㎡）</td></tr>
+<tr><th>要対応</th><td class="ng">📌 chikamap正常化後に再取得し、積算評価を再計算すること</td></tr>
+</table>
+
+<h3 style="margin-top:20px;">🗺️ 重ねるハザードマップ</h3>
+<table>
+<tr><th>座標</th><td>北緯35.443035° 東経139.613586°</td></tr>
+<tr><th>洪水浸水想定</th><td class="ok">✅ 非該当</td></tr>
+<tr><th>土砂災害警戒</th><td class="ok">✅ 非該当</td></tr>
+<tr><th>津波浸水想定</th><td class="ok">✅ 非該当</td></tr>
+<tr><th>高潮浸水想定</th><td class="ok">✅ 非該当</td></tr>
+<tr><th>総合判定</th><td class="ok">✅ 問題なし</td></tr>
+</table>
+<p style="color:#546e7a;font-size:13px;">popup記載: 「この付近は、洪水、高潮、土砂災害、津波による被害の危険性が想定されている場所ではない、もしくは現時点で災害リスクに関するデータを整備の場所です。」</p>
+
+<h3 style="margin-top:20px;">🏠 スマサテ賃料査定</h3>
+<table>
+<tr><th>部屋</th><th>面積</th><th>階</th><th>資料賃料</th><th>スマサテ査定</th><th>乖離</th></tr>
+<tr><td>201 (1K)</td><td>20.39㎡</td><td>2F</td><td>64,000</td><td>67,994</td><td class="ok">+6.2%</td></tr>
+<tr><td>202 (1K)</td><td>18.02㎡</td><td>2F</td><td>61,000</td><td>64,307</td><td class="ok">+5.4%</td></tr>
+<tr><td>203 (1R)</td><td>17.39㎡</td><td>2F</td><td>58,000</td><td>62,083</td><td class="ok">+7.0%</td></tr>
+<tr><td>101 (1K)</td><td>20.39㎡</td><td>1F</td><td>61,000</td><td>66,146</td><td class="ok">+8.4%</td></tr>
+<tr><td>102 (1K)</td><td>18.02㎡</td><td>1F</td><td>58,000</td><td>62,026</td><td class="ok">+6.9%</td></tr>
+<tr><td>103 (1R)</td><td>17.39㎡</td><td>1F</td><td>57,000</td><td>60,733</td><td class="ok">+6.5%</td></tr>
+<tr><th>合計/月</th><th></th><th></th><th>359,000</th><th>383,289</th><th class="ok">+6.8%</th></tr>
+</table>
+<div class="info"><strong>判定: スマサテ査定 &gt; 資料賃料 +6.8% → 賃料余地あり（上振れ可能性）</strong>。運営次第でスマサテ水準を狙える。</div>
+<p style="font-size:13px;color:#666;">査定URL: <a href="https://owners.sumasate.jp/assessments/449472" target="_blank">https://owners.sumasate.jp/assessments/449472</a></p>
+
+<p style="margin-top:16px;"><a href="./20260905_minami-miharudai_survey.html" class="btn sv">🔍 物件調査レポート（詳細＋popupスクショ）</a></p>
+</div>
+
+<!-- ハルト -->
+<div class="card">
+<h2 class="haruto">🌱 ハルト（エリア・利回り分析）</h2>
+
+<h3>エリア分析：南太田駅・三春台</h3>
+<ul>
+<li><strong>南太田駅</strong>: 京急本線各駅停車。横浜駅まで3分（1駅・普通利用）、快特乗換で品川26分。乗降客数約18,000人/日</li>
+<li><strong>三春台</strong>: 横浜の丘の上住宅街（標高40m前後）。閑静な住居系エリア。徒歩12分は坂道あり（女性入居者敬遠可能性）</li>
+<li><strong>賃貸需要</strong>: 横浜駅・関内・みなとみらいへの通勤単身者層が主ターゲット。1K相場5.8〜6.8万円/月（本件レンジと一致）</li>
+</ul>
+
+<h3>表面利回り相場感</h3>
+<table>
+<tr><th>セグメント</th><th>相場利回り</th></tr>
+<tr><td>南区・新築木造AP・徒歩10〜15分</td><td>6.5〜7.5%</td></tr>
+<tr><td>南太田・日ノ出町周辺の新築1棟物</td><td>6.8〜7.3%が中央値</td></tr>
+<tr><td><strong>本件（7.00% / スマサテ7.12%）</strong></td><td><strong>中央値ど真ん中</strong></td></tr>
+</table>
+<p>→ 相場並み。割安ではないが割高でもない。横浜市南区新築で7%台前半は「順当な値付け」。</p>
+
+<h3>スマサテ査定の解釈</h3>
+<p>上振れ余地+6.8%（月+24,289円 / 年+291,468円）。各戸ほぼ均等に+3,000〜4,000円/月の上振れ余地あり。<strong>資料賃料は保守設定</strong>で、満室運営できればスマサテ賃料7.12%達成は現実的。</p>
+
+<h3>ハルトの率直な評価</h3>
+<div class="info">
+<strong>⭐️ 追いかける価値あり（ただし価格交渉必須）</strong>
+<ul>
+<li>✅ 売主取引=仲介手数料190万円節約（実質利回り押し上げ）</li>
+<li>✅ 劣化等級3級で30年融資の可能性（=CF最大化）</li>
+<li>✅ 横浜駅3分の希少立地で長期空室リスク低</li>
+<li>✅ スマサテ上振れ余地+6.8%で「決めやすさ」も担保</li>
+<li>⚠️ 基準ギリギリなので価格交渉で明確に基準超えを狙う</li>
+</ul>
+<strong>推奨初動: 6,460万→6,200万（利回り7.28%→スマサテ7.42%）を目標に売主打診</strong>
+</div>
+<p class="sig">— 朝倉ハルト（不動産仕入部・物件探し担当）</p>
+</div>
+
+<!-- リョウ -->
+<div class="card">
+<h2 class="ryo">🔍 リョウ（DDチェックリスト）</h2>
+
+<h3>DDステータス一覧</h3>
+<table>
+<tr><th>#</th><th>項目</th><th>資料</th><th>確認結果</th></tr>
+<tr><td>1</td><td>物件概要書</td><td>あり</td><td>一通り確認・数値精査済</td></tr>
+<tr><td>2</td><td>レントロール</td><td>あり</td><td>全6戸想定賃料確認</td></tr>
+<tr><td>3</td><td>謄本146-8</td><td>あり</td><td>権利関係確認・要注意点あり</td></tr>
+<tr><td>4</td><td>謄本146-6</td><td class="ng">なし</td><td class="ng">要取得（本体地・128.49㎡）</td></tr>
+<tr><td>5</td><td>建築確認済証</td><td class="ng">なし</td><td class="ng">図面のみ（識別番号57625あり）</td></tr>
+<tr><td>6</td><td>確認図面</td><td>あり</td><td>45分準耐火・4号地区適合・杭工法確認</td></tr>
+<tr><td>7</td><td>検査済証</td><td class="ng">完成前</td><td class="ng">完了後即時交付要求</td></tr>
+<tr><td>8</td><td>公課証明</td><td>あり</td><td>解体前ベース（新築稼働後は再算出）</td></tr>
+<tr><td>9</td><td>地盤調査報告書</td><td class="ng">なし</td><td class="warn">TG-m工法採用記載=軟弱地盤懸念</td></tr>
+<tr><td>10</td><td>重要事項説明書</td><td class="ng">なし</td><td>要事前入手</td></tr>
+<tr><td>11</td><td>売買契約書ドラフト</td><td class="ng">なし</td><td>手付・違約・引渡条件確認要</td></tr>
+<tr><td>12</td><td>建物完成保証書</td><td class="ng">なし</td><td>住宅瑕疵担保責任保険加入証も要</td></tr>
+<tr><td>13</td><td>PM契約案</td><td class="ng">なし</td><td>管理会社・料率未定</td></tr>
+</table>
+
+<h3>リスクフラグ</h3>
+<div class="alert">
+<strong>フラグ1（★最大リスク★）: 既存擁壁による融資否決リスク</strong><br>
+配置図に「間知ブロック+RC+CB積み4段」「大谷石積+CB積み5段」等の既存擁壁が四方に多数。最大高低差GL±0〜-5110mm=5m超。「安息角内は杭対応」の注記=擁壁の安全性が確保できないため杭で建物を支持。<strong>金融機関融資でNG判定される可能性大</strong>（オリックス・auじぶんとも擁壁は慎重）。
+</div>
+
+<ul>
+<li><strong>フラグ2</strong>: 短期転売スキーム（令和8年5月8日取得→即建築→2026年12月引渡）。仕入価格vs販売価格の乖離大きい可能性</li>
+<li><strong>フラグ3</strong>: 建築中物件特有リスク（工事遅延・完成保証未確認）</li>
+<li><strong>フラグ4</strong>: 相続経緯物件（前々所有者から相続→白井→トラストライフ）</li>
+<li><strong>フラグ5</strong>: 建物価格・消費税内訳未確認（積算・減価償却計算に必須）</li>
+</ul>
+
+<h3>キャプテンへの確認事項</h3>
+<ol>
+<li><strong>建物価格内訳を売主に開示要求</strong>（土地○円/建物税抜○円/消費税○円）</li>
+<li>146-6の謄本と地積測量図・境界確定書を仲介経由で取得</li>
+<li>地盤調査報告書と杭施工計画書を取得（TG-m工法採用=軟弱地盤の可能性）</li>
+<li><strong>既存擁壁の安全性検討書</strong>（既存不適格でないか）を確認（融資可否直結）</li>
+<li>住宅瑕疵担保責任保険と建物完成保証の付保状況を照会</li>
+<li>PM会社はBRICKS想定でよいか、AD1.5ヶ月×6戸の初期リーシングコストの見込み</li>
+<li>重要事項説明書と契約書ドラフトの事前入手を売主業者に要請</li>
+</ol>
+
+<div class="info">
+<strong>最大リスク対処:</strong> ①買付前に融資内諾を取る（オリックス/auじぶん銀行に配置図・立面図を持ち込み事前打診）／②売主に擁壁の安全性証明書（宅造法適合証明・構造計算書）の提出を求める／③契約書に「融資特約」＋「擁壁起因の融資否決を含む解除条項」を明記
+</div>
+
+<p style="margin-top:16px;"><a href="https://teruyone.github.io/tc-properties/properties/20260905_minami-miharudai_DD.html" class="btn dd">📋 入力済みDDチェックリスト</a></p>
+<p class="sig">— 黒沢 涼（リョウ）／不動産仕入部・DD担当</p>
+</div>
+
+<!-- アキ -->
+<div class="card">
+<h2 class="aki">💰 アキ（IG+収支計算＋玉川式）</h2>
+
+<h3>【資料賃料版】IG+収支サマリー（満室4,524,000円/年）</h3>
+<table>
+<tr><th>指標</th><th>オリックス100%</th><th>神奈川銀行90%</th></tr>
+<tr><td>月額CF</td><td>62,809円</td><td>97,088円</td></tr>
+<tr><td>CF率</td><td>1.17%</td><td>1.80%</td></tr>
+<tr><td>CCR</td><td class="ok">29.17%</td><td>12.88%</td></tr>
+<tr><td>NOI利回り</td><td>5.52%</td><td>5.52%</td></tr>
+<tr><td>積算比率</td><td>78.25%</td><td>78.25%</td></tr>
+</table>
+
+<h3>【スマサテ賃料版】IG+収支サマリー（満室4,599,468円/年）</h3>
+<table>
+<tr><th>指標</th><th>オリックス100%</th><th>神奈川銀行90%</th></tr>
+<tr><td>月額CF</td><td>68,070円</td><td>102,349円</td></tr>
+<tr><td>CF率</td><td>1.26%</td><td>1.90%</td></tr>
+<tr><td>CCR</td><td class="ok">31.61%</td><td>13.58%</td></tr>
+<tr><td>NOI利回り</td><td>5.62%</td><td>5.62%</td></tr>
+<tr><td>積算比率</td><td>78.25%</td><td>78.25%</td></tr>
+</table>
+
+<h3>キャプテン基準チェック（6指標）</h3>
+<table>
+<tr><th>指標</th><th>基準</th><th>資料賃料</th><th>スマサテ賃料</th><th>判定</th></tr>
+<tr><td>価格</td><td>≤1億</td><td>6,460万</td><td>6,460万</td><td class="ok">✅</td></tr>
+<tr><td>表面利回り</td><td>≥8%</td><td>7.00%</td><td>7.12%</td><td class="ng">❌</td></tr>
+<tr><td>CF率</td><td>≥1%</td><td>1.17〜1.80%</td><td>1.26〜1.90%</td><td class="ok">✅</td></tr>
+<tr><td>CCR</td><td>≥15%</td><td>12.88〜29.17%</td><td>13.58〜31.61%</td><td class="warn">△ オリックス合格・神奈川微不足</td></tr>
+<tr><td>積算比率</td><td>≥80%</td><td>78.25%</td><td>78.25%</td><td class="warn">△ 惜しい△1.75pt</td></tr>
+<tr><td>10年IRR</td><td>≥25%</td><td colspan="2">玉川式シートで要確認</td><td>—</td></tr>
+</table>
+
+<h3>アキの総合コメント</h3>
+<div class="info">
+<strong>判定：条件付きで前向き検討可（買い寄り／要交渉）</strong>
+<ul>
+<li>収支面: 表面7.12%は8%基準に約1pt足りないが、CF率・CCR・積算のバランスは新築として悪くない。オリックス100%融資でCCR29〜31%は圧巻</li>
+<li>スマサテ上振れ余地の活かし方: 初期リーシングは資料賃料水準が現実的下限。BRICKS体制で丁寧に埋めれば2年目以降にスマサテ水準への引き上げが視野</li>
+<li>積算78.25%: 路線価が18万→19万/㎡以上なら82%超えで基準クリア可能（要chikamap再取得）</li>
+<li>融資推奨: CFのゆとりでは神奈川銀行90%が安定的、CCR重視ならオリックス100%。1棟目枠の消費可否は要判断</li>
+</ul>
+<strong>キャプテンへの確認事項:</strong> ①路線価再取得（18→19万/㎡で積算基準クリア可能）／②売主指値余地（6,460→6,200万で表面7.29%スマサテ→CCR35%超え視野）／③オリックス1棟目枠をこの物件で消費するか
+</div>
+
+<div class="btn-bar">
+<a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=6460&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7&floorArea=111.62&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=2.75&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=6460&pi_age_inp=0&pi_yield_inp=7&pi_area_inp=111.62&pi_rooms_inp=6&ik_land_area=131.99&ik_route_price=18&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E5%8D%97%E5%8C%BA%E4%B8%89%E6%98%A5%E5%8F%B0146-6" class="btn ig">📊 IG+【資料賃料】</a>
+<a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=6460&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.12&floorArea=111.62&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=2.75&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=6460&pi_age_inp=0&pi_yield_inp=7.12&pi_area_inp=111.62&pi_rooms_inp=6&ik_land_area=131.99&ik_route_price=18&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E5%8D%97%E5%8C%BA%E4%B8%89%E6%98%A5%E5%8F%B0146-6" class="btn igs">📊 IG+【スマサテ賃料】</a>
+<a href="../../knowledge/tamagawa-analysis/20260905_minami-miharudai_TG.html" class="btn tg">📈 玉川式収益試算シート</a>
+</div>
+<p class="sig">— 三宅 亜紀（アキ）／不動産仕入部・収支計算担当</p>
+</div>
+
+<!-- 村田先生 -->
+<div class="card">
+<h2 class="murata">🏗️ 村田先生（建築士コメント）</h2>
+
+<h3>一級建築士の視点から</h3>
+<p>木造3階建・法定耐用年数22年・準防火地域対応。<strong>劣化対策等級3級（最高等級）取得予定</strong>は非常に評価できる。等級3は「概ね75〜90年の使用に耐える性能」を意味し、床下換気・小屋裏換気・防腐防蟻処理・基礎高さ400mm以上・土台の防腐処理などが標準仕様。<strong>法定22年に対し実質耐用は50〜60年見込め、キャッシュフロー計画は長期で組める</strong>。</p>
+
+<h3>建物仕様のポイント</h3>
+<ul>
+<li>1K×4戸・1R×2戸の混合プランは狭小敷地で6戸捻り出す実務的設計</li>
+<li>専有17.39〜20.39㎡は南太田駅・単身学生/若手社会人ターゲットとして最低ラインだが成立範囲</li>
+<li>建物111.62㎡÷6戸=18.6㎡（共用込）は廊下・階段がタイト → 10〜15年目の共用部防水・鉄骨階段サビ進行が要注意</li>
+<li>ロフト付き（201/202）: 天井高1.4m以下・直下床面積1/2以下の要件必須。<strong>実測確認必要（基準超過なら4階建扱いで違法建築リスク）</strong></li>
+</ul>
+
+<h3>敷地・法令適合性で気になる点</h3>
+<div class="alert">
+<strong>接道2.10m</strong>は建築基準法43条（2m以上）をわずか10cmクリア。実測でブレると<strong>再建築不可転落リスク</strong>。<strong>確定測量図・境界標の現地確認は絶対条件</strong>。
+</div>
+<ul>
+<li>宅地造成等工事規制区域指定＋三春台の高台地形 → 擁壁ありの可能性大</li>
+<li>既存擁壁を流用する場合、検査済証のある擁壁か・築年数・高さ2m超なら工作物確認申請の有無を要確認</li>
+<li>既存不適格擁壁だと将来的な作り直し費用（数百万〜1000万円級）が発生し得る</li>
+<li>地盤調査書（SS試験または平板載荷試験）は必須。地盤改良の有無・工法を確認</li>
+</ul>
+
+<h3>修繕リスク（時系列）</h3>
+<table>
+<tr><th>時期</th><th>項目</th><th>概算費用</th></tr>
+<tr><td>直近5〜10年</td><td>給湯器不具合対応（初期不良）程度</td><td>年10〜20万円</td></tr>
+<tr><td>10〜15年目</td><td>外壁塗装＋シーリング／屋上防水／共用鉄部塗装／給湯器交換6戸</td><td class="warn">300〜400万円</td></tr>
+<tr><td>30〜35年目</td><td>給排水管更新／外壁・屋根大規模改修／サッシ・玄関ドア更新</td><td class="ng">700〜900万円</td></tr>
+</table>
+<p>木造3階建は35年でCF計画のリファイナンスor売却判断が現実的。</p>
+
+<h3>現地で必ず確認すべきこと</h3>
+<ol>
+<li><strong>接道部分の実測</strong>（メジャーで2.10mを実測、境界標の位置確認）— 再建築可否の根幹</li>
+<li>既存擁壁の状態（高さ・築年数・ひび割れ・排水穴・検査済証の有無）— 将来修繕費に直結</li>
+<li>前面道路4.00mの実効幅員（電柱・側溝で有効幅が狭くないか）</li>
+<li>隣地との境界・越境（既存建物解体後、越境物・ブロック塀の所有権）</li>
+<li>地盤高さと周辺との高低差（傾斜地なら基礎の立ち上がり・土留めコスト）</li>
+<li>完成後内覧: ロフト実寸（天井高1.4m以下）・共用階段の踊り場寸法・防水立ち上がり</li>
+<li>売主提出書類: 検査済証・住宅性能評価書・地盤調査書・構造計算書・瑕疵担保保険証券</li>
+</ol>
+
+<div class="info">
+<strong>村田としての率直な所見:</strong><br>
+「キャプテン、<em>現場を見ないと断言はできませんが</em>、資料からの印象は『新築×劣化対策等級3級×準防火対応×ハザード非該当』と、建築的な守りは合格ラインです。ただし気になるのは3点。①接道2.10mのギリギリ感、②宅造規制区域の高台地形＝擁壁リスク、③売主が買取業者の新築販売という点。<strong>契約前に必ず確認済証・地盤調査書・擁壁の来歴書類を取り寄せて、第三者建築士のインスペクション費用を予算化してください</strong>。それさえクリアできれば、木造3階建の等級3新築は35年キャッシュフロー計画に載せられる良質な器です。」
+</div>
+<p class="sig">— 村田 誠一（一級建築士・35年キャリア）</p>
+</div>
+
+<!-- キャプテン確認事項まとめ -->
+<div class="card">
+<h2 class="captain">📌 キャプテンへの確認事項（統合）</h2>
+<ol>
+<li><strong>【最優先・融資】既存擁壁の安全性証明書（宅造法適合証明・構造計算書）を売主に開示要求</strong>。買付前にオリックス/auじぶん銀行に配置図・立面図を持ち込み事前打診（融資否決リスク回避）</li>
+<li><strong>建物価格の内訳を売主に開示要求</strong>（土地○円/建物税抜○円/消費税○円） — 積算・減価償却計算に必須</li>
+<li><strong>146-6謄本・地積測量図・境界確定書</strong>を仲介経由で取得（本体地の権利関係未確認）</li>
+<li><strong>地盤調査報告書・杭施工計画書</strong>を取得（TG-m工法採用=軟弱地盤の可能性）</li>
+<li><strong>接道2.10mの実測</strong>（境界標の位置確認）— 再建築可否の根幹</li>
+<li><strong>chikamap正常化後に路線価再取得</strong>（18→19万/㎡で積算基準クリア可能）</li>
+<li><strong>売主指値の可否</strong>（6,460→6,200万で表面7.29%スマサテ→CCR35%超え視野）</li>
+<li>住宅瑕疵担保責任保険・建物完成保証・重要事項説明書・売買契約書ドラフトの事前入手</li>
+<li>PM会社の想定（BRICKS想定・管理料2.75%）、AD1.5ヶ月×6戸の初期リーシングコスト見込み</li>
+<li>オリックス1棟目枠の消費可否（後続物件パイプラインとの兼ね合い）</li>
+</ol>
+</div>
+
+<!-- チーム総合所見 -->
+<div class="card">
+<h2 class="summary">🎯 チーム総合所見</h2>
+
+<h3>総合判断: ⚠️ 追いかける価値あり（ただし融資内諾＋価格交渉が前提条件）</h3>
+
+<h3>強み</h3>
+<ul>
+<li>✅ 売主取引（仲介手数料190万円節約）</li>
+<li>✅ 劣化対策等級3級（最高等級）取得予定 → 長期融資・長期耐用</li>
+<li>✅ ハザード全項目「問題なし」</li>
+<li>✅ 横浜駅3分の希少立地・スマサテ賃料上振れ余地+6.8%</li>
+<li>✅ オリックス100%融資でCCR29〜31%（自己資金効率極めて高い）</li>
+</ul>
+
+<h3>最大リスク（要注意3点）</h3>
+<div class="alert">
+<strong>① 既存擁壁による融資否決リスク（リョウ指摘）</strong>: 配置図に既存石積・CB積擁壁多数（最大GL-5110mm）。「安息角内は杭対応」注記から擁壁安全性が担保されていない。融資審査で数百万〜千万規模の擁壁補修要求 or 融資NGの可能性<br>
+<strong>② 接道2.10mのギリギリ感（村田指摘）</strong>: 43条2m接道義務をわずか10cmクリア。実測でブレると再建築不可転落<br>
+<strong>③ 表面利回り基準未達（7.00%〜7.12% vs 基準8%）</strong>: 現状価格のままではキャプテン基準に届かない
+</div>
+
+<h3>次のアクション（優先順）</h3>
+<ol>
+<li><strong>融資内諾を取る</strong>（オリックス・auじぶん銀行に配置図・立面図・擁壁関連資料を持ち込み事前打診）</li>
+<li><strong>擁壁・地盤調査書・146-6謄本・建物価格内訳を仲介経由で取得</strong></li>
+<li><strong>売主に指値打診</strong>（6,460→6,200万・表面7.29%〜スマサテ7.42%目標）</li>
+<li>chikamap再取得（積算基準クリア可能性判定）</li>
+<li>上記4点クリア後、買付・DD再精査・契約→完成後インスペクション</li>
+</ol>
+
+<h3>結論</h3>
+<p>建築的守り（新築・劣化等級3級・準防火・ハザード非該当）は合格ライン。<strong>売主直取引×新築×横浜駅3分の三点セットは1億円以内では稀少</strong>ですが、擁壁リスク・利回り基準未達の2大リスクをどう畳むかがキーです。<strong>融資内諾＋価格交渉200〜300万円が取れれば、TC Capitalsの1棟目候補として本格検討可能</strong>。ただし取れない場合は<strong>丁重に見送り</strong>を推奨します。</p>
+</div>
+
+<div class="footer">
+TC Capitals 不動産仕入部 — ハルト（エリア）／リョウ（DD）／アキ（IG+）／村田先生（建築）<br>
+精査日: 2026-09-05 ／ trigger: 20260905073316.json
+</div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260905_minami-miharudai_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260905_minami-miharudai_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
