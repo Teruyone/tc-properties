@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>プランタン八幡 — 精査レポート</title>
+<style>
+  body { font-family: "Hiragino Sans","Meiryo",sans-serif; margin:0; padding:0; background:#f5f6fa; color:#222; line-height:1.7; }
+  header { background:#1e3a5f; color:#fff; padding:24px 32px; }
+  header h1 { margin:0; font-size:24px; }
+  header .sub { font-size:13px; opacity:0.85; margin-top:6px; }
+  main { max-width:960px; margin:24px auto; padding:0 16px; }
+  .card { background:#fff; border-radius:8px; padding:20px 28px; margin-bottom:20px; box-shadow:0 2px 4px rgba(0,0,0,0.05); }
+  .card h2 { margin-top:0; padding-bottom:8px; border-bottom:2px solid #eee; font-size:18px; }
+  .card h3 { font-size:15px; margin-top:16px; margin-bottom:6px; color:#334; }
+  .h-orange { color:#e67e22; border-bottom-color:#e67e22 !important; }
+  .h-blue { color:#2980b9; border-bottom-color:#2980b9 !important; }
+  .h-green { color:#27ae60; border-bottom-color:#27ae60 !important; }
+  .h-brown { color:#8e6f4a; border-bottom-color:#8e6f4a !important; }
+  .h-teal { color:#16a085; border-bottom-color:#16a085 !important; }
+  .h-navy { color:#1e3a5f; border-bottom-color:#1e3a5f !important; }
+  table { width:100%; border-collapse:collapse; margin:12px 0; }
+  th, td { border:1px solid #ddd; padding:8px 12px; text-align:left; font-size:14px; }
+  th { background:#f0f2f5; }
+  .ok { color:#27ae60; font-weight:600; }
+  .ng { color:#c0392b; font-weight:600; }
+  .warn { color:#e67e22; font-weight:600; }
+  .alert { background:#fff5f5; border-left:4px solid #c0392b; padding:12px 16px; margin:12px 0; border-radius:4px; }
+  .info { background:#f0f7ff; border-left:4px solid #2980b9; padding:12px 16px; margin:12px 0; border-radius:4px; }
+  .warn-box { background:#fff8e1; border-left:4px solid #e67e22; padding:12px 16px; margin:12px 0; border-radius:4px; }
+  a.link-btn { display:inline-block; background:#1e3a5f; color:#fff; padding:8px 16px; border-radius:4px; text-decoration:none; margin:4px 8px 4px 0; font-size:14px; }
+  a.link-btn:hover { background:#2c5282; }
+  .summary-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:8px; }
+  .summary-grid div { padding:8px 12px; background:#f7f8fa; border-radius:4px; font-size:13px; }
+  .summary-grid strong { color:#1e3a5f; font-size:15px; display:block; margin-top:2px; }
+  ul.compact { margin:6px 0; padding-left:20px; }
+  ul.compact li { margin-bottom:4px; }
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260906_planten-yahata_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=4200&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=9.71&floorArea=145.32&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=11&taxRateIncome=20&pi_price_inp=4200&pi_age_inp=11&pi_yield_inp=9.71&pi_area_inp=145.32&pi_rooms_inp=6&ik_land_area=308.56&ik_route_price=4.3&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%AE%AE%E5%9F%8E%E7%9C%8C%E4%BB%99%E5%8F%B0%E5%B8%82%E9%9D%92%E8%91%89%E5%8C%BA%E5%85%AB%E5%B9%A15%E4%B8%81%E7%9B%AE5-18%EF%BC%88%E3%83%97%E3%83%A9%E3%83%B3%E3%82%BF%E3%83%B3%E5%85%AB%E5%B9%A1%EF%BC%89" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=4200&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=9.71&floorArea=145.32&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=11&taxRateIncome=20&pi_price_inp=4200&pi_age_inp=11&pi_yield_inp=9.71&pi_area_inp=145.32&pi_rooms_inp=6&ik_land_area=308.56&ik_route_price=4.3&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%AE%AE%E5%9F%8E%E7%9C%8C%E4%BB%99%E5%8F%B0%E5%B8%82%E9%9D%92%E8%91%89%E5%8C%BA%E5%85%AB%E5%B9%A15%E4%B8%81%E7%9B%AE5-18%EF%BC%88%E3%83%97%E3%83%A9%E3%83%B3%E3%82%BF%E3%83%B3%E5%85%AB%E5%B9%A1%EF%BC%89" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260906_planten-yahata_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20260906_planten-yahata_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+
+<header>
+  <h1>🏠 プランタン八幡 — チーム精査レポート</h1>
+  <div class="sub">精査日: 2026-09-06 / チーム: ハルト・リョウ・アキ・村田先生 / TC Capitals 仕入部</div>
+</header>
+<main>
+
+<!-- 物件サマリー -->
+<div class="card">
+  <h2 class="h-navy">📋 物件サマリー</h2>
+  <div class="summary-grid">
+    <div>所在地<strong>宮城県仙台市青葉区八幡5丁目5-18</strong></div>
+    <div>地番<strong>青葉区八幡五丁目211番30</strong></div>
+    <div>交通<strong>JR仙山線 国見駅 徒歩11分（推定）</strong></div>
+    <div>価格<strong>4,200万円</strong></div>
+    <div>表面利回り<strong>9.71%（満室想定）</strong></div>
+    <div>構造<strong>木造2階建</strong></div>
+    <div>築年<strong>平成26年1月（築11年8ヶ月）</strong></div>
+    <div>戸数<strong>全6戸（1R×3・1K×3）</strong></div>
+    <div>専有面積<strong>約24.2㎡/戸（平均）</strong></div>
+    <div>土地面積<strong>253.56+55=308.56㎡ ⚠️</strong></div>
+    <div>延床面積<strong>145.32㎡</strong></div>
+    <div>取引態様<strong>媒介（IPA不動産 森氏）</strong></div>
+    <div>用途地域<strong>第二種住居地域（60/200）</strong></div>
+    <div>接道<strong>南西公道4.2m×12.9m / 北西私道4.1m×17.3m（角地）</strong></div>
+    <div>設備<strong>LPガス・Wi-Fi・カラーモニターホン・エアコン・給湯</strong></div>
+    <div>管理<strong>平和住宅情報センター</strong></div>
+    <div>現況<strong>6/6満室（駐車場5台全空車）</strong></div>
+    <div>備考<strong>Wi-Fi代15,720円/月（税込）</strong></div>
+  </div>
+</div>
+
+<!-- キャプテン基準 -->
+<div class="card">
+  <h2 class="h-navy">🎯 キャプテン基準（v5）照合</h2>
+  <table>
+    <tr><th>項目</th><th>基準</th><th>実績</th><th>判定</th></tr>
+    <tr><td>価格</td><td>1億円以内</td><td>4,200万円</td><td class="ok">✅ OK（大幅余裕）</td></tr>
+    <tr><td>築年</td><td>築10年以内</td><td>築11年8ヶ月</td><td class="ng">❌ NG（1年8ヶ月超過）</td></tr>
+    <tr><td>エリア</td><td>16号内側（一都三県）</td><td>宮城県仙台市</td><td class="ng">❌ NG（遠隔地）</td></tr>
+    <tr><td>戸数</td><td>6〜8戸</td><td>6戸</td><td class="ok">✅ OK</td></tr>
+    <tr><td>表面利回り（築古）</td><td>8.0%以上</td><td>9.71%</td><td class="ok">✅ OK（+1.71pt）</td></tr>
+    <tr><td>CF率</td><td>1.0%以上</td><td>A:2.24% / B:2.88%</td><td class="ok">✅ OK</td></tr>
+    <tr><td>CCR</td><td>15%以上</td><td>A:32.06% / B:16.95%</td><td class="ok">✅ OK</td></tr>
+    <tr><td>10年目税引後IRR</td><td>25%以上</td><td>玉川式で要確認</td><td>TG参照</td></tr>
+  </table>
+  <div class="alert">
+    <strong>⚠️ 方針適合性:</strong> 「築10年以内・16号内側」の2項目でキャプテン基準外。<strong>方針転換の意思決定が前提</strong>となる案件。数字（利回り・CF・CCR）は基準クリアで魅力的だが、遠隔管理・出口戦略の議論が必要。
+  </div>
+</div>
+
+<!-- ハルト調査（路線価・ハザード・スマサテ） -->
+<div class="card">
+  <h2 class="h-teal">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</h2>
+
+  <h3>相続税路線価</h3>
+  <p><strong>4.3万円/㎡</strong>（chikamap.jp 令和7年分・借地権割合参照）— 土地308.56㎡ → 相続税路線価ベース土地評価額 <strong>約1,326.8万円</strong></p>
+
+  <h3>ハザードマップ判定（重ねるハザードマップ）</h3>
+  <table>
+    <tr><th>項目</th><th>判定</th></tr>
+    <tr><td>洪水浸水想定</td><td class="ok">✅ 非該当</td></tr>
+    <tr><td>土砂災害警戒区域</td><td class="ok">✅ 非該当</td></tr>
+    <tr><td>津波浸水想定</td><td class="ok">✅ 非該当（内陸部）</td></tr>
+    <tr><td>内水氾濫</td><td class="ok">✅ 非該当</td></tr>
+    <tr><td>液状化危険度</td><td>確認不可</td></tr>
+    <tr><td>座標</td><td>北緯38.27071° 東経140.84026°</td></tr>
+    <tr><td><strong>総合判定</strong></td><td class="ok"><strong>✅ 問題なし</strong></td></tr>
+  </table>
+  <div class="info">
+    <strong>補足:</strong> 仙台市青葉区は丘陵地・過去に東日本大震災の宅地被害エリア。ハザードマップは非該当だが、<strong>擁壁の有無・大規模盛土造成地マップ・宅地造成履歴等情報マップ</strong>の現地確認が別途必要（村田先生指摘）。
+  </div>
+
+  <h3>スマサテ賃料査定</h3>
+  <div class="warn-box">
+    <strong>⚠️ スマサテ査定 取得不可</strong>（仙台エリアで事例データ不足のため0円表示）<br>
+    国見駅徒歩11分・アパート・木造・1R/1K・築11年・24㎡で照会したが、査定事例が不足しており賃料算出できず。<br>
+    → <strong>資料記載賃料の妥当性を周辺相場で代替検証:</strong>
+    <ul class="compact">
+      <li>物件賃料: 1R(1F)平均48,667円・1K(2F)平均50,667円（共益費2,000円除く）</li>
+      <li>国見駅周辺相場（ハルト調査）: 1K新築付近4.8-5.0万円 → <strong>本物件賃料はほぼ相場並</strong></li>
+      <li>結論: 空室リスク低・資料賃料に大きな上振れなし・上振れ余地も限定的</li>
+    </ul>
+  </div>
+
+  <p>
+    <a class="link-btn" href="{survey_url}">🔍 物件調査レポート（路線価地図・ハザードマップ画像・スマサテ入力条件）</a>
+  </p>
+</div>
+
+<!-- ハルト -->
+<div class="card">
+  <h2 class="h-orange">🌅 ハルト（エリア・利回り分析）</h2>
+
+  <h3>国見駅・仙台市青葉区八幡の特性</h3>
+  <ul class="compact">
+    <li><strong>JR仙山線 国見駅:</strong> 仙台駅まで約6-8分（3駅）。地下鉄東西線 川内駅も徒歩圏</li>
+    <li><strong>需要源:</strong> <strong>東北福祉大学</strong>国見キャンパス（学生数約5,485名）が徒歩圏。東北大学川内キャンパス・宮城教育大学方面もアクセス可</li>
+    <li><strong>世帯特性:</strong> 大学・専門学校集中の学生街。単身者中心の1R/1K需要が主流</li>
+    <li><strong>周辺相場:</strong> 国見駅周辺1K新築付近 4.8-5.0万円</li>
+  </ul>
+
+  <h3>相場比較・利回り評価</h3>
+  <p>仙台市青葉区の築11年木造アパートで表面利回り9.71%は<strong>相場より厚い水準</strong>。同エリアの築10年前後木造は7-8%台が中心のため、+1.5pt程度のプレミアム。ただし駐車場5台全空車での9.71%であり、実現収益は現況年収3,720,000円=表面8.86%相当。</p>
+
+  <h3>空室リスク評価</h3>
+  <ul class="compact">
+    <li><strong>プラス:</strong> 東北福祉大学徒歩圏・全戸B/T別・洗面独立・室内洗濯機置場・現況6/6満室・仙台駅8分の利便性</li>
+    <li><strong>マイナス:</strong> LPガス依存（都市ガス比+30〜50%の光熱費）・駅徒歩11分（学生には許容範囲）・駐車場全空車の実需課題</li>
+  </ul>
+
+  <h3>ハルト総合コメント</h3>
+  <div class="info">
+    <strong>数字は魅力的、立地は東北福祉大の学生需要で堅い。</strong>現況満室・利回り9.71%・国見駅=仙台6分の利便性は仙台エリアとしては優良水準。ただし<strong>キャプテン基準の「16号内側」から大きく外れる遠隔物件</strong>で、方針転換の議論が前提。
+    駐車場5台全空車の理由（募集していない/賃料設定高い/実需不足）を仲介から確認できれば、追加賃料+35.6万円/年のアップサイドが見込める。<br><br>
+    <strong>★イチオシ度: ★★★☆☆（3/5）</strong> — 数字と立地は良いが「仙台まで買う方針か」がキャプテン判断の分かれ目。
+  </div>
+</div>
+
+<!-- リョウ DD -->
+<div class="card">
+  <h2 class="h-blue">🔍 リョウ（DDチェック）</h2>
+
+  <h3>確認済み事項 ✅</h3>
+  <ul class="compact">
+    <li>木造2階建・平成26年1月築（築11年8ヶ月）・現行耐震基準適合世代（2000年改正基準・4号特例内）</li>
+    <li>用途地域: 第二種住居地域 → 賃貸経営問題なし・再建築可</li>
+    <li>接道: 南西公道4.2m×12.9m（接道義務充足）+ 北西私道4.1m×17.3m（角地で採光通風◎）</li>
+    <li>間取: 1R×3・1K×3 = 6戸（単身向け構成）</li>
+    <li>現況: 6/6満室（住居部）</li>
+    <li>取引態様: 媒介（諸費用約145万円）</li>
+  </ul>
+
+  <h3>最大リスク 🔴 土地「+55㎡」の正体不明</h3>
+  <div class="alert">
+    <strong>公図・地積測量図の確認まで買付判断不可。</strong>
+    考えられるパターン:
+    <ol>
+      <li><strong>私道持分</strong>（北西4.1m私道の分筆持分）→ 掘削・通行承諾書の有無で融資可否が変わる</li>
+      <li><strong>借地部分</strong>（駐車場5台分？）→ 融資評価が激変。地代・契約期間・更新料要確認</li>
+      <li><strong>別筆の付属地</strong>（法定外道路や水路）→ 売買対象外の可能性</li>
+    </ol>
+    契約後に「借地でした」は致命傷。買付前に必ず白黒つけること。
+  </div>
+
+  <h3>その他リスクフラグ 🚩</h3>
+  <ul class="compact">
+    <li>🔴 <strong>仙台市青葉区の擁壁・地盤リスク</strong>: 丘陵地・2011年被災エリア近接。造成宅地防災区域・大規模盛土造成地マップ要確認。オリックス・城南信金は擁壁物件で審査厳格化</li>
+    <li>🔴 <strong>遠隔地リスク</strong>: 16号内側の外側・PM会社への依存度100%</li>
+    <li>🟡 <strong>LPガス依存</strong>: 単身向けの光熱費敏感層で競争力に影響・給湯器無償貸与契約なら解約時に精算金</li>
+    <li>🟡 <strong>Wi-Fi代15,720円/月</strong>: オーナー負担なら年▲188,640円のCF直撃（NOI利回り▲0.45%相当）</li>
+    <li>🟡 <strong>駐車場5台 全空車</strong>: 満額稼働なら年約35.6万円の逸失。実需or賃料設定の問題を要確認</li>
+    <li>🟡 <strong>木造築12年・修繕タイミング</strong>: 外壁塗装15年目=あと3年で120〜180万円・給湯器交換=6台で90〜150万円</li>
+  </ul>
+
+  <h3>キャプテンへの確認事項（優先度A）</h3>
+  <ol>
+    <li>仲介業者に<strong>「土地+55㎡の内訳」</strong>を至急照会（公図・地積測量図必須）</li>
+    <li>仙台市の<strong>宅地被害マップ・大規模盛土造成地マップ</strong>の確認、現地の擁壁・高低差写真</li>
+    <li>仙台エリア投資は方針転換か？「16号内側」基準から外れる/遠隔管理・出口戦略</li>
+    <li><strong>Wi-Fi代の負担者</strong>（オーナーか入居者共益回収か）</li>
+    <li><strong>駐車場5台全空車の理由・空車期間</strong></li>
+    <li>平和住宅情報センターとのPM契約継承前提か・管理料率は？</li>
+    <li>売主属性（個人/法人/業者・契約不適合免責の交渉余地）</li>
+    <li>融資予定金融機関（仙台なら七十七銀行・仙台銀行が有力）</li>
+  </ol>
+
+  <h3>リョウ総合コメント</h3>
+  <div class="info">
+    <strong>リスクレベル: 🔴 高</strong>。表面利回り9.71%は魅力的だが、開示情報だけでは判断段階に達していない。①土地+55㎡の内訳、②擁壁・宅地被害マップ、③Wi-Fi/駐車場/LPガスの実質NOI、この3点がクリアされない限り買付判断は保留を推奨。<br>
+    キャプテン基準「16号内側」から大きく外れる遠隔物件であることも並行して方針判断が必要。
+  </div>
+
+  <p>
+    <a class="link-btn" href="{dd_url}">📋 DDチェックリスト（21項目・入力済み）</a>
+  </p>
+</div>
+
+<!-- アキ IG+収支 -->
+<div class="card">
+  <h2 class="h-green">💰 アキ（IG+収支計算 + 玉川式）</h2>
+
+  <h3>収益・費用構造</h3>
+  <table>
+    <tr><th>項目</th><th>金額</th></tr>
+    <tr><td>満室年収</td><td>4,076,400円</td></tr>
+    <tr><td>実収入（空室5%控除）</td><td>3,872,580円</td></tr>
+    <tr><td>費用合計</td><td>▲1,101,008円</td></tr>
+    <tr><td><strong>NOI</strong></td><td><strong>2,771,572円（NOI利回り 6.60%）</strong></td></tr>
+  </table>
+  <p style="font-size:13px;color:#666;">費用内訳: PM 193,629 / BM 105,502 / 水光熱 26,376 / 保険 72,533 / 固都税推計 387,258 / 修繕 120,888 / 原状回復 109,898 / 募集AD 84,925</p>
+
+  <h3>融資シナリオ（2パターン）</h3>
+  <table>
+    <tr><th>項目</th><th>A: オリックス（100%・2.6%・35年）</th><th>B: 神奈川銀行（90%・2.25%・35年）※参考</th></tr>
+    <tr><td>月返済</td><td>152,409円</td><td>130,121円</td></tr>
+    <tr><td>年返済</td><td>1,828,903円</td><td>1,561,457円</td></tr>
+    <tr><td>年CF</td><td class="ok">942,669円</td><td class="ok">1,210,115円</td></tr>
+    <tr><td>CF率</td><td class="ok">2.24%</td><td class="ok">2.88%</td></tr>
+    <tr><td>返済比率</td><td>47.2%</td><td>40.3%</td></tr>
+    <tr><td>CCR</td><td class="ok">32.06%</td><td class="ok">16.95%</td></tr>
+    <tr><td>自己資金</td><td>294万円（諸費用のみ）</td><td>714万円（頭金420+諸費用294）</td></tr>
+  </table>
+  <div class="warn-box">
+    <strong>注:</strong> 神奈川銀行は仙台物件では事実上使えないため参考値。実際は<strong>七十七銀行・仙台銀行・住信SBI等</strong>への打診が必要。オリックスは全国対応可だが擁壁物件で審査厳格化リスクあり。
+  </div>
+
+  <h3>積算評価</h3>
+  <table>
+    <tr><th>項目</th><th>金額</th></tr>
+    <tr><td>建物: 延床145.32㎡×21万×残存率50%</td><td>15,258,600円</td></tr>
+    <tr><td>土地: 308.56㎡×路線価4.3万円/㎡</td><td>13,268,080円</td></tr>
+    <tr><td><strong>積算合計</strong></td><td><strong>28,526,680円</strong></td></tr>
+    <tr><td>積算比率</td><td class="warn">67.9%（キャプテン基準60%以上→薄氷通過）</td></tr>
+  </table>
+
+  <h3>キャプテン基準チェック（6指標）</h3>
+  <table>
+    <tr><th>指標</th><th>A（オリックス）</th><th>B（神奈川銀行 参考）</th></tr>
+    <tr><td>価格 ≤ 1億</td><td class="ok">OK（4,200万）</td><td class="ok">OK</td></tr>
+    <tr><td>利回り ≥ 8%</td><td class="ok">OK（9.71%）</td><td class="ok">OK</td></tr>
+    <tr><td>CF率 ≥ 1%</td><td class="ok">OK（2.24%）</td><td class="ok">OK（2.88%）</td></tr>
+    <tr><td>CCR ≥ 15%</td><td class="ok">OK（32.06%）</td><td class="ok">OK（16.95%）</td></tr>
+    <tr><td>積算比率 ≥ 60%</td><td class="warn">OK（67.9%・薄氷）</td><td class="warn">OK（67.9%）</td></tr>
+    <tr><td>10年目税引後IRR ≥ 25%</td><td colspan="2">玉川式シートで要確認</td></tr>
+  </table>
+
+  <h3>アキ総合コメント</h3>
+  <div class="info">
+    <strong>数字面はキャプテン基準クリア。</strong>利回り9.71%はエリア相場より厚めでCF・CCRとも余裕あり。積算比率も路線価4.3万円/㎡で薄氷通過（67.9%）。ただし懸念3点:<br>
+    ① <strong>駐車場5台全空車</strong>=年35.6万円の逸失、②<strong>Wi-Fi代15,720円/月の負担者</strong>=オーナー負担なら年▲19万円のCF影響、③<strong>固都税は実収入10%の推計</strong>=公課証明書で実額確認要。<br>
+    10年目税引後IRRは減価償却が高水準（226万/年）で課税所得ゼロ吸収するため、健全水準が期待できる → TGシートで要確認。
+  </div>
+
+  <p>
+    <a class="link-btn" href="https://teruyone.github.io/tc-properties/ig-sheet/?price=4200&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=9.71&floorArea=145.32&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=11&taxRateIncome=20&pi_price_inp=4200&pi_age_inp=11&pi_yield_inp=9.71&pi_area_inp=145.32&pi_rooms_inp=6&ik_land_area=308.56&ik_route_price=4.3&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%AE%AE%E5%9F%8E%E7%9C%8C%E4%BB%99%E5%8F%B0%E5%B8%82%E9%9D%92%E8%91%89%E5%8C%BA%E5%85%AB%E5%B9%A15%E4%B8%81%E7%9B%AE5-18%EF%BC%88%E3%83%97%E3%83%A9%E3%83%B3%E3%82%BF%E3%83%B3%E5%85%AB%E5%B9%A1%EF%BC%89">📊 IG+【資料賃料】収支試算</a>
+    <a class="link-btn" href="https://teruyone.github.io/tc-properties/ig-sheet/?price=4200&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=9.71&floorArea=145.32&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=11&taxRateIncome=20&pi_price_inp=4200&pi_age_inp=11&pi_yield_inp=9.71&pi_area_inp=145.32&pi_rooms_inp=6&ik_land_area=308.56&ik_route_price=4.3&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%AE%AE%E5%9F%8E%E7%9C%8C%E4%BB%99%E5%8F%B0%E5%B8%82%E9%9D%92%E8%91%89%E5%8C%BA%E5%85%AB%E5%B9%A15%E4%B8%81%E7%9B%AE5-18%EF%BC%88%E3%83%97%E3%83%A9%E3%83%B3%E3%82%BF%E3%83%B3%E5%85%AB%E5%B9%A1%EF%BC%89">📊 IG+【スマサテ賃料】※取得不可のため資料賃料と同一</a>
+    <a class="link-btn" href="{tg_url}">📈 玉川式収益試算シート（35年CF・10年IRR）</a>
+  </p>
+</div>
+
+<!-- 村田先生 -->
+<div class="card">
+  <h2 class="h-brown">🏗️ 村田先生（建築士コメント）</h2>
+
+  <h3>構造・工法の評価</h3>
+  <p>木造2階建 / H26年1月築（築11年8ヶ月）/ 延床145.32㎡ → <strong>2000年基準法改正後・現行耐震基準適合世代</strong>。接合金物規定・地盤調査実質義務化（住宅瑕疵担保履行法H21〜）・耐力壁バランス配置（4分割法）が徹底された時代。木造として最も信頼できる基準で建てられた物件。</p>
+  <p>延床145.32㎡÷6戸=24.2㎡/戸で1R/1Kとしては標準〜やや広め。建蔽率23.6%と余裕十分・角地で採光通風健全。</p>
+
+  <h3>築12年目の修繕リスクと概算費用（今後10年）</h3>
+  <table>
+    <tr><th>項目</th><th>時期</th><th>概算</th></tr>
+    <tr><td>外壁塗装・シーリング打替</td><td>0〜3年内</td><td>100〜150万円</td></tr>
+    <tr><td>屋根塗装/部分補修</td><td>0〜5年内</td><td>30〜80万円</td></tr>
+    <tr><td>給湯器順次更新（6戸）</td><td>0〜5年内</td><td>LPガス会社負担の可能性あり（自己負担なら90〜150万円）</td></tr>
+    <tr><td>エアコン更新（6戸）</td><td>5〜10年内</td><td>60〜90万円</td></tr>
+    <tr><td><strong>想定合計（10年）</strong></td><td></td><td><strong>190〜320万円</strong>（LPガス次第で減）</td></tr>
+  </table>
+  <p style="font-size:13px;color:#666;">戸あたり年3〜5万円の修繕積立感覚で十分回せる規模。</p>
+
+  <h3>★要注意: 私道の扱い</h3>
+  <div class="alert">
+    <strong>「+55㎡」が私道持分の可能性大。</strong>建築基準法での位置づけ次第で扱いが全く変わる:
+    <ul class="compact">
+      <li>42条1項5号（位置指定道路）→ 合法・再建築可能</li>
+      <li>42条2項道路（みなし道路）→ セットバック要否</li>
+      <li>43条但し書き → <strong>再建築時に個別許可が必要（許可下りない可能性=出口戦略に致命的影響）</strong></li>
+    </ul>
+    私道の持分割合・通行掘削承諾書の有無は必ず確認。リョウ経由で仲介に至急照会すべき事項。
+  </div>
+
+  <h3>法令適合性の確認ポイント</h3>
+  <ul class="compact">
+    <li>建築確認・検査済証: 必ず現物確認（H26築なら検査済証はあるはず）</li>
+    <li>用途地域「第二種住居地域」・建蔽率60%/容積率200%: 実際23.6%/約47%で余裕・将来の増築/建替え自由度あり</li>
+    <li>法22条区域: 屋根不燃・延焼ライン内の防火措置は必要（H26築なら適合済み想定）</li>
+    <li>省エネ基準: H26年当時は次世代省エネ（H11基準）レベル・現行より低い（賃貸ではクリティカルでない）</li>
+  </ul>
+
+  <h3>現地必須確認事項</h3>
+  <ol>
+    <li>外壁のチョーキング・シーリング切れ・雨染み</li>
+    <li>基礎クラック（ヘアクラック=0.3mm未満 or 構造クラック=0.5mm以上）</li>
+    <li>屋根材と劣化状況（スレートかガルバかで修繕コスト2倍違う）</li>
+    <li>給湯器の設置年と契約形態（LPガス会社所有=無償貸与なら交換自己負担なし）</li>
+    <li><strong>私道部分の実測・現況・登記</strong>（再建築可能性判定）</li>
+    <li><strong>擁壁の有無と築造年</strong>（仙台市青葉区=東日本大震災被災地・擁壁健全性は最重要）</li>
+    <li>隣地との高低差・境界標の有無</li>
+    <li>共用部階段の構造（鉄骨製なら10〜15年でサビ・接合部劣化）</li>
+    <li>床下・小屋裏点検口の有無と内部（シロアリ痕跡・雨漏り痕・断熱材状態）</li>
+    <li>1階の耐力壁配置（南面窓ばかりで壁不足のパターン確認）</li>
+  </ol>
+
+  <h3>村田総合コメント</h3>
+  <div class="info">
+    <strong>現場を見ないと断言はできませんが</strong>、資料ベースでは<strong>「木造アパートとしては良好な部類」</strong>と評価します。2000年基準・H26築で耐震性能は現行水準、検査済証取得世代で法令適合性も基本クリア推定。<br>
+    大規模修繕未実施の可能性が高く、<strong>「外壁塗装+シーリング=150万円前後」の一次修繕を織り込めば10年は安泰</strong>。指値交渉で外壁塗装費150万円分程度を織り込むのは合理的戦略。<br><br>
+    ただし「土地+55㎡の私道の性質」と「擁壁の有無」の2点は、<strong>契約前に必ず白黒つけるべき論点</strong>。この2点がクリアなら建築士として前向きに背中を押せる物件です。
+  </div>
+</div>
+
+<!-- キャプテンへの確認事項統合 -->
+<div class="card">
+  <h2 class="h-navy">📌 キャプテンへの確認事項（統合）</h2>
+  <h3>優先度A: これが決まらないと動けない</h3>
+  <ol>
+    <li>仲介業者に<strong>「土地+55㎡の内訳」</strong>を至急照会（公図・地積測量図必須）</li>
+    <li><strong>北西側私道4.1mの権利関係</strong>（位置指定道路 or みなし道路 or 43条但し書き・通行掘削承諾書の有無）</li>
+    <li>仙台市の<strong>宅地被害マップ・大規模盛土造成地マップ</strong>確認、現地の擁壁・高低差写真</li>
+    <li>仙台エリア投資の<strong>方針転換</strong>是非（16号内側基準・遠隔管理・出口戦略）</li>
+  </ol>
+  <h3>優先度B: 収支の実額を固める</h3>
+  <ol start="5">
+    <li><strong>Wi-Fi代15,720円/月</strong>の負担者（オーナーor入居者共益回収）</li>
+    <li><strong>駐車場5台全空車の理由・空車期間</strong></li>
+    <li><strong>LPガス</strong>（給湯器所有者・保守費・交換費用の負担者・無償貸与契約なら解約金）</li>
+    <li>公課証明書または納税通知書（<strong>固都税実額</strong>）</li>
+    <li>平和住宅情報センターとの<strong>PM契約継承</strong>・管理料率・AD負担</li>
+    <li>レントロール詳細（各室契約始期・契約形態・敷金・礼金）</li>
+  </ol>
+  <h3>優先度C: 契約条件</h3>
+  <ol start="11">
+    <li>売主属性（個人/法人/業者・契約不適合免責の交渉余地）</li>
+    <li>融資予定金融機関（<strong>七十七銀行・仙台銀行・住信SBI</strong>等の打診状況）</li>
+    <li>施工会社（新築時の担当会社・施工品質確認）</li>
+    <li>建築確認済証・検査済証・図面・修繕履歴3年分</li>
+  </ol>
+</div>
+
+<!-- チーム総合所見 -->
+<div class="card">
+  <h2 class="h-navy">🎯 チーム総合所見</h2>
+  <div class="warn-box">
+    <strong>総合判定: 🟡 「方針判断」＋「+55㎡の内訳判明」が前提で条件付きGO候補</strong>
+  </div>
+
+  <h3>数字面の評価</h3>
+  <ul class="compact">
+    <li>表面利回り9.71%・CF率2.24%・CCR32.06%はキャプテン基準クリア</li>
+    <li>積算比率67.9%（路線価4.3万円/㎡ベース）で薄氷通過</li>
+    <li>ハザード全非該当・木造築11年で現行耐震適合世代</li>
+    <li>現況6/6満室・国見駅=仙台6分・東北福祉大の学生需要</li>
+  </ul>
+
+  <h3>最大リスク</h3>
+  <ol>
+    <li><strong>土地「+55㎡」の内訳不明</strong>（私道 or 借地 or 対象外筆）→ 契約後判明では致命傷</li>
+    <li><strong>仙台市青葉区丘陵地の擁壁・地盤リスク</strong>（東日本大震災被災エリア近接）</li>
+    <li><strong>キャプテン基準「16号内側」逸脱</strong>（遠隔管理・PM依存100%・出口戦略）</li>
+    <li><strong>実質NOIの下振れ要因</strong>: Wi-Fi代（年▲19万円）・駐車場全空車（年▲35.6万円）・LPガス光熱費競争力</li>
+  </ol>
+
+  <h3>次のアクション（推奨順）</h3>
+  <ol>
+    <li>キャプテン: <strong>「仙台まで買う方針か」の判断</strong>（Yes/No）</li>
+    <li>Yesなら → 仲介IPA不動産森氏に<strong>優先度A(1)〜(3)の資料請求</strong>：公図・地積測量図・私道権利関係・宅地被害情報</li>
+    <li>並行して<strong>七十七銀行・仙台銀行に融資打診</strong>（オリックスは擁壁物件審査厳格化のためBプラン）</li>
+    <li>資料受領後、リョウが再DD → 現地訪問（村田先生同行が理想）</li>
+    <li>指値交渉：外壁塗装150万円分・駐車場空車リスク分</li>
+  </ol>
+
+  <div class="info">
+    <strong>チームの結論:</strong> 数字とハザードは合格、建物も現行耐震適合世代で健全。ただし<strong>「+55㎡の正体」と「擁壁リスク」の2点、そして「仙台エリア買いに行くか」の方針判断</strong>が揃わないと最終判断できない。キャプテンの方針判断待ち。
+  </div>
+</div>
+
+</main>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260906_planten-yahata_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260906_planten-yahata_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
