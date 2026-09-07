@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【チーム精査レポート】Beach Lagoon 杉田2丁目 新築アパート</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Hiragino Kaku Gothic ProN","Meiryo",sans-serif; background: #f0f4f8; color: #333; font-size: 14px; line-height: 1.7; }
+  .header { background: #1a2a5e; color: #fff; padding: 24px 32px; }
+  .header h1 { font-size: 22px; font-weight: bold; margin-bottom: 6px; }
+  .header .meta { font-size: 13px; color: #a0b4d0; }
+  .container { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+  .card { background: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); padding: 20px 24px; margin-bottom: 20px; }
+  .section-title { font-size: 15px; font-weight: bold; padding: 8px 14px; border-radius: 4px; color: #fff; margin-bottom: 14px; }
+  .title-orange { background: #e67e22; }
+  .title-blue { background: #2980b9; }
+  .title-green { background: #27ae60; }
+  .title-brown { background: #8b5e3c; }
+  .title-teal { background: #16a085; }
+  .title-red { background: #c0392b; }
+  .title-navy { background: #1a2a5e; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #1a2a5e; color: #fff; padding: 8px 10px; text-align: left; }
+  td { padding: 7px 10px; border-bottom: 1px solid #e8ecf0; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) { background: #f7f9fc; }
+  .ok { color: #27ae60; font-weight: bold; }
+  .ng { color: #e74c3c; font-weight: bold; }
+  .warn { color: #e67e22; font-weight: bold; }
+  .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 12px; }
+  .summary-item { background: #f7f9fc; border: 1px solid #e0e6ed; border-radius: 6px; padding: 12px; text-align: center; }
+  .summary-item .label { font-size: 11px; color: #666; margin-bottom: 4px; }
+  .summary-item .value { font-size: 18px; font-weight: bold; color: #1a2a5e; }
+  .summary-item .sub { font-size: 11px; color: #888; margin-top: 2px; }
+  .criterion-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .criterion-item { border: 2px solid; border-radius: 6px; padding: 10px 14px; }
+  .criterion-ok { border-color: #27ae60; background: #f0faf4; }
+  .criterion-ng { border-color: #e74c3c; background: #fff5f5; }
+  .criterion-warn { border-color: #e67e22; background: #fff9f0; }
+  .criterion-item .c-label { font-size: 11px; color: #666; }
+  .criterion-item .c-value { font-size: 15px; font-weight: bold; }
+  .criterion-item .c-judge { font-size: 12px; font-weight: bold; margin-top: 2px; }
+  .link-btn { display: inline-block; padding: 8px 16px; border-radius: 4px; color: #fff; text-decoration: none; font-size: 13px; font-weight: bold; margin: 4px 4px 4px 0; }
+  .btn-blue { background: #2980b9; }
+  .btn-green { background: #27ae60; }
+  .btn-orange { background: #e67e22; }
+  .btn-brown { background: #8b5e3c; }
+  .btn-teal { background: #16a085; }
+  ul.list { list-style: none; padding: 0; }
+  ul.list li { padding: 5px 0; border-bottom: 1px solid #f0f0f0; }
+  ul.list li:last-child { border-bottom: none; }
+  ul.list li::before { content: "・"; color: #888; margin-right: 4px; }
+  .risk-box { background: #fff5f5; border: 1px solid #f5c6c6; border-radius: 6px; padding: 14px; margin-bottom: 10px; }
+  .risk-box .risk-title { color: #c0392b; font-weight: bold; font-size: 13px; margin-bottom: 6px; }
+  .check-box { background: #f0faf4; border: 1px solid #b7dfc7; border-radius: 6px; padding: 14px; margin-bottom: 10px; }
+  .warn-box { background: #fff9f0; border: 1px solid #fad1a1; border-radius: 6px; padding: 14px; margin-bottom: 10px; }
+  .confirmation-list { background: #fff9f0; border-left: 4px solid #e67e22; padding: 14px 18px; border-radius: 0 6px 6px 0; }
+  .confirmation-list ol { padding-left: 18px; }
+  .confirmation-list li { padding: 4px 0; }
+  .hazard-row { display: flex; align-items: center; padding: 6px 0; border-bottom: 1px solid #f0f0f0; }
+  .hazard-row:last-child { border-bottom: none; }
+  .hazard-label { width: 200px; font-size: 13px; color: #555; }
+  .hazard-value { flex: 1; font-size: 13px; }
+  .total-verdict { text-align: center; padding: 16px; margin-top: 12px; }
+  .verdict-warn { background: #fff3e0; border: 2px solid #e67e22; border-radius: 8px; }
+  .verdict-warn .verdict-label { font-size: 18px; font-weight: bold; color: #e67e22; }
+  .verdict-ng { background: #ffebee; border: 2px solid #e74c3c; border-radius: 8px; }
+  .verdict-ng .verdict-label { font-size: 20px; font-weight: bold; color: #e74c3c; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .alert-banner { background: #c0392b; color: #fff; padding: 18px 24px; border-radius: 8px; margin-bottom: 20px; text-align: center; }
+  .alert-banner .alert-title { font-size: 20px; font-weight: bold; margin-bottom: 6px; }
+  .alert-banner .alert-body { font-size: 14px; line-height: 1.6; }
+  @media (max-width: 600px) {
+    .summary-grid { grid-template-columns: repeat(2, 1fr); }
+    .criterion-grid { grid-template-columns: 1fr 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260907_sugita-beachlagoon_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8040&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.3&floorArea=145.13&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=8040&pi_age_inp=0&pi_yield_inp=7.3&pi_area_inp=145.13&pi_rooms_inp=8&ik_land_area=150.05&ik_route_price=13.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E7%A3%AF%E5%AD%90%E5%8C%BA%E6%9D%89%E7%94%B02%E4%B8%81%E7%9B%AE26-20" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8040&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.52&floorArea=145.13&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=8040&pi_age_inp=0&pi_yield_inp=7.52&pi_area_inp=145.13&pi_rooms_inp=8&ik_land_area=150.05&ik_route_price=13.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E7%A3%AF%E5%AD%90%E5%8C%BA%E6%9D%89%E7%94%B02%E4%B8%81%E7%9B%AE26-20" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260907_sugita-beachlagoon_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20260907_sugita-beachlagoon_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+
+<div class="header">
+  <h1>【チーム精査レポート】Beach Lagoon 杉田2丁目 新築アパート</h1>
+  <div class="meta">精査日: 2026/09/07 ｜ TC Capitals 仕入部 ハルト・リョウ・アキ・村田先生</div>
+</div>
+
+<div class="container">
+
+<!-- 冒頭アラート: ハザード即NG -->
+<div class="alert-banner">
+  <div class="alert-title">⚠️ ハザードリスクにより見送り推奨</div>
+  <div class="alert-body">
+    重ねるハザードマップで<strong>土砂災害特別警戒区域（レッドゾーン）該当</strong>と判定されました（急傾斜地の崩壊）。<br>
+    キャプテン基準では即NG。融資条件悪化・災害保険料増・売却時減価要因の三重リスクです。<br>
+    敷地内該当か周辺部該当かは、横浜市土砂災害警戒区域指定図での確定確認をお勧めします。
+  </div>
+</div>
+
+<!-- 物件サマリー -->
+<div class="card">
+  <div class="section-title title-navy">📋 物件サマリー</div>
+  <table style="margin-bottom:16px;">
+    <tr><th style="width:130px;">物件名</th><td>Beach Lagoon 杉田2丁目 新築アパート</td></tr>
+    <tr><th>所在地</th><td>神奈川県横浜市磯子区杉田2丁目26-20（地番: 1587-19）</td></tr>
+    <tr><th>交通</th><td>京急本線 杉田駅 徒歩13分（道路距離982m）</td></tr>
+    <tr><th>構造・築年</th><td>木造2階建 ／ 2026年7月完成（新築・完成済・検査済R8.7.24）</td></tr>
+    <tr><th>戸数・専有</th><td>全1K×8戸（17.08〜17.70㎡・2階3戸ロフト付）</td></tr>
+    <tr><th>土地</th><td>公簿150.05㎡ ／ 実測149.53㎡ ／ 所有権 ／ 境界確定済</td></tr>
+    <tr><th>延床</th><td>145.13㎡（43.90坪）</td></tr>
+    <tr><th>売主</th><td>トラストライフ株式会社（国土交通大臣(1)第10871号）※要確認：仲介手数料計上あり</td></tr>
+  </table>
+
+  <div class="summary-grid">
+    <div class="summary-item"><div class="label">価格（税込）</div><div class="value">8,040 <span style="font-size:12px;">万円</span></div><div class="sub">土地3,840万+建物4,200万</div></div>
+    <div class="summary-item"><div class="label">表面利回り（資料）</div><div class="value">7.30 <span style="font-size:12px;">%</span></div><div class="sub">年収588万円</div></div>
+    <div class="summary-item"><div class="label">表面利回り（スマサテ）</div><div class="value">7.52 <span style="font-size:12px;">%</span></div><div class="sub">63,000×8×12=605万</div></div>
+    <div class="summary-item"><div class="label">構造/築年</div><div class="value">木造/新築</div><div class="sub">準耐火・劣化3級予定</div></div>
+  </div>
+</div>
+
+<!-- キャプテン基準チェック -->
+<div class="card">
+  <div class="section-title title-navy">✅ キャプテン基準5項目チェック</div>
+  <div class="criterion-grid">
+    <div class="criterion-item criterion-ok"><div class="c-label">築10年以内</div><div class="c-value">新築</div><div class="c-judge ok">✅ クリア</div></div>
+    <div class="criterion-item criterion-ok"><div class="c-label">価格1億以内</div><div class="c-value">8,040万円</div><div class="c-judge ok">✅ クリア</div></div>
+    <div class="criterion-item criterion-ng"><div class="c-label">利回り8.0%以上</div><div class="c-value">7.30%</div><div class="c-judge ng">❌ 未達（0.70pt）</div></div>
+    <div class="criterion-item criterion-ok"><div class="c-label">一都三県</div><div class="c-value">横浜市磯子区</div><div class="c-judge ok">✅ クリア</div></div>
+    <div class="criterion-item criterion-ok"><div class="c-label">環状16号内側</div><div class="c-value">磯子区</div><div class="c-judge ok">✅ クリア</div></div>
+    <div class="criterion-item criterion-ng"><div class="c-label">ハザード</div><div class="c-value">レッドゾーン該当</div><div class="c-judge ng">❌ 即NG</div></div>
+  </div>
+</div>
+
+<!-- ハルト調査（路線価・ハザード・スマサテ） -->
+<div class="card">
+  <div class="section-title title-teal">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</div>
+
+  <h4 style="margin:10px 0 6px 0;">■ 相続路線価</h4>
+  <p><strong>13.5万円/㎡</strong>（借地権割合: D 60%・chikamap.jp 令和7年分）<br>
+     → 土地路線価評価: 13.5万 × 149.53㎡ = <strong>約2,018万円</strong><br>
+     → 積算土地評価に反映（IG+ ik_route_price=13.5 に更新済み）</p>
+
+  <h4 style="margin:14px 0 6px 0;">■ ハザード判定（重ねるハザードマップ）</h4>
+  <div class="hazard-row"><div class="hazard-label">洪水浸水想定</div><div class="hazard-value"><span class="ok">✅ 非該当</span></div></div>
+  <div class="hazard-row"><div class="hazard-label">土砂災害警戒区域</div><div class="hazard-value"><span class="ng">❌ レッドゾーン該当（急傾斜地の崩壊・特別警戒区域指定済）</span></div></div>
+  <div class="hazard-row"><div class="hazard-label">津波浸水想定</div><div class="hazard-value"><span class="ok">✅ 非該当</span></div></div>
+  <div class="hazard-row"><div class="hazard-label">液状化危険度</div><div class="hazard-value">確認不可</div></div>
+  <div class="hazard-row"><div class="hazard-label">内水氾濫</div><div class="hazard-value"><span class="ok">✅ 非該当</span></div></div>
+
+  <div class="total-verdict verdict-ng">
+    <div class="verdict-label">総合ハザード判定: 即NG（レッドゾーン該当）</div>
+    <p style="margin-top:8px;font-size:13px;color:#555;">
+      標高35.8m・座標(35.381973, 139.608688)。周辺の谷戸地形（笹下川沿い〜杉田駅台地）は<br>
+      複数箇所でレッドゾーン指定あり。<strong>敷地内該当か周辺該当かは横浜市の土砂災害警戒区域指定図で要確定確認。</strong><br>
+      仮に周辺のみの該当でも、融資審査（一部銀行NG）・保険料増加・売却時減価は避けられない。
+    </p>
+  </div>
+
+  <h4 style="margin:14px 0 6px 0;">■ スマサテ賃料査定</h4>
+  <table>
+    <tr><th>項目</th><th>査定値</th></tr>
+    <tr><td>査定賃料（1K/17.5㎡/1階/築0年/杉田駅徒歩13分）</td><td><strong>63,000円/月</strong>（単価3,774円/㎡）</td></tr>
+    <tr><td>資料賃料（同条件・1階想定）</td><td>57,500円/月</td></tr>
+    <tr><td>乖離</td><td class="ok">−9.6%（資料が低め＝<strong>賃料余地あり</strong>）</td></tr>
+    <tr><td>スマサテ賃料ベース年収（63,000×8戸×12）</td><td>604.8万円 → 表面利回り <strong>7.52%</strong></td></tr>
+  </table>
+  <p style="font-size:12px;color:#666;margin-top:8px;">
+    ※スマサテ査定は単一部屋タイプでの試算。2階ロフト付・角部屋等の上振れは反映していない。<br>
+    ※資料賃料が査定より低いのは新築リーシング初期のディスカウント設定と推察。実勢63,000円で回れば利回りは+0.22ptアップ。
+  </p>
+
+  <h4 style="margin:14px 0 6px 0;">■ エリア評価（磯子区杉田・京急杉田駅）</h4>
+  <ul class="list">
+    <li>京急杉田駅：横浜駅まで約17分・上大岡から2駅・京急蒲田経由で羽田空港30分。単身勤労世帯需要は安定</li>
+    <li>周辺競合：JR新杉田駅（900mほど北・徒歩10分程度）とダブル駅利用可能。ただし今回住所は京急杉田寄り</li>
+    <li>徒歩13分（982m）は駅近ではない。競合との差別化はロフト・宅配ボックス・浴室乾燥機・IH等の設備で勝負</li>
+    <li>磯子区の1K・17〜18㎡の相場は5.5〜6.5万円がボリュームゾーン。査定63,000円は上限に近い設定</li>
+    <li>谷戸地形・急傾斜地エリアの縁：地形リスクと引き換えに割安な土地取得が可能なエリア特性あり</li>
+  </ul>
+
+  <div class="risk-box">
+    <div class="risk-title">ハルトの率直な評価</div>
+    利回り7.3%はキャプテン基準未達。スマサテ査定で+9.6%の賃料余地はあるものの、
+    <strong>ハザードマップでレッドゾーン該当</strong>という致命傷が大きい。
+    磯子区杉田は京急・根岸線ダブル利用で単身需要はあるが、「わざわざ徒歩13分でハザードリスクのある新築を選ぶ理由」は薄い。
+    見送り推奨。ただし、もし敷地内が非該当と横浜市で確定でき、かつ売主から利回り8%相当まで指値（≒価格7,350万まで下げ）できれば、
+    再検討の余地あり。
+  </div>
+</div>
+
+<!-- ハルト補足リンク -->
+<div class="card" style="padding: 14px 24px;">
+  <a href="URL_SURVEY" class="link-btn btn-teal">🔍 物件調査レポート（スマサテ+路線価+ハザード）</a>
+</div>
+
+<!-- リョウ DD -->
+<div class="card">
+  <div class="section-title title-blue">📋 DDチェック（リョウ）</div>
+
+  <h4 style="margin:6px 0;">■ 確認済み（クリーン）</h4>
+  <div class="check-box">
+    <ul class="list">
+      <li>検査済証：第2026SBC-完01222H号／R8.7.24交付／株式会社湘南建築センター発行（確認済証と一致）</li>
+      <li>確認済証：第2025SBC-確01011M号／R8.3.16交付／建築主=トラストライフ／設計=トラスト一級建築士事務所／施工=トラスト建設</li>
+      <li>土地謄本：現所有=トラストライフ／地目=宅地／公簿150.05㎡／境界確定済（R7.10.22・ミライズ24）</li>
+      <li>公課証明（R8）：土地評価額 <strong>1,920.6万円</strong>／固定資産税 16.6万円＋都市計画税 3.6万円＝<strong>年20.2万円</strong>（建物未計上）</li>
+      <li>接道：法42条1項1号（公道）幅員6.48m×接道長10.19m → 再建築可</li>
+      <li>意匠図：屋外階段=鉄骨造／界壁は小屋裏まで貫通／基礎パッキン全通気式／ロフトは高さ1.4m以下（小屋裏物置扱い）</li>
+    </ul>
+  </div>
+
+  <h4 style="margin:14px 0 6px 0;">■ 最重要リスクフラグ</h4>
+  <div class="risk-box">
+    <div class="risk-title">F1: 「売主」表示なのに仲介手数料265.3万円計上（諸費用構造の矛盾）</div>
+    送付状は「取引態様：売主／手数料3%（税込）」と論理矛盾。出光クレジット資金計画書に仲介手数料¥2,653,200、
+    関西みらい銀行資金計画書に¥2,719,200が計上されている。<br>
+    → 想定：(a) 実質仲介取引で「売主」表示が誤り、(b) 売主直販で手数料は交渉で削減可、(c) 別業者が仲介として入る。<br>
+    <strong>どのケースでも要確認。実質売主なら諸費用が約265万円減り、実質利回りが7.09%まで戻る。</strong>
+  </div>
+
+  <div class="risk-box">
+    <div class="risk-title">F2: 全プレイヤーが売主グループ（第三者チェック不在）</div>
+    売主=トラストライフ／設計=トラスト一級建築士事務所／施工=トラスト建設 が同一資本・同一住所・同代表。
+    第三者監理は湘南建築センターの検査1回のみ。→ 施工写真（配筋・防水・断熱）と監理報告書の提出を売主に依頼推奨。
+  </div>
+
+  <div class="risk-box">
+    <div class="risk-title">F3: 神奈川銀行 3,280万円抵当権（乙区5番・R7.12.11設定）</div>
+    引渡し時に抹消される確約が必須。売買契約書ドラフトで「引渡し時抹消」文言を要確認。
+  </div>
+
+  <div class="risk-box">
+    <div class="risk-title">F4: 宅地造成等工事規制区域＋既設RC擁壁多数</div>
+    敷地内・隣地に「既設RC擁壁」「既設間知石積+CB積み2段」複数存在。設計GLと擁壁天端の高低差約3〜4m。
+    融資行によっては擁壁NG（フルローン査定減額）の懸念。ハザードのレッドゾーン該当と地形リスク的に整合。
+  </div>
+
+  <div class="warn-box">
+    <strong>F5：想定賃料の免責文言</strong>（送付状に「近隣相場から算出、将来の賃料保証ではない」明記）／
+    <strong>F6：建物価格4,200万円 = 建物単価290万円/坪</strong>（相場150-200万/坪比で高め）
+  </div>
+
+  <p style="margin-top:10px;"><a href="URL_DD" class="link-btn btn-blue">📋 DD チェックリスト（入力済）</a></p>
+</div>
+
+<!-- アキ IG+ -->
+<div class="card">
+  <div class="section-title title-green">💰 収支計算（アキ）</div>
+
+  <table>
+    <tr><th>指標</th><th>オリックス 100%・2.6%・35年</th><th>auじぶん 95%・2.4%・35年</th></tr>
+    <tr><td>借入額 / 自己資金</td><td>8,040万円 / 322万円（諸費用のみ）</td><td>7,638万円 / 724万円（頭金402＋諸費用322）</td></tr>
+    <tr><td>年間返済額 / 月返済</td><td>350.10万 / 29.18万</td><td>322.77万 / 26.90万</td></tr>
+    <tr><td>NOI（実収入-費用）</td><td>451.00万円（NOI利回り 5.61%）</td><td>451.00万円（NOI利回り 5.61%）</td></tr>
+    <tr><td>税引前CF</td><td class="ok">+100.90万/年（月+8.41万）</td><td class="ok">+128.23万/年（月+10.69万）</td></tr>
+    <tr><td>CF率（対価格）</td><td class="ok">1.26% ✅</td><td class="ok">1.60% ✅</td></tr>
+    <tr><td>CCR（自己資金対年CF）</td><td class="ok">31.37% ✅</td><td class="ok">17.72% ✅</td></tr>
+    <tr><td>返済比率</td><td>59.54%</td><td>54.89%</td></tr>
+    <tr><td>10年目簡易IRR（税引後）</td><td class="ok">34.24% ✅</td><td class="ng">20.68% ❌</td></tr>
+  </table>
+
+  <h4 style="margin:14px 0 6px 0;">■ 積算評価（劣化対策等級3級=24万/㎡）</h4>
+  <ul class="list">
+    <li>建物: 145.13㎡ × 240,000円 × 残存100%（新築） = <strong>3,483万円</strong></li>
+    <li>土地: 150.05㎡ × 13.5万/㎡（路線価反映後） = <strong>2,026万円</strong></li>
+    <li>積算合計: <strong>5,509万円</strong> ／ 積算比率 <strong>68.5%</strong> <span class="ng">❌ 基準90%未達</span></li>
+  </ul>
+
+  <h4 style="margin:14px 0 6px 0;">■ キャプテン基準6項目チェック</h4>
+  <table>
+    <tr><th>基準</th><th>オリックス</th><th>auじぶん</th></tr>
+    <tr><td>価格 ≤1億</td><td class="ok">✅ 8,040万</td><td class="ok">✅ 8,040万</td></tr>
+    <tr><td>利回り ≥8.0%</td><td class="ng">❌ 7.30%</td><td class="ng">❌ 7.30%（スマサテ7.52%）</td></tr>
+    <tr><td>CF率 ≥1%</td><td class="ok">✅ 1.26%</td><td class="ok">✅ 1.60%</td></tr>
+    <tr><td>CCR ≥15%</td><td class="ok">✅ 31.37%</td><td class="ok">✅ 17.72%</td></tr>
+    <tr><td>積算比率 ≥90%</td><td class="ng">❌ 68.5%</td><td class="ng">❌ 68.5%</td></tr>
+    <tr><td>10年目IRR ≥25%</td><td class="ok">✅ 34.24%（概算）</td><td class="ng">❌ 20.68%（概算）</td></tr>
+  </table>
+
+  <div class="warn-box" style="margin-top:12px;">
+    <strong>アキ所見：</strong>
+    利回り7.30%×積算68.5%は木造新築の典型的な弱点。ただしオリックス100%融資ならCCR31.4%×税引後IRR34%と数字は成立。
+    「利回り基準」を捨てて「CF×CCR×IRR」で評価すればアリの物件。
+    ただし前提として仲介手数料の実態確定（Q1）とハザード確定確認が必須。
+  </div>
+
+  <p style="margin-top:12px;">
+    <a href="URL_IG" class="link-btn btn-green">📊 IG+【資料賃料】収支試算</a>
+    <a href="URL_IG_SUMASATE" class="link-btn btn-green">📊 IG+【スマサテ賃料】収支試算</a>
+    <a href="URL_TG" class="link-btn btn-brown">📈 玉川式収益試算シート</a>
+  </p>
+</div>
+
+<!-- 村田先生 建築士コメント -->
+<div class="card">
+  <div class="section-title title-brown">🏗 建築士コメント（村田先生）</div>
+
+  <h4 style="margin:6px 0;">■ 書類確認結果（すべてクリーン）</h4>
+  <div class="check-box">
+    <ul class="list">
+      <li>検査済証あり・準耐火建築物（45分準耐火・法61条）・認定材料使用（サイディングQF045BE-9226ニチハ／軒裏ケイカル板QF045RS-9113）</li>
+      <li>屋外階段=鉄骨造（木造階段より30年以上長寿命）</li>
+      <li>界壁が小屋裏まで達している明記あり（意匠図・防火/遮音上◎）</li>
+      <li>基礎=ベタ基礎・アンカーボルトL400・スラブD13@200・全通気パッキン → シロアリリスク低</li>
+      <li>断熱=グラスウール16K t75＋押出法ポリスチレン t50 → 省エネ基準（仕様基準第1号イ）で適合</li>
+      <li>敷地形状=整形・接道条件クリア（前面公道6.48m×接道10.19m）</li>
+      <li>省エネ基準2025.4義務化対応</li>
+    </ul>
+  </div>
+
+  <h4 style="margin:14px 0 6px 0;">■ 気になる点</h4>
+  <div class="warn-box">
+    <ul class="list">
+      <li><strong>設計・施工・売主が完全同一グループ</strong>：第三者監理が入っていない → 施工写真の開示要求</li>
+      <li><strong>建蔽率56.44%（法定50%）</strong>：準防火地域内の準耐火建築物による10%加算と推定（法53条3項2号）。適法だが根拠明記なし → 確認推奨</li>
+      <li><strong>2階共用廊下1,455mm（芯～面）</strong>：法定はクリアするが大型家財搬入では狭さを感じる可能性</li>
+      <li><strong>17㎡台の1K/1R 8戸</strong>：コンパクト戸の中でも小さめ。単身専用エリアかリーシング需要要確認</li>
+      <li><strong>敷地=宅地造成等工事規制区域内</strong>：切土・盛土なし明記あるが既設RC擁壁多数の維持管理責任確認</li>
+      <li><strong>埋蔵文化財包蔵地（磯子区No.46）</strong>：将来の大規模改築時に届出必要（現状問題なし）</li>
+    </ul>
+  </div>
+
+  <h4 style="margin:14px 0 6px 0;">■ 中長期修繕コスト概算</h4>
+  <table>
+    <tr><th>期間</th><th>主な修繕内容</th><th>費用感</th></tr>
+    <tr><td>5〜10年目</td><td>給湯器・エアコン・インターホン交換（全戸）</td><td>170〜260万円</td></tr>
+    <tr><td>10〜15年目</td><td>外壁塗装・屋根塗装・FRP防水・鉄骨階段塗装</td><td>160〜240万円</td></tr>
+    <tr><td>20〜30年目</td><td>2回目外壁・屋根葺替・給排水管更新・鉄骨階段部材</td><td>530〜840万円</td></tr>
+  </table>
+  <p style="font-size:12px;color:#666;margin-top:6px;">
+    ※長期修繕積立として月あたり戸別3,000〜5,000円は見込むことを推奨（アキのCF計算に反映余地）
+  </p>
+
+  <div class="risk-box" style="margin-top:14px;">
+    <div class="risk-title">村田の率直な見立て（35年キャリア）</div>
+    書類は極めて完璧に揃っています。準耐火建築物・劣化対策等級3級・省エネ適合・住宅かし保険加入予定と、
+    <strong>「新築らしい、きちんとした木造準耐火アパート」</strong>という印象。
+    現場を見ないと断言はできませんが、鉄骨階段・界壁小屋裏貫通・基礎パッキン通気式など、
+    長期修繕コストで効いてくる仕様は評価できます。<br><br>
+    ただし<strong>設計・施工・売主が完全同一グループ</strong>という第三者性の弱さと、
+    <strong>ハザード（レッドゾーン）</strong>が組み合わさると、書類上の完璧さだけでは判断できません。
+    「施工品質の証拠（施工写真・監理報告書）」＋「土砂災害警戒区域指定図の敷地確認」の2点セット取得が
+    最低限必要と考えます。
+  </div>
+</div>
+
+<!-- キャプテン確認事項まとめ -->
+<div class="card">
+  <div class="section-title title-orange">📌 キャプテンへの確認事項（優先度順）</div>
+
+  <div class="confirmation-list">
+    <ol>
+      <li><strong>【★最優先】土砂災害警戒区域（レッドゾーン）の敷地内該当確認</strong><br>
+      横浜市の土砂災害警戒区域指定図で、敷地1587-19が「特別警戒区域（レッド）」に指定されているか、周辺のみか、を要確定。
+      <br>問合せ先：横浜市都市整備局／磯子区役所建築確認担当</li>
+
+      <li><strong>【★最優先】「売主」なのに仲介手数料265万円計上の矛盾（F1）</strong><br>
+      トラストライフ吉川社長宛に直接確認：「御社は売主のはずですが、資金計画書に仲介手数料が計上されている理由は？」<br>
+      → (a) 仲介取引で「売主」表示誤り／(b) 売主直販で交渉可／(c) 別業者が仲介 のどれか</li>
+
+      <li>神奈川銀行3,280万円抵当権の引渡し時抹消の確約（売買契約書ドラフト請求）</li>
+
+      <li>設計・施工・売主同一グループ問題：施工写真（配筋・防水・断熱）と監理報告書の開示依頼</li>
+
+      <li>住宅かし保険（構造・雨水浸入10年瑕疵担保）の証券写し請求</li>
+
+      <li>賃貸募集は既に開始しているか？既に成約・申込みがあるか？</li>
+
+      <li>劣化対策等級3級「取得予定」の証明書の発行時期（引渡し時までに交付可能か）</li>
+
+      <li>敷金・礼金・広告料（AD）の設定（キャプテン基準AD1.5ヶ月との差異）</li>
+
+      <li>管理会社は？（BRICKS外＝管理費5%で計算中。売主提携管理があるか）</li>
+
+      <li>建蔽率56.44%の緩和根拠（準耐火緩和10%加算の適用文書）</li>
+
+      <li>関西みらい銀行の資金計画書：出光クレジット（3.30%）と比較して条件差を確認。auじぶん銀行に事前打診推奨</li>
+
+      <li>杉田駅からの徒歩ルート（982m）実測・坂道有無・治安確認（現地）</li>
+    </ol>
+  </div>
+</div>
+
+<!-- 総合所見 -->
+<div class="card">
+  <div class="section-title title-red">🏁 チーム総合所見</div>
+
+  <div class="total-verdict verdict-ng">
+    <div class="verdict-label">総合判定: 見送り推奨（ハザード即NG）</div>
+  </div>
+
+  <h4 style="margin:14px 0 6px 0;">■ 見送り推奨の理由（優先度順）</h4>
+  <ol style="padding-left:20px;">
+    <li style="margin:6px 0;"><strong>ハザードマップでレッドゾーン該当</strong>（急傾斜地の崩壊・特別警戒区域）— キャプテン基準では即NG。融資審査減額・災害保険料増・売却時減価の三重リスク。</li>
+    <li style="margin:6px 0;"><strong>利回り7.30%（キャプテン基準8.0%未達）＋積算比率68.5%（基準90%未達）</strong>の二重未達</li>
+    <li style="margin:6px 0;"><strong>「売主」表示なのに仲介手数料265万計上の矛盾</strong>（諸費用構造の透明性欠如）</li>
+    <li style="margin:6px 0;"><strong>設計・施工・売主が完全同一グループ</strong>（第三者品質チェック不在）</li>
+  </ol>
+
+  <h4 style="margin:14px 0 6px 0;">■ 良い点（見送りは残念だが評価は正当に）</h4>
+  <ul class="list">
+    <li>検査済証・準耐火建築物・劣化対策等級3級・省エネ基準適合と<strong>書類は完璧</strong></li>
+    <li>屋外階段=鉄骨造・界壁小屋裏貫通・基礎全通気パッキン等、<strong>長期修繕コストで効く仕様</strong></li>
+    <li>境界確定済・接道クリア・地目=宅地・所有権 → <strong>権利関係クリーン</strong></li>
+    <li>オリックス100%融資ならCCR31%・税引後IRR34%と<strong>数字は成立</strong></li>
+    <li>スマサテ査定で+9.6%の賃料余地あり（実勢63,000円で回れば利回り7.52%）</li>
+  </ul>
+
+  <h4 style="margin:14px 0 6px 0;">■ 逆転条件（再検討シナリオ）</h4>
+  <div class="check-box">
+    以下2つが揃えば、条件次第で再検討の余地あり：
+    <ol style="padding-left:20px;margin-top:6px;">
+      <li>横浜市の土砂災害警戒区域指定図で<strong>敷地1587-19が非該当</strong>と確定できる（周辺のみの該当）</li>
+      <li>売主指値で<strong>価格7,350万円（利回り8.0%相当）</strong>まで下げられる<br>
+         または、仲介手数料265万を諸費用から削除して実質利回り7.09%（キャプテン基準に近い）まで戻せる</li>
+    </ol>
+  </div>
+
+  <h4 style="margin:14px 0 6px 0;">■ 次のアクション（キャプテン判断待ち）</h4>
+  <ol style="padding-left:20px;">
+    <li>横浜市（磯子区役所建築確認担当・都市整備局）へ土砂災害警戒区域指定図の敷地該当確認 → 即NGか再検討可か決着</li>
+    <li>トラストライフ吉川社長へ「売主なのに仲介手数料計上」の理由確認</li>
+    <li>上記2点の結果次第で、指値交渉（価格7,350万相当）に進むか、正式に見送りを回答するかを判断</li>
+  </ol>
+
+  <p style="margin-top:14px;font-size:12px;color:#666;">
+    精査日: 2026/09/07 ｜ 精査チーム: ハルト（朝倉晴斗）・リョウ（黒沢涼）・アキ（三宅亜紀）・村田誠一先生
+  </p>
+</div>
+
+</div>
+
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260907_sugita-beachlagoon_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260907_sugita-beachlagoon_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
