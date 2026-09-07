@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>チーム精査レポート — 川口市芝宮根町アパート</title>
+<style>
+:root {
+  --primary:#1a237e; --primary-light:#3949ab; --primary-bg:#e8eaf6;
+  --haruto:#e65100; --haruto-bg:#fff3e0;
+  --ryo:#1565c0; --ryo-bg:#e3f2fd;
+  --aki:#2e7d32; --aki-bg:#e8f5e9;
+  --murata:#4e342e; --murata-bg:#efebe9;
+  --teal:#00695c; --teal-bg:#e0f2f1;
+  --ok:#2e7d32; --ok-bg:#e8f5e9;
+  --ng:#c62828; --ng-bg:#ffebee;
+  --warn:#e65100; --warn-bg:#fff3e0;
+  --border:#dde3ee; --bg:#f5f7fa; --card:#fff; --text:#1a1a2e; --muted:#607d8b;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Hiragino Sans','Yu Gothic UI',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7;}
+.site-header{background:var(--primary);color:#fff;padding:20px 24px;border-bottom:4px solid var(--primary-light);}
+.site-header h1{font-size:20px;font-weight:700;letter-spacing:0.04em;}
+.site-header .sub{font-size:13px;opacity:0.75;margin-top:4px;}
+.site-header .meta{font-size:12px;opacity:0.6;margin-top:6px;}
+.container{max-width:960px;margin:24px auto;padding:0 16px 80px;}
+.alert-banner{background:var(--ng);color:#fff;padding:14px 20px;border-radius:10px;margin-bottom:20px;font-size:15px;font-weight:700;text-align:center;letter-spacing:0.02em;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:20px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.card-header{padding:14px 20px;font-size:15px;font-weight:700;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:var(--primary-bg);color:var(--primary);}
+.card-body{padding:20px;}
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+.summary-cell{padding:14px 20px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.summary-cell:nth-child(3n){border-right:none;}
+.summary-cell:nth-last-child(-n+3){border-bottom:none;}
+.s-label{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:4px;letter-spacing:0.04em;}
+.s-val{font-size:18px;font-weight:700;}
+.s-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.criteria-table{width:100%;border-collapse:collapse;}
+.criteria-table th,.criteria-table td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);font-size:13px;}
+.criteria-table th{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.04em;background:var(--bg);}
+.criteria-table tr:last-child td{border-bottom:none;}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:4px;}
+.badge-ok{background:var(--ok-bg);color:var(--ok);}
+.badge-ng{background:var(--ng-bg);color:var(--ng);}
+.badge-warn{background:var(--warn-bg);color:var(--warn);}
+.agent-header{padding:16px 20px;font-size:16px;font-weight:700;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(0,0,0,0.08);}
+.agent-haruto .agent-header{background:var(--haruto-bg);color:var(--haruto);border-left:5px solid var(--haruto);}
+.agent-ryo .agent-header{background:var(--ryo-bg);color:var(--ryo);border-left:5px solid var(--ryo);}
+.agent-aki .agent-header{background:var(--aki-bg);color:var(--aki);border-left:5px solid var(--aki);}
+.agent-murata .agent-header{background:var(--murata-bg);color:var(--murata);border-left:5px solid var(--murata);}
+.agent-teal .agent-header{background:var(--teal-bg);color:var(--teal);border-left:5px solid var(--teal);}
+.agent-body{padding:20px;}
+h3{font-size:14px;font-weight:700;margin:18px 0 8px;color:var(--primary);}
+h3:first-child{margin-top:0;}
+p{margin-bottom:10px;}
+ul,ol{padding-left:20px;margin-bottom:10px;}
+li{margin-bottom:4px;}
+.flag{color:var(--ng);font-weight:700;}
+.ok-text{color:var(--ok);font-weight:700;}
+.warn-text{color:var(--warn);font-weight:700;}
+.data-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:12px;}
+.data-table th{background:var(--bg);font-size:11px;font-weight:700;letter-spacing:0.04em;color:var(--muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.data-table td{padding:8px 12px;border-bottom:1px solid var(--border);}
+.data-table tr:last-child td{border-bottom:none;}
+.num{text-align:right;font-weight:700;font-family:'Consolas',monospace;}
+.risk-block{border-radius:8px;padding:12px 16px;margin:10px 0;}
+.risk-high{background:#fff3f3;border:1px solid #ffcdd2;border-left:4px solid var(--ng);}
+.risk-mid{background:#fffde7;border:1px solid #ffe082;border-left:4px solid #f9a825;}
+.risk-low{background:var(--ok-bg);border:1px solid #c8e6c9;border-left:4px solid var(--ok);}
+.risk-label{font-size:11px;font-weight:700;margin-bottom:4px;}
+.risk-high .risk-label{color:var(--ng);}
+.risk-mid .risk-label{color:#f57f17;}
+.risk-low .risk-label{color:var(--ok);}
+.confirm-box{background:#fff8e1;border:2px solid #ffd54f;border-radius:10px;padding:16px 20px;margin:10px 0;}
+.confirm-box h4{font-size:13px;font-weight:700;color:#5d4037;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.confirm-box ul{list-style:none;padding:0;}
+.confirm-box li{font-size:13px;color:#5d4037;padding:4px 0;display:flex;gap:8px;}
+.confirm-box li::before{content:"→";font-weight:700;flex-shrink:0;}
+.link-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:6px;border:2px solid;font-size:13px;font-weight:700;text-decoration:none;margin-top:8px;margin-right:8px;}
+.link-btn-ryo{background:var(--ryo-bg);color:var(--ryo);border-color:var(--ryo);}
+.link-btn-aki{background:var(--aki-bg);color:var(--aki);border-color:var(--aki);}
+.link-btn-teal{background:var(--teal-bg);color:var(--teal);border-color:var(--teal);}
+.verdict-card{background:linear-gradient(135deg,#b71c1c 0%,#7f0000 100%);color:#fff;border-radius:12px;padding:24px;margin-top:4px;}
+.verdict-card h2{font-size:18px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.verdict-ng{display:inline-block;background:#fff;color:#b71c1c;font-size:13px;font-weight:700;padding:2px 10px;border-radius:4px;margin-left:8px;}
+.verdict-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.15);}
+.verdict-item:last-child{border-bottom:none;}
+.verdict-icon{font-size:18px;flex-shrink:0;}
+.verdict-text{font-size:13px;line-height:1.6;}
+.verdict-name{font-weight:700;font-size:14px;margin-bottom:2px;}
+.note{font-size:11px;color:var(--muted);font-style:italic;margin-top:4px;}
+@media(max-width:600px){
+  .summary-grid{grid-template-columns:1fr 1fr;}
+  .summary-cell:nth-child(2n){border-right:none;}
+  .summary-cell:nth-child(3n){border-right:1px solid var(--border);}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>🏠 チーム精査レポート — 川口市芝宮根町アパート</h1>
+  <div class="sub">JR京浜東北線 蕨駅 徒歩20分 / 木造築36年 / 5,280万円 / 表面9.15%</div>
+  <div class="meta">精査日: 2026-09-07 / チーム: ハルト・リョウ・アキ・村田先生</div>
+</header>
+
+<div class="container">
+
+  <div class="alert-banner">
+    ⚠️ 見送り推奨 ─ 築年基準大幅超過・違法建築疑義・洪水浸水リスク・融資不成立見込
+  </div>
+
+  <!-- 物件サマリー -->
+  <div class="card">
+    <div class="card-header">📋 物件サマリー</div>
+    <div class="summary-grid">
+      <div class="summary-cell"><div class="s-label">物件価格</div><div class="s-val">5,280万円</div><div class="s-sub">値下げ 5,580→5,280万</div></div>
+      <div class="summary-cell"><div class="s-label">表面利回り</div><div class="s-val">9.15%</div><div class="s-sub">満室年収 483.2万</div></div>
+      <div class="summary-cell"><div class="s-label">構造・築年</div><div class="s-val">木造2階建 築36年</div><div class="s-sub">1990年8月竣工</div></div>
+      <div class="summary-cell"><div class="s-label">戸数・間取り</div><div class="s-val">10戸 (1R×10)</div><div class="s-sub">各戸約9.8㎡ ⚠️狭小</div></div>
+      <div class="summary-cell"><div class="s-label">土地・延床</div><div class="s-val">土地100㎡ / 延床98㎡</div><div class="s-sub">30.25坪 / 建蔽60・容積200</div></div>
+      <div class="summary-cell"><div class="s-label">所在地・交通</div><div class="s-val">川口市芝宮根町</div><div class="s-sub">蕨駅 徒歩20分</div></div>
+      <div class="summary-cell"><div class="s-label">用途地域</div><div class="s-val">第二種中高住専</div><div class="s-sub">共同住宅可</div></div>
+      <div class="summary-cell"><div class="s-label">取引態様</div><div class="s-val">仲介</div><div class="s-sub">諸費用 7%目安</div></div>
+      <div class="summary-cell"><div class="s-label">現況</div><div class="s-val">賃貸中</div><div class="s-sub">RR要確認</div></div>
+    </div>
+  </div>
+
+  <!-- キャプテン基準 -->
+  <div class="card">
+    <div class="card-header">🎯 キャプテン基準 5項目チェック</div>
+    <table class="criteria-table">
+      <thead><tr><th>項目</th><th>基準</th><th>本件</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><td>エリア</td><td>一都三県・16号内側</td><td>川口市芝宮根町（16号内側）</td><td><span class="badge badge-ok">OK</span></td></tr>
+        <tr><td>価格</td><td>1億円以下</td><td>5,280万円</td><td><span class="badge badge-ok">OK</span></td></tr>
+        <tr><td>利回り</td><td>8.0%以上</td><td>9.15%（築古枠12%には未達）</td><td><span class="badge badge-warn">△</span></td></tr>
+        <tr><td>築年数</td><td>築10年以内</td><td>築36年 ★26年オーバー</td><td><span class="badge badge-ng">NG</span></td></tr>
+        <tr><td>積算比率</td><td>60%以上</td><td>32.2%（建物残存0・土地1,700万のみ）</td><td><span class="badge badge-ng">NG</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 路線価・ハザード・スマサテ（ハルト調査） -->
+  <div class="card agent-teal">
+    <div class="agent-header">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</div>
+    <div class="agent-body">
+
+      <h3>相続路線価</h3>
+      <p><strong>17万円/㎡</strong>（借地権割合: D 60%・chikamap.jp 令和7年分）<br>
+      → 土地評価: 17万円/㎡ × 100㎡ = <strong>1,700万円</strong>（坪単価 約56万円）</p>
+
+      <h3>🗺️ 重ねるハザードマップ判定</h3>
+      <table class="data-table">
+        <tr><th>災害種別</th><th>判定</th></tr>
+        <tr><td>洪水浸水想定（想定最大規模）</td><td><span class="warn-text">⚠️ 浸水区域内 0.5〜3.0m</span>（3m相当なら即NG該当）</td></tr>
+        <tr><td>土砂災害警戒区域</td><td><span class="ok-text">✅ 非該当</span></td></tr>
+        <tr><td>津波浸水想定</td><td><span class="ok-text">✅ 非該当</span></td></tr>
+        <tr><td>液状化危険度</td><td>確認不可（別途要調査）</td></tr>
+        <tr><td>標高</td><td>5.5m（DEM5A）</td></tr>
+      </table>
+      <p><strong>総合判定: <span class="warn-text">要注意（浸水深3m寄りなら実質NG）</span></strong></p>
+
+      <h3>🏠 スマサテ賃料査定</h3>
+      <table class="data-table">
+        <tr><td>スマサテ標準賃料（1R 9.8㎡・築36年）</td><td class="num">38,000円/戸</td></tr>
+        <tr><td>資料記載賃料</td><td class="num">40,300円/戸</td></tr>
+        <tr><td>乖離</td><td><span class="warn-text">+6.05%（やや高め・適正範囲）</span></td></tr>
+        <tr><td>スマサテ賃料換算表面利回り</td><td class="num">8.64%</td></tr>
+      </table>
+      <p class="note">※ スマサテ査定単価 4,045円/㎡・13,371円/坪。9.8㎡の狭小住戸は市場実勢との乖離が大きくなる可能性あり</p>
+      <a href="../pipeline/20260907_kawaguchi-shibamiyane_survey.html" class="link-btn link-btn-teal">🔍 物件調査レポート（詳細）</a>
+    </div>
+  </div>
+
+  <!-- ハルト -->
+  <div class="card agent-haruto">
+    <div class="agent-header">🌅 ハルト（エリア・利回り分析）</div>
+    <div class="agent-body">
+      <h3>結論: 買付検討対象外</h3>
+      <p><strong>この物件は7月下旬に「ペアパレス五十鈴」として2業者（藤仁エステート金様・ハウスウェル松島様）から重複紹介済み</strong>の既知物件。当時「築37〜38年で築年基準×」で見送っています。今回さらに300万円値下げ（5,580→5,280万）＆別業者からの再掲で市場動意が出ている状況。</p>
+
+      <h3>蕨駅・川口市エリア評価</h3>
+      <ul>
+        <li><strong>蕨市</strong>: 人口密度日本一。JR京浜東北線・上野東京ライン直通で東京駅25分・池袋20分。賃貸需要は極めて強い</li>
+        <li><strong>川口市芝宮根町</strong>: 蕨駅・戸田公園駅の中間エリア。ただし<span class="warn-text">徒歩20分は実質バス通勤圏</span>（1.5km超）</li>
+        <li>開発計画: 川口駅前再開発は西口中心・芝宮根町は恩恵薄</li>
+        <li><strong>賃貸需要は強いエリアだが、本物件の立地はエリア恩恵の外</strong></li>
+      </ul>
+
+      <h3>利回り相場感</h3>
+      <p>築36年木造・蕨駅徒歩20分・1R 9.8㎡なら<strong>表面11〜13%が寮系狭小物件の相場</strong>。9.15%は明確に割高。ペアパレス系狭小AP専門大家の相場観では買わない水準。</p>
+
+      <h3>空室リスク（★最大論点）</h3>
+      <p><strong>各戸9.8㎡=6畳一間もない</strong>（6畳=約9.72㎡）。シャワー・トイレ・キッチンを含めて9.8㎡は<strong>寮タイプ確定</strong>。ターゲットは「日雇い労働者・生活保護受給者・外国人技能実習生」に絞られる。</p>
+      <p><strong>フィードバックログの学び</strong>: 2026-05-23 三春台（16㎡・洗面台なし）で「スマサテ結果より賃料が伸びない」ため見送り。<strong>本件は9.8㎡＝三春台16㎡よりさらに狭い</strong>。キャプテンの運営スタイル（ミドルアッパー向け）と業態が別物。</p>
+
+      <div class="risk-block risk-high">
+        <div class="risk-label">🚩 ハルトからひとこと</div>
+        <p><strong>NG。3つの理由:</strong></p>
+        <ol>
+          <li>築36年は基準（築10年）を26年超過。過去の学び「築古NG」を無視できない</li>
+          <li>9.8㎡の寮タイプはキャプテンの運営業態と別物。三春台16㎡でも見送った基準で本件が通る余地なし</li>
+          <li>利回り9.15%は寮系狭小物件相場（11〜13%）としても割安ではない</li>
+        </ol>
+        <p>ポジティブに読める点は1つだけ: 業者2社重複＋値下げ＝<strong>業界の需給シグナル</strong>として覚えておく価値あり。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- リョウ -->
+  <div class="card agent-ryo">
+    <div class="agent-header">🕵️ リョウ（DD デューデリジェンス）</div>
+    <div class="agent-body">
+      <h3>DD総合判定: リスクレベル 最大</h3>
+
+      <div class="risk-block risk-high">
+        <div class="risk-label">🚨 最大リスク① 1戸9.8㎡問題（違法建築・寄宿舎の疑い）</div>
+        <p>1990年築＝バブル期の10戸ワンルームアパートは、当時流行した「ワンルーム条例逃れ」「寄宿舎扱い（＝特殊建築物）」「途中で用途変更された建物」の疑いが濃厚。</p>
+        <p><strong>3つの疑いパターン:</strong></p>
+        <ol>
+          <li>確認申請は「一戸建て or 長屋」で通し、実態は10戸アパートとして運営 → 完全な違法建築</li>
+          <li>寄宿舎として申請 → 特殊建築物・入居契約扱い・融資難・売却難</li>
+          <li>既存不適格 → 大規模修繕・再建築時にNG</li>
+        </ol>
+        <p><strong>融資への影響: 違法建築 or 検査済証なし → オリックス・地銀・auじぶん銀行すべてNG濃厚。キャプテンのFIRE戦略（融資レバレッジ前提）と整合しない。</strong></p>
+      </div>
+
+      <div class="risk-block risk-high">
+        <div class="risk-label">🚨 最大リスク② 築36年木造の融資期間問題</div>
+        <p>木造の法定耐用年数=22年 → 既に14年オーバー。<br>
+        融資戦略「対応年数50年−築年数=最大融資期間」ルール適用: <strong>50-36=14年</strong> が上限。</p>
+        <ul>
+          <li>オリックス・地銀: 融資期間15年前後 → 月々返済重い・CF出にくい</li>
+          <li>auじぶん銀行の35年ローンは木造築36年ではほぼ不可能</li>
+          <li>表面9.15%あっても返済期間短縮でCFは激減</li>
+        </ul>
+      </div>
+
+      <div class="risk-block risk-high">
+        <div class="risk-label">🚨 最大リスク③ 土地100㎡狭小地×10戸のポテンシャル</div>
+        <p>土地30.25坪に10戸を詰め込み → 出口戦略時に建て替えても10戸プランは絶対に成立しない（現在の法規制では6〜8戸が限度）。<strong>再建築時の戸数減 = 出口価値の大幅ダウン</strong>。</p>
+      </div>
+
+      <div class="risk-block risk-mid">
+        <div class="risk-label">🟡 中リスク: 接道・境界・セットバック</div>
+        <p>土地100㎡・狭小地・築36年 → 前面道路が42条2項道路（幅員4m未満）の可能性大。セットバック要求で有効土地面積がさらに減る恐れ。境界確定書の有無も未確認。</p>
+      </div>
+
+      <div class="risk-block risk-mid">
+        <div class="risk-label">🟡 中リスク: 蕨駅徒歩20分×9.8㎡狭小1R</div>
+        <p>需要層は低所得単身・生活保護・外国人労働者に絞られる。空室・滞納・原状回復リスクは通常物件より高い。</p>
+      </div>
+
+      <a href="https://teruyone.github.io/tc-properties/properties/20260907_kawaguchi-shibamiyane_DD.html" class="link-btn link-btn-ryo">📋 DDチェックリスト（詳細）</a>
+    </div>
+  </div>
+
+  <!-- アキ -->
+  <div class="card agent-aki">
+    <div class="agent-header">💰 アキ（IG+収支計算 + 玉川式）</div>
+    <div class="agent-body">
+
+      <h3>収益・費用サマリー</h3>
+      <table class="data-table">
+        <tr><th>項目</th><th class="num">金額</th></tr>
+        <tr><td>満室収入</td><td class="num">483.2万円/年</td></tr>
+        <tr><td>実収入（空室5%控除）</td><td class="num">459.04万円/年</td></tr>
+        <tr><td>費用合計</td><td class="num">▲188.32万円</td></tr>
+        <tr><td><strong>NOI</strong></td><td class="num"><strong>270.72万円（NOI利回り 5.13%）</strong></td></tr>
+      </table>
+
+      <h3>ローン試算（※築36年で融資期間35年は非現実的・シミュレーションのみ）</h3>
+      <table class="data-table">
+        <tr><th>項目</th><th>オリックス 100%/2.6%/35年</th><th>神奈川銀行 90%/2.25%/35年</th></tr>
+        <tr><td>借入</td><td class="num">5,280万</td><td class="num">4,752万</td></tr>
+        <tr><td>年間返済</td><td class="num">▲229.90万</td><td class="num">▲195.60万</td></tr>
+        <tr><td>CF</td><td class="num warn-text">+40.82万</td><td class="num">+75.12万</td></tr>
+        <tr><td>CF率</td><td class="num flag">0.77% NG</td><td class="num ok-text">1.42% OK</td></tr>
+        <tr><td>返済比率</td><td class="num">50.08%</td><td class="num">42.61%</td></tr>
+        <tr><td>CCR</td><td class="num flag">11.04% NG</td><td class="num flag">8.37% NG</td></tr>
+      </table>
+
+      <h3>積算評価</h3>
+      <p>建物: <strong>0円</strong>（築36年 ≫ 木造耐用22年 → 残存0）<br>
+      土地: 1,700万円（路線価17万×100㎡）<br>
+      <strong>積算合計: 1,700万円 / 積算比率: 32.2%（キャプテン基準60%を大きく下回る）</strong></p>
+
+      <h3>税引後CF試算</h3>
+      <ul>
+        <li>残存耐用年数: 2年（36年 &gt; 22年のため最低値適用）</li>
+        <li>建物価格: 3,696万円（価格×70%）→ 減価償却費: <strong>1,848万円/年</strong>（2年で計上）</li>
+        <li>初年度税額: 0円（大幅赤字繰越）→ 税引後CF ≒ 表面CFと同額</li>
+        <li><strong>⚠️ 注: 3年目以降は償却切れで課税所得が急増（デッドクロス即発）</strong></li>
+      </ul>
+
+      <div class="risk-block risk-high">
+        <div class="risk-label">📊 アキからひとこと</div>
+        <p>表面9.15%は魅力的だが、以下3つの構造的問題がある:</p>
+        <ol>
+          <li><strong>融資が組めない</strong>: 築36年木造は法定耐用22年を14年オーバー。パッケージローン系はほぼ全滅。日本政策金融公庫（最大20年）または現金・短期プロパーローンでの購入が現実線</li>
+          <li><strong>積算32.2%</strong>: 建物価値ゼロ+土地1,700万のみ。融資根拠が土地しか出ない → LTV低下不可避</li>
+          <li><strong>デッドクロス即発</strong>: 償却2年で終了 → 3年目から税負担ジャンプ。10年保有前提なら中盤以降のCFは想定より小さくなる</li>
+        </ol>
+        <p><strong>1棟目候補としては非推奨。</strong>オリックス優遇枠を使うならもっと築浅（築20年以内）にすべき。</p>
+      </div>
+
+      <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=5280&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=9.15&floorArea=98&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=36&taxRateIncome=20&pi_price_inp=5280&pi_age_inp=36&pi_yield_inp=9.15&pi_area_inp=98&pi_rooms_inp=10&ik_land_area=100&ik_route_price=17&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%9F%BC%E7%8E%89%E7%9C%8C%E5%B7%9D%E5%8F%A3%E5%B8%82%E8%8A%9D%E5%AE%AE%E6%A0%B9%E7%94%BA%EF%BC%88%E4%B8%80%E6%A3%9F%E5%A3%B2%E3%82%8A%E3%82%A2%E3%83%91%E3%83%BC%E3%83%88+10%E6%88%B8%EF%BC%89" class="link-btn link-btn-aki">📊 IG+【資料賃料 9.15%】</a>
+      <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=5280&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=8.64&floorArea=98&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=36&taxRateIncome=20&pi_price_inp=5280&pi_age_inp=36&pi_yield_inp=8.64&pi_area_inp=98&pi_rooms_inp=10&ik_land_area=100&ik_route_price=17&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%9F%BC%E7%8E%89%E7%9C%8C%E5%B7%9D%E5%8F%A3%E5%B8%82%E8%8A%9D%E5%AE%AE%E6%A0%B9%E7%94%BA%EF%BC%88%E4%B8%80%E6%A3%9F%E5%A3%B2%E3%82%8A%E3%82%A2%E3%83%91%E3%83%BC%E3%83%88+10%E6%88%B8%EF%BC%89" class="link-btn link-btn-aki">📊 IG+【スマサテ賃料 8.64%】</a>
+      <a href="../../knowledge/tamagawa-analysis/20260907_kawaguchi-shibamiyane_TG.html" class="link-btn link-btn-aki">📈 玉川式シート（10年目IRR ≥25%要確認・恐らくNG）</a>
+    </div>
+  </div>
+
+  <!-- 村田先生 -->
+  <div class="card agent-murata">
+    <div class="agent-header">🏗️ 村田先生（一級建築士コメント）</div>
+    <div class="agent-body">
+      <p><em>※現場を見ないと断言はできませんが、資料から読み取れることをお伝えします。<br>
+      今回、正直に申し上げます。この物件、私は「大きな地雷の可能性」を感じています。</em></p>
+
+      <h3>構造・築36年木造の評価</h3>
+      <ul>
+        <li>1981年新耐震基準以降 → <strong>形式上は新耐震適合</strong></li>
+        <li>ただし2000年基準（木造の接合部・基礎規定強化）未満 → <strong>「新耐震だが2000年基準未満」のグレーゾーン</strong>。耐震診断すると多くの物件がNG</li>
+        <li>築36年木造で未実施なら要工事: 屋根塗装・外壁塗装・給排水管更新・シロアリ・基礎クラック</li>
+      </ul>
+
+      <h3>★資料の数字がおかしい件★</h3>
+
+      <div class="risk-block risk-high">
+        <div class="risk-label">🚨 疑義① 「共同住宅」なのか「寄宿舎」なのか</div>
+        <p>10戸9.8㎡という規模は、以下のいずれかしか成立しません:</p>
+        <ol>
+          <li><strong>共同住宅（アパート）</strong>: 施行令22条の3の採光1/7以上を9.8㎡（3畳弱）で取るのは物理的にかなり厳しい</li>
+          <li><strong>寄宿舎</strong>: 特殊建築物扱い。防火区画・準耐火構造・避難経路・二方向避難・排煙などの規定が一気に厳しくなる。木造2階建で寄宿舎は成立させづらい</li>
+          <li><strong>過去にワンルームAPを違法に間仕切って10部屋化</strong>: 一番怖い。「既存不適格」ですらなく「違法建築」の可能性</li>
+        </ol>
+      </div>
+
+      <div class="risk-block risk-mid">
+        <div class="risk-label">🟡 疑義② 容積率の使い残しが不自然</div>
+        <p>土地100㎡×容積200%=<strong>延床200㎡が法定上限</strong>だが、実際の延床98㎡は上限の半分以下。「小規模共同住宅」として計画→後から間仕切って戸数を増やした、あるいは前面道路容積率制限が効いている可能性。</p>
+      </div>
+
+      <div class="risk-block risk-mid">
+        <div class="risk-label">🟡 疑義③ 各戸9.8㎡は「事業用建築物」として通常あり得ない小ささ</div>
+        <p>一般的なワンルームマンション最低ライン=20〜25㎡。9.8㎡は「トランクルーム」「簡易宿所」「学生下宿」レベル。これが「アパート」として販売されていること自体、建築士として違和感があります。</p>
+      </div>
+
+      <h3>直近5年以内に想定される修繕（築36年未実施なら即発生）</h3>
+      <table class="data-table">
+        <tr><td>屋根葺き替え or 塗装</td><td class="num">150〜250万円</td></tr>
+        <tr><td>外壁塗装 or サイディング張り替え</td><td class="num">200〜350万円</td></tr>
+        <tr><td>給水管更新（10戸）</td><td class="num">300〜500万円</td></tr>
+        <tr><td>排水管更新（10戸）</td><td class="num">200〜400万円</td></tr>
+        <tr><td>給湯器一斉交換（10戸）</td><td class="num">100〜150万円</td></tr>
+        <tr><td>シロアリ防蟻処理</td><td class="num">30〜50万円</td></tr>
+        <tr><td>共用部電灯・自火報設備更新</td><td class="num">50〜100万円</td></tr>
+        <tr><td><strong>合計概算</strong></td><td class="num"><strong>1,000〜1,800万円</strong></td></tr>
+      </table>
+
+      <h3>現地で必ず確認してほしいこと（優先順位順）</h3>
+      <ol>
+        <li><strong>検査済証・確認申請図面（用途区分）</strong> — 「共同住宅」「寄宿舎」「戸建改装」のどれか。全ての判断はここから。ないと言われたら見送り推奨レベル</li>
+        <li>各戸の実際の間取り・寸法（9.8㎡に3点ユニット+ミニキッチンが入るか）</li>
+        <li>界壁（住戸間の壁）が小屋裏まで達しているか（建基法30条）</li>
+        <li>消防設備等点検報告書（直近3年分）</li>
+        <li>屋根裏・床下の直接目視（インスペクション推奨）</li>
+        <li>給排水管の材質・更新履歴</li>
+        <li>建物登記簿（種類・構造・床面積）と現況の一致</li>
+        <li>前面道路の幅員・種別（42条何号）・セットバックの要否</li>
+      </ol>
+
+      <div class="risk-block risk-high">
+        <div class="risk-label">🏗️ 村田先生の総合所感</div>
+        <p>建築士として引っかかるのは:</p>
+        <ul>
+          <li>各戸9.8㎡が建築基準法上の共同住宅として成立しにくいこと</li>
+          <li>容積率200%の敷地で延床98㎡しか使っていない不自然さ</li>
+          <li>築36年木造という耐用年数を14年超過した状態</li>
+          <li>蕨駅徒歩20分×10戸1R運営の事業性への疑問</li>
+        </ul>
+        <p><strong>いずれのシナリオでも、検査済証と確認申請図面を見るまでは「買い進めない」ことを強く推奨します。</strong>私の35年の経験から言うと、資料の数字に違和感があるときは9割方「何かある」物件です。建物は正直者。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- キャプテンへの確認事項まとめ -->
+  <div class="card">
+    <div class="card-header">📮 キャプテンへの確認事項まとめ（仲介業者への照会リスト）</div>
+    <div class="card-body">
+      <div class="confirm-box">
+        <h4>🎯 検査済証・レントロールを見るまで買付NGレベル</h4>
+        <ul>
+          <li><strong>検査済証・確認申請図面</strong> — 用途は「共同住宅」「寄宿舎」「その他」のどれで通っているか（★最優先）</li>
+          <li>各戸の専有面積は本当に9.8㎡か？共用部含めか？間取り図の開示</li>
+          <li>1990年築で10戸ワンルーム、新築時から10戸か？途中で用途変更・増築の履歴は？</li>
+          <li>現況のレントロールと入居者属性（空室戸数・契約日・保証会社の有無）</li>
+          <li>前面道路の幅員・種別（42条何号）、セットバックの有無</li>
+          <li>売主の売却理由（築古満室×利回り9%を手放す理由は必ずある）</li>
+          <li>融資特約付きで買付可能か（現金決済必須ならこの価格帯は絶対NG）</li>
+          <li>公課証明書（固都税実額）・修繕履歴・原状回復履歴</li>
+          <li>境界確定書の有無</li>
+          <li>消防用設備等点検報告書（直近3年分）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- チーム総合所見 -->
+  <div class="verdict-card">
+    <h2>🎯 チーム総合所見 <span class="verdict-ng">見送り推奨</span></h2>
+
+    <div class="verdict-item">
+      <div class="verdict-icon">🌅</div>
+      <div>
+        <div class="verdict-name">ハルト（エリア）</div>
+        <div class="verdict-text">築36年で基準26年オーバー・9.8㎡寮タイプは業態違い・利回り9.15%は寮系相場（11〜13%）に対しても割高。三春台の学びに照らしてNG。</div>
+      </div>
+    </div>
+
+    <div class="verdict-item">
+      <div class="verdict-icon">🕵️</div>
+      <div>
+        <div class="verdict-name">リョウ（DD）</div>
+        <div class="verdict-text">1戸9.8㎡×10戸=違法建築/寄宿舎の疑い濃厚。検査済証なしなら融資全滅。土地狭小で出口戦略も組めない。買付前に検査済証・RRの入手必須。</div>
+      </div>
+    </div>
+
+    <div class="verdict-item">
+      <div class="verdict-icon">💰</div>
+      <div>
+        <div class="verdict-name">アキ（IG+）</div>
+        <div class="verdict-text">積算32.2%（基準60%大幅未達）・CCR8.37〜11.04%（基準15%NG）・築36年で35年融資は非現実的。デッドクロス3年目即発。1棟目候補として非推奨。</div>
+      </div>
+    </div>
+
+    <div class="verdict-item">
+      <div class="verdict-icon">🏗️</div>
+      <div>
+        <div class="verdict-name">村田先生（建築士）</div>
+        <div class="verdict-text">1戸9.8㎡は建基法共同住宅として成立しにくい・容積率使い残しが不自然・築36年で修繕1,000〜1,800万必至。検査済証を見るまで買い進め禁止。</div>
+      </div>
+    </div>
+
+    <div class="verdict-item">
+      <div class="verdict-icon">⚠️</div>
+      <div>
+        <div class="verdict-name">最大リスク</div>
+        <div class="verdict-text">検査済証なし × 違法建築判明 → 融資完全停止 × 売却時流動性ゼロ → 資産価値ほぼ土地値のみ（1,700万）に対し購入価格5,280万＝約3,580万の即時毀損リスク。</div>
+      </div>
+    </div>
+
+    <div class="verdict-item">
+      <div class="verdict-icon">✅</div>
+      <div>
+        <div class="verdict-name">推奨アクション</div>
+        <div class="verdict-text">
+          <strong>精査打ち切り・返信不要</strong>。7月時点で既に見送り済みの物件が値下げ再掲されているだけの案件。<br>
+          藤仁エステート金様には「築15年以内・16号内側」の継続情報依頼状態を維持で十分。<br>
+          <strong>この物件から得られる学び</strong>: バブル期の10戸極狭アパートは業界で流動化しづらい → 業者2社重複＋値下げのシグナルは今後の相場観として記憶。
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260907_kawaguchi-shibamiyane_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260907_kawaguchi-shibamiyane_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
