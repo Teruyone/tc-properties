@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>チーム精査レポート — カインドネス春日部豊春West</title>
+<style>
+  body{font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif;margin:0;background:#f4f6f8;color:#222;line-height:1.65;}
+  header{background:#1a3a6c;color:#fff;padding:24px 32px;}
+  header h1{margin:0;font-size:22px;}
+  header .meta{margin-top:6px;font-size:13px;opacity:.85;}
+  .container{max-width:960px;margin:24px auto;padding:0 20px;}
+  .card{background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.08);padding:20px 24px;margin-bottom:20px;}
+  .card h2{margin-top:0;font-size:17px;padding-bottom:8px;border-bottom:2px solid #e0e6ed;}
+  .h-haruto{color:#e07b1a;border-bottom-color:#e07b1a;}
+  .h-ryo{color:#1976d2;border-bottom-color:#1976d2;}
+  .h-aki{color:#2e7d32;border-bottom-color:#2e7d32;}
+  .h-murata{color:#795548;border-bottom-color:#795548;}
+  .h-teal{color:#00838f;border-bottom-color:#00838f;}
+  .h-red{color:#c62828;border-bottom-color:#c62828;}
+  table.summary{width:100%;border-collapse:collapse;font-size:14px;}
+  table.summary td{padding:6px 10px;border-bottom:1px solid #eef;}
+  table.summary td:first-child{background:#f7f9fc;font-weight:bold;width:35%;}
+  table.criteria{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px;}
+  table.criteria th, table.criteria td{padding:8px 10px;border:1px solid #dde3ec;text-align:left;}
+  table.criteria th{background:#f0f4fa;font-weight:600;}
+  .ok{color:#2e7d32;font-weight:bold;}
+  .ng{color:#c62828;font-weight:bold;}
+  .warn{color:#e65100;font-weight:bold;}
+  .link-list a{display:inline-block;margin-right:12px;padding:8px 14px;background:#1976d2;color:#fff;border-radius:4px;text-decoration:none;font-size:13px;margin-bottom:6px;}
+  .link-list a:hover{background:#0d47a1;}
+  pre{white-space:pre-wrap;background:#f9fafc;padding:12px;border-radius:4px;font-family:inherit;font-size:14px;margin:8px 0;}
+  .alert{background:#fff3e0;border-left:4px solid #e65100;padding:12px 16px;margin-bottom:20px;color:#4e2a00;font-weight:bold;}
+  .highlight{background:#fff9c4;padding:2px 6px;border-radius:3px;}
+  .badge{display:inline-block;padding:3px 8px;border-radius:12px;font-size:12px;font-weight:bold;color:#fff;}
+  .badge-ok{background:#2e7d32;}
+  .badge-warn{background:#f57c00;}
+  .badge-ng{background:#c62828;}
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260914_kasukabe-toyoharu-w_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8550&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.2&floorArea=210.27&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=8550&pi_age_inp=0&pi_yield_inp=7.2&pi_area_inp=210.27&pi_rooms_inp=9&ik_land_area=114.88&ik_route_price=6.8&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%9F%BC%E7%8E%89%E7%9C%8C%E6%98%A5%E6%97%A5%E9%83%A8%E5%B8%82%E4%B8%8B%E8%9B%AD%E7%94%B0332%E7%95%AA2" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=8550&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.82&floorArea=210.27&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=8550&pi_age_inp=0&pi_yield_inp=7.82&pi_area_inp=210.27&pi_rooms_inp=9&ik_land_area=114.88&ik_route_price=6.8&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%9F%BC%E7%8E%89%E7%9C%8C%E6%98%A5%E6%97%A5%E9%83%A8%E5%B8%82%E4%B8%8B%E8%9B%AD%E7%94%B0332%E7%95%AA2" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260914_kasukabe-toyoharu-w_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a>
+</div>
+<div style="margin-top:48px;">
+
+
+<header>
+  <h1>不動産仕入部 チーム精査レポート</h1>
+  <div class="meta">物件名：カインドネス春日部豊春West ／ 精査日：2026-09-14 ／ 担当：ハルト・リョウ・アキ・村田先生</div>
+</header>
+
+<div class="container">
+
+<div class="alert">
+⚠️ 総合所見：<span class="highlight">要検討</span>（キャプテン基準：利回り8.0%未達 / 16号外側 / 洪水浸水想定0.5〜3.0mあり）<br>
+売主特約（返済差額補填・広告料/フリーレント売主負担）と スマサテ賃料余力+7〜10% で実質利回りは7.8〜8.0%圏の可能性。融資条件次第で新築1棟目候補。
+</div>
+
+<div class="card">
+  <h2>📌 物件サマリー</h2>
+  <table class="summary">
+    <tr><td>物件名</td><td>カインドネス春日部豊春West（新築木造3階建・全9室1K）</td></tr>
+    <tr><td>所在地</td><td>埼玉県春日部市下蛭田332番2（分筆後）</td></tr>
+    <tr><td>交通</td><td>東武アーバンパークライン「豊春」駅 徒歩10分</td></tr>
+    <tr><td>価格</td><td>8,550万円（消費税込）／ 土地3,000万＋建物5,550万</td></tr>
+    <tr><td>表面利回り</td><td>7.20%（資料賃料）／ 7.82%（スマサテ査定賃料）</td></tr>
+    <tr><td>構造・築年</td><td>木造3階建・新築（着工後6〜7ヶ月竣工予定）</td></tr>
+    <tr><td>土地／延床</td><td>114.88㎡（34.75坪）／ 210.27㎡（63.60坪）</td></tr>
+    <tr><td>用途地域</td><td>第1種中高層住居専用地域（建蔽率60%／容積率200%）</td></tr>
+    <tr><td>取引態様</td><td>売主（ハウスリンクホーム株式会社）</td></tr>
+    <tr><td>特約</td><td>引渡後1度満室まで広告料・フリーレント売主負担／家賃送金<返済額の差額を売主補填</td></tr>
+    <tr><td>管理</td><td>ハウスリンクマネジメント（PG契約＋管理委託が条件）</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2>🎯 キャプテン基準チェック</h2>
+  <table class="criteria">
+    <tr><th>項目</th><th>基準</th><th>実績</th><th>判定</th></tr>
+    <tr><td>物件価格</td><td>1億円以内</td><td>8,550万円</td><td class="ok">OK</td></tr>
+    <tr><td>表面利回り</td><td>8.0%以上</td><td>7.20%（資料）／ 7.82%（スマサテ）</td><td class="ng">NG</td></tr>
+    <tr><td>築年数</td><td>10年以内</td><td>新築（築0年）</td><td class="ok">OK</td></tr>
+    <tr><td>エリア</td><td>16号内側</td><td>春日部市（16号外側）</td><td class="ng">NG</td></tr>
+    <tr><td>CF率</td><td>1.0%以上</td><td>A:1.03% / B:1.37%（資料賃料）</td><td class="ok">OK</td></tr>
+    <tr><td>CCR</td><td>15%以上</td><td>A:25.9% / B:15.3%</td><td class="ok">OK</td></tr>
+    <tr><td>積算比率</td><td>60%以上</td><td>60.8%（土地781万＋建物4,416万）</td><td class="ok">OK</td></tr>
+    <tr><td>10年目税引後IRR</td><td>25%以上</td><td>玉川式シートで要確認</td><td class="warn">要確認</td></tr>
+    <tr><td>ハザード</td><td>レッド/浸水2m以上=即NG</td><td>洪水浸水0.5〜3.0m（最大3m）</td><td class="warn">要注意</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2 class="h-teal">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</h2>
+
+  <h3 style="margin-top:14px;font-size:15px;">▍相続路線価</h3>
+  <pre>路線価: 6.8万円/㎡（借地権割合: E 50%・chikamap.jp 令和7年分）
+土地相続税評価: 6.8万 × 114.88㎡ = 約781万円</pre>
+
+  <h3 style="font-size:15px;">▍重ねるハザードマップ</h3>
+  <pre>座標: 北緯35.962994° 東経139.725418°
+洪水浸水想定:    ⚠️ 0.5m〜3.0m（想定最大規模）
+土砂災害警戒:    ✅ 非該当
+津波浸水想定:    ✅ 非該当
+内水浸水想定:    ✅ 非該当
+液状化危険度:    確認不可（低地帯・要現地調査）
+総合判定:        <span class="warn">要注意</span>（最大3mは即NG圏に近接）
+📸 popup: knowledge/hazardmap-debug/kasukabe-toyoharu-w_hazard_popup.png
+📸 zoom50m: knowledge/hazardmap-debug/kasukabe-toyoharu-w_hazard_zoom50m.png</pre>
+
+  <h3 style="font-size:15px;">▍スマサテ賃料査定</h3>
+  <pre>1F 20.56㎡: 59,024円（資料 55,000円／+7.3%）
+2F 24.40㎡: 64,240円（資料 58,000円／+10.8%）
+3F 22.78㎡: 62,342円（資料 58,000円／+7.5%）
+平均査定: 61,869円 → 9室×12ヶ月 = 6,681,852円/年
+資料年収 6,156,000円 に対し +8.5% 上振れ余地あり
+→ <span class="ok">賃料設定は保守的・上振れ可能性大</span></pre>
+
+  <p><a href="{survey_url}" style="color:#00838f;">→ 物件調査レポート（スマサテ入力画面・査定結果・ハザードスクショ・路線価地図）</a></p>
+</div>
+
+<div class="card">
+  <h2 class="h-haruto">🔍 ハルト（エリア・利回り分析）</h2>
+  <pre>【キャプテン基準】新築○/価格1億以内○/利回り7.2%✗/16号外側✗
+
+【エリア】
+・豊春駅：東武ULP・1日乗降客約8,500人・準優等
+・春日部市人口22.8万人（緩やか減少）／下蛭田は戸建て開発ありファミリー流入
+・春日部駅高架化事業（2031年完成）が中期追い風
+
+【利回り相場】
+・春日部市新築木造アパート相場：7.5〜8.5%
+・本物件7.2%はやや割高圏（土地値率34%と新築プレミアム込）
+
+【空室リスク】
+・スマサテ+7〜10%は好材料・資料賃料は保守的
+・オートロック+宅配ボックスは競合優位
+・徒歩10分＋単身需要層薄めで長期リーシング体力必要
+
+【洪水リスク】
+・中川・大落古利根川流域低地・1階3戸(33%)は水害時ダメージ大
+・水災特約必須（保険料+10〜15万円/年想定）
+
+【総合判定】⚡ 要検討（見送り寄り）
+・16号外側／単身需要／洪水の3点がネック
+・売主補填特約が異例に手厚く融資条件次第で1棟目候補にも
+・同価格帯なら16号内側中古を優先推奨</pre>
+</div>
+
+<div class="card">
+  <h2 class="h-ryo">📋 リョウ（DD）</h2>
+  <pre>【確認済】
+・新耐震（新築）／接道良好（北7.3m・西5.9m）／用途地域適法
+・相続路線価6.8万×115㎡≒782万（土地3,000万に対し要注意水準）
+
+【リスクフラグ】
+① 4項3号道路（西5.9m）：セットバック要否は道路台帳で中心線確認必須
+② 分筆前226.97㎡→分筆後114.88㎡：分筆完了・地積確定を決済条件明記必須
+③ 建築確認・検査済証「取得予定」：決済条件に「検査済証取得」明記必須
+④ 売主倒産リスク（着工〜竣工6-7ヶ月）：手付金等保全措置必須（宅建業法41条）
+⑤ 洪水浸水0.5〜3.0m：1階賃料下落圧力・水災特約必須
+⑥ PG＋管理縛り：解約条項・PG設備買取価格・管理料率確認
+⑦ 家賃補填特約「1度上回るまで」：期間上限・保証上限額の明記要求
+
+【要入手書類】
+・建築確認申請書 ・工事請負契約書 ・手付金保全措置内容
+・管理委託契約書（解約条項）・液状化マップ（春日部市個別）
+・売主与信情報（帝国データ）
+
+【総合】リスク中〜高。手付保全・検査済証・地積確定を決済条件明記できれば「中」</pre>
+  <p><a href="{dd_url}">→ 入力済みDDリストHTML</a></p>
+</div>
+
+<div class="card">
+  <h2 class="h-aki">💹 アキ（IG+ 収支計算 + 玉川式）</h2>
+  <pre>【NOI】
+・資料賃料: NOI 460.8万 / NOI利回り 5.39%
+・スマサテ賃料: NOI 503.7万 / NOI利回り 5.89%
+（PM5%・BM・保険・固都税7%新築・修繕0.1%・原状回復5,000円/坪・AD1ヶ月）
+
+【ローン試算（資料賃料）】
+A. オリックス100%・2.6%・35年
+  返済 372.3万 / CF 88.5万 / CF率 1.03% / 返済比63.7% / CCR 25.9%（自己342万）
+B. auじぶん95%・2.4%・35年
+  返済 343.2万 / CF 117.5万 / CF率 1.37% / 返済比58.7% / CCR 15.3%（自己770万）
+
+【ローン試算（スマサテ賃料）】
+A. CF 131.3万 / CF率 1.54% / CCR 38.4%
+B. CF 160.4万 / CF率 1.88% / CCR 20.8%
+→ スマサテvs資料 CF差 +42.9万/年（両パターン共通）
+
+【積算評価】
+土地: 68,000×114.88 = 781万
+建物: 210.27×21万×1.0（新築満額）= 4,416万
+合計: 5,197万 → 積算比率 60.8%（辛うじてC以上）
+
+【キャプテン基準判定】
+価格 OK / 表利回 NG(7.2%) / CF率 OK / CCR OK / 積算 OK(60.8%)
+10年目IRR は玉川式で要確認（≥25%基準）
+
+【キャプテンへの確認事項】
+1. 表利回7.2%キャプテン基準未達だが売主特約と新築プレミアムで例外扱いするか？
+2. auじぶん95%融資が新築木造3階で実際に通るか？
+3. 固都税実額（新築で公課証明なし・賃料の7%仮置き）</pre>
+  <p class="link-list">
+    <a href="{ig_url}">→ IG+【資料賃料】収支試算</a>
+    <a href="{ig_sumasate_url}">→ IG+【スマサテ賃料】収支試算</a>
+    <a href="{tg_url}">→ 玉川式収益試算シート（10年目IRR確認）</a>
+  </p>
+</div>
+
+<div class="card">
+  <h2 class="h-murata">🏗️ 村田先生（一級建築士コメント）</h2>
+  <pre>※現場を見ないと断言できませんが、資料から読み取れる範囲で──
+
+【構造・工法】
+木造3階建・延床210㎡は「準耐火建築物（イ準耐相当）」原則必須。
+省令準耐火は火災保険が半額近くになるため、仕様書で表記確認。
+3階建は構造計算（許容応力度計算）義務。計算書の有無を要確認。
+
+【中期修繕リスク（積立必須）】
+・10年目 外壁シーリング打替＋部分塗装：80〜120万円
+・15年目 外壁再塗装＋屋根/ベランダ防水：200〜280万円
+・15年目前後 給湯器9台交換：100〜135万円
+・20年目 給排水管点検：50〜80万円
+
+【建蔽率・容積率】
+土地114.88×建蔽60%=68.9㎡（1階67.75㎡）、×容積200%=229.7㎡（延床210.27㎡）
+数値上は適法。ただし採光・北側斜線・道路斜線・日影規制のクリア可否は図面必見。
+1種中高層は日影規制が厳しめ。
+
+【4項3号道路（西側5.9m）】
+セットバック通常不要だが埼玉県は指定内容バラつきあり。
+市の建築指導課で「セットバック要否・道路中心線」を書面確認要。
+
+【洪水0.5〜3.0m対策】★仕様書明記を売主に要請
+① 1階床高 GL＋50cm以上
+② 分電盤・受電盤を2階以上
+③ 給湯器・エアコン室外機は嵩上げ架台
+④ エントランスに止水板
+⑤ オートロック制御盤の位置
+
+【現地・図面確認事項】
+① 構造計算書・確認申請書一式
+② 省令準耐火の適合証明
+③ 住宅性能評価（劣化3・耐震等級・省エネ等級）
+④ 基礎伏図・地盤調査報告書（低地なので支持層深さ重要）
+⑤ 北側隣地との日影・斜線適合図
+⑥ フラット35S適合証明の予定有無
+
+【等級】
+新築なら「劣化対策等級3・耐震等級2以上・断熱等級4以上」取得コスト限定的。
+取得できれば火災・地震保険割引＋出口の資産価値担保。売主に交渉を。
+
+【総合所感】
+① 準耐火・省令準耐火の明記 ② 浸水対策の設備配置 ③ 性能評価取得
+この3点を売主に確約させれば「30年安心して回せる木造3階建」。
+地盤と道路指定だけは市役所で裏取り必須。</pre>
+</div>
+
+<div class="card">
+  <h2 class="h-red">📞 キャプテンへの確認事項（優先順）</h2>
+  <ol>
+    <li><b>【表利回り基準】</b>7.2%はキャプテン基準8.0%未達。売主特約とスマサテ余力込みで例外扱いするか、それとも指し値（→8.0%基準に合わせるなら7,700万水準）で交渉するか</li>
+    <li><b>【売主特約の期間・上限】</b>「1度満室まで」「1度返済上回るまで」の期間上限・保証上限額の明記可否</li>
+    <li><b>【手付金保全措置】</b>着工金・上棟金の支払時期と保全措置（宅建業法41条）</li>
+    <li><b>【検査済証取得】</b>決済条件に「検査済証取得」明記可否／未取得時の解除条項</li>
+    <li><b>【分筆確定】</b>分筆登記完了・地積確定を決済条件に明記／地積更正時の価格再協議条項</li>
+    <li><b>【融資可否】</b>auじぶん銀行95%融資が新築木造3階建で通るか（キャプテン取引実績）</li>
+    <li><b>【管理縛り】</b>ハウスリンクマネジメント委託の解約可否・料率・PG設備買取価格</li>
+    <li><b>【浸水対策仕様】</b>1階床高GL+50cm・分電盤2階・室外機嵩上げ・止水板の仕様書明記交渉</li>
+    <li><b>【性能評価】</b>劣化対策等級3・耐震等級2以上・省エネ等級4以上の取得交渉</li>
+  </ol>
+</div>
+
+<div class="card">
+  <h2>🏁 チーム総合所見</h2>
+  <p><b>判定：⚡ 要検討（キャプテン判断待ち）</b></p>
+  <ul>
+    <li><b>最大の魅力</b>：売主の異例に手厚い特約（返済差額補填・広告料/フリーレント売主負担）＋スマサテ賃料余力+8.5%。実質利回り7.8〜8.0%圏に届く可能性。</li>
+    <li><b>最大リスク</b>：着工前物件の複合リスク（売主倒産／検査済証未取得／分筆未確定）＋洪水浸水最大3m。決済条件に手付保全・検査済証・地積確定を明記できなければ「高」リスク。</li>
+    <li><b>キャプテン基準</b>：利回り8.0%・16号内側の2点で未達。表利回り指し値7,700万水準交渉が現実的アプローチ。</li>
+    <li><b>次アクション</b>：
+      <ol>
+        <li>売主に上記「キャプテン確認事項」9項目を書面照会</li>
+        <li>春日部市建築指導課で4項3号道路のセットバック要否確認</li>
+        <li>売主（ハウスリンクホーム）与信調査</li>
+        <li>玉川式10年目IRR≥25%のクリア判定</li>
+        <li>auじぶん銀行への打診（新築木造3階建の95%融資可否）</li>
+      </ol>
+    </li>
+  </ul>
+</div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260914_kasukabe-toyoharu-w_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260914_kasukabe-toyoharu-w_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
