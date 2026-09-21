@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keep Lagoon川島町新築アパート — 不動産仕入部 精査レポート</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f0f4f8; color: #1a1a2e; line-height: 1.6; }
+    .header { background: linear-gradient(135deg, #1a3a5c 0%, #0d2137 100%); color: white; padding: 32px 40px; }
+    .header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+    .header .subtitle { font-size: 0.95rem; opacity: 0.85; margin-bottom: 8px; }
+    .header .meta { font-size: 0.85rem; opacity: 0.7; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 24px 20px; }
+    .card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid; }
+    .section-header .icon { font-size: 1.4rem; }
+    .section-header h2 { font-size: 1.15rem; font-weight: 700; }
+    .haruto .section-header { border-color: #e67e22; }
+    .haruto .section-header h2 { color: #e67e22; }
+    .ryo .section-header { border-color: #2980b9; }
+    .ryo .section-header h2 { color: #2980b9; }
+    .aki .section-header { border-color: #27ae60; }
+    .aki .section-header h2 { color: #27ae60; }
+    .murata .section-header { border-color: #8b5e3c; }
+    .murata .section-header h2 { color: #8b5e3c; }
+    .survey-card .section-header { border-color: #16a085; }
+    .survey-card .section-header h2 { color: #16a085; }
+    .confirm-card .section-header { border-color: #8e44ad; }
+    .confirm-card .section-header h2 { color: #8e44ad; }
+    .verdict .section-header { border-color: #c0392b; }
+    .verdict .section-header h2 { color: #c0392b; }
+    .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+    .summary-item { background: #f8fafc; border-radius: 8px; padding: 12px; }
+    .summary-item .label { font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .summary-item .value { font-size: 1.05rem; font-weight: 700; color: #1a3a5c; }
+    .summary-item .sub { font-size: 0.8rem; color: #888; }
+    .criteria-table { width: 100%; border-collapse: collapse; }
+    .criteria-table th { background: #1a3a5c; color: white; padding: 10px 14px; text-align: left; font-size: 0.85rem; }
+    .criteria-table td { padding: 10px 14px; border-bottom: 1px solid #eef2f7; font-size: 0.9rem; }
+    .criteria-table tr:last-child td { border-bottom: none; }
+    .badge-ok { display: inline-block; background: #d4edda; color: #1e7e34; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+    .badge-ng { display: inline-block; background: #f8d7da; color: #721c24; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+    .badge-check { display: inline-block; background: #fff3cd; color: #856404; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+    .analysis-content { font-size: 0.9rem; line-height: 1.75; }
+    .analysis-content h3 { font-size: 0.95rem; font-weight: 700; margin: 16px 0 8px; padding-left: 8px; border-left: 3px solid; }
+    .haruto .analysis-content h3 { border-color: #e67e22; }
+    .ryo .analysis-content h3 { border-color: #2980b9; }
+    .aki .analysis-content h3 { border-color: #27ae60; }
+    .murata .analysis-content h3 { border-color: #8b5e3c; }
+    .survey-card .analysis-content h3 { border-color: #16a085; }
+    .analysis-content p { margin-bottom: 10px; }
+    .analysis-content ul { margin: 8px 0 12px 20px; }
+    .analysis-content li { margin-bottom: 4px; }
+    .analysis-content strong { color: #1a3a5c; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
+    .metric-box { background: #f8fafc; border-radius: 8px; padding: 14px; }
+    .metric-box .m-label { font-size: 0.75rem; color: #666; margin-bottom: 4px; }
+    .metric-box .m-value { font-size: 1.2rem; font-weight: 700; }
+    .m-ok { color: #27ae60; } .m-ng { color: #c0392b; } .m-neutral { color: #2980b9; }
+    .loan-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.88rem; }
+    .loan-table th { background: #f0f4f8; padding: 8px 12px; text-align: left; }
+    .loan-table td { padding: 8px 12px; border-bottom: 1px solid #eef; }
+    .loan-table tr:last-child td { border-bottom: none; }
+    .confirm-list { list-style: none; }
+    .confirm-list li { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eef2f7; font-size: 0.9rem; }
+    .confirm-list li:last-child { border-bottom: none; }
+    .confirm-num { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; color: white; background: #8e44ad; }
+    .verdict-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+    .verdict-item { background: #f8fafc; border-radius: 8px; padding: 14px; }
+    .verdict-item .v-label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .risk-flag { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 6px; font-size: 0.88rem; font-weight: 700; margin: 4px 4px 4px 0; }
+    .risk-critical { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    .risk-high { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+    .risk-medium { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+    .link-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 8px; font-size: 0.88rem; font-weight: 600; text-decoration: none; margin: 8px 8px 0 0; }
+    .link-btn-blue { background: #2980b9; color: white; }
+    .link-btn-green { background: #27ae60; color: white; }
+    .link-btn-teal { background: #16a085; color: white; }
+    .link-btn-orange { background: #e67e22; color: white; }
+    .alert-box { border-radius: 8px; padding: 14px 16px; margin: 12px 0; font-size: 0.9rem; }
+    .alert-danger { background: #f8d7da; border-left: 4px solid #dc3545; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .alert-warning { background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .alert-info { background: #d1ecf1; border-left: 4px solid #17a2b8; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .footer { text-align: center; padding: 24px; color: #999; font-size: 0.8rem; }
+    @media (max-width: 600px) { .summary-grid { grid-template-columns: repeat(2, 1fr); } .metrics-grid { grid-template-columns: 1fr; } .verdict-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🏢 Keep Lagoon川島町新築アパート（トラストライフ扱い）</h1>
+  <div class="subtitle">不動産仕入部 — チーム精査レポート</div>
+  <div class="meta">精査日: 2026年9月22日 ／ 精査チーム: ハルト・リョウ・アキ・村田先生 ／ 出典: 健美家</div>
+</div>
+
+<div class="container">
+
+  <!-- 物件サマリー -->
+  <div class="card">
+    <div class="section-header" style="border-color:#1a3a5c">
+      <span class="icon">📋</span>
+      <h2 style="color:#1a3a5c">物件サマリー</h2>
+    </div>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="label">所在地</div>
+        <div class="value" style="font-size:0.9rem">神奈川県横浜市保土ケ谷区川島町597</div>
+        <div class="sub">16号内側・保土ケ谷区</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">交通</div>
+        <div class="value" style="font-size:0.9rem">相鉄本線 上星川駅 徒歩9分</div>
+        <div class="sub">横浜駅6駅・約13分</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">取引態様</div>
+        <div class="value" style="color:#1e7e34">売主</div>
+        <div class="sub">トラストライフ株式会社（横浜市中区）</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">物件価格</div>
+        <div class="value">11,240万円</div>
+        <div class="sub">値下げ後・戸あたり1,124万円</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">表面利回り</div>
+        <div class="value">6.8%</div>
+        <div class="sub">満室想定 764.4万円/年</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">構造・竣工</div>
+        <div class="value">木造2階建</div>
+        <div class="sub">2026年10月完成予定（新築）</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">延床面積</div>
+        <div class="value">187.65㎡</div>
+        <div class="sub">56.76坪</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">土地面積</div>
+        <div class="value">248.21㎡</div>
+        <div class="sub">75.08坪</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">戸数・間取り</div>
+        <div class="value">10戸（1R×6・1K×4）</div>
+        <div class="sub">1戸あたり18.21〜18.72㎡</div>
+      </div>
+    </div>
+    <div class="alert-warning">
+      <strong>⚠️ 総合判定: 見送り寄り（△要検討）</strong><br>
+      キャプテン基準（v5）に対し「利回り6.8%＜8.0%」「価格1.124億円＞1億円」で2項目未達。加えて<strong>18㎡台×10戸のワンルーム条例リスク</strong>と<strong>川島町の低地・谷戸地形の地盤リスク</strong>が並走。ハザード・耐震・売主取引・スマサテ+8.1%上振れは加点材料だが、価格1億円割れ交渉＋書類全開示（建築確認・地盤・条例適合）が入らない限り<strong>NG寄り</strong>。
+    </div>
+  </div>
+
+  <!-- キャプテン基準チェック -->
+  <div class="card">
+    <div class="section-header" style="border-color:#1a3a5c">
+      <span class="icon">🎯</span>
+      <h2 style="color:#1a3a5c">キャプテン基準チェック（v5）</h2>
+    </div>
+    <table class="criteria-table">
+      <thead>
+        <tr><th>基準</th><th>閾値</th><th>実績値</th><th>判定</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>物件価格</td><td>1億円以下</td>
+          <td>1億1,240万円</td>
+          <td><span class="badge-ng">❌ NG</span></td>
+        </tr>
+        <tr>
+          <td>表面利回り</td><td>8.0%以上</td>
+          <td>6.8%（資料） ／ 7.35%（スマサテ換算）</td>
+          <td><span class="badge-ng">❌ NG</span></td>
+        </tr>
+        <tr>
+          <td>築年数</td><td>10年以内</td>
+          <td>新築（2026年10月完成予定）</td>
+          <td><span class="badge-ok">✅ OK</span></td>
+        </tr>
+        <tr>
+          <td>エリア</td><td>16号内側</td>
+          <td>横浜市保土ケ谷区（16号内側）</td>
+          <td><span class="badge-ok">✅ OK</span></td>
+        </tr>
+        <tr>
+          <td>新耐震基準</td><td>1981年6月以降</td>
+          <td>新築（2000年基準対応・省エネ2025適合）</td>
+          <td><span class="badge-ok">✅ OK</span></td>
+        </tr>
+        <tr>
+          <td>1戸あたり専有面積</td><td>18㎡以上（自動基準）</td>
+          <td>18.21〜18.72㎡</td>
+          <td><span class="badge-check">△ ギリ</span></td>
+        </tr>
+        <tr>
+          <td>ハザードマップ</td><td>レッド・浸水2m以上NG</td>
+          <td>洪水・土砂・津波いずれも非該当</td>
+          <td><span class="badge-ok">✅ OK</span></td>
+        </tr>
+        <tr>
+          <td>積算比率</td><td>60%以上</td>
+          <td>62.7%（等級1・2） ／ 67.7%（等級3参考）</td>
+          <td><span class="badge-ok">✅ OK</span></td>
+        </tr>
+        <tr>
+          <td>CF率（オリックス想定）</td><td>1%以上</td>
+          <td>0.86%（資料6.8%） ／ 1.4%前後（スマサテ7.35%）</td>
+          <td><span class="badge-ng">❌ NG</span> ／ <span class="badge-ok">◯</span></td>
+        </tr>
+        <tr>
+          <td>CCR（オリックス想定）</td><td>15%以上</td>
+          <td>21.6%</td>
+          <td><span class="badge-ok">✅ OK</span></td>
+        </tr>
+        <tr>
+          <td>10年目税引後IRR</td><td>25%以上</td>
+          <td>玉川式シートで要確認</td>
+          <td><span class="badge-check">要確認</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 路線価・ハザード・スマサテ -->
+  <div class="card survey-card">
+    <div class="section-header">
+      <span class="icon">🗺️</span>
+      <h2>路線価・ハザードマップ・スマサテ査定（ハルト自動調査）</h2>
+    </div>
+    <div class="analysis-content">
+      <h3>相続税路線価（chikamap.jp 令和7年分）</h3>
+      <p><strong>12.5万円/㎡（借地権割合: D 60%）</strong> — 路線価地域として確定取得。土地248.21㎡ × 12.5万円 = <strong>土地積算 3,102.6万円</strong>（販売価格1.124億に対し27.6%）</p>
+
+      <h3>ハザードマップ判定（重ねるハザードマップ）</h3>
+      <ul>
+        <li>座標: 北緯35.46637° 東経139.575012°（標高41.3m）</li>
+        <li>洪水浸水想定: <strong>✅ 非該当</strong></li>
+        <li>土砂災害警戒区域: <strong>✅ 非該当</strong></li>
+        <li>津波浸水想定: <strong>✅ 非該当</strong></li>
+        <li>液状化危険度: 確認不可</li>
+        <li><strong>総合判定: 問題なし</strong>（キャプテン基準クリア）</li>
+      </ul>
+      <p style="font-size:0.8rem;color:#888">出典: 国土交通省・国土地理院「重ねるハザードマップ」／📸 スクショは物件調査レポートに添付</p>
+
+      <h3>スマサテ賃料査定</h3>
+      <ul>
+        <li>査定条件: 木造・築0年・1R/1K 18.5㎡・上星川駅徒歩9分・設備標準</li>
+        <li>標準賃料: <strong>68,851円/戸</strong>（部屋数2査定の平均）</li>
+        <li>資料記載賃料: 63,700円/戸（満室月収63.7万÷10戸）</li>
+        <li>乖離: <strong>+8.1%（資料は控えめ・上振れ余地あり）</strong></li>
+        <li>スマサテ賃料ベース表面利回り: <strong>7.35%</strong>（826.2万円 ÷ 1.124億）</li>
+      </ul>
+      <a class="link-btn link-btn-teal" href="https://teruyone.github.io/tc-properties/properties/20260922_kamihoshikawa-keeplagoon_survey.html" target="_blank">🔍 物件調査レポート（スマサテ入力・ハザードスクショ）</a>
+    </div>
+  </div>
+
+  <!-- ハルト分析 -->
+  <div class="card haruto">
+    <div class="section-header">
+      <span class="icon">🔍</span>
+      <h2>ハルト（エリア・利回り分析）</h2>
+    </div>
+    <div class="analysis-content">
+      <h3>キャプテン基準との照合</h3>
+      <p>表面6.8%は新築基準7.1%未達で<strong>基準外</strong>。ただしスマサテ7.35%(+8.1%上振れ)で基準クリアの可能性。<strong>★イチオシは保留、△注目案件</strong>。価格1.124億は上限1億円を12%超過。新築×売主取引（仲介料0円）で実質利回り上乗せ余地はある。<strong>FIRE戦略v5</strong>の4棟FIRE 1棟目としては価格オーバー・利回り不足で不適、2棟目以降のポートフォリオ組成なら要検討水準。</p>
+
+      <h3>上星川駅エリア評価</h3>
+      <ul>
+        <li><strong>乗降客数</strong>: 相鉄本線 約2.4万人/日、横浜駅6駅・約13分の中距離ベッドタウン</li>
+        <li><strong>将来性</strong>: 相鉄・JR直通線（2019）で新宿方面改善、相鉄・東急直通線（2023）で渋谷・目黒直結。<strong>単身勤務者の通勤利便性が大幅向上</strong></li>
+        <li><strong>賃貸需要</strong>: 保土ケ谷区は横浜市内でも家賃控えめ、1R/1K需要は都心通勤者で堅調。徒歩9分は許容圏</li>
+      </ul>
+
+      <h3>相場感</h3>
+      <p>横浜市保土ケ谷区・木造新築・単身向けアパートの表面利回り相場は<strong>6.5〜7.2%</strong>。6.8%はほぼ相場中央値で割安感は薄いが、値下げ後価格は評価。スマサテ査定7.35%も新築プレミアム剥落後（築3〜5年）の賃料下落リスクあり。</p>
+
+      <h3>空室リスク</h3>
+      <ul>
+        <li>相鉄線沿線×単身需要は安定、駅周辺に生活利便施設あり</li>
+        <li>保土ケ谷区は木造新築アパート供給多め</li>
+        <li>専有18.21〜18.72㎡は<strong>単身最小水準</strong>、10戸全戸1R/1Kの<strong>単一属性依存はリスク</strong></li>
+      </ul>
+
+      <h3>ハルトの率直評価: △注目・要精査</h3>
+      <p>プラス: スマサテ上振れ・相鉄直通線恩恵・売主取引・値下げ後価格・ハザード問題なし。マイナス: キャプテン基準未達（利回り・価格）、18㎡台単身最小サイズ、単一属性、新築プレミアム剥落リスク。土地値は販売の27.6%と薄く、<strong>築古化後の担保余力は弱い</strong>。1棟目適性は低いが、価格交渉余地があれば化ける可能性。<strong>キャプテンが「新築×売主×相鉄直通」に価値を見出すなら要検討</strong>、それ以外はスキップ推奨。</p>
+    </div>
+  </div>
+
+  <!-- リョウ DD -->
+  <div class="card ryo">
+    <div class="section-header">
+      <span class="icon">📋</span>
+      <h2>リョウ（デューデリジェンス）</h2>
+    </div>
+    <div class="analysis-content">
+      <h3>確認済み</h3>
+      <ul>
+        <li><strong>ハザード</strong>: 洪水・土砂・津波いずれも非該当（融資可否面で減点なし）</li>
+        <li><strong>新耐震</strong>: 新築（2026年10月完成予定）につき当然クリア</li>
+        <li><strong>取引態様</strong>: 売主直販 → 諸費用4%圏内・仲介手数料不要</li>
+        <li><strong>設備水準</strong>: 全戸バストイレ別・浴室乾燥機・宅配ボックス等、単身需要に対し標準以上</li>
+        <li><strong>路線価</strong>: 12.5万円/㎡（D 60%）→ 相続税評価/積算計算ベース確定</li>
+      </ul>
+
+      <h3>リスクフラグ</h3>
+      <ul>
+        <li><strong>表面利回り6.8%が薄い</strong>: 保土ケ谷区新築木造の売主分譲で6.8%は「新築プレミア込み値付け」。10年後の実質利回りが5%割れするリスク。<strong>キャプテン基準（8.0%）を大きく下回りNG票水準</strong></li>
+        <li><strong>売主案件×完成前</strong>: 完成物確認前契約→重要説明書の物件特定・引渡し遅延特約・完成基準明記が必須。「完成保証・引渡遅延時の違約金」条項を要点検</li>
+        <li><strong>契約不適合責任</strong>: 売主が宅建業者なら2年以上必須だが、範囲・除外事項（雨漏り・給排水・シロアリ・構造耐力上主要な部分）要確認</li>
+        <li><strong>地盤</strong>: 川島町は帷子川支流の低地・旧河川跡地の可能性。地盤調査報告書・地盤改良履歴・10年地盤保証の有無が最重要</li>
+        <li><strong>戸あたり18㎡台</strong>: 横浜市ワンルーム条例（原則25㎡以上、10戸以上で条例対象）の適用有無を要確認。18㎡台は「ミニルーム」条例適用外の可能性 → <strong>金融機関により融資対象外リスク</strong></li>
+        <li><strong>徒歩9分の実測</strong>: 川島町597は駅から丘越えルートの可能性、実測乖離リスク</li>
+        <li><strong>土地単価</strong>: 積算土地3,103万・建物法定積算約3,378万 → 積算合計6,481万に対し価格1.124億 → 積算比57.7%（融資では厳しめ水準／※等級3考慮なら67.7%まで改善）</li>
+      </ul>
+
+      <h3>未確認・要入手</h3>
+      <ul>
+        <li>建築確認済証・検査済証（完成後）・確認申請日</li>
+        <li>構造計算書・許容応力度計算の有無（10戸なら4号特例外）</li>
+        <li>地盤調査報告書（SS試験結果）・地盤改良履歴・地盤保証書</li>
+        <li>建築図面一式（配置図・平面図・立面図・仕様書）</li>
+        <li>前面道路の種別（42条1項1号/2号/5号等）・幅員・私道負担有無</li>
+        <li>ワンルーム型集合住宅条例の適合確認書</li>
+        <li>レントロール想定（1R×6・1K×4の想定家賃内訳）</li>
+        <li>トラストライフ株式会社の売主分譲実績・宅建業者名簿の指示処分歴</li>
+      </ul>
+
+      <div class="alert-warning">
+        <strong>リスクレベル: 高</strong><br>
+        ハザード・耐震はクリアだが、①利回り基準未達、②積算比57%で融資厳しめ、③18㎡台×10戸のワンルーム条例リスク、④完成前売主案件の引渡し・瑕疵条項の脆弱性、⑤川島町の地盤リスク、が同時多発。<strong>現状スペックではNG寄り</strong>。進めるなら「価格1億円割れ交渉＋地盤・構造書類全開示＋条例適合確認書」の条件化が前提。
+      </div>
+      <a class="link-btn link-btn-blue" href="https://teruyone.github.io/tc-properties/properties/20260922_kamihoshikawa-keeplagoon_DD.html" target="_blank">📋 DDチェックリストを開く</a>
+    </div>
+  </div>
+
+  <!-- アキ IG+ -->
+  <div class="card aki">
+    <div class="section-header">
+      <span class="icon">📊</span>
+      <h2>アキ（IG+ 収支計算 ＋ 玉川式）</h2>
+    </div>
+    <div class="analysis-content">
+      <h3>収益・費用（IG+資料6.8%版・元利均等）</h3>
+      <ul>
+        <li>満室年収 <strong>764.4万円</strong> → 空室5%控除後 <strong>726.2万円</strong></li>
+        <li>費用合計 約139.7万円（管理36.3・BM13.6・水光3.4・保険9.4・固都税50.8・修繕3.1・原状7.1・AD15.9）</li>
+        <li><strong>NOI 586.5万円 ／ NOI利回り 5.22%</strong></li>
+      </ul>
+
+      <h3>ローン2パターン（元利均等・35年）</h3>
+      <table class="loan-table">
+        <thead>
+          <tr><th>指標</th><th>オリックス100%・2.6%</th><th>神奈川銀行90%・2.25%</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>年間返済</td><td>489.4万円</td><td>416.2万円</td></tr>
+          <tr><td><strong>CF</strong></td><td><strong>97.1万円</strong></td><td><strong>170.3万円</strong></td></tr>
+          <tr><td>CF率</td><td>0.86%（D）</td><td>1.52%（B）</td></tr>
+          <tr><td>自己資金</td><td>449.6万円（諸費用）</td><td>1,573.6万円</td></tr>
+          <tr><td>CCR</td><td><strong>21.6%（A）</strong></td><td>10.82%（C）</td></tr>
+          <tr><td>返済比率</td><td>64.0%（C）</td><td>54.4%（B）</td></tr>
+        </tbody>
+      </table>
+
+      <h3>積算評価（新築・残存率100%）</h3>
+      <ul>
+        <li>土地: 12.5万×248.21㎡ = <strong>3,102.6万円</strong></li>
+        <li>建物（等級1・2 = 21万/㎡）: 21万×187.65 = 3,940.7万円 → 積算合計 <strong>7,043.3万円 ／ 積算比率 62.7%（C）</strong></li>
+        <li>建物（等級3参考 = 24万/㎡）: 24万×187.65 = 4,503.6万円 → 積算合計 <strong>7,606.2万円 ／ 積算比率 67.7%（C）</strong></li>
+      </ul>
+
+      <h3>スマサテ賃料版（表面7.35%）参考</h3>
+      <p>満室 826.2万円 → NOI利回りは約5.9%まで改善。CF率もオリックス想定で1.4%前後に改善見込み。スマサテ査定+8.1%乖離（68,851円）まで賃料を積めれば全指標ラインに乗る。<strong>募集戦略の裏付けが取れるかが判断の分かれ目</strong>。</p>
+
+      <div class="alert-info">
+        <strong>アキからひとこと</strong><br>
+        新築売主・諸費用4%が効いてオリックスCCRは21.6%と好数字。ただし<strong>表面6.8%だとCF率0.86%で基準未達</strong>。10年目税引後IRRは玉川式シートで要確認（目標≥25%）。
+      </div>
+      <a class="link-btn link-btn-green" href="https://teruyone.github.io/tc-properties/ig-sheet/?price=11240&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=6.8&floorArea=187.65&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=11240&pi_age_inp=0&pi_yield_inp=6.8&pi_area_inp=187.65&pi_rooms_inp=10&ik_land_area=248.21&ik_route_price=12.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89" target="_blank">📊 IG+【資料6.8%】を開く</a>
+      <a class="link-btn link-btn-green" href="https://teruyone.github.io/tc-properties/ig-sheet/?price=11240&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.35&floorArea=187.65&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=11240&pi_age_inp=0&pi_yield_inp=7.35&pi_area_inp=187.65&pi_rooms_inp=10&ik_land_area=248.21&ik_route_price=12.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89" target="_blank">📊 IG+【スマサテ7.35%】を開く</a>
+      <a class="link-btn link-btn-orange" href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260922_kamihoshikawa-keeplagoon_TG.html" target="_blank">📈 玉川式35年CFを開く</a>
+    </div>
+  </div>
+
+  <!-- 村田先生 -->
+  <div class="card murata">
+    <div class="section-header">
+      <span class="icon">🏗️</span>
+      <h2>村田先生（一級建築士コメント）</h2>
+    </div>
+    <div class="analysis-content">
+      <p><em>「現場を見ないと断言はできませんが、資料から読み取れる範囲でコメントします。」</em></p>
+
+      <h3>構造評価</h3>
+      <p>木造2階建・延床187.65㎡に10戸は1戸あたり18㎡台の1R/1K専用設計として合理的。おそらく<strong>2×4（枠組壁工法）または軸組＋構造用合板の耐力壁工法</strong>。10戸配置で戸境壁が多く、構造的にも遮音的にも効いてくる。2026年10月完成なら<strong>改正省エネ基準（2025年4月以降適合義務化）に完全対応</strong>のはず。<strong>耐震等級3・劣化対策等級3・省エネ等級4以上</strong>が取れていれば長期優良住宅相当で、地震保険50%割引・融資評価も有利。</p>
+
+      <h3>完成前に必ず確認すべき書類</h3>
+      <p>①建築確認済証（交付済み確認）②検査済証（完成後・引渡し前）③<strong>構造計算書（許容応力度計算 or 壁量計算書）</strong>④住宅性能評価書（設計・建設2種類）⑤省エネ基準適合証明書 ⑥<strong>地盤調査報告書＋地盤改良の有無</strong>⑦シロアリ防蟻処理保証書（5年）⑧瑕疵担保保険付保証明書（新築売主義務・10年）。特に<strong>地盤調査報告書と構造計算書は必ず現物確認</strong>。</p>
+
+      <h3>修繕リスク予測</h3>
+      <ul>
+        <li><strong>5年以内</strong>: ほぼ発生なし。想定費用ほぼゼロ</li>
+        <li><strong>10年目</strong>: 外壁シーリング打替＋タッチアップ塗装（50〜80万）、給湯器10台のうち先発2〜3台寿命入り（15〜20万×2〜3）、ベランダ防水トップコート（20〜30万）→ <strong>総額150〜250万円</strong></li>
+        <li><strong>15年目</strong>: 外壁塗装フル（150〜200万）、屋根塗装orカバー工法（80〜120万）、給湯器一斉更新残り（100〜150万）、宅配ボックス・インターホン更新（30〜50万）→ <strong>総額400〜550万円</strong>を計画的に積立</li>
+      </ul>
+
+      <h3>川島町の地盤・地形リスク</h3>
+      <p>保土ケ谷区川島町は帷子川沿いの<strong>低地〜谷戸地形の混在エリア</strong>。ハザード「非該当」は朗報だが、<strong>帷子川の氾濫履歴（1976年・2004年）</strong>があるエリア。<strong>川島町597の標高（41.3m）と川からの距離</strong>は現地で必ず確認。地盤は沖積層で軟弱の可能性→<strong>地盤改良（柱状改良or表層改良）が入っているか報告書で確認</strong>。</p>
+
+      <h3>現地で必ず確認してほしいこと</h3>
+      <ul>
+        <li>建築中なら基礎の配筋写真・上棟時写真の提出依頼（施工品質の証拠）</li>
+        <li>敷地の高低差と道路との接続（雨水流入リスク）</li>
+        <li>隣地・裏手の擁壁の有無と検査済証（横浜の谷戸地形は擁壁トラブル多い）</li>
+        <li>周辺の古い建物のクラック・不同沈下痕（地盤の実力が見える）</li>
+        <li>上星川駅からの徒歩導線の勾配（谷戸地形なら坂あり＝入居付けに影響）</li>
+      </ul>
+
+      <div class="alert-info">
+        <strong>村田総合所感</strong><br>
+        新築・売主・ハザード非該当・戸境壁の多い10戸構成——建物単体で見れば手堅い商品性。ただし川島町は<strong>低地×谷戸のハイブリッド</strong>なので、<strong>地盤調査報告書と敷地標高の確認が生命線</strong>。書類が揃っていれば安心して長期保有できる建物と見る。リョウのDDと連携し、擁壁・排水経路まで踏み込んで確認を。
+      </div>
+    </div>
+  </div>
+
+  <!-- キャプテン確認事項 -->
+  <div class="card confirm-card">
+    <div class="section-header">
+      <span class="icon">❓</span>
+      <h2>キャプテンへの確認事項まとめ</h2>
+    </div>
+    <ul class="confirm-list">
+      <li><span class="confirm-num">1</span><div><strong>建築確認済証・地盤調査報告書</strong>は既に受領していますか？（構造計算書・住宅性能評価書・省エネ適合証明書もセットで要入手）</div></li>
+      <li><span class="confirm-num">2</span><div><strong>引渡し予定日・引渡し遅延時の違約条項</strong>は資料に明記されていましたか？完成前契約の完成保証も要確認。</div></li>
+      <li><span class="confirm-num">3</span><div>横浜市の<strong>ワンルーム型集合住宅条例（25㎡ルール）</strong>適用外である旨、業者から説明はありましたか？18㎡台×10戸は融資対象外リスクあり。</div></li>
+      <li><span class="confirm-num">4</span><div>表面6.8%（キャプテン基準8.0%未達）でも進める根拠はありますか？<strong>1億円割れ交渉</strong>で目線に合わせる余地はあるか、売主のスタンスは？</div></li>
+      <li><span class="confirm-num">5</span><div><strong>トラストライフ株式会社</strong>の過去分譲実績・完成物件のトラブル履歴・宅建業者指示処分歴の情報はありますか？</div></li>
+      <li><span class="confirm-num">6</span><div>耐震等級・劣化対策等級・省エネ等級はいくつを取得予定ですか？（等級3なら積算67.7%・地震保険50%割引でメリット大）</div></li>
+      <li><span class="confirm-num">7</span><div>スマサテ査定 68,851円/戸（+8.1%乖離）まで賃料を積める根拠があるか、募集戦略・近隣競合の実際の成約賃料を確認したいです。</div></li>
+    </ul>
+  </div>
+
+  <!-- 総合所見 -->
+  <div class="card verdict">
+    <div class="section-header">
+      <span class="icon">🏁</span>
+      <h2>チーム総合所見</h2>
+    </div>
+    <div class="verdict-grid">
+      <div class="verdict-item">
+        <div class="v-label">総合判断</div>
+        <div><strong style="color:#c0392b">△ 見送り寄り（要検討）</strong><br>キャプテン基準の価格・利回りが揃って未達。加点材料（新築・売主・ハザードOK・スマサテ上振れ）はあるが、決定打に欠ける。</div>
+      </div>
+      <div class="verdict-item">
+        <div class="v-label">最大リスク</div>
+        <div><strong style="color:#c0392b">利回り薄・条例リスク・地盤</strong>の三重苦。特に18㎡台×10戸は横浜市ワンルーム条例で融資対象外になる可能性がある。</div>
+      </div>
+      <div class="verdict-item">
+        <div class="v-label">加点ポイント</div>
+        <div>相鉄直通線恩恵で通勤利便性UP／新築×売主取引で諸費用軽減／ハザード全項目非該当／CCR 21.6%（オリックス）は好数字／スマサテ+8.1%上振れ余地</div>
+      </div>
+      <div class="verdict-item">
+        <div class="v-label">次のアクション</div>
+        <div>①価格1億円割れ交渉の余地確認 ②建築確認・地盤調査・条例適合の3点セット書類請求 ③現地確認（敷地標高・徒歩導線・擁壁）④トラストライフの実績調査</div>
+      </div>
+    </div>
+    <div class="alert-danger">
+      <strong>🚨 進める場合の必須条件</strong>: (a) 価格1億円割れの交渉成立、(b) 建築確認済証＋地盤調査報告書＋ワンルーム条例適合確認書の全開示、(c) 耐震等級3または劣化対策等級3の確認、(d) スマサテ賃料での運営が現実的である近隣競合の実成約データ。この4条件が揃わない限り、仕入部としてはNG判定を推奨。
+    </div>
+  </div>
+
+  <div class="footer">
+    不動産仕入部 — ハルト・リョウ・アキ・村田先生 ／ TC Capitals
+  </div>
+
+</div>
+
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260922_kamihoshikawa-keeplagoon_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260922_kamihoshikawa-keeplagoon_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
