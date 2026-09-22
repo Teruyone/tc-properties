@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カインドネス東川口 — 不動産仕入部 精査レポート</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f0f4f8; color: #1a1a2e; line-height: 1.6; }
+    .header { background: linear-gradient(135deg, #1a3a5c 0%, #0d2137 100%); color: white; padding: 32px 40px; }
+    .header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+    .header .subtitle { font-size: 0.95rem; opacity: 0.85; margin-bottom: 8px; }
+    .header .meta { font-size: 0.85rem; opacity: 0.7; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 24px 20px; }
+    .card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .critical-banner { background: linear-gradient(135deg, #c0392b 0%, #7b241c 100%); color: white; border-radius: 12px; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 4px 16px rgba(192,57,43,0.35); }
+    .critical-banner h2 { font-size: 1.2rem; margin-bottom: 8px; }
+    .critical-banner p { font-size: 0.92rem; line-height: 1.65; }
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid; }
+    .section-header .icon { font-size: 1.4rem; }
+    .section-header h2 { font-size: 1.15rem; font-weight: 700; }
+    .haruto .section-header { border-color: #e67e22; }
+    .haruto .section-header h2 { color: #e67e22; }
+    .ryo .section-header { border-color: #2980b9; }
+    .ryo .section-header h2 { color: #2980b9; }
+    .aki .section-header { border-color: #27ae60; }
+    .aki .section-header h2 { color: #27ae60; }
+    .murata .section-header { border-color: #8b5e3c; }
+    .murata .section-header h2 { color: #8b5e3c; }
+    .survey-card .section-header { border-color: #16a085; }
+    .survey-card .section-header h2 { color: #16a085; }
+    .confirm-card .section-header { border-color: #8e44ad; }
+    .confirm-card .section-header h2 { color: #8e44ad; }
+    .verdict .section-header { border-color: #c0392b; }
+    .verdict .section-header h2 { color: #c0392b; }
+    .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+    .summary-item { background: #f8fafc; border-radius: 8px; padding: 12px; }
+    .summary-item .label { font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .summary-item .value { font-size: 1.05rem; font-weight: 700; color: #1a3a5c; }
+    .summary-item .sub { font-size: 0.8rem; color: #888; }
+    .criteria-table { width: 100%; border-collapse: collapse; }
+    .criteria-table th { background: #1a3a5c; color: white; padding: 10px 14px; text-align: left; font-size: 0.85rem; }
+    .criteria-table td { padding: 10px 14px; border-bottom: 1px solid #eef2f7; font-size: 0.9rem; }
+    .criteria-table tr:last-child td { border-bottom: none; }
+    .badge-ok { display: inline-block; background: #d4edda; color: #1e7e34; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+    .badge-ng { display: inline-block; background: #f8d7da; color: #721c24; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+    .badge-check { display: inline-block; background: #fff3cd; color: #856404; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+    .analysis-content { font-size: 0.9rem; line-height: 1.75; }
+    .analysis-content h3 { font-size: 0.95rem; font-weight: 700; margin: 16px 0 8px; padding-left: 8px; border-left: 3px solid; }
+    .haruto .analysis-content h3 { border-color: #e67e22; }
+    .ryo .analysis-content h3 { border-color: #2980b9; }
+    .aki .analysis-content h3 { border-color: #27ae60; }
+    .murata .analysis-content h3 { border-color: #8b5e3c; }
+    .survey-card .analysis-content h3 { border-color: #16a085; }
+    .analysis-content p { margin-bottom: 10px; }
+    .analysis-content ul { margin: 8px 0 12px 20px; }
+    .analysis-content li { margin-bottom: 4px; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
+    .metric-box { background: #f8fafc; border-radius: 8px; padding: 14px; }
+    .metric-box .m-label { font-size: 0.75rem; color: #666; margin-bottom: 4px; }
+    .metric-box .m-value { font-size: 1.2rem; font-weight: 700; }
+    .m-ok { color: #27ae60; } .m-ng { color: #c0392b; } .m-neutral { color: #2980b9; }
+    .loan-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.88rem; }
+    .loan-table th { background: #f0f4f8; padding: 8px 12px; text-align: left; }
+    .loan-table td { padding: 8px 12px; border-bottom: 1px solid #eef; }
+    .loan-table tr:last-child td { border-bottom: none; }
+    .confirm-list { list-style: none; }
+    .confirm-list li { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eef2f7; font-size: 0.9rem; }
+    .confirm-list li:last-child { border-bottom: none; }
+    .confirm-num { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; color: white; background: #8e44ad; }
+    .verdict-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+    .verdict-item { background: #f8fafc; border-radius: 8px; padding: 14px; }
+    .verdict-item .v-label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .risk-flag { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 6px; font-size: 0.88rem; font-weight: 700; margin: 4px 4px 4px 0; }
+    .risk-critical { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    .risk-high { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+    .risk-medium { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+    .link-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 8px; font-size: 0.88rem; font-weight: 600; text-decoration: none; margin: 8px 8px 0 0; }
+    .link-btn-blue { background: #2980b9; color: white; }
+    .link-btn-green { background: #27ae60; color: white; }
+    .link-btn-orange { background: #e67e22; color: white; }
+    .link-btn-teal { background: #16a085; color: white; }
+    .link-btn-lime { background: #7cb342; color: white; }
+    .alert-danger { background: #f8d7da; border-left: 4px solid #dc3545; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .alert-warning { background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .alert-info { background: #d1ecf1; border-left: 4px solid #17a2b8; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .alert-success { background: #d4edda; border-left: 4px solid #28a745; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem; }
+    .footer { text-align: center; padding: 24px; color: #999; font-size: 0.8rem; }
+    @media (max-width: 600px) { .summary-grid { grid-template-columns: repeat(2, 1fr); } .metrics-grid { grid-template-columns: 1fr; } .verdict-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260922_kindness-higashikawaguchi_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=11740&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.45&floorArea=228.64&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=11740&pi_age_inp=0&pi_yield_inp=7.1&pi_area_inp=228.64&pi_rooms_inp=9&ik_land_area=143.52&ik_route_price=21&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%9F%BC%E7%8E%89%E7%9C%8C%E5%B7%9D%E5%8F%A3%E5%B8%82%E6%9D%B1%E5%B7%9D%E5%8F%A3%E5%9B%9B%E4%B8%81%E7%9B%AE27-19" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=11740&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.45&floorArea=228.64&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=11740&pi_age_inp=0&pi_yield_inp=7.36&pi_area_inp=228.64&pi_rooms_inp=9&ik_land_area=143.52&ik_route_price=21&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%9F%BC%E7%8E%89%E7%9C%8C%E5%B7%9D%E5%8F%A3%E5%B8%82%E6%9D%B1%E5%B7%9D%E5%8F%A3%E5%9B%9B%E4%B8%81%E7%9B%AE27-19" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260922_kindness-higashikawaguchi_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20260922_kindness-higashikawaguchi_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+
+<div class="header">
+  <h1>🏢 カインドネス東川口</h1>
+  <div class="subtitle">不動産仕入部 — チーム精査レポート</div>
+  <div class="meta">精査日: 2026年9月22日 ／ 精査チーム: ハルト・リョウ・アキ・村田先生 ／ 情報元: ハウスリンクホーム 松本様</div>
+</div>
+
+<div class="container">
+
+  <!-- 🚨 即NG級リスク警告バナー -->
+  <div class="critical-banner">
+    <h2>⚠️ ハザード即NG級リスクあり — 見送り推奨</h2>
+    <p>本物件は「重ねるハザードマップ」で<strong>洪水浸水想定 3.0m〜5.0m</strong>（キャプテン基準では2m以上は即NG）に立地し、加えて<strong>家屋倒壊等氾濫想定区域（河岸浸食）</strong>に区域内該当。金融機関の融資NG・火災保険水災料率の急騰・出口流動性の毀損が想定されます。さらに<strong>価格1億円超（11,740万円）</strong>・<strong>表面利回り基準未達（7.10% &lt; 8.0%）</strong>のキャプテン基準2枚も同時に外しており、1棟目適格から明確に外れます。</p>
+  </div>
+
+  <!-- 物件サマリー -->
+  <div class="card">
+    <div class="section-header" style="border-color:#1a3a5c">
+      <span class="icon">📋</span>
+      <h2 style="color:#1a3a5c">物件サマリー</h2>
+    </div>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="label">所在地</div>
+        <div class="value" style="font-size:0.9rem">埼玉県川口市東川口<br>四丁目27-19（予定）</div>
+        <div class="sub">現況測量図地積 144.23㎡</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">交通</div>
+        <div class="value" style="font-size:0.85rem">JR武蔵野線・埼玉高速鉄道<br>「東川口」駅 徒歩11分</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">取引態様</div>
+        <div class="value">売主</div>
+        <div class="sub">ハウスリンクホーム株式会社（松本様）</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">物件価格</div>
+        <div class="value" style="color:#c0392b">11,740万円</div>
+        <div class="sub">土地5,520万 / 建物6,220万（消費税込）</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">表面利回り</div>
+        <div class="value">7.10%（資料）／ <span style="color:#27ae60">7.36%</span>（スマサテ）</div>
+        <div class="sub">年収834万円（資料）／ 864万円（スマサテ）</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">構造・築年</div>
+        <div class="value">木造3階建て（新築）</div>
+        <div class="sub">共同住宅・建築条件付き土地</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">延床面積</div>
+        <div class="value">228.64㎡（69.16坪）</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">土地面積</div>
+        <div class="value">143.52㎡（43.41坪）</div>
+        <div class="sub">別途位置指定道路持分あり</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">戸数・間取り</div>
+        <div class="value">1K × 9戸</div>
+        <div class="sub">専有 24.01〜26.63㎡</div>
+      </div>
+    </div>
+    <div style="background:#f8fafc;border-radius:8px;padding:12px;font-size:0.85rem;color:#555;">
+      <strong>設備:</strong> オートロック／宅配ボックス／2口IH／インターネット設備（予定）<br>
+      <strong>接道:</strong> 北西側 幅員4.0m位置指定道路へ2.0m接道（間口ギリギリ）<br>
+      <strong>位置指定道路持分:</strong> 27番9（18.20㎡・持分13838/27714）／ 27番10（38.98㎡・持分1994/31972）<br>
+      <strong>特記事項:</strong> 土地先行案件（土地決済後に弊社と建築請負契約締結必須）／ 想定属性：年収1,100万・保有資産1,900万以上
+    </div>
+  </div>
+
+  <!-- キャプテン基準チェック -->
+  <div class="card">
+    <div class="section-header" style="border-color:#1a3a5c">
+      <span class="icon">✅</span>
+      <h2 style="color:#1a3a5c">キャプテン基準チェック</h2>
+    </div>
+    <table class="criteria-table">
+      <thead>
+        <tr>
+          <th>指標</th>
+          <th>基準</th>
+          <th>実績値</th>
+          <th>判定</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>築年数</td>
+          <td>10年以内</td>
+          <td>新築（築0年）</td>
+          <td><span class="badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>物件価格</td>
+          <td>1億円以内</td>
+          <td>11,740万円（+17.4%超過）</td>
+          <td><span class="badge-ng">NG</span></td>
+        </tr>
+        <tr>
+          <td>表面利回り</td>
+          <td>≥ 8.0%（新築は6.0%）</td>
+          <td>7.10%（資料）／ 7.36%（スマサテ）</td>
+          <td><span class="badge-ok">OK（新築6%基準）</span></td>
+        </tr>
+        <tr>
+          <td>所在エリア（16号内側）</td>
+          <td>国道16号内側</td>
+          <td>川口市東川口（16号内側・OK）</td>
+          <td><span class="badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>ハザードリスク</td>
+          <td>浸水&lt;2m・レッド非該当</td>
+          <td><strong style="color:#c0392b">浸水3.0〜5.0m ＋ 家屋倒壊等氾濫区域（河岸浸食）</strong></td>
+          <td><span class="badge-ng">即NG</span></td>
+        </tr>
+        <tr>
+          <td>CF率（オリックス 100%）</td>
+          <td>≥ 1.0%</td>
+          <td>1.11%（CF: 130.6万/年）</td>
+          <td><span class="badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>CF率（auじぶん銀行 95%）</td>
+          <td>≥ 1.0%</td>
+          <td>1.39%（CF: 163.0万/年）</td>
+          <td><span class="badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>CCR</td>
+          <td>≥ 15%</td>
+          <td>27.8%（オリックス）／ 15.4%（auじぶん）</td>
+          <td><span class="badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>積算比率</td>
+          <td>≥ 60%</td>
+          <td>約66.6%（建物4,801万＋土地3,014万=7,815万 ÷ 11,740万）<br><span style="font-size:0.78rem;color:#666;">路線価21万円/㎡（chikamap確認）</span></td>
+          <td><span class="badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>10年目税引後IRR</td>
+          <td>≥ 25%</td>
+          <td>玉川式シートで確認要</td>
+          <td><span class="badge-check">要確認</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="alert-danger" style="margin-top:14px;">
+      <strong>基準チェック総括: キャプテン基準を3項目同時にNG。</strong> ①価格1億円超（+17.4%超過）②新築基準では利回り6%以上をクリアだが1棟目基準の8%は未達 ③ハザード浸水3〜5m＋家屋倒壊等氾濫区域で即NG級。CF・CCR・積算比率はいずれも数字は成立するが、上位のスクリーニング基準（価格・ハザード）で明確に外れるため、1棟目適格外。丁重に見送り返信推奨。
+    </div>
+  </div>
+
+  <!-- 路線価・ハザード・スマサテ調査 -->
+  <div class="card survey-card">
+    <div class="section-header">
+      <span class="icon">🗺️</span>
+      <h2>ハルト自動調査 — 路線価・ハザードマップ・スマサテ賃料</h2>
+    </div>
+    <div class="analysis-content">
+
+      <h3>相続路線価（chikamap.jp 令和7年分）</h3>
+      <div class="metrics-grid">
+        <div class="metric-box">
+          <div class="m-label">路線価（万円/㎡）</div>
+          <div class="m-value m-neutral">21万円/㎡</div>
+          <div style="font-size:0.78rem;color:#888;">210,000円/㎡ ／ 借地権割合 <strong>D 60%</strong></div>
+        </div>
+        <div class="metric-box">
+          <div class="m-label">土地値概算（路線価×土地面積）</div>
+          <div class="m-value m-neutral">3,014万円</div>
+          <div style="font-size:0.78rem;color:#888;">21万 × 143.52㎡ ／ 対価格25.7%</div>
+        </div>
+      </div>
+      <p style="font-size:0.85rem;color:#555;">路線価地域（倍率地域ではない）。東川口駅前エリアは商業性のある住宅地で路線価21万円/㎡は評価良好。土地値率25.7%は新築価格としては良い水準。</p>
+
+      <h3>重ねるハザードマップ判定</h3>
+      <table class="loan-table">
+        <thead><tr><th>種別</th><th>判定</th><th>詳細</th></tr></thead>
+        <tbody>
+          <tr><td>洪水浸水想定</td><td><strong style="color:#c0392b">❌ 即NG</strong></td><td>浸水深 <strong>3.0m 〜 5.0m</strong>（想定最大規模）／標高4.4m。1階完全水没・2階も浸水想定</td></tr>
+          <tr><td>家屋倒壊等氾濫想定区域（河岸浸食）</td><td><strong style="color:#c0392b">❌ 区域内</strong></td><td>河岸浸食によって家屋倒壊のおそれあり。極めて重大なリスク</td></tr>
+          <tr><td>土砂災害警戒</td><td>✅ 非該当</td><td>—</td></tr>
+          <tr><td>津波浸水想定</td><td>✅ 非該当</td><td>内陸のため</td></tr>
+          <tr><td>液状化危険度</td><td>❓ 確認不可</td><td>重ねるHMで未表示・別途要確認</td></tr>
+          <tr><td>内水浸水想定</td><td>✅ 非該当</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <div class="alert-danger">
+        <strong>総合ハザード判定: 即NG</strong><br>
+        キャプテン基準の「洪水浸水2m以上」ラインを大幅に超える<strong>3.0〜5.0m浸水想定</strong>、加えて<strong>家屋倒壊等氾濫想定区域（河岸浸食）</strong>にも区域内で該当。近隣を綾瀬川・伝右川・毛長川等が流れており、河川氾濫時には建物倒壊レベルの被害想定。<br>
+        <strong>実務影響:</strong> ①メガバンク・地銀の融資審査でネガ判定リスク大 ②火災保険水災補償の料率大幅アップ or 引受制限 ③売却時の買主属性が限定され出口流動性低下 ④固定資産税評価額低下による担保評価毀損。数字（利回り・CF）が成立しても、この構造リスクは埋め合わせできません。
+      </div>
+
+      <h3>スマサテ賃料査定</h3>
+      <div class="metrics-grid">
+        <div class="metric-box">
+          <div class="m-label">標準査定賃料（1K・25.3㎡）</div>
+          <div class="m-value m-neutral">80,000円/戸</div>
+          <div style="font-size:0.78rem;color:#888;">単価 3,159円/㎡・10,442円/坪</div>
+        </div>
+        <div class="metric-box">
+          <div class="m-label">資料賃料 vs スマサテ</div>
+          <div class="m-value m-ok">+3.6%</div>
+          <div style="font-size:0.78rem;color:#888;">資料77,222円 / スマサテ80,000円</div>
+        </div>
+      </div>
+      <table class="loan-table">
+        <thead><tr><th>ケース</th><th>月額/戸</th><th>満室月額（9戸）</th><th>満室年収</th><th>表面利回り</th></tr></thead>
+        <tbody>
+          <tr><td>資料記載</td><td>77,222円</td><td>695,000円</td><td>834.0万円</td><td>7.10%</td></tr>
+          <tr><td>スマサテ標準</td><td>80,000円</td><td>720,000円</td><td>864.0万円</td><td style="color:#27ae60;font-weight:700;">7.36%</td></tr>
+        </tbody>
+      </table>
+      <div class="alert-info">
+        <strong>スマサテ結果: 賃料設定はほぼ適正（-3.6%）。</strong> 上振れ余地は月2,778円/戸程度で限定的。スマサテ査定を採用しても利回りは7.36%止まりでキャプテン基準の8%未達は変わらず。
+      </div>
+
+      <h3>スクショ・成果物パス</h3>
+      <ul>
+        <li>survey.html（全セクション注入済）: <code>acquisition/pipeline/20260922_kindness-higashikawaguchi_survey.html</code></li>
+        <li>スマサテ結果: <code>knowledge/sumasate-results/20260922103855_kindness-higashikawaguchi_result_01〜05.png</code></li>
+        <li>ハザードpopup: <code>knowledge/hazardmap-debug/kindness-higashikawaguchi_hazard_popup.png</code></li>
+        <li>ハザードzoom50m: <code>knowledge/hazardmap-debug/kindness-higashikawaguchi_hazard_zoom50m.png</code></li>
+        <li>スマサテ結果URL: <a href="https://owners.sumasate.jp/assessment_results/505678" target="_blank">https://owners.sumasate.jp/assessment_results/505678</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ハルト -->
+  <div class="card haruto">
+    <div class="section-header">
+      <span class="icon">🔍</span>
+      <h2>ハルト — エリア・利回り分析</h2>
+    </div>
+    <div class="analysis-content">
+      <p>正直、今回はキャプテン基準の3項目（価格・利回り・ハザード）を同時に外していて、擁護材料が見つからないです。エリア面では東川口駅は武蔵野線＋埼玉高速鉄道の2路線利用でJR京浜東北線川口駅までのアクセスが強く、川口市の人口は約60万人・東川口駅乗降者数も5万人/日規模で単身需要は底堅い。ただ徒歩11分・1K×9戸は駅近1K供給が多い川口エリアでは競合過多で、資料賃料8.0万円は妥当ながら空室期間は長期化しやすいです。</p>
+
+      <p>利回り7.1%は川口市平均5.96%より上ですが、これは新築プレミアム＋土地先行スキームの価格上乗せ分（松本氏の建築請負込み）を織り込んだ結果で「割安」ではなく「実需向けデベ価格」。総額1.17億は基準+17%、投資回収14年強で、キャプテン基準の8%（同エリア収益還元1.05億見合い）から見ると▲1,300万円割高。加えて洪水浸水3〜5m＋家屋倒壊等氾濫区域は保険料と流動性で致命傷レベル。</p>
+
+      <div class="alert-danger">
+        <strong>結論：即NG。</strong> ハザード基準・価格基準・利回り基準の3枚抜きで、光る点を見つけられません。エリア自体は悪くないので、東川口・南浦和・武蔵浦和で「築浅・徒歩10分内・浸水想定なし・8%超」の物件をハウスリンクホーム松本氏に逆指名してもらう方向を提案します。
+      </div>
+    </div>
+  </div>
+
+  <!-- リョウ -->
+  <div class="card ryo">
+    <div class="section-header">
+      <span class="icon">🔎</span>
+      <h2>リョウ — DDチェック</h2>
+    </div>
+    <div class="analysis-content">
+      <p>ちょっと待ってください、この物件は購入判断の前にDDで潰すべき重大リスクが複数あります。</p>
+
+      <h3>リスクフラグ</h3>
+      <ul>
+        <li><strong>ハザード（致命的）</strong>：洪水浸水想定3.0m〜5.0m＋家屋倒壊等氾濫区域（河岸浸食）に立地。融資行の多くがNG判定、火災保険の水災料率も跳ね上がる。売却時の出口も細る。</li>
+        <li><strong>接道</strong>：幅員4.0m位置指定道路に2.0m接道（間口2mギリギリ）。旗竿地の可能性大。再建築可否・車両進入可否・重機搬入コストを要確認。セットバック要否も未確認。</li>
+        <li><strong>位置指定道路持分</strong>：27番9（持分13838/27714）と27番10（持分1994/31972）で持分比率が大きく異なる。掘削・通行承諾の要否、他共有者への承諾書取得可否を確認必須。</li>
+        <li><strong>建築条件付き・土地先行</strong>：土地決済後に建物請負契約→着工→引渡までのタイムラグで、資材高騰・工期延伸・完成不動リスクを負う。建物請負契約書・工程表・遅延損害金条項・引渡確約の担保が必要。</li>
+        <li><strong>売主取引</strong>：仲介手数料ゼロは○だが、契約不適合責任の免責範囲・期間を要精査。</li>
+      </ul>
+
+      <h3>キャプテンへの確認事項</h3>
+      <ul>
+        <li>建物請負契約書ドラフトと工程表は入手済みですか？</li>
+        <li>ハザード上、オリックス・auじぶんの融資内諾は取れる見込みですか？（融資行の水害エリア判定を要事前確認）</li>
+        <li>位置指定道路の掘削・通行承諾書の取得状況は？</li>
+        <li>間口2mの車両進入可否・建築確認済の想定は？</li>
+      </ul>
+
+      <div class="alert-danger">
+        <strong>総合判定: リスクレベル 高。</strong>ハザードだけでも即NG級。ハルトの利回り評価が良くても、私は融資と出口の観点でストップをかけます。
+      </div>
+
+      <a href="{DD_URL}" class="link-btn link-btn-blue" target="_blank">📋 入力済みDDリストを開く</a>
+    </div>
+  </div>
+
+  <!-- アキ -->
+  <div class="card aki">
+    <div class="section-header">
+      <span class="icon">📊</span>
+      <h2>アキ — IG+収支計算 / 玉川式シート</h2>
+    </div>
+    <div class="analysis-content">
+
+      <h3>収益・費用サマリー（資料賃料ベース）</h3>
+      <div class="metrics-grid">
+        <div class="metric-box">
+          <div class="m-label">満室想定年収</div>
+          <div class="m-value m-neutral">834.0万円</div>
+        </div>
+        <div class="metric-box">
+          <div class="m-label">実収入（空室5%控除）</div>
+          <div class="m-value m-neutral">792.3万円</div>
+        </div>
+        <div class="metric-box">
+          <div class="m-label">費用合計</div>
+          <div class="m-value m-neutral">157.1万円</div>
+        </div>
+        <div class="metric-box">
+          <div class="m-label">NOI（純営業収益）</div>
+          <div class="m-value m-neutral">635.2万円</div>
+        </div>
+      </div>
+      <p style="font-size:0.85rem;color:#666;margin-bottom:8px;">費用内訳: 賃貸管理費(5%)39.6万 / 建物管理(BM 坪200)16.6万 / 共用水光熱4.1万 / 災害保険(建築費0.3%)11.4万 / 固都税(新築7%推計)55.5万 / 修繕費(0.1%)3.8万 / 原状回復(新築)8.6万 / AD(1ヶ月×25%)17.4万</p>
+      <p style="font-size:0.85rem;color:#666;">NOI利回り: 5.41% ／ 積算比率: 66.6%（建物48,014,400円＋土地30,139,200円 = 78,153,600円 ÷ 11,740万円）</p>
+
+      <h3>ローン試算比較（資料賃料ベース）</h3>
+      <table class="loan-table">
+        <thead>
+          <tr>
+            <th>指標</th>
+            <th>① オリックス銀行（100%・2.6%・35年）</th>
+            <th>② auじぶん銀行（95%・2.4%・35年）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>借入額</td><td>11,740万円</td><td>11,153万円</td></tr>
+          <tr><td>自己資金</td><td>470万円（諸費用4%のみ）</td><td>1,057万円（頭金5%+諸費用4%）</td></tr>
+          <tr><td>月返済額</td><td>約420,540円</td><td>約393,530円</td></tr>
+          <tr><td>年間返済額</td><td>504.6万円</td><td>472.2万円</td></tr>
+          <tr><td>返済比率</td><td>63.7%</td><td>59.6%</td></tr>
+          <tr><td>CF（税引前）</td><td>130.6万円/年</td><td>163.0万円/年</td></tr>
+          <tr><td>CF率</td><td><span class="m-ok">1.11%（OK）</span></td><td><span class="m-ok">1.39%（OK）</span></td></tr>
+          <tr><td>CCR</td><td><span class="m-ok">27.8%（OK）</span></td><td><span class="m-neutral">15.4%（弱OK）</span></td></tr>
+        </tbody>
+      </table>
+
+      <h3>スマサテ賃料版（利回り7.36%）</h3>
+      <p>スマサテ標準賃料80,000円/戸想定でNOI約659万円 → CFが年+30万円上振れ。ただし表面利回りは7.36%止まりで、キャプテン基準8%は依然未達。</p>
+
+      <div class="alert-danger">
+        <strong>キャプテン基準判定（アキ）</strong>
+        <ul style="margin-top:8px;">
+          <li>価格1億超NG（11,740万円 → +17.4%超過）</li>
+          <li>表面利回り7.10%NG（8%基準未達）</li>
+          <li>CF率OK・CCRオリックスOK・auじぶんは弱OK</li>
+          <li>積算比率OK（66.6%）</li>
+          <li>10年目税引後IRR≥25%は玉川式で要確認</li>
+        </ul>
+      </div>
+
+      <div class="alert-warning">
+        <strong>指値シナリオ:</strong> 利回り8%達成には価格を<strong>約10,425万円まで指値必要（1,315万円ダウン）</strong>。ハザード即NGを考えると、指値して数字を作っても本質的な問題は解決しません。
+      </div>
+
+      <h3>キャプテンへの確認事項</h3>
+      <ol>
+        <li>利回り8%達成には価格を約10,425万円まで指値必要（1,315万円ダウン）。指値方針でDD進めますか？（ハザード即NGを考えると推奨しません）</li>
+        <li>相続路線価21万円/㎡で土地評価3,014万円計上済み。固定資産税実額（公課証明書）が入手できれば固都税精度が上がります</li>
+        <li>10年目税引後IRR≥25%基準は玉川式TGファイルをブラウザで開いて要確認</li>
+      </ol>
+
+      <div style="margin-top:12px;">
+        <a href="{IG_URL}" class="link-btn link-btn-green" target="_blank">📊 IG+【資料賃料版】を開く</a>
+        <a href="{IG_SUMASATE_URL}" class="link-btn link-btn-teal" target="_blank">📊 IG+【スマサテ賃料版】を開く</a>
+        <a href="{TG_URL}" class="link-btn link-btn-lime" target="_blank">📈 玉川式シートを開く</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 村田先生 -->
+  <div class="card murata">
+    <div class="section-header">
+      <span class="icon">🏛️</span>
+      <h2>村田先生 — 建築士コメント</h2>
+    </div>
+    <div class="analysis-content">
+      <p>現場を見ないと断言はできませんが、資料ベースで率直にお伝えします。まず<strong>木造3階建て共同住宅は法27条により1時間準耐火（ロ準耐2号相当）が必須</strong>で、外壁・軒裏の防火性能、界壁の小屋裏まで達する遮音・遮炎、2方向避難の確保がポイントです。</p>
+
+      <p><strong>坪89.9万円は新築木造準耐火アパートとして相場ど真ん中</strong>（80〜95万円/坪帯）で、オートロック・宅配BOX込みなら妥当。むしろ安すぎる場合は界壁・遮音仕様を要確認。</p>
+
+      <p><strong>接道2.0m×4.0m位置指定道路</strong>は建築基準法上ギリギリ適合ですが、持分実態と位置指定図の整合、掘削承諾の要否は必ず確認を。</p>
+
+      <h3>修繕計画（10〜20年スパン）</h3>
+      <ul>
+        <li>築10〜15年で外壁塗装（約180〜200万円）・屋根防水（80〜120万円）</li>
+        <li>15〜20年で給湯器9台一斉更新（100万円前後）</li>
+      </ul>
+
+      <div class="alert-danger">
+        <strong>最重要：ハザード浸水3〜5m＋家屋倒壊等氾濫区域への建築対策</strong>
+        <ul style="margin-top:8px;">
+          <li>1階配置なら分電盤・給湯器・受水槽等の重要設備を2階以上または嵩上げ</li>
+          <li>コンセント高さ変更、ピロティ化検討は建築請負契約前に必ず設計者と詰めること</li>
+          <li>土地先行契約時点で仕様確定させないと後で追加費用が跳ねます</li>
+        </ul>
+      </div>
+
+      <h3>現地で必ず確認すべき3点</h3>
+      <ol>
+        <li>位置指定道路の実測幅員・境界</li>
+        <li>隣地との離隔と外壁後退</li>
+        <li>浸水痕跡・地盤高低差</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- キャプテンへの確認事項まとめ -->
+  <div class="card confirm-card">
+    <div class="section-header">
+      <span class="icon">❓</span>
+      <h2>キャプテン確認事項まとめ</h2>
+    </div>
+    <ul class="confirm-list">
+      <li><span class="confirm-num">1</span><span><strong>[アキ]</strong> 利回り8%達成には価格を<strong>約10,425万円まで指値必要（1,315万円ダウン）</strong>。指値方針でDD進めますか？（ただしハザード即NGを考えると推奨しません）</span></li>
+      <li><span class="confirm-num">2</span><span><strong>[リョウ]</strong> ハザード上、オリックス・auじぶんの融資内諾は取れる見込みですか？（融資行の水害エリア判定を要事前確認）</span></li>
+      <li><span class="confirm-num">3</span><span><strong>[リョウ]</strong> 建物請負契約書ドラフトと工程表は入手済みですか？</span></li>
+      <li><span class="confirm-num">4</span><span><strong>[リョウ]</strong> 位置指定道路（27番9・27番10）の掘削・通行承諾書の取得状況は？</span></li>
+      <li><span class="confirm-num">5</span><span><strong>[リョウ]</strong> 間口2mの車両進入可否・建築確認済の想定は？</span></li>
+      <li><span class="confirm-num">6</span><span><strong>[アキ]</strong> 相続路線価21万円/㎡で土地評価3,014万円計上済み。固定資産税実額（公課証明書）が入手できれば固都税精度が上がります</span></li>
+      <li><span class="confirm-num">7</span><span><strong>[アキ]</strong> 10年目税引後IRR≥25%基準は玉川式TGファイルをブラウザで開いて要確認</span></li>
+      <li><span class="confirm-num">8</span><span><strong>[村田先生]</strong> 現地で①位置指定道路の実測幅員・境界②隣地との離隔と外壁後退③浸水痕跡・地盤高低差を必ず確認</span></li>
+    </ul>
+  </div>
+
+  <!-- チーム総合所見 -->
+  <div class="card verdict">
+    <div class="section-header">
+      <span class="icon">🏁</span>
+      <h2>チーム総合所見</h2>
+    </div>
+    <div class="verdict-grid">
+      <div class="verdict-item">
+        <div class="v-label">総合判定</div>
+        <div style="font-size:1.3rem;font-weight:700;color:#c0392b;">見送り推奨（即NG級ハザード）</div>
+        <div style="font-size:0.85rem;color:#666;margin-top:6px;">キャプテン基準 3項目同時NG（価格・利回り・ハザード）</div>
+      </div>
+      <div class="verdict-item">
+        <div class="v-label">最大リスク</div>
+        <div style="font-size:1.0rem;font-weight:700;color:#c0392b;">洪水浸水3〜5m ＋ 家屋倒壊等氾濫区域</div>
+        <div style="font-size:0.85rem;color:#666;margin-top:6px;">融資・保険・出口の3つが同時に毀損</div>
+      </div>
+      <div class="verdict-item">
+        <div class="v-label">数字上の魅力</div>
+        <div style="font-size:1.0rem;font-weight:700;color:#27ae60;">CF・CCR・積算比率は成立</div>
+        <div style="font-size:0.85rem;color:#666;margin-top:6px;">ただし上位スクリーニング（価格・ハザード）で外れる</div>
+      </div>
+      <div class="verdict-item">
+        <div class="v-label">次のアクション</div>
+        <div style="font-size:1.0rem;font-weight:700;color:#2980b9;">丁重見送り＋逆指名依頼</div>
+        <div style="font-size:0.85rem;color:#666;margin-top:6px;">松本氏に「築浅・徒歩10分内・浸水想定なし・8%超・1億以内」の物件を逆指名</div>
+      </div>
+    </div>
+
+    <div class="alert-danger">
+      <strong>チームコンセンサス：見送り推奨。</strong> ハルト・リョウ・アキの3名が「即NG級」で一致。物件スペック自体（新築・木造3階建1K×9戸・東川口駅徒歩11分・オートロック・宅配BOX）は現代標準を満たしており、路線価21万円/㎡のエリア評価も良好。ただし<strong>①ハザード浸水3〜5m＋家屋倒壊等氾濫区域（河岸浸食）</strong>という致命的なマクロリスク、<strong>②総額11,740万円（1棟目基準+17%超過）</strong>、<strong>③表面利回り7.10%（1棟目8%基準未達）</strong>の3枚抜きで、TC Capitalsの1棟目適格からは明確に外れます。指値して数字を作っても、ハザードリスクは埋め合わせできません。
+    </div>
+
+    <div class="alert-info">
+      <strong>返信提案（B案・関係維持型）:</strong><br>
+      「①東川口駅徒歩11分×新築×オートロック・宅配BOX込みで利回り7.1%は市場相場（川口市平均5.96%）比では良好で、御社の一貫供給スキームの優位性は理解しております ②弊社1棟目基準（1億円以内・利回り8%以上・浸水想定2m未満）に照らすと、本件は総額と浸水リスクの2点で今回は見送りとなります ③次回情報として『東川口・南浦和・武蔵浦和エリアで築浅・徒歩10分内・浸水想定なし・8%超・1億以内』の物件がございましたら、ぜひ最優先でご紹介いただきたく」→ ハウスリンクホーム松本様との中長期リレーション維持を優先。
+    </div>
+
+    <div style="margin-top:16px;">
+      <a href="{REVIEW_URL}" class="link-btn link-btn-orange" target="_blank">📑 チーム精査レポート（本ページ）</a>
+      <a href="{SURVEY_URL}" class="link-btn link-btn-teal" target="_blank">🔍 物件調査レポート（スマサテ・路線価・ハザード）</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  不動産仕入部 — カインドネス東川口 精査レポート ／ 2026-09-22 ／ TC Capitals（キャプテン：山口輝大）
+</div>
+
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260922_kindness-higashikawaguchi_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260922_kindness-higashikawaguchi_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
