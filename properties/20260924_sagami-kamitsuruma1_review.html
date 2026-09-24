@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【チーム精査レポート】Jibe Lagoon上鶴間1丁目（相模原市南区・トラストライフ）</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Hiragino Kaku Gothic ProN","Meiryo",sans-serif; background: #f0f4f8; color: #333; font-size: 14px; line-height: 1.7; }
+  .header { background: #1a2a5e; color: #fff; padding: 24px 32px; }
+  .header h1 { font-size: 22px; font-weight: bold; margin-bottom: 6px; }
+  .header .meta { font-size: 13px; color: #a0b4d0; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 24px 16px; }
+  .card { background: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); padding: 20px 24px; margin-bottom: 20px; }
+  .section-title { font-size: 15px; font-weight: bold; padding: 8px 14px; border-radius: 4px; color: #fff; margin-bottom: 14px; }
+  .title-orange { background: #e67e22; }
+  .title-blue { background: #2980b9; }
+  .title-green { background: #27ae60; }
+  .title-brown { background: #8b5e3c; }
+  .title-teal { background: #16a085; }
+  .title-red { background: #c0392b; }
+  .title-navy { background: #1a2a5e; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #1a2a5e; color: #fff; padding: 8px 10px; text-align: left; }
+  td { padding: 7px 10px; border-bottom: 1px solid #e8ecf0; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) { background: #f7f9fc; }
+  .ok { color: #27ae60; font-weight: bold; }
+  .ng { color: #e74c3c; font-weight: bold; }
+  .warn { color: #e67e22; font-weight: bold; }
+  .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 12px; }
+  .summary-item { background: #f7f9fc; border: 1px solid #e0e6ed; border-radius: 6px; padding: 12px; text-align: center; }
+  .summary-item .label { font-size: 11px; color: #666; margin-bottom: 4px; }
+  .summary-item .value { font-size: 18px; font-weight: bold; color: #1a2a5e; }
+  .summary-item .sub { font-size: 11px; color: #888; margin-top: 2px; }
+  .criterion-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .criterion-item { border: 2px solid; border-radius: 6px; padding: 10px 14px; }
+  .criterion-ok { border-color: #27ae60; background: #f0faf4; }
+  .criterion-ng { border-color: #e74c3c; background: #fff5f5; }
+  .criterion-warn { border-color: #e67e22; background: #fff9f0; }
+  .criterion-item .c-label { font-size: 11px; color: #666; }
+  .criterion-item .c-value { font-size: 15px; font-weight: bold; }
+  .criterion-item .c-judge { font-size: 12px; font-weight: bold; margin-top: 2px; }
+  .link-btn { display: inline-block; padding: 8px 16px; border-radius: 4px; color: #fff; text-decoration: none; font-size: 13px; font-weight: bold; margin: 4px 4px 4px 0; }
+  .btn-blue { background: #2980b9; }
+  .btn-green { background: #27ae60; }
+  .btn-orange { background: #e67e22; }
+  .btn-brown { background: #8b5e3c; }
+  .btn-teal { background: #16a085; }
+  ul.list { list-style: none; padding: 0; }
+  ul.list li { padding: 5px 0; border-bottom: 1px solid #f0f0f0; }
+  ul.list li:last-child { border-bottom: none; }
+  ul.list li::before { content: "・"; color: #888; margin-right: 4px; }
+  .risk-box { background: #fff5f5; border: 1px solid #f5c6c6; border-radius: 6px; padding: 14px; margin-bottom: 10px; }
+  .risk-box .risk-title { color: #c0392b; font-weight: bold; font-size: 13px; margin-bottom: 6px; }
+  .check-box { background: #f0faf4; border: 1px solid #b7dfc7; border-radius: 6px; padding: 14px; margin-bottom: 10px; }
+  .warn-box { background: #fff9f0; border: 1px solid #fad1a1; border-radius: 6px; padding: 14px; margin-bottom: 10px; }
+  .confirmation-list { background: #fff9f0; border-left: 4px solid #e67e22; padding: 14px 18px; border-radius: 0 6px 6px 0; }
+  .confirmation-list ol { padding-left: 18px; }
+  .confirmation-list li { padding: 4px 0; }
+  .hazard-row { display: flex; align-items: center; padding: 6px 0; border-bottom: 1px solid #f0f0f0; }
+  .hazard-row:last-child { border-bottom: none; }
+  .hazard-label { width: 200px; font-size: 13px; color: #555; }
+  .hazard-value { flex: 1; font-size: 13px; }
+  .total-verdict { text-align: center; padding: 16px; margin-top: 12px; }
+  .verdict-warn { background: #fff3e0; border: 2px solid #e67e22; border-radius: 8px; }
+  .verdict-warn .verdict-label { font-size: 18px; font-weight: bold; color: #e67e22; }
+  .verdict-ng { background: #ffebee; border: 2px solid #e74c3c; border-radius: 8px; }
+  .verdict-ng .verdict-label { font-size: 20px; font-weight: bold; color: #e74c3c; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260924_sagami-kamitsuruma1_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=7270&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=6.8&floorArea=122.98&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=7270&pi_age_inp=0&pi_yield_inp=6.8&pi_area_inp=122.98&pi_rooms_inp=6&ik_land_area=200.34&ik_route_price=19.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E7%9B%B8%E6%A8%A1%E5%8E%9F%E5%B8%82%E5%8D%97%E5%8C%BA%E4%B8%8A%E9%B6%B4%E9%96%931%E4%B8%81%E7%9B%AE21-7" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=7270&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=5.84&floorArea=122.98&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=7270&pi_age_inp=0&pi_yield_inp=5.84&pi_area_inp=122.98&pi_rooms_inp=6&ik_land_area=200.34&ik_route_price=19.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E7%9B%B8%E6%A8%A1%E5%8E%9F%E5%B8%82%E5%8D%97%E5%8C%BA%E4%B8%8A%E9%B6%B4%E9%96%931%E4%B8%81%E7%9B%AE21-7" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260924_sagami-kamitsuruma1_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20260924_sagami-kamitsuruma1_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+<div class="header">
+  <h1>【チーム精査レポート】Jibe Lagoon上鶴間1丁目（条件付き売地）AP ★★★</h1>
+  <div class="meta">精査日: 2026-09-24 ／ 精査チーム: ハルト・リョウ・アキ・村田先生 ／ 売主: トラストライフ株式会社</div>
+</div>
+
+<div class="container">
+
+  <!-- 物件サマリー -->
+  <div class="card">
+    <div class="section-title title-navy">📋 物件サマリー</div>
+    <div class="summary-grid">
+      <div class="summary-item"><div class="label">価格</div><div class="value">7,270万円</div><div class="sub">土地3,250 / 建物4,020</div></div>
+      <div class="summary-item"><div class="label">表面利回り</div><div class="value">6.80%</div><div class="sub">資料想定・満室時</div></div>
+      <div class="summary-item"><div class="label">築年</div><div class="value">新築</div><div class="sub">2027年4月完成予定</div></div>
+      <div class="summary-item"><div class="label">構造・戸数</div><div class="value">木造2F / 6戸</div><div class="sub">1K×6戸・劣化等級3</div></div>
+    </div>
+    <table style="margin-top:10px;">
+      <tr><th>所在地</th><td>神奈川県相模原市南区上鶴間1丁目21-7（仮）</td></tr>
+      <tr><th>交通</th><td>小田急江ノ島線「東林間」駅 徒歩11分</td></tr>
+      <tr><th>土地・建物</th><td>土地 200.34㎡ ／ 延床 122.98㎡（37.2坪）</td></tr>
+      <tr><th>取引態様</th><td><span class="ok">売主（トラストライフ株式会社）</span> — 諸費用4%・仲介料0%</td></tr>
+      <tr><th>販売条件</th><td><span class="warn">条件付き売地（土地先行決済）</span></td></tr>
+      <tr><th>劣化対策等級</th><td><span class="ok">3級（★★★・水回りグレードアップ）</span></td></tr>
+      <tr><th>年間想定賃料</th><td>494.4万円（平均6.87万円/戸・1K×6戸）</td></tr>
+    </table>
+  </div>
+
+  <!-- キャプテン基準チェック -->
+  <div class="card">
+    <div class="section-title title-navy">🎯 キャプテン基準チェック（6指標）</div>
+    <div class="criterion-grid">
+      <div class="criterion-item criterion-ok"><div class="c-label">価格 ≤ 1億</div><div class="c-value">7,270万円</div><div class="c-judge ok">✅ OK</div></div>
+      <div class="criterion-item criterion-ng"><div class="c-label">利回り ≥ 7.1%</div><div class="c-value">6.80%（実勢5.84%）</div><div class="c-judge ng">❌ NG</div></div>
+      <div class="criterion-item criterion-ng"><div class="c-label">CF率 ≥ 10%</div><div class="c-value">0.86〜1.50%</div><div class="c-judge ng">❌ NG</div></div>
+      <div class="criterion-item criterion-warn"><div class="c-label">CCR ≥ 15%</div><div class="c-value">21.5%（オリックス）</div><div class="c-judge ok">✅ OK</div></div>
+      <div class="criterion-item criterion-ok"><div class="c-label">積算比率 ≥ 90%</div><div class="c-value">94.3%（路線価19.5万）</div><div class="c-judge ok">✅ OK</div></div>
+      <div class="criterion-item criterion-warn"><div class="c-label">10年目IRR ≥ 25%</div><div class="c-value">要TG確認</div><div class="c-judge warn">🟡 要確認</div></div>
+    </div>
+    <div class="total-verdict verdict-warn" style="margin-top:16px;">
+      <div class="verdict-label">総合: 6指標中3項達成（利回り・CFが基準未達）</div>
+      <div style="font-size:13px;color:#666;margin-top:4px;">積算・エリア・ハザードは合格。ただし表面利回り6.8%、スマサテ実勢賃料ベースだと5.84%まで低下し、CFが薄い。</div>
+    </div>
+  </div>
+
+  <!-- ハルト調査（路線価・ハザード・スマサテ） -->
+  <div class="card">
+    <div class="section-title title-teal">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト自動調査）</div>
+
+    <h3 style="font-size:14px;color:#0e7c7b;margin:8px 0 6px;">■ 相続税路線価（chikamap.jp 令和7年分）</h3>
+    <table>
+      <tr><th>路線価</th><td><strong>19.5万円/㎡</strong>（借地権割合: D 60%）</td></tr>
+      <tr><th>土地評価額</th><td>19.5万円/㎡ × 200.34㎡ = <strong>3,906.6万円</strong></td></tr>
+      <tr><th>取得元</th><td>chikamap.jp 令和7年分 自動取得</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;color:#0e7c7b;margin:16px 0 6px;">■ 重ねるハザードマップ判定</h3>
+    <div class="hazard-row"><div class="hazard-label">洪水浸水想定</div><div class="hazard-value"><span class="ok">✅ 非該当</span></div></div>
+    <div class="hazard-row"><div class="hazard-label">土砂災害警戒区域</div><div class="hazard-value"><span class="ok">✅ 非該当</span></div></div>
+    <div class="hazard-row"><div class="hazard-label">津波浸水想定</div><div class="hazard-value"><span class="ok">✅ 非該当</span></div></div>
+    <div class="hazard-row"><div class="hazard-label">液状化危険度</div><div class="hazard-value">確認不可（要現地）</div></div>
+    <div class="total-verdict" style="background:#f0faf4;border:2px solid #27ae60;border-radius:8px;padding:12px;margin-top:10px;">
+      <div style="font-size:16px;font-weight:bold;color:#27ae60;">総合判定: ✅ 問題なし</div>
+    </div>
+
+    <h3 style="font-size:14px;color:#0e7c7b;margin:16px 0 6px;">■ スマサテ賃料査定</h3>
+    <table>
+      <tr><th>スマサテ査定家賃</th><td><strong>59,000円/月</strong>（1K・20.5㎡・東林間駅徒歩11分・新築）</td></tr>
+      <tr><th>資料想定家賃</th><td>68,700円/月</td></tr>
+      <tr><th>乖離</th><td><span class="ng">▲14.1%（資料が過大）</span></td></tr>
+      <tr><th>実勢利回り</th><td><span class="ng">5.84%</span>（キャプテン基準7.1%を▲1.26pt下回る）</td></tr>
+    </table>
+    <div class="warn-box" style="margin-top:12px;">
+      <strong>⚠️ 賃料設定が実勢比+16.4%高い</strong><br>
+      売主想定通りに満室運営するには、東林間駅徒歩11分・1K・20.5㎡としては相場より1万円近く強気の設定。近隣成約事例の取り寄せと、スマサテ賃料での再収支を必ず並行させる必要あり。
+    </div>
+  </div>
+
+  <!-- ハルト -->
+  <div class="card">
+    <div class="section-title title-orange">🌅 ハルト（エリア・利回り分析）</div>
+
+    <h3 style="font-size:14px;color:#e67e22;margin:8px 0 6px;">■ エリア評価</h3>
+    <ul class="list">
+      <li>相模原市南区上鶴間1丁目は<strong>16号内側の一都三県内</strong>で立地要件は満たす</li>
+      <li>東林間駅（小田急江ノ島線）は町田・相模大野・新宿へのアクセスが強く、単身賃貸の実需は安定</li>
+      <li>徒歩11分は同シリーズ内では「中位」。1K単身女性を含む幅広い層をカバーできる</li>
+      <li>境川流域だが本物件はハザード非該当。周辺低地とは別街区で立地条件は良好</li>
+    </ul>
+
+    <h3 style="font-size:14px;color:#e67e22;margin:16px 0 6px;">■ 利回り評価</h3>
+    <ul class="list">
+      <li>表面6.80%は新築木造としては<strong>キャプテン基準7.1%を▲0.3pt下回る</strong></li>
+      <li>スマサテ査定ベースの実勢利回り5.84%だと基準を▲1.26pt下回り、<strong>キャッシュフローが薄い</strong></li>
+      <li>売主直販で諸費用4%に抑えられる点、劣化等級3で長期保有耐性がある点はプラス</li>
+      <li>指値するなら6,400万円台（実勢利回り6.6%圏）まで下がれば土地値担保勝負で再検討の余地あり</li>
+    </ul>
+
+    <div class="warn-box" style="margin-top:12px;">
+      <strong>ハルトの率直な評価: 見送り推奨 — ただし価格交渉で復活の余地あり</strong><br>
+      土地値・ハザード・設備は光るが、スマサテ賃料が資料比▲14%乖離しているのがキツい。この価格・この利回りでは融資も収支も厳しめ。ただし積算比率94%と土地値担保は強く、価格交渉が入れば化ける可能性はある。
+    </div>
+  </div>
+
+  <!-- リョウ -->
+  <div class="card">
+    <div class="section-title title-blue">🔍 リョウ（デューデリジェンス）</div>
+
+    <h3 style="font-size:14px;color:#2980b9;margin:8px 0 6px;">■ 確認済み ✅</h3>
+    <ul class="list">
+      <li>構造: 木造2階建・耐用22年（新築のためフル計上可）</li>
+      <li>築年: 新築（2027年4月完成予定）・新耐震・省エネ2025年義務化後</li>
+      <li>取引態様: 売主直販（諸費用4%で計算可・仲介料ゼロ）</li>
+      <li>土地建物比率: 土地3,250 / 建物4,020（建物55.3%）→ 減価償却上有利</li>
+    </ul>
+
+    <h3 style="font-size:14px;color:#2980b9;margin:16px 0 6px;">■ 最大リスク</h3>
+    <div class="risk-box">
+      <div class="risk-title">🔴 想定賃料の実勢乖離 +16.4%</div>
+      資料想定 68,700円/月 vs スマサテ査定 59,000円/月。全戸乖離が続けば実利回り5.84%まで低下。売主に近隣成約事例の提出を要求し、スマサテ賃料で再収支しても回るか確認。
+    </div>
+    <div class="risk-box">
+      <div class="risk-title">🔴 条件付き売地・土地先行決済のスキームリスク</div>
+      土地3,250万円を先行決済 → 建物完成まで7〜9ヶ月間、賃料ゼロで金利のみ発生。つなぎ融資可能な銀行選定必須（神奈川銀行・auじぶん銀行実績あり）。契約白紙撤回条項・遅延損害金条項を必須。
+    </div>
+    <div class="risk-box">
+      <div class="risk-title">🔴 買主が宅建業者相手方 → 契約不適合責任8年主張不可</div>
+      宅建業法40条の適用外。契約書で契約不適合責任期間・範囲を書面確保。売主保証・アフターサービス2〜10年の書面化必須。
+    </div>
+
+    <h3 style="font-size:14px;color:#2980b9;margin:16px 0 6px;">■ 未確認・要入手 ❓</h3>
+    <ul class="list">
+      <li>建築確認済証・建築計画概要書・道路種別図</li>
+      <li>用途地域・建ぺい率・容積率・防火区分</li>
+      <li>近隣成約賃料事例（スマサテ乖離の再検証）</li>
+      <li>建築請負契約書ドラフト・土地売買契約書ドラフト</li>
+      <li>売主保証・アフターサービスの書面</li>
+      <li>サブリース/一括借上げの有無・条件</li>
+      <li>東林間駅1日乗降者数・上鶴間の高低差・擁壁</li>
+    </ul>
+
+    <a href="{dd_url}" class="link-btn btn-blue">📋 DDチェックリスト（入力済み）を開く</a>
+  </div>
+
+  <!-- アキ -->
+  <div class="card">
+    <div class="section-title title-green">💰 アキ（IG+収支計算 + 玉川式）</div>
+
+    <h3 style="font-size:14px;color:#27ae60;margin:8px 0 6px;">■ 収益</h3>
+    <table>
+      <tr><th>満室年収</th><td>494.4万円（6戸 × 6.87万円 × 12ヶ月）</td></tr>
+      <tr><th>実収入（空室5%控除）</th><td>469.7万円</td></tr>
+      <tr><th>NOI（年間費用90.7万円控除後）</th><td>379.0万円 ／ NOI利回り5.21%</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;color:#27ae60;margin:16px 0 6px;">■ ローン試算比較</h3>
+    <table>
+      <tr><th>項目</th><th>オリックス（100%・2.6%・35年）</th><th>神奈川銀行（90%・2.25%・35年）</th></tr>
+      <tr><td>月返済 / 年返済</td><td>26.4万円 / 316.6万円</td><td>22.5万円 / 270.3万円</td></tr>
+      <tr><td>年間CF</td><td>62.4万円</td><td>108.7万円</td></tr>
+      <tr><td>CF率</td><td class="ng">0.86%</td><td class="ng">1.50%</td></tr>
+      <tr><td>返済比率</td><td>64.0%</td><td>54.7%</td></tr>
+      <tr><td>CCR</td><td class="ok">21.5%</td><td class="ng">10.7%</td></tr>
+      <tr><td>自己資金</td><td>290.8万円（諸費用のみ）</td><td>1,017.8万円（頭金727+諸費用290.8）</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;color:#27ae60;margin:16px 0 6px;">■ 積算評価（路線価19.5万円/㎡反映後）</h3>
+    <table>
+      <tr><th>建物評価</th><td>122.98㎡ × 24万円/㎡（等級3・築0年） = <strong>2,951.5万円</strong></td></tr>
+      <tr><th>土地評価</th><td>200.34㎡ × 19.5万円/㎡ = <strong>3,906.6万円</strong></td></tr>
+      <tr><th>積算合計</th><td><strong>6,858.1万円</strong></td></tr>
+      <tr><th>積算比率</th><td><span class="ok">94.3% ✅ キャプテン基準90%クリア</span></td></tr>
+    </table>
+
+    <div class="warn-box" style="margin-top:12px;">
+      <strong>アキの評価</strong><br>
+      積算比率94.3%と土地値担保は強く、劣化等級3で減価償却フル計上できる点はプラス。ただし表面6.8%・実勢5.84%ではキャッシュフローが薄く、1棟目の「安定基盤」としては物足りない。スマサテ賃料版で再検証しても改善しないため、価格交渉できない限り見送りが妥当。
+    </div>
+
+    <div style="margin-top:16px;">
+      <a href="{ig_url}" class="link-btn btn-green">📊 IG+【資料賃料】収支試算</a>
+      <a href="{ig_sumasate_url}" class="link-btn btn-green">📊 IG+【スマサテ賃料】収支試算</a>
+      <a href="{tg_url}" class="link-btn btn-green">📈 玉川式収益試算シート</a>
+    </div>
+  </div>
+
+  <!-- 村田先生 -->
+  <div class="card">
+    <div class="section-title title-brown">🏗️ 村田先生（一級建築士コメント）</div>
+
+    <h3 style="font-size:14px;color:#8b5e3c;margin:8px 0 6px;">■ 構造・仕様の評価</h3>
+    <ul class="list">
+      <li>木造在来2階建・延床122.98㎡・6戸1Kは<strong>プランニングとして無理がない構成</strong></li>
+      <li>劣化対策等級3級は3世代90年相当。等級2級より1段格上で長期保有・売却時に有利</li>
+      <li>水回りグレードアップ（UB・洗面・トイレ）は<strong>空室対策として500〜1,500円/月/戸の家賃差別化可能</strong>・修繕コストは上振れせず美味しい部位</li>
+      <li>建物価格4,020万円 ÷ 37.2坪 = <strong>坪単価108万円</strong>。フェアレンジ坪95〜115万円の中〜やや上寄り、内容相応で割高ではない</li>
+    </ul>
+
+    <h3 style="font-size:14px;color:#8b5e3c;margin:16px 0 6px;">■ 修繕リスクと費用概算</h3>
+    <table>
+      <tr><th>時期</th><th>項目</th><th>費用概算</th></tr>
+      <tr><td>直近5年</td><td>アフター点検・建具調整・給湯器/エアコン部分交換</td><td>基本ゼロ〜戸あたり5-10万</td></tr>
+      <tr><td>中期10-15年</td><td>外壁塗装・給湯器交換・エアコン交換・バルコニー防水</td><td>合計 <strong>270-400万円</strong></td></tr>
+      <tr><td>長期20年以上</td><td>給排水管更新・屋根葺替・2回目の外装大規模修繕</td><td>合計 <strong>430-750万円</strong></td></tr>
+    </table>
+    <div class="check-box" style="margin-top:10px;">
+      <strong>月次修繕積立推奨:</strong> 1戸2,000円×6戸 = 月12,000円（年14.4万円）を最低ラインに。等級3・水回りUP物件なら長期積立で価値保全できる。
+    </div>
+
+    <h3 style="font-size:14px;color:#8b5e3c;margin:16px 0 6px;">■ 条件付き売地における建築士的注意点（最重要）</h3>
+    <div class="risk-box">
+      <div class="risk-title">🔴 土地先行決済は絶対に飲まない</div>
+      建物未完成で数千万円を先払いする構造は、業者倒産時に建物代・アフター保証・瑕疵保険が全部飛ぶ。必ず「土地建物同時決済」を要求。分離させると業者に仕様変更・値上げ交渉の余地を残すことになる。
+    </div>
+    <ul class="list">
+      <li>建物請負契約は土地契約と同時締結を要求</li>
+      <li>建物請負契約書に仕様書（等級3・水回りUP・省エネ・耐震）を別紙添付・遅延損害金条項・下請け丸投げ禁止条項</li>
+      <li>建設業許可番号・住宅完成保証・住宅瑕疵担保責任保険付保証明を書面で</li>
+      <li>代金支払は「土地同時決済＋建物完成金一括」または「土地決済＋着工10%＋完成90%」が健全</li>
+    </ul>
+
+    <h3 style="font-size:14px;color:#8b5e3c;margin:16px 0 6px;">■ 現地で必ず確認してほしいこと</h3>
+    <ul class="list">
+      <li><strong>トラストライフ社の完成物件（Beach Lagoon杉田2丁目など）を先に内見</strong> — 施工品質・共用部の質感・センスは同じ設計施工チームが作る本件の質を映す</li>
+      <li>建築確認申請書副本（意匠図・構造図・仕様書）の閲覧</li>
+      <li>前面道路幅員・42条種別・セットバック有無・境界標</li>
+      <li>東林間駅からの徒歩ルート実測（朝7時と夜9時の2回）</li>
+      <li>境川周辺の冠水履歴を近隣ヒアリング</li>
+      <li>上鶴間1丁目の類似築浅1K相場（20.5㎡は1K狭めの部類）</li>
+    </ul>
+
+    <div class="check-box" style="margin-top:12px;">
+      <strong>村田先生の総評:</strong> 現場を見ないと断言はできませんが、資料から見る限り<strong>「建築物としては見てみたい物件」</strong>。同シリーズ内でも上位仕様、6戸というサイズ感は1棟目〜2棟目として管理負担も現実的。ただし条件付き売地の契約構造を同時決済に持ち込めるか、現地の徒歩11分の質、この2点を先に潰してから建築仕様書の精査に入るのが正しい順序です。
+    </div>
+  </div>
+
+  <!-- キャプテンへの確認事項 -->
+  <div class="card">
+    <div class="section-title title-orange">📢 キャプテンへの確認事項まとめ</div>
+    <div class="confirmation-list">
+      <ol>
+        <li><strong>[賃料実勢]</strong> トラストライフから「近隣成約賃料事例」を出してもらう（資料68,700円 vs スマサテ59,000円で+16.4%乖離）</li>
+        <li><strong>[契約構造]</strong> 土地先行決済ではなく「土地建物同時決済」に変更できるか？ 土地代金3,250万円を先払いする構造は業者倒産リスクが致命的</li>
+        <li><strong>[つなぎ融資]</strong> 土地決済〜建物完成の期間、つなぎ融資はどの銀行で組むか？ 神奈川銀行・auじぶん銀行がつなぎ実績あり</li>
+        <li><strong>[家賃保証]</strong> 引渡し時の家賃保証（サブリース）または売主による賃貸募集保証は付くか？ オリックスAプランの稼働率80%条件と紐づく</li>
+        <li><strong>[契約不適合責任]</strong> 買主が宅建業者相手方でも「引渡しから2年以上」を確保できるか？</li>
+        <li><strong>[建物請負契約]</strong> 契約書と土地売買契約書のドラフトを事前レビューできるか？ 白紙撤回条項の確認必須</li>
+        <li><strong>[書類]</strong> 建築確認済証・建築計画概要書・前面道路種別図はいつ入手できるか？</li>
+        <li><strong>[完成物件内見]</strong> トラストライフ社の完成済み物件（Beach Lagoon杉田2丁目など）を内見して施工品質を確認できるか？</li>
+        <li><strong>[指値余地]</strong> 実勢利回り5.84%を踏まえ、指値6,400万円台（実勢利回り6.6%圏）で買付を通せるか？</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- チーム総合所見 -->
+  <div class="card">
+    <div class="section-title title-red">⚖️ チーム総合所見</div>
+
+    <div class="total-verdict verdict-warn">
+      <div class="verdict-label">⚠️ 現条件では見送り推奨 — 価格交渉次第で復活の余地あり</div>
+    </div>
+
+    <h3 style="font-size:14px;color:#c0392b;margin:16px 0 6px;">■ 総合判断</h3>
+    <ul class="list">
+      <li>基本スペック（新築・木造・売主・劣化等級3・16号内側・ハザード非該当・積算94%）は良好</li>
+      <li>ただし<strong>①表面利回り6.8%はキャプテン基準7.1%未達</strong>、<strong>②スマサテ実勢賃料5.84%まで低下</strong>、<strong>③条件付き売地・土地先行決済のスキームリスク</strong>が3大ネック</li>
+      <li>1棟目の「安定キャッシュフロー基盤」としては物足りず、現状の指値なしでは推奨しづらい</li>
+    </ul>
+
+    <h3 style="font-size:14px;color:#c0392b;margin:16px 0 6px;">■ 最大リスク</h3>
+    <ol style="padding-left:20px;">
+      <li>賃料実勢乖離+16.4% → 実利回り5.84% → CF率0.86-1.50%の薄利</li>
+      <li>土地先行決済3,250万円 → 業者倒産時の全損リスク</li>
+      <li>契約不適合責任8年主張不可（宅建業者相手方）</li>
+    </ol>
+
+    <h3 style="font-size:14px;color:#c0392b;margin:16px 0 6px;">■ 次のアクション（優先順）</h3>
+    <ol style="padding-left:20px;">
+      <li><strong>[必須]</strong> トラストライフに近隣成約賃料事例を要求し、スマサテ査定59,000円の妥当性を再検証</li>
+      <li><strong>[必須]</strong> 「土地建物同時決済」への変更が可能かを打診（不可なら見送り決定）</li>
+      <li><strong>[必須]</strong> トラストライフ完成物件（Beach Lagoon杉田2丁目など）の内見予約</li>
+      <li><strong>[検討]</strong> 6,400万円台への指値打診（実勢利回り6.6%圏の水準）</li>
+      <li><strong>[並行]</strong> 建築確認申請書副本・道路種別図の請求</li>
+    </ol>
+  </div>
+
+  <!-- リンク一覧 -->
+  <div class="card">
+    <div class="section-title title-navy">🔗 精査成果物リンク</div>
+    <div>
+      <a href="{ig_url}" class="link-btn btn-green">📊 IG+【資料賃料】収支試算</a>
+      <a href="{ig_sumasate_url}" class="link-btn btn-green">📊 IG+【スマサテ賃料】収支試算</a>
+      <a href="{tg_url}" class="link-btn btn-green">📈 玉川式収益試算シート</a>
+      <a href="{dd_url}" class="link-btn btn-blue">📋 DDチェックリスト</a>
+      <a href="{survey_url}" class="link-btn btn-teal">🔍 物件調査レポート（スマサテ・路線価・ハザード）</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260924_sagami-kamitsuruma1_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260924_sagami-kamitsuruma1_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
