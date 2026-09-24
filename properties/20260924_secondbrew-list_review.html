@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>セカンドブリュー 物件リスト（9件） — 一覧スクリーニング</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f0f4f8; color: #1a1a2e; line-height: 1.6; }
+    .header { background: linear-gradient(135deg, #1a3a5c 0%, #0d2137 100%); color: white; padding: 32px 40px; }
+    .header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+    .header .subtitle { font-size: 0.95rem; opacity: 0.85; margin-bottom: 8px; }
+    .header .meta { font-size: 0.85rem; opacity: 0.7; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+    .card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #1a3a5c; }
+    .section-header .icon { font-size: 1.4rem; }
+    .section-header h2 { font-size: 1.15rem; font-weight: 700; color: #1a3a5c; }
+    .verdict-banner { background: #fff3cd; border-left: 6px solid #f39c12; padding: 14px 20px; border-radius: 6px; margin-bottom: 20px; }
+    .verdict-banner strong { color: #856404; font-size: 1.05rem; }
+    .rules-box { background: #eef4fa; border-radius: 8px; padding: 14px 18px; margin-bottom: 16px; font-size: 0.88rem; }
+    .rules-box h4 { color: #1a3a5c; margin-bottom: 8px; font-size: 0.95rem; }
+    .rules-box ul { margin-left: 18px; }
+    .rules-box li { margin-bottom: 3px; }
+    table.list { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    table.list th { background: #1a3a5c; color: white; padding: 10px 8px; text-align: left; font-weight: 600; font-size: 0.8rem; }
+    table.list td { padding: 10px 8px; border-bottom: 1px solid #eef2f7; vertical-align: top; }
+    table.list tr:hover { background: #f8fafc; }
+    .badge-check { display: inline-block; background: #fff3cd; color: #856404; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
+    .badge-ng { display: inline-block; background: #f8d7da; color: #721c24; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
+    .badge-ok { display: inline-block; background: #d4edda; color: #1e7e34; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
+    .row-check { background: #fffbea; }
+    .row-ng td { color: #666; }
+    .price-over { color: #c0392b; font-weight: 700; }
+    .yield-hit { color: #856404; font-weight: 700; }
+    .yield-fail { color: #999; }
+    .footnote { font-size: 0.8rem; color: #666; margin-top: 12px; }
+    .team-comment { background: #f8fafc; border-radius: 8px; padding: 16px; margin-top: 16px; }
+    .team-comment h4 { color: #1a3a5c; margin-bottom: 8px; font-size: 0.95rem; }
+    .team-comment p { font-size: 0.9rem; margin-bottom: 8px; }
+    .candidate-highlight { background: #fef9e7; border: 2px solid #f4d03f; border-radius: 8px; padding: 14px 18px; margin: 12px 0; }
+    .candidate-highlight h4 { color: #b7950b; margin-bottom: 8px; font-size: 1rem; }
+    .candidate-highlight ul { margin-left: 18px; font-size: 0.9rem; }
+    .footer { text-align: center; color: #888; font-size: 0.85rem; padding: 20px; }
+  </style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/ig-sheet/" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a>
+</div>
+<div style="margin-top:48px;">
+
+  <div class="header">
+    <h1>セカンドブリュー 一覧スクリーニング（9物件）</h1>
+    <div class="subtitle">TC Capitals 不動産仕入部 — 機械的スクリーニング（築年数別利回り・1億以内・エリア基準）</div>
+    <div class="meta">精査日: 2026-09-24 ／ ソース: 株式会社セカンドブリュー【澤田】</div>
+  </div>
+
+  <div class="container">
+    <div class="verdict-banner">
+      <strong>⚠️ スクリーニング総評: キャプテン基準（築年数別利回り）達成物件は0件。スマサテトリガー(基準×90%)通過は【547】【561/604】の実質2物件のみ。</strong>
+    </div>
+
+    <div class="card">
+      <div class="section-header">
+        <span class="icon">📏</span>
+        <h2>適用基準（キャプテン基準・FIRE v5）</h2>
+      </div>
+      <div class="rules-box">
+        <h4>築年数別・最低利回り（木造アパート）</h4>
+        <ul>
+          <li>新築(0年): <strong>7.1%以上</strong>（スマサテトリガー: 6.39%）</li>
+          <li>築1〜5年: <strong>7.6%以上</strong>（スマサテトリガー: 6.84%）</li>
+          <li>築6〜10年: <strong>8.2%以上</strong>（スマサテトリガー: 7.38%）</li>
+          <li>築11〜15年: <strong>9.0%以上</strong>（スマサテトリガー: 8.10%）</li>
+          <li>築16年以上: <strong>12.0%以上</strong>（スマサテトリガー: 10.80%）</li>
+        </ul>
+        <h4 style="margin-top:10px;">その他</h4>
+        <ul>
+          <li>価格: <strong>1億円以内</strong>（1億超は基準外）</li>
+          <li>エリア: 一都三県</li>
+          <li>IRR: 10年目税引後IRR ≥ 25%（1棟目）</li>
+          <li>除外: 則武/セレーノ小山シリーズ、ユナイト、洗面台なし、16㎡以下狭小、商業ビル</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">
+        <span class="icon">📋</span>
+        <h2>9物件スクリーニング結果</h2>
+      </div>
+      <div style="overflow-x:auto;">
+      <table class="list">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>物件番号</th>
+            <th>所在地</th>
+            <th>駅徒歩</th>
+            <th>構造/戸数</th>
+            <th>築年</th>
+            <th>価格</th>
+            <th>利回り</th>
+            <th>基準利回</th>
+            <th>積算(路線価×土地)</th>
+            <th>判定</th>
+            <th>スキップ理由</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row-check">
+            <td>1</td>
+            <td><strong>547</strong></td>
+            <td>横須賀市平作2-11-6</td>
+            <td>衣笠11分</td>
+            <td>木造2F 1K×9</td>
+            <td>新築(0年)</td>
+            <td>9,720万</td>
+            <td class="yield-hit">7.00%</td>
+            <td>7.1%</td>
+            <td>1,546万(9.2万)</td>
+            <td><span class="badge-check">要検討</span></td>
+            <td>基準0.1%未達／トリガー(6.39%)通過・満室保証付</td>
+          </tr>
+          <tr class="row-ng">
+            <td>2</td>
+            <td>555</td>
+            <td>川崎市川崎区浅田3-4-1</td>
+            <td>小田栄14分</td>
+            <td>木造2F 1K×9</td>
+            <td>築9年</td>
+            <td>9,980万</td>
+            <td class="yield-fail">6.96%</td>
+            <td>8.2%</td>
+            <td>2,706万(22万)</td>
+            <td><span class="badge-ng">NG</span></td>
+            <td>利回り大幅不足（1.24%未達・トリガー7.38%も未達）</td>
+          </tr>
+          <tr class="row-check">
+            <td>3</td>
+            <td><strong>561</strong></td>
+            <td>千葉市稲毛区天台3丁目</td>
+            <td>天台9分</td>
+            <td>木造2F 1K×?</td>
+            <td>築10年</td>
+            <td>7,200万</td>
+            <td class="yield-hit">7.38%</td>
+            <td>8.2%</td>
+            <td>路線価未記載</td>
+            <td><span class="badge-check">要検討</span></td>
+            <td>基準0.82%未達／トリガー(7.38%)ギリギリ通過・オリックスNG明記</td>
+          </tr>
+          <tr class="row-ng">
+            <td>4</td>
+            <td>574</td>
+            <td>川崎市多摩区枡形5-1-4</td>
+            <td>向ヶ丘遊園12分</td>
+            <td>木造2F 1R×10</td>
+            <td>築17年</td>
+            <td class="price-over">10,450万</td>
+            <td class="yield-fail">7.35%</td>
+            <td>12.0%</td>
+            <td>3,132万(18万)</td>
+            <td><span class="badge-ng">NG</span></td>
+            <td>1億超・築16年基準12%大幅未達・トリガー10.8%も未達</td>
+          </tr>
+          <tr class="row-ng">
+            <td>5</td>
+            <td>597</td>
+            <td>横須賀市公郷町2-17-2</td>
+            <td>衣笠10分</td>
+            <td>木造3F</td>
+            <td>築3年</td>
+            <td class="price-over">13,097万</td>
+            <td class="yield-fail">7.00%</td>
+            <td>7.6%</td>
+            <td>1,829万(11.5万)</td>
+            <td><span class="badge-ng">NG</span></td>
+            <td>1億超・基準0.6%未達・稼働率11/12</td>
+          </tr>
+          <tr class="row-ng">
+            <td>6</td>
+            <td>598</td>
+            <td>横浜市神奈川区</td>
+            <td>三ツ沢上町6分</td>
+            <td>木造2F 1R×8</td>
+            <td>築9年</td>
+            <td>8,500万</td>
+            <td class="yield-fail">6.76%</td>
+            <td>8.2%</td>
+            <td>3,878万(23.5万)</td>
+            <td><span class="badge-ng">NG</span></td>
+            <td>利回り1.44%大幅未達・立地◎だが数字が合わない</td>
+          </tr>
+          <tr class="row-check">
+            <td>7</td>
+            <td><strong>604</strong></td>
+            <td>千葉市稲毛区天台3丁目</td>
+            <td>天台9分</td>
+            <td>木造2F 1K×9</td>
+            <td>築10年</td>
+            <td>7,200万</td>
+            <td class="yield-hit">7.38%</td>
+            <td>8.2%</td>
+            <td>1,725万(11.5万)</td>
+            <td><span class="badge-check">要検討</span></td>
+            <td>【561】と住所・価格・利回り一致（実質同一物件の可能性大）</td>
+          </tr>
+          <tr class="row-ng">
+            <td>8</td>
+            <td>616</td>
+            <td>習志野市（実籾）</td>
+            <td>実籾7分</td>
+            <td>木造3F 1K×15</td>
+            <td>築3年</td>
+            <td class="price-over">13,800万</td>
+            <td class="yield-fail">7.01%</td>
+            <td>7.6%</td>
+            <td>1,834万(9.6万)</td>
+            <td><span class="badge-ng">NG</span></td>
+            <td>1億超・オリックスNG・基準0.59%未達</td>
+          </tr>
+          <tr class="row-ng">
+            <td>9</td>
+            <td>618</td>
+            <td>横浜市神奈川区白幡仲町10-2</td>
+            <td>白楽11分</td>
+            <td>木造(新築)</td>
+            <td>新築(0年)</td>
+            <td class="price-over">14,220万</td>
+            <td class="yield-fail">7.00%</td>
+            <td>7.1%</td>
+            <td>—</td>
+            <td><span class="badge-ng">NG</span></td>
+            <td>1億超・基準0.1%未達</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="footnote">※ 積算= 路線価[万円/㎡]×土地面積[㎡]。建物積算は別途。／ 「基準利回」は築年数別・木造アパートの最低利回り基準。／ 「スマサテトリガー」は基準×90%で、査定対象を絞る二段階基準。</p>
+    </div>
+
+    <div class="card">
+      <div class="section-header">
+        <span class="icon">🎯</span>
+        <h2>詳細精査候補（4名チーム深掘り対象）</h2>
+      </div>
+
+      <div class="candidate-highlight">
+        <h4>候補①: 【547】横須賀市平作2丁目 — 新築・満室保証付（唯一の"1億以内×新築"）</h4>
+        <ul>
+          <li>価格 9,720万 / 利回り 7.0%（基準7.1%を0.1%未達）</li>
+          <li><strong>満室保証付き</strong>で新築リースアップリスクを軽減できる点が最大の魅力</li>
+          <li>路線価9.2万・積算1,546万は物件価格の16%と低く、融資評価は厳しめ</li>
+          <li>衣笠駅徒歩11分・木造2階1K×9戸・2025年10月竣工</li>
+          <li><strong>推奨アクション</strong>: スマサテ査定＋オリックス満室保証条件のDD（保証期間・空室時想定家賃・解約条件）</li>
+        </ul>
+      </div>
+
+      <div class="candidate-highlight">
+        <h4>候補②: 【561/604】千葉市稲毛区天台3丁目 — 築10年・7.38%（重複疑い）</h4>
+        <ul>
+          <li>価格 7,200万 / 利回り 7.38%（基準8.2%を0.82%未達だがトリガーぎりぎり通過）</li>
+          <li>築10年・木造2階1K×9戸・天台駅（千葉モノレール）徒歩9分</li>
+          <li><strong>【561】と【604】は住所・築年・価格・利回り一致</strong> → 同一物件の可能性大。積算値のみ違い（【561】記載なし／【604】1,725万）</li>
+          <li>オリックスNG明記 → auじぶん or 地銀ルート必須</li>
+          <li>天台駅は千葉モノレール駅で乗降客数少なく賃貸需要弱め → 賃料下落リスク要検証</li>
+          <li><strong>推奨アクション</strong>: セカンドブリュー澤田様に「561と604は同一物件でしょうか？」確認 → 別物件なら深掘り検討</li>
+        </ul>
+      </div>
+
+      <p style="font-size:0.9rem; margin-top:10px;">
+      上記2物件（重複疑いのため実質2件）についてキャプテンから「4名チーム深掘りお願い」の指示があれば、個別に property-review スキルを起動します。
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="section-header">
+        <span class="icon">🗣️</span>
+        <h2>チームコメント</h2>
+      </div>
+
+      <div class="team-comment">
+        <h4>ハルト（エリア・利回り）</h4>
+        <p>「9件中、キャプテン基準を厳格クリアする物件はゼロっす。それでも実質2物件（547と561/604）はスマサテトリガー通過なので、賃料査定してから最終判断すべきレベル。特に547は"新築×満室保証×1億以内"の希少枠で、保証条件次第では化ける可能性あります。逆に597・598・616あたりは立地は良いんですけど利回りで完全アウトなので、価格交渉なしでは厳しいっす。」</p>
+      </div>
+
+      <div class="team-comment">
+        <h4>リョウ（DD）</h4>
+        <p>「ちょっと待ってください。まず【561】と【604】は住所・価格・利回りが完全一致してるので、これは同一物件の二重掲載か、あるいは隣接する別物件（地積は同じ150㎡）の可能性があります。セカンドブリュー澤田様に確認する必要があります。また【547】の"満室保証付き"は保証期間・保証家賃額・解約条件・オーナーチェンジ後の継承可否が明確でないと数字が組めません。深掘り前に資料請求＋条件確認が先です。」</p>
+      </div>
+
+      <div class="team-comment">
+        <h4>アキ（IG+収支）</h4>
+        <p>「1円の誤差が最終判断を狂わせるので、まず数字が合わない8物件は今回スキップします。積算比率が全物件で50%未満（547は16%、555は27%、574は30%、597は14%、598は46%、616は13%、604は24%）と非常に低く、融資評価が厳しい傾向。CCR・IRR試算前の入口段階で落ちる想定です。深掘りするなら547（満室保証込み）と561/604（重複解消後）で、それぞれオリックス・auじぶんの2パターンでIG+ + 玉川式35年IRRまで見ます。」</p>
+      </div>
+
+      <div class="team-comment">
+        <h4>村田先生（一級建築士）</h4>
+        <p>「現場を見ないと断言はできませんが、9件とも木造アパートで築3〜17年に分布。特に【574】築17年は屋根・外壁の大規模修繕サイクル（15〜20年）に入っており、購入後3〜5年で200〜400万円/棟の修繕費用が発生する可能性が高い。【547】【618】の新築は初期不良（クロス浮き・建具調整）のみ想定でOKだが、10年目のシロアリ・防蟻処理費（10〜20万）は組み込むべき。【561/604】築10年物件は外壁・屋根塗装（100〜150万）の初回サイクルに近づいており、購入後5年以内実施を見込む必要があります。」</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-header">
+        <span class="icon">📌</span>
+        <h2>チーム総合所見</h2>
+      </div>
+      <p style="font-size:0.95rem; line-height:1.8;">
+      セカンドブリュー澤田様から届いた9物件リストを機械的にスクリーニングした結果、<strong>キャプテン基準（築年数別利回り・1億以内）を厳格クリアする物件は0件</strong>でした。
+      </p>
+      <p style="font-size:0.95rem; line-height:1.8; margin-top:10px;">
+      ただし、スマサテトリガー（基準×90%）を通過し詳細精査に値する物件が実質2件あります:
+      </p>
+      <ol style="margin-left:24px; font-size:0.95rem; line-height:1.9; margin-top:6px;">
+        <li><strong>【547】横須賀市平作2丁目・新築・9,720万・7.0%・満室保証付</strong> ← 1億以内×新築×保証付きの希少枠</li>
+        <li><strong>【561/604】千葉市稲毛区天台3丁目・築10年・7,200万・7.38%</strong>（重複疑い → 澤田様に要確認）</li>
+      </ol>
+      <p style="font-size:0.95rem; line-height:1.8; margin-top:10px;">
+      これら2物件は<strong>資料請求＋深掘り精査を推奨</strong>します。他7物件は基準不足・1億超で見送り妥当です。深掘りご指示ください。
+      </p>
+      <p style="font-size:0.95rem; line-height:1.8; margin-top:10px; color:#c0392b;">
+      <strong>最大リスク</strong>: 【547】の"満室保証"の中身が不明。保証期間が短い（3〜5年）・保証家賃が想定家賃の80%以下・解約時ペナルティ大 のいずれかに該当すると新築7.0%は実質6%台まで落ちる可能性あり。まず保証条件書を取り寄せてから深掘りするのが安全です。
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    TC Capitals 不動産仕入部 — チーム: ハルト・リョウ・アキ・村田先生 ／ 精査日: 2026-09-24
+  </div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260924_secondbrew-list_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260924_secondbrew-list_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
