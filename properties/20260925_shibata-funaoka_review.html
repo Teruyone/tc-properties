@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>柴田町一棟アパート — 仕入部チーム精査レポート</title>
+<style>
+  body{font-family:'Segoe UI','Noto Sans JP','Yu Gothic',sans-serif;margin:0;background:#f4f6f8;color:#222;line-height:1.7}
+  .container{max-width:960px;margin:0 auto;padding:24px}
+  .header{background:linear-gradient(135deg,#0d3b6e 0%,#1a5490 100%);color:#fff;padding:24px 28px;border-radius:8px 8px 0 0}
+  .header h1{margin:0;font-size:22px;font-weight:700;letter-spacing:.5px}
+  .header .meta{margin-top:8px;font-size:13px;color:#c9dcef}
+  .warn-banner{background:#c62828;color:#fff;padding:14px 20px;font-size:15px;font-weight:700;border-left:6px solid #7b0000}
+  .card{background:#fff;padding:24px 28px;margin-bottom:14px;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+  .card h2{margin:0 0 14px;font-size:17px;padding:8px 12px;border-radius:4px;color:#fff;display:inline-block}
+  h2.h-summary{background:#0d3b6e}
+  h2.h-criteria{background:#0d3b6e}
+  h2.h-hazard{background:#00838f}
+  h2.h-haruto{background:#e65100}
+  h2.h-ryo{background:#1565c0}
+  h2.h-aki{background:#2e7d32}
+  h2.h-murata{background:#6d4c41}
+  h2.h-confirm{background:#546e7a}
+  h2.h-team{background:#0d3b6e}
+  table{width:100%;border-collapse:collapse;margin:8px 0}
+  th,td{padding:8px 10px;border:1px solid #d0d7e0;font-size:13px;text-align:left}
+  th{background:#eaf1f8;font-weight:600}
+  .num{text-align:right;font-variant-numeric:tabular-nums}
+  .ok{color:#2e7d32;font-weight:700}
+  .ng{color:#c62828;font-weight:700}
+  .warn{color:#ef6c00;font-weight:700}
+  .btn-link{display:inline-block;background:#1a5490;color:#fff;padding:8px 16px;border-radius:4px;text-decoration:none;font-size:13px;font-weight:600;margin:4px 6px 4px 0}
+  .btn-link:hover{background:#0d3b6e}
+  .subhead{font-size:14px;color:#546e7a;font-weight:600;margin-top:14px;margin-bottom:6px}
+  ul{padding-left:22px;margin:8px 0}
+  li{margin-bottom:4px;font-size:13px}
+  .footer{text-align:center;color:#78909c;font-size:12px;padding:14px 0}
+  .callout{background:#fff3e0;border-left:4px solid #ef6c00;padding:10px 14px;margin:10px 0;font-size:13px}
+  .callout.red{background:#ffebee;border-left-color:#c62828}
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260925_shibata-funaoka_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=1700&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=13.12&floorArea=146.16&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=35&taxRateIncome=20&pi_price_inp=1700&pi_age_inp=35&pi_yield_inp=13.12&pi_area_inp=146.16&pi_rooms_inp=6&ik_land_area=163.82&ik_route_price=2.7&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&pi_struct_sel=%E8%BB%BD%E9%87%8F%E9%89%84%E9%AA%A8%E9%80%A0&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=1700&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=13.12&floorArea=146.16&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=35&taxRateIncome=20&pi_price_inp=1700&pi_age_inp=35&pi_yield_inp=13.12&pi_area_inp=146.16&pi_rooms_inp=6&ik_land_area=163.82&ik_route_price=2.7&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&pi_struct_sel=%E8%BB%BD%E9%87%8F%E9%89%84%E9%AA%A8%E9%80%A0&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260925_shibata-funaoka_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20260925_shibata-funaoka_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+<div class="container">
+  <div class="header">
+    <h1>🏢 柴田町一棟アパート — 仕入部チーム精査レポート</h1>
+    <div class="meta">精査日: 2026年9月25日 / チーム: ハルト・リョウ・アキ・村田先生 / TC Capitals 仕入部</div>
+  </div>
+
+  <div class="warn-banner">⚠️ 総合判定: 見送り推奨 — キャプテン基準「16号内側（一都三県）」およびハザード基準「洪水浸水2m以上NG」抵触。物件価値は否定しないが FIRE v5 戦略から大きく外れる。</div>
+
+  <div class="card">
+    <h2 class="h-summary">📋 物件サマリー</h2>
+    <table>
+      <tr><th>項目</th><th>内容</th><th>項目</th><th>内容</th></tr>
+      <tr><td>所在地</td><td>宮城県柴田郡柴田町船岡東</td><td>価格</td><td class="num">1,700万円</td></tr>
+      <tr><td>交通</td><td>JR東北本線「船岡」駅 徒歩14分</td><td>表面利回り</td><td class="num">13.12%</td></tr>
+      <tr><td>構造</td><td>軽量鉄骨造 亜鉛メッキ鋼板葺2階建<br>（セキスイハウス施工）</td><td>築年月</td><td>平成3年3月<br>（築35年・新耐震）</td></tr>
+      <tr><td>土地面積</td><td class="num">163.82㎡</td><td>延床面積</td><td class="num">146.16㎡（約44.21坪）</td></tr>
+      <tr><td>総戸数</td><td class="num">6戸（満室稼働中）</td><td>月額賃料</td><td class="num">186,000円（31,000円/戸）</td></tr>
+      <tr><td>用途地域</td><td>第一種中高層住居専用地域</td><td>取引態様</td><td>仲介（クルヴァ株式会社）</td></tr>
+      <tr><td>商流</td><td colspan="3">売主 → 元付け → クルヴァ（仲介）→ 買主 ※3社介在</td></tr>
+      <tr><td>入居者属性</td><td colspan="3">全員 仙台大学生（学生100%依存）</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2 class="h-criteria">✅ キャプテン基準 チェック</h2>
+    <table>
+      <tr><th>基準</th><th>閾値</th><th>実測</th><th>判定</th></tr>
+      <tr><td>物件価格</td><td>1億円以内</td><td class="num">1,700万円</td><td class="ok">OK</td></tr>
+      <tr><td>表面利回り</td><td>7.1%以上（築古なら12%超）</td><td class="num">13.12%</td><td class="ok">OK</td></tr>
+      <tr><td>エリア（一都三県・16号内側）</td><td>必須</td><td>宮城県柴田町</td><td class="ng">NG</td></tr>
+      <tr><td>築年数</td><td>10年以内（築古なら妥当利回り）</td><td class="num">築35年</td><td class="ng">NG（基準外）</td></tr>
+      <tr><td>ハザード（洪水浸水2m以上）</td><td>2m未満必須</td><td>0.5〜3.0m（上限抵触）</td><td class="ng">NG</td></tr>
+      <tr><td>積算比率</td><td>60%以上</td><td class="num">26.0%</td><td class="ng">NG</td></tr>
+      <tr><td>10年目税引後IRR</td><td>25%以上</td><td class="num">40.26% ※現状価格維持前提</td><td class="warn">条件付OK</td></tr>
+    </table>
+    <div class="callout red"><strong>結論：</strong>キャプテン基準（エリア・ハザード・積算）に3項目抵触。利回りとCFは魅力的だが基準の"骨格"が外れている。</div>
+  </div>
+
+  <div class="card">
+    <h2 class="h-hazard">🗺️ 路線価・ハザードマップ・スマサテ査定</h2>
+
+    <div class="subhead">相続路線価</div>
+    <p>2.7万円/㎡（借地権割合 G 30%・chikamap.jp 令和7年分）</p>
+
+    <div class="subhead">重ねるハザードマップ判定</div>
+    <table>
+      <tr><th>種別</th><th>判定</th></tr>
+      <tr><td>洪水浸水想定</td><td class="ng">❌ 浸水区域内（想定深 0.5m〜3.0m）→ 2m以上（即NG）</td></tr>
+      <tr><td>土砂災害警戒</td><td class="ok">✅ 非該当</td></tr>
+      <tr><td>津波浸水想定</td><td class="ok">✅ 非該当</td></tr>
+      <tr><td>液状化危険度</td><td class="warn">確認不可</td></tr>
+      <tr><td>総合ハザード判定</td><td class="ng">❌ 即NG該当（洪水上限3m）</td></tr>
+    </table>
+    <div class="callout red">洪水浸水想定 上限3.0m はキャプテン基準「2m以上即NG」に該当。 1階3戸が浸水時に全損リスク。火災保険水災特約の高騰・出口時の融資難度も想定される。</div>
+
+    <div class="subhead">スマサテ賃料査定</div>
+    <table>
+      <tr><th>項目</th><th>数値</th></tr>
+      <tr><td>査定標準賃料（礼金0）</td><td class="num">31,000円/戸</td></tr>
+      <tr><td>資料記載賃料</td><td class="num">31,000円/戸</td></tr>
+      <tr><td>乖離</td><td class="ok">±0%（賃料設定 完全に適正）</td></tr>
+      <tr><td>単価</td><td>1,340円/㎡・4,431円/坪</td></tr>
+    </table>
+    <p style="font-size:12px;color:#546e7a;margin-top:8px">
+      <a href="#" data-role="survey-link" class="btn-link">🔍 物件調査レポート（スマサテ・路線価・ハザード）</a>
+    </p>
+  </div>
+
+  <div class="card">
+    <h2 class="h-haruto">🌅 ハルト（エリア・利回り分析）</h2>
+    <div class="subhead">エリア基礎データ</div>
+    <ul>
+      <li>柴田町人口 約3.8万人・県内13位・高齢化率28.83%（宮城県は2045年までに約20%減予測）</li>
+      <li>船岡駅乗降 3,023人/日（2024）／仙台まで快速30分</li>
+      <li>仙台大学（体育系単科大学・柴田町船岡南2丁目）が徒歩圏 → 学生需要の中核</li>
+    </ul>
+    <div class="subhead">率直評価</div>
+    <ul>
+      <li>地方築古軽鉄としては 13.12% は<strong>むしろ低め</strong>（同エリアで15〜18%も出ている）</li>
+      <li>単科大学依存 → 大学定員減・統廃合が起きた瞬間、船岡学生アパート市場が崩壊するリスク</li>
+      <li>徒歩14分＋築35年＋24㎡ワンルーム → 一般社会人は選ばない層</li>
+      <li>1戸空室で実利回り10.9%まで低下（6戸中1戸で▲2.2%飛ぶ）</li>
+    </ul>
+    <div class="callout"><strong>ハルト結論：</strong>❌ 見送り一択。エリア外・洪水抵触・単科大学依存・出口が見えない。FIRE v5 は「一都三県・築10年以内・利回り8%」で組まれている。基準を曲げるより条件に合う物件を粘る方が最短距離。</div>
+  </div>
+
+  <div class="card">
+    <h2 class="h-ryo">🔍 リョウ（DD）</h2>
+    <p><a href="#" data-role="dd-link" class="btn-link">📋 DD チェックリスト（入力済み）</a></p>
+
+    <div class="subhead">確認済み</div>
+    <ul>
+      <li>1991年3月築 → 新耐震基準クリア／セキスイハウス施工・軽量鉄骨造</li>
+      <li>取引態様: 仲介（クルヴァ）／商流3社介在 → 仲介手数料満額（3%+6万）発生</li>
+      <li>用途地域: 第一種中高層住居専用地域 → 共同住宅適合</li>
+    </ul>
+
+    <div class="subhead">リスクフラグ（🔴最重要）</div>
+    <ul>
+      <li>🔴 <strong>融資適格性 極低</strong>: 法定耐用年数（軽鉄27年）8年超過・地方物件・都銀地銀ほぼ絶望的</li>
+      <li>🔴 <strong>学生100%依存</strong>: 卒業3月に最大6戸同時退去リスク／少子化・大学定員減直撃</li>
+      <li>🔴 <strong>洪水浸水3m抵触</strong>: 水災保険料高騰・出口時に次買主の融資難／1階3戸全損リスク</li>
+      <li>⚠️ 路線価に借地権割合G表示 → 登記簿で所有権/借地権の確定要</li>
+      <li>⚠️ 大規模修繕履歴（外壁塗装・屋根・給排水）書類未提示</li>
+      <li>⚠️ 検査済証・確認申請書の現物確認未</li>
+      <li>⚠️ 境界・越境・接道状況の確認未</li>
+      <li>⚠️ レントロール・敷金精算・保証会社加入状況の現物確認未</li>
+    </ul>
+
+    <div class="subhead">最大リスクと対処</div>
+    <div class="callout red"><strong>三重苦シナリオ：</strong>「融資不可 × 集団退去 × 出口困難」<br>現金1,700万円で購入 → 3月卒業で3〜6戸同時退去 → 学生依存商圏で埋め戻し困難 → CF悪化 → 築古地方＋浸水3mで買い手融資も付かない → 塩漬け化。</div>
+    <div class="callout"><strong>進めるなら：</strong>指値1,400万円（利回り15.9%）× 現金購入 × 契約不適合責任6ヶ月確保 の3点セット必須。通らなければ見送り。</div>
+  </div>
+
+  <div class="card">
+    <h2 class="h-aki">💰 アキ（IG+収支計算 + 玉川式）</h2>
+    <p>
+      <a href="#" data-role="ig-link" class="btn-link">📊 InvestGate+【資料賃料】収支試算</a>
+      <a href="#" data-role="ig-sumasate-link" class="btn-link">📊 InvestGate+【スマサテ賃料】収支試算</a>
+      <a href="#" data-role="tg-link" class="btn-link">📈 玉川式収益試算シート</a>
+    </p>
+    <p style="font-size:12px;color:#546e7a">※スマサテ査定賃料と資料賃料が完全一致（31,000円/戸）のため IG+ 2版の内容は同一</p>
+
+    <div class="subhead">収益・費用・NOI</div>
+    <table>
+      <tr><th>項目</th><th class="num">金額（円/年）</th></tr>
+      <tr><td>満室収入</td><td class="num">2,232,000</td></tr>
+      <tr><td>実収入（空室5%）</td><td class="num">2,120,400</td></tr>
+      <tr><td>費用合計（PM・BM・光熱・保険・固都税・修繕・原状回復・AD）</td><td class="num">▲802,272</td></tr>
+      <tr><td><strong>NOI</strong></td><td class="num"><strong>1,318,128</strong></td></tr>
+      <tr><td><strong>NOI利回り</strong></td><td class="num"><strong>7.75%</strong></td></tr>
+    </table>
+
+    <div class="subhead">ローン試算（2パターン）</div>
+    <table>
+      <tr><th>項目</th><th class="num">① オリックス<br>(100% / 2.6% / 35年)</th><th class="num">② 神奈川銀行 参考<br>(90% / 2.25% / 35年)</th></tr>
+      <tr><td>借入額</td><td class="num">17,000,000</td><td class="num">15,300,000</td></tr>
+      <tr><td>自己資金</td><td class="num">1,190,000</td><td class="num">2,890,000</td></tr>
+      <tr><td>月次CF</td><td class="num">48,155</td><td class="num">57,176</td></tr>
+      <tr><td>年次CF</td><td class="num">577,858</td><td class="num">686,110</td></tr>
+      <tr><td>CF率（対家賃）</td><td class="num">3.40%</td><td class="num">4.04%</td></tr>
+      <tr><td>返済比率</td><td class="num">34.9%</td><td class="num">29.8%</td></tr>
+      <tr><td>CCR</td><td class="num">48.56%</td><td class="num">23.74%</td></tr>
+      <tr><td>10年目IRR（売却1,700万維持）</td><td class="num">40.26%</td><td class="num">17.97%</td></tr>
+    </table>
+    <p style="font-size:12px;color:#546e7a">※神奈川銀行は営業エリア外のため実質使用不可。参考比較のみ。</p>
+
+    <div class="subhead">積算評価</div>
+    <table>
+      <tr><td>土地（163.82㎡ × 27,000円/㎡）</td><td class="num">4,423,140円</td></tr>
+      <tr><td>建物（築35年 → 残存耐用年数 0）</td><td class="num">0円</td></tr>
+      <tr><td><strong>積算評価合計</strong></td><td class="num"><strong>4,423,140円</strong></td></tr>
+      <tr><td><strong>積算比率</strong></td><td class="num"><strong>26.0%（キャプテン基準60%大幅未達）</strong></td></tr>
+    </table>
+
+    <div class="callout"><strong>アキひとこと：</strong>数字上は表面13%・NOI利回り7.75%・CF率3.4%と極めて良好。ただし積算26%は融資審査で撃沈確率高い、耐用年数超過で融資期間は最長15〜20年、10年後の出口価格が命綱。<strong>現金購入なら間違いなく買い、フルローンなら融資通過が大前提</strong>。</div>
+  </div>
+
+  <div class="card">
+    <h2 class="h-murata">🏗️ 村田先生（建築士コメント）</h2>
+    <p style="font-size:12px;color:#546e7a">※現場を見ないと断言はできませんが、資料から読み取れる範囲で。</p>
+
+    <div class="subhead">躯体・耐震評価</div>
+    <ul>
+      <li>セキスイハウス系軽量鉄骨（板厚3.2mm前後・電着塗装＋亜鉛メッキ二重防錆）→ 躯体寿命50〜60年見通し、あと15〜20年は十分もつ</li>
+      <li>1981年新耐震適合 × 東日本大震災（震度6弱〜6強）を実震で生き延びた実績あり → <strong>耐震性は文句なし</strong></li>
+      <li>断熱性能は現行省エネ基準比で低め（1992年基準以前）→ 冬場結露・光熱費への不満懸念</li>
+    </ul>
+
+    <div class="subhead">修繕費概算（購入直後〜10年）</div>
+    <table>
+      <tr><th>時期</th><th>項目</th><th class="num">概算</th></tr>
+      <tr><td>直後〜5年</td><td>屋根塗装 or カバー工法／外壁塗装／給湯器6戸／室内更新</td><td class="num">220〜370万円</td></tr>
+      <tr><td>5〜10年</td><td>給水管・排水管更新／2回目外壁塗装／バス・キッチン更新（退去時）</td><td class="num">300〜500万円</td></tr>
+      <tr><td><strong>10年合計</strong></td><td>—</td><td class="num"><strong>520〜870万円</strong></td></tr>
+    </table>
+
+    <div class="subhead">洪水浸水想定3m地域での建物リスク</div>
+    <ul>
+      <li>1階が浸水した場合、鋼材と石膏ボード・断熱材間で乾燥不良 → 内部からの錆進行リスク</li>
+      <li>1階3戸復旧費用 概算: 100〜200万円/戸 × 3戸 = <strong>300〜600万円</strong></li>
+      <li>火災保険＋水災特約必須（保険料は水災等級最高で高騰）</li>
+    </ul>
+
+    <div class="subhead">現地必ず確認（★優先度）</div>
+    <ul>
+      <li>★★★ 屋根の状態（脚立・ドローン）／セキスイハウス施工の裏取り（銘板・設計図書）／検査済証の現物</li>
+      <li>★★ 外壁チョーキング・シーリング／1階床下・基礎（湿気・過去の浸水痕跡）／鉄骨露出部の錆</li>
+      <li>★ 入居者ヒアリング（雨漏り・結露）／メンテナンス履歴／周辺住民の浸水経験</li>
+    </ul>
+
+    <div class="callout"><strong>村田結論：</strong>躯体は青信号・環境リスクは黄信号。「セキスイハウス施工の裏取り・検査済証・屋根状態・床下浸水履歴・保険見積」の5条件クリアで<strong>構造的には買っていい</strong>物件。ただし洪水浸水3mは金融機関担保評価で割引される可能性大。</div>
+  </div>
+
+  <div class="card">
+    <h2 class="h-confirm">📌 キャプテンへの確認事項まとめ（優先度付き）</h2>
+    <table>
+      <tr><th>優先度</th><th>確認事項</th><th>担当</th></tr>
+      <tr><td class="ng">🔴 最高</td><td>登記簿謄本・公図の取得（所有権/借地権・抵当権・地目・境界）</td><td>リョウ</td></tr>
+      <tr><td class="ng">🔴 最高</td><td>建築確認済証・検査済証の現物確認 / セキスイハウス施工の裏取り</td><td>リョウ・村田</td></tr>
+      <tr><td class="ng">🔴 最高</td><td>修繕履歴書類（過去10年分：外壁・屋根・給湯器・給排水管）</td><td>リョウ・村田</td></tr>
+      <tr><td class="ng">🔴 最高</td><td>融資戦略（現金購入 or どの銀行にアプローチ想定か）</td><td>アキ（ケンジ相談）</td></tr>
+      <tr><td class="ng">🔴 最高</td><td>屋根の状態現地確認（脚立/ドローン）／1階床下の浸水履歴</td><td>村田</td></tr>
+      <tr><td class="warn">🟡 高</td><td>レントロール現物（契約日・満了日・敷金・保証会社加入状況）</td><td>リョウ</td></tr>
+      <tr><td class="warn">🟡 高</td><td>仙台大学の学生数トレンド・寮政策・少子化影響</td><td>ハルト</td></tr>
+      <tr><td class="warn">🟡 高</td><td>周辺競合の家賃相場・空室率（船岡駅周辺の学生向け物件）</td><td>ハルト</td></tr>
+      <tr><td class="warn">🟡 高</td><td>契約不適合責任の免責条件（6ヶ月確保交渉）</td><td>リョウ</td></tr>
+      <tr><td class="warn">🟡 高</td><td>公課証明書または納税通知書（固都税実額）</td><td>アキ</td></tr>
+      <tr><td>🟢 中</td><td>土地建物割合の交渉余地／越境・境界確定</td><td>リョウ</td></tr>
+      <tr><td>🟢 中</td><td>水災補償付き火災保険の見積取得</td><td>リョウ</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2 class="h-team">🎯 チーム総合所見</h2>
+    <div class="subhead">総合判断</div>
+    <div class="callout red"><strong>❌ 見送り推奨</strong><br>
+    ・キャプテン基準「一都三県（16号内側）」外<br>
+    ・ハザード基準「洪水浸水2m以上NG」に上限3mで抵触<br>
+    ・積算比率26%で融資適格性 極低<br>
+    ・学生100%依存 × 単科大学 × 地方 の三重リスク</div>
+
+    <div class="subhead">最大リスク</div>
+    <p>「融資不可 × 集団退去 × 出口困難」の三重苦シナリオ。現金購入すれば流動性が一気に落ち、FIRE v5 の 3棟一気買いシナリオCが遠のく。</p>
+
+    <div class="subhead">数字だけを見れば買える理由（フェアネス確保）</div>
+    <ul>
+      <li>NOI利回り 7.75%・現金購入CCR 48.56%（10年目IRR 40.26%）は数字上優秀</li>
+      <li>セキスイハウス施工・新耐震・実震証明あり → 躯体寿命はまだある</li>
+      <li>スマサテ査定と資料賃料が完全一致 → 現在の賃料設定は適正</li>
+    </ul>
+
+    <div class="subhead">次のアクション（3択）</div>
+    <ol>
+      <li><strong>【推奨】見送り</strong>：FIRE v5 に沿った一都三県・築10年以内・利回り8%物件をハルトから継続提案</li>
+      <li><strong>条件付検討</strong>：指値1,400万円（利回り15.9%）× 現金購入 × 契約不適合責任6ヶ月確保 の3点セットで打診 → 通らなければ即撤退</li>
+      <li><strong>ケンジに融資相談</strong>：日本政策金融公庫・SBJ・アセット＆ロワイヤル等ノンバンクで融資組成の可能性を確認（築古地方の融資難度チェック）</li>
+    </ol>
+
+    <div class="callout"><strong>チームからキャプテンへ：</strong>数字は魅力的ですが、FIRE v5戦略との整合を最優先で判断してください。同等の利回りは首都圏の築古区分・戸建てでも十分狙えます。地方遠隔管理の物理的困難とハザードリスクを天秤にかけると、1棟目としては見送りが安全です。</div>
+  </div>
+
+  <div class="footer">
+    TC Capitals 不動産仕入部 — ハルト・リョウ・アキ・村田先生 / 精査日 2026-09-25
+  </div>
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260925_shibata-funaoka_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260925_shibata-funaoka_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
