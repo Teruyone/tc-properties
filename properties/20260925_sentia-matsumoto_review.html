@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【チーム精査レポート】センティアまつもと（毛呂山町・築32年木造8戸）</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Hiragino Kaku Gothic ProN","Meiryo",sans-serif; background: #f0f4f8; color: #333; font-size: 14px; line-height: 1.7; }
+  .header { background: #1a2a5e; color: #fff; padding: 24px 32px; }
+  .header h1 { font-size: 22px; font-weight: bold; margin-bottom: 6px; }
+  .header .meta { font-size: 13px; color: #a0b4d0; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 24px 16px; }
+  .card { background: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); padding: 20px 24px; margin-bottom: 20px; }
+  .section-title { font-size: 15px; font-weight: bold; padding: 8px 14px; border-radius: 4px; color: #fff; margin-bottom: 14px; }
+  .title-orange { background: #e67e22; }
+  .title-blue { background: #2980b9; }
+  .title-green { background: #27ae60; }
+  .title-brown { background: #8b5e3c; }
+  .title-teal { background: #16a085; }
+  .title-red { background: #c0392b; }
+  .title-navy { background: #1a2a5e; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #1a2a5e; color: #fff; padding: 8px 10px; text-align: left; }
+  td { padding: 7px 10px; border-bottom: 1px solid #e8ecf0; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) { background: #f7f9fc; }
+  .ok { color: #27ae60; font-weight: bold; }
+  .ng { color: #e74c3c; font-weight: bold; }
+  .warn { color: #e67e22; font-weight: bold; }
+  .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 12px; }
+  .summary-item { background: #f7f9fc; border: 1px solid #e0e6ed; border-radius: 6px; padding: 12px; text-align: center; }
+  .summary-item .label { font-size: 11px; color: #666; margin-bottom: 4px; }
+  .summary-item .value { font-size: 18px; font-weight: bold; color: #1a2a5e; }
+  .summary-item .sub { font-size: 11px; color: #888; margin-top: 2px; }
+  .criterion-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .criterion-item { border: 2px solid; border-radius: 6px; padding: 10px 14px; }
+  .criterion-ok { border-color: #27ae60; background: #f0faf4; }
+  .criterion-ng { border-color: #e74c3c; background: #fff5f5; }
+  .criterion-warn { border-color: #e67e22; background: #fff9f0; }
+  .criterion-item .c-label { font-size: 11px; color: #666; }
+  .criterion-item .c-value { font-size: 15px; font-weight: bold; }
+  .criterion-item .c-judge { font-size: 12px; font-weight: bold; margin-top: 2px; }
+  .link-btn { display: inline-block; padding: 8px 16px; border-radius: 4px; color: #fff; text-decoration: none; font-size: 13px; font-weight: bold; margin: 4px 4px 4px 0; }
+  .btn-blue { background: #2980b9; }
+  .btn-green { background: #27ae60; }
+  .btn-orange { background: #e67e22; }
+  .btn-brown { background: #8b5e3c; }
+  .btn-teal { background: #16a085; }
+  ul.list { list-style: none; padding: 0; }
+  ul.list li { padding: 5px 0; border-bottom: 1px solid #f0f0f0; }
+  ul.list li:last-child { border-bottom: none; }
+  ul.list li::before { content: "・"; color: #888; margin-right: 4px; }
+  .risk-box { background: #fff5f5; border: 1px solid #f5c6c6; border-radius: 6px; padding: 14px; margin-bottom: 10px; }
+  .risk-box .risk-title { color: #c0392b; font-weight: bold; font-size: 13px; margin-bottom: 6px; }
+  .check-box { background: #f0faf4; border: 1px solid #b7dfc7; border-radius: 6px; padding: 14px; margin-bottom: 10px; }
+  .warn-box { background: #fff9f0; border: 1px solid #fad1a1; border-radius: 6px; padding: 14px; margin-bottom: 10px; }
+  .confirmation-list { background: #fff9f0; border-left: 4px solid #e67e22; padding: 14px 18px; border-radius: 0 6px 6px 0; }
+  .confirmation-list ol { padding-left: 18px; }
+  .confirmation-list li { padding: 4px 0; }
+  .hazard-row { display: flex; align-items: center; padding: 6px 0; border-bottom: 1px solid #f0f0f0; }
+  .hazard-row:last-child { border-bottom: none; }
+  .hazard-label { width: 200px; font-size: 13px; color: #555; }
+  .hazard-value { flex: 1; font-size: 13px; }
+  .total-verdict { text-align: center; padding: 16px; margin-top: 12px; }
+  .verdict-warn { background: #fff3e0; border: 2px solid #e67e22; border-radius: 8px; }
+  .verdict-warn .verdict-label { font-size: 18px; font-weight: bold; color: #e67e22; }
+  .verdict-ng { background: #ffebee; border: 2px solid #e74c3c; border-radius: 8px; }
+  .verdict-ng .verdict-label { font-size: 20px; font-weight: bold; color: #e74c3c; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>【チーム精査レポート】センティアまつもと（毛呂山町・築32年木造8戸・値下げ後1,980万）</h1>
+  <div class="meta">精査日: 2026-09-25 ／ 精査チーム: ハルト・リョウ・アキ・村田先生 ／ 仲介: 株式会社三ラージ（群馬県伊勢崎市）</div>
+</div>
+
+<div class="container">
+
+  <!-- 物件サマリー -->
+  <div class="card">
+    <div class="section-title title-navy">📋 物件サマリー</div>
+    <div class="summary-grid">
+      <div class="summary-item"><div class="label">価格</div><div class="value">1,980万円</div><div class="sub">値下げ済</div></div>
+      <div class="summary-item"><div class="label">表面利回り</div><div class="value">14.96%</div><div class="sub">スマサテ換算 14.06%</div></div>
+      <div class="summary-item"><div class="label">築年</div><div class="value">築32年</div><div class="sub">1994年3月・新耐震</div></div>
+      <div class="summary-item"><div class="label">構造・戸数</div><div class="value">木造2F / 8戸</div><div class="sub">1K×8戸・各20㎡</div></div>
+    </div>
+    <table style="margin-top:10px;">
+      <tr><th>掲載名</th><td>埼玉県 一棟売りアパート（<a href="https://www.kenbiya.com/pp2/s/saitama/etc/re_4642546ihr/" target="_blank">健美家掲載URL</a>）</td></tr>
+      <tr><th>所在地</th><td>埼玉県入間郡毛呂山町大字毛呂本郷</td></tr>
+      <tr><th>交通</th><td>JR八高線「毛呂」駅 徒歩8分</td></tr>
+      <tr><th>土地・建物</th><td>土地 151.32㎡（45.77坪）／ 延床 158.32㎡（47.89坪）</td></tr>
+      <tr><th>取引態様</th><td><span class="warn">仲介</span> — 諸費用7%・仲介手数料約72.6万円</td></tr>
+      <tr><th>用途地域</th><td>第一種住居</td></tr>
+      <tr><th>現況</th><td>賃貸中（詳細要問合せ）※満室ではない可能性</td></tr>
+      <tr><th>満室時収入</th><td>年296.4万円（月24.7万・1戸あたり30,875円）</td></tr>
+    </table>
+  </div>
+
+  <!-- キャプテン基準チェック -->
+  <div class="card">
+    <div class="section-title title-navy">🎯 キャプテン基準チェック（6指標＋エリア・築年）</div>
+    <div class="criterion-grid">
+      <div class="criterion-item criterion-ok"><div class="c-label">価格 ≤ 1億</div><div class="c-value">1,980万円</div><div class="c-judge ok">✅ OK</div></div>
+      <div class="criterion-item criterion-ok"><div class="c-label">利回り ≥ 8.0%</div><div class="c-value">14.96%（実勢14.06%）</div><div class="c-judge ok">✅ OK</div></div>
+      <div class="criterion-item criterion-ok"><div class="c-label">CF率 ≥ 1.0%</div><div class="c-value">2.96〜3.79%（20年ローン）</div><div class="c-judge ok">✅ OK</div></div>
+      <div class="criterion-item criterion-ok"><div class="c-label">CCR ≥ 15%</div><div class="c-value">22.3〜42.3%</div><div class="c-judge ok">✅ OK</div></div>
+      <div class="criterion-item criterion-ng"><div class="c-label">積算比率 ≥ 60%</div><div class="c-value">10〜23%（倍率地域）</div><div class="c-judge ng">❌ NG</div></div>
+      <div class="criterion-item criterion-warn"><div class="c-label">10年目IRR ≥ 25%</div><div class="c-value">17.2〜35.3%（要TG確認）</div><div class="c-judge warn">🟡 一部OK</div></div>
+      <div class="criterion-item criterion-ng"><div class="c-label">エリア（16号内側）</div><div class="c-value">毛呂山町（16号外側）</div><div class="c-judge ng">❌ NG</div></div>
+      <div class="criterion-item criterion-ng"><div class="c-label">築年（築10年以内）</div><div class="c-value">築32年</div><div class="c-judge ng">❌ NG</div></div>
+      <div class="criterion-item criterion-ok"><div class="c-label">ハザード</div><div class="c-value">全項目非該当</div><div class="c-judge ok">✅ OK</div></div>
+    </div>
+    <div class="total-verdict verdict-warn" style="margin-top:16px;">
+      <div class="verdict-label">総合: 数字（利回り・CF）はOK・立地/築年/積算/融資は基準外</div>
+      <div style="font-size:13px;color:#666;margin-top:4px;">キャッシュ購入または短期ノンバンク融資前提の「サブ戦略枠」として検討する物件。FIRE v5メイン戦略（都内・築浅・フル/95%融資）とは筋が違う。</div>
+    </div>
+  </div>
+
+  <!-- 路線価・ハザードマップ・スマサテ査定 -->
+  <div class="card">
+    <div class="section-title title-teal">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</div>
+
+    <h3 style="font-size:14px;color:#16a085;margin-bottom:8px;">📍 相続路線価（chikamap.jp 令和7年分）</h3>
+    <div class="warn-box">
+      <strong>倍率地域（数値路線価なし）</strong><br>
+      毛呂山町は路線価地域外・倍率地域。倍率表PDFで固定資産税評価額×倍率を算出する必要あり。<br>
+      倍率表: <a href="https://scr.wagmap.jp/chikamap/BAI/R07/11/B11326.pdf" target="_blank">https://scr.wagmap.jp/chikamap/BAI/R07/11/B11326.pdf</a><br>
+      → 積算評価が路線価ベースで出ないため、担保評価は伸びない構造。
+    </div>
+
+    <h3 style="font-size:14px;color:#16a085;margin-bottom:8px;margin-top:14px;">🏛️ 固定資産税路線価（キャプテン指示）</h3>
+    <div class="warn-box">
+      毛呂山町は<strong>倍率地域</strong>のため、固定資産税路線価も同様に「路線価なし」の可能性が高い。<br>
+      公課証明書または納税通知書で<strong>建物・土地の固定資産税評価額の実額</strong>を必ず入手。<br>
+      これがないと積算・玉川式の固都税推計が確定できません。
+    </div>
+
+    <h3 style="font-size:14px;color:#16a085;margin-bottom:8px;margin-top:14px;">🗺️ 重ねるハザードマップ判定</h3>
+    <div class="hazard-row"><div class="hazard-label">洪水浸水想定</div><div class="hazard-value"><span class="ok">✅ 非該当</span></div></div>
+    <div class="hazard-row"><div class="hazard-label">土砂災害警戒区域</div><div class="hazard-value"><span class="ok">✅ 非該当</span></div></div>
+    <div class="hazard-row"><div class="hazard-label">津波浸水想定</div><div class="hazard-value"><span class="ok">✅ 非該当</span></div></div>
+    <div class="hazard-row"><div class="hazard-label">液状化危険度</div><div class="hazard-value">確認不可</div></div>
+    <div class="hazard-row"><div class="hazard-label">総合ハザード判定</div><div class="hazard-value"><span class="ok">✅ 問題なし</span></div></div>
+    <div style="font-size:11px;color:#888;margin-top:6px;">出典: 国土交通省・国土地理院「重ねるハザードマップ」</div>
+
+    <h3 style="font-size:14px;color:#16a085;margin-bottom:8px;margin-top:14px;">🏠 スマサテ賃料査定</h3>
+    <table style="margin-top:6px;">
+      <tr><th>査定賃料（20㎡/1K・毛呂駅8分・築32年）</th><td><strong>29,000円/月</strong>（単価1,527円/㎡）</td></tr>
+      <tr><th>資料記載賃料</th><td>30,875円/月（8戸平均）</td></tr>
+      <tr><th>乖離</th><td><span class="ok">-6.1%（適正範囲内・±10%以内）</span></td></tr>
+      <tr><th>スマサテ換算 満室年収</th><td>278.4万円（-18万円/年）</td></tr>
+      <tr><th>スマサテ換算 表面利回り</th><td>14.06%</td></tr>
+    </table>
+    <div style="margin-top:10px;">
+      <a class="link-btn btn-teal" target="_blank" href="https://teruyone.github.io/tc-properties/properties/20260925_sentia-matsumoto_survey.html">🔍 物件調査レポート（スマサテ入力・ハザードスクショ）</a>
+    </div>
+  </div>
+
+  <!-- ハルト -->
+  <div class="card">
+    <div class="section-title title-orange">👦 ハルト（エリア・利回り分析）</div>
+
+    <h3 style="font-size:14px;color:#e67e22;margin-bottom:8px;">エリアの実態（毛呂山町）</h3>
+    <table>
+      <tr><th>総人口</th><td>35,366人（2020年）／ 5年で-5.1%減少</td></tr>
+      <tr><th>高齢化率</th><td>33.1%（全国平均28%を大きく超過）</td></tr>
+      <tr><th>空き家率</th><td>15.9%（かつて県内ワースト・国交省事例掲載自治体）</td></tr>
+      <tr><th>賃貸需要の柱</th><td>埼玉医科大学 毛呂山キャンパス（本物件と同じ「毛呂本郷」・徒歩圏）</td></tr>
+      <tr><th>毛呂駅→池袋</th><td>1時間26分・乗換2回・1,030円（八高線非電化は日中1時間1〜2本）</td></tr>
+      <tr><th>相場感</th><td>築古アパート14〜16%が地元相場ゾーン。値下げ後14.96%は<strong>相場並</strong>・特に割安ではない</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;color:#e67e22;margin-top:14px;margin-bottom:8px;">出口戦略（最大の弱点）</h3>
+    <div class="risk-box">
+      <div class="risk-title">築37〜42年で売却時の想定買主は「現金投資家・再生業者・戸建再建プレイヤー」に限定</div>
+      土地値+建物残価の二段構え。倍率地域のため銀行担保評価が伸びない=「現金買主のみが出口候補」となる流動性リスク大。<br>
+      最悪シナリオ売却額：土地151㎡×坪10〜15万＝450〜700万・建物解体150万→<strong>400〜700万レンジ</strong>（購入額から▲65〜80%）
+    </div>
+
+    <h3 style="font-size:14px;color:#e67e22;margin-top:14px;margin-bottom:8px;">ハルト判定</h3>
+    <div class="warn-box">
+      <strong>⚡基準外・戦略特化型</strong><br>
+      現金圏／地方築古高利回り投資として面白いが、TC Capitalsの現行FIRE v5戦略（都内・築浅・auじぶんフル/95%）とは筋が違う。<br>
+      キャプテンから精査依頼がある理由（サブ戦略／相続対策／実験）が知りたい。<br>
+      1棟目メイン候補として見るなら<strong>却下推奨</strong>。同じ2,000万を頭金にauじぶん95%融資で4億円級RC/築浅木造を仕込む方が戦略整合的。
+    </div>
+  </div>
+
+  <!-- リョウ -->
+  <div class="card">
+    <div class="section-title title-blue">👔 リョウ（DD・リスク分析）</div>
+
+    <h3 style="font-size:14px;color:#2980b9;margin-bottom:8px;">🚨 REDフラグ（買付前に絶対潰す）</h3>
+    <div class="risk-box">
+      <ol style="padding-left:18px;">
+        <li><strong>新耐震の書面確認</strong>：1994年築なら新耐震のはずだが、確認済証・検査済証の現物確認が必須。木造は検査済証未取得物件が一定割合ある</li>
+        <li><strong>融資期間が絶望的に短い可能性</strong>：木造築32年・法定耐用超過。オリックス/神奈川銀行の35年融資はほぼNG。日本政策金融公庫15年・ノンバンク20年・金利2.9〜3.5%が現実解</li>
+        <li><strong>エリアリスク（毛呂山町）</strong>：人口減・八高線本数少・出口が極めて限定的</li>
+        <li><strong>接道・再建築可否</strong>：前面道路の幅員・種別（42条1項1号/2項/43条但し書き）を必ず取得</li>
+      </ol>
+    </div>
+
+    <h3 style="font-size:14px;color:#2980b9;margin-bottom:8px;margin-top:14px;">🟡 YELLOWフラグ（数字精度に直結）</h3>
+    <div class="warn-box">
+      <ul class="list">
+        <li>レントロール未取得：「賃貸中」表記は満室ではない可能性大。8戸すべての現況・契約年月日・敷金・保証会社加入の有無を必ず入手</li>
+        <li>満室想定家賃の妥当性：平均3.09万円/戸はスマサテ査定2.9万円と比べ+6.1%。退去時に下落する可能性を織り込むべき</li>
+        <li>公課証明書または納税通知書：固都税実額と積算評価が未確定</li>
+        <li>修繕履歴：築32年で外壁・屋根が2周目に入っている。未実施なら購入直後に150〜300万の突発支出</li>
+        <li>境界確定・確定測量図：未確定なら測量費60〜100万円が売却時に発生</li>
+      </ul>
+    </div>
+
+    <h3 style="font-size:14px;color:#2980b9;margin-bottom:8px;margin-top:14px;">📋 仲介経由で入手依頼するもの（一括請求）</h3>
+    <div class="check-box">
+      建築確認済証・検査済証／現況レントロール（8戸）／登記簿謄本（土地・建物）／公図・地積測量図・確定測量図／公課証明書・納税通知書／過去3年分の修繕履歴／建物図面・設備仕様書／賃貸借契約書サンプル／前面道路情報／上下水道・ガス種別／売主情報（個人/法人・所有年数・売却理由）／管理会社情報
+    </div>
+
+    <div style="margin-top:14px;">
+      <a class="link-btn btn-blue" target="_blank" href="https://teruyone.github.io/tc-properties/properties/20260925_sentia-matsumoto_DD.html">📋 DDチェックリスト（詳細）</a>
+    </div>
+  </div>
+
+  <!-- アキ -->
+  <div class="card">
+    <div class="section-title title-green">🧮 アキ（IG+収支計算 + 玉川式）</div>
+
+    <h3 style="font-size:14px;color:#27ae60;margin-bottom:8px;">📊 収支シミュレーション（20年ローン想定・築古のため35年不可前提）</h3>
+
+    <div class="two-col">
+      <div>
+        <h4 style="font-size:13px;color:#27ae60;">ケース1: 資料賃料（月30,875円/戸・満室296.4万）</h4>
+        <table style="margin-top:6px;">
+          <tr><th>実収入（空室5%）</th><td>281.6万円</td></tr>
+          <tr><th>費用合計</th><td>▲95.8万円</td></tr>
+          <tr><th>NOI</th><td>185.8万円（NOI利回り9.38%）</td></tr>
+          <tr><th>A: オリックス想定(100%/2.6%/20年)</th><td>CF <strong>58.7万</strong>（CF率2.96%・CCR42.3%）</td></tr>
+          <tr><th>B: 神奈川銀行想定(90%/2.25%/20年)</th><td>CF <strong>75.0万</strong>（CF率3.79%・CCR22.3%）</td></tr>
+        </table>
+      </div>
+      <div>
+        <h4 style="font-size:13px;color:#27ae60;">ケース2: スマサテ賃料（月29,000円/戸・満室278.4万）</h4>
+        <table style="margin-top:6px;">
+          <tr><th>実収入（空室5%）</th><td>264.5万円</td></tr>
+          <tr><th>費用合計</th><td>▲92.9万円</td></tr>
+          <tr><th>NOI</th><td>171.6万円（NOI利回り8.67%）</td></tr>
+          <tr><th>A: オリックス想定(100%/2.6%/20年)</th><td>CF <strong>44.5万</strong>（CF率2.25%・CCR32.1%）</td></tr>
+          <tr><th>B: 神奈川銀行想定(90%/2.25%/20年)</th><td>CF <strong>60.9万</strong>（CF率3.07%・CCR18.1%）</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;color:#27ae60;margin-top:14px;margin-bottom:8px;">📉 10年目 税引後IRR（売却=購入価格×80%想定）</h3>
+    <table>
+      <tr><th></th><th>資料賃料</th><th>スマサテ賃料</th></tr>
+      <tr><th>A: 100%×20年（オリックス）</th><td><span class="ok">35.3% ✅</span></td><td><span class="ok">26.7% ✅</span></td></tr>
+      <tr><th>B: 90%×20年（神奈川銀行）</th><td><span class="ng">17.2% ❌</span></td><td><span class="ng">13.9% ❌</span></td></tr>
+    </table>
+    <div style="font-size:12px;color:#666;margin-top:6px;">※減価償却残存年数4年→5年目デッドクロス。10年ホールドすると税負担が重くなる。<strong>4〜5年短期売却</strong>が最適解の可能性大。</div>
+
+    <h3 style="font-size:14px;color:#27ae60;margin-top:14px;margin-bottom:8px;">🏗️ 積算評価（融資審査の壁）</h3>
+    <div class="risk-box">
+      <strong>建物評価: 0円（築32年÷耐用22年=残存率0%）／土地: 倍率地域のため未確定</strong><br>
+      参考: 坪単価5万円想定→228.9万円（積算比率11.6%）・坪単価10万円想定→457.7万円（積算比率23.1%）<br>
+      → どのシナリオでも積算比率60%は届かない。<strong>フルローンは相当困難</strong>。オリックスに「担保より収益力で見てほしい」交渉が必須。
+    </div>
+
+    <div style="margin-top:14px;">
+      <a class="link-btn btn-green" target="_blank" href="https://teruyone.github.io/tc-properties/ig-sheet/?price=1980&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=20&intRate=2.9&grossYield=14.96&floorArea=158.32&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=32&taxRateIncome=20&pi_price_inp=1980&pi_age_inp=32&pi_yield_inp=14.96&pi_area_inp=158.32&pi_rooms_inp=8&ik_land_area=151.32&ik_route_price=0&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&buildStruct=%E6%9C%A8%E9%80%A0&pi_struct_sel=%E6%9C%A8%E9%80%A0&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%9F%BC%E7%8E%89%E7%9C%8C%E5%85%A5%E9%96%93%E9%83%A1%E6%AF%9B%E5%91%82%E5%B1%B1%E7%94%BA%E5%A4%A7%E5%AD%97%E6%AF%9B%E5%91%82%E6%9C%AC%E9%83%B7">📊 IG+【資料賃料】収支試算</a>
+      <a class="link-btn btn-green" target="_blank" href="https://teruyone.github.io/tc-properties/ig-sheet/?price=1980&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=20&intRate=2.9&grossYield=14.06&floorArea=158.32&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=32&taxRateIncome=20&pi_price_inp=1980&pi_age_inp=32&pi_yield_inp=14.06&pi_area_inp=158.32&pi_rooms_inp=8&ik_land_area=151.32&ik_route_price=0&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&buildStruct=%E6%9C%A8%E9%80%A0&pi_struct_sel=%E6%9C%A8%E9%80%A0&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%9F%BC%E7%8E%89%E7%9C%8C%E5%85%A5%E9%96%93%E9%83%A1%E6%AF%9B%E5%91%82%E5%B1%B1%E7%94%BA%E5%A4%A7%E5%AD%97%E6%AF%9B%E5%91%82%E6%9C%AC%E9%83%B7">📊 IG+【スマサテ賃料】収支試算</a>
+      <a class="link-btn btn-orange" target="_blank" href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260925_sentia-matsumoto_TG.html">📈 玉川式収益試算（10年IRR確認）</a>
+    </div>
+  </div>
+
+  <!-- 村田先生 -->
+  <div class="card">
+    <div class="section-title title-brown">👴 村田先生（一級建築士コメント）</div>
+
+    <h3 style="font-size:14px;color:#8b5e3c;margin-bottom:8px;">📐 構造・築年数の総合評価</h3>
+    <table>
+      <tr><th>耐震区分</th><td><span class="ok">新耐震（1981年6月以降）</span>だが<strong>2000年基準前</strong>の狭間物件</td></tr>
+      <tr><th>接合部リスク</th><td>ホールダウン金物ではなく、かすがい・釘打ちのみの可能性。震度6強で「柱が土台から抜ける」理論リスク</td></tr>
+      <tr><th>工法</th><td>在来軸組工法（筋交+合板耐力壁）が濃厚。1994年式は施工品質のばらつき大</td></tr>
+      <tr><th>屋根</th><td>スレート葺き（コロニアル系）想定。塗装2周目 or 葺き替え検討期</td></tr>
+      <tr><th>外壁</th><td>1990年代前半のサイディングは<strong>直張り工法</strong>の可能性→通気層なしで劣化早い</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;color:#8b5e3c;margin-top:14px;margin-bottom:8px;">🔧 直近5年で発生想定の修繕（総額300〜500万円）</h3>
+    <table>
+      <tr><th>外壁塗装</th><td>180〜250万円（足場込・158㎡）</td></tr>
+      <tr><th>屋根塗装/葺き替え</th><td>塗装80〜120万 / カバー工法200〜300万</td></tr>
+      <tr><th>給湯器交換（8戸まとめて）</th><td>約96万円</td></tr>
+      <tr><th>シロアリ予防再施工</th><td>15〜25万円</td></tr>
+      <tr><th>ベランダ防水・共用階段等</th><td>30〜60万円</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;color:#8b5e3c;margin-top:14px;margin-bottom:8px;">📉 実質利回りへのインパクト</h3>
+    <div class="warn-box">
+      修繕引当を年換算すると<strong>年100〜150万円</strong>必要。<br>
+      278.4万円（スマサテ）− 130万円（引当） ÷ 1,980万 = <strong>実質7.5%相当</strong>。<br>
+      表面14%だけで飛びつくと、5年目に外壁・屋根で500万円→「あれ、CFが赤字…」パターン。
+    </div>
+
+    <h3 style="font-size:14px;color:#8b5e3c;margin-top:14px;margin-bottom:8px;">💡 村田先生の指値ロジック</h3>
+    <div class="check-box">
+      <strong>「修繕引当500万円を価格から引く」交渉が正当性高い</strong><br>
+      1,980万円 → <strong>1,500万円</strong>で買えれば表面18.5%、実質でも10%超。指値の入れどころとして十分ある案件。<br>
+      まずは<strong>修繕履歴と検査済証、確認申請の副本</strong>を売主に請求してください。話はそこからです。
+    </div>
+  </div>
+
+  <!-- キャプテンへの確認事項 -->
+  <div class="card">
+    <div class="section-title title-orange">❓ キャプテンへの確認事項</div>
+    <div class="confirmation-list">
+      <ol>
+        <li><strong>この物件、どういう位置づけで見ていますか？</strong>（①サブ戦略・現金投資枠 ②相続対策・法人キャッシュ活用 ③直感チェック ④融資が付くか実験）</li>
+        <li><strong>融資戦略</strong>：木造築32年でオリックス・神奈川銀行に打診履歴はありますか？築古対応ノンバンク（三井住友トラスト・SBJ・セゾンファンデックス）・日本政策金融公庫を並行検討でよいですか？</li>
+        <li><strong>エリア基準</strong>：毛呂山町（八高線・16号外側）はキャプテン基準から外れます。利回り優先で例外的に踏み込むのか、それとも見送るのか、方針確認したい</li>
+        <li><strong>出口戦略</strong>：4〜5年短期売却前提でも良いですか？長期保有前提ですか？（減価償却残存4年で5年目デッドクロス）</li>
+        <li><strong>指値方針</strong>：修繕引当500万円を根拠に1,500万円指値を打つか、1,750〜1,850万レンジで妥協するか</li>
+        <li><strong>売主情報の入手</strong>：三ラージ経由で①レントロール ②検査済証 ③公課証明書 ④修繕履歴 ⑤前面道路情報 の一括依頼を送信してよいですか？</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- 総合所見 -->
+  <div class="card">
+    <div class="section-title title-red">🎯 チーム総合所見</div>
+
+    <div class="total-verdict verdict-warn">
+      <div class="verdict-label">総合判定: ⚠️ 条件付き・戦略適合性次第（メイン戦略なら見送り／サブ戦略なら指値前提で検討）</div>
+    </div>
+
+    <table style="margin-top:14px;">
+      <tr><th>ハルト</th><td>基準外・戦略特化型。FIRE v5メインなら却下・サブ戦略なら及第点</td></tr>
+      <tr><th>リョウ</th><td>リスクレベル高。融資・エリア基準逸脱・出口不透明・情報不足。書類12点の一括請求から</td></tr>
+      <tr><th>アキ</th><td>20年ローン想定でCF率2.25〜3.79%は基準クリア。ただし積算NG・5年目デッドクロス・短期売却が最適解</td></tr>
+      <tr><th>村田先生</th><td>2000年基準前・修繕2周目・修繕引当500万→1,500万指値の根拠あり</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;color:#c0392b;margin-top:16px;margin-bottom:8px;">🚫 最大リスク（4つ）</h3>
+    <div class="risk-box">
+      <ol style="padding-left:18px;">
+        <li><strong>融資が付かないリスク</strong>：法定耐用年数超過・倍率地域・郊外の三重苦で主要行NG。ノンバンク金利2.9〜3.5%・15〜20年が現実解</li>
+        <li><strong>出口の流動性リスク</strong>：現金買主のみが買える構造。10年後は業者買取一択で積算ベース売却の可能性</li>
+        <li><strong>修繕突発リスク</strong>：築32年で外壁・屋根が2周目。未実施なら300〜500万円の追加投資</li>
+        <li><strong>戦略適合性リスク</strong>：TC Capitals FIRE v5（4棟で流動資産/総負債≥10%）と真逆。現金2,000万を寝かせると本命物件の頭金機会損失</li>
+      </ol>
+    </div>
+
+    <h3 style="font-size:14px;color:#c0392b;margin-top:16px;margin-bottom:8px;">➡️ 次のアクション（優先順位順）</h3>
+    <div class="check-box">
+      <ol style="padding-left:18px;">
+        <li>キャプテンから物件の位置づけ（サブ戦略or実験or却下）を確認</li>
+        <li>「サブ戦略として進める」判断なら、三ラージへ書類12点の一括請求メール送信</li>
+        <li>返信の速度と内容で業者の質を判定→GO判断</li>
+        <li>並行して築古対応ノンバンク（三井住友トラスト等）への融資打診でCFレートが立つか検証</li>
+        <li>1,500万円指値の妥当性・受け入れ確度を仲介経由で探る</li>
+        <li>現地調査（村田先生同行推奨）で修繕状況・接道・境界を確認</li>
+      </ol>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260925_sentia-matsumoto_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260925_sentia-matsumoto_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
