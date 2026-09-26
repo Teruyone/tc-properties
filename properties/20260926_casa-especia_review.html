@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>カーサ・エスペシア 精査レポート — TC Capitals 仕入部</title>
+<style>
+  body { font-family: "Segoe UI", "Yu Gothic UI", Meiryo, sans-serif; margin: 0; padding: 0; background: #f5f6f8; color: #222; line-height: 1.7; }
+  header { background: linear-gradient(135deg,#1a3560,#2a4b7c); color:#fff; padding: 24px 32px; }
+  header h1 { margin:0; font-size: 22px; }
+  header .meta { margin-top:6px; font-size:13px; color:#c8d7ee; }
+  .container { max-width: 980px; margin: 0 auto; padding: 24px 32px 60px; }
+  .card { background:#fff; border-radius:10px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin: 18px 0; padding: 20px 24px; }
+  .card h2 { margin: 0 0 12px; font-size: 17px; padding-bottom: 8px; border-bottom: 2px solid #eee; }
+  .h-orange h2 { color:#c96b23; border-bottom-color:#f2c9a8; }
+  .h-blue h2   { color:#2665b8; border-bottom-color:#a9c9ec; }
+  .h-green h2  { color:#217a4a; border-bottom-color:#a5d8bd; }
+  .h-brown h2  { color:#805a35; border-bottom-color:#d5bfa4; }
+  .h-teal h2   { color:#0c7a7a; border-bottom-color:#a8d3d3; }
+  .h-purple h2 { color:#6f359a; border-bottom-color:#c8b1e0; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; margin: 8px 0; }
+  th, td { border:1px solid #ddd; padding: 6px 10px; text-align:left; }
+  th { background:#f0f2f5; }
+  .ok  { color:#218044; font-weight:600; }
+  .ng  { color:#c62828; font-weight:600; }
+  .warn { color:#b8860b; font-weight:600; }
+  .alert-red { background:#fbe9e7; border-left:5px solid #c62828; padding:14px 16px; border-radius:6px; margin: 12px 0; color:#8a1919; }
+  .alert-yellow { background:#fff8e1; border-left:5px solid #b8860b; padding:12px 16px; border-radius:6px; margin: 12px 0; }
+  ul, ol { margin: 6px 0 6px 22px; }
+  li { margin-bottom: 4px; }
+  a.btn { display:inline-block; padding: 8px 14px; margin:6px 6px 6px 0; background:#1a3560; color:#fff; text-decoration:none; border-radius:6px; font-size:13px; }
+  a.btn:hover { background:#264a86; }
+  a.btn.green { background:#217a4a; }
+  a.btn.orange{ background:#c96b23; }
+  a.btn.teal  { background:#0c7a7a; }
+  .summary-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 10px 0; }
+  .summary-grid div { background:#f7f8fa; padding:8px 12px; border-radius:6px; font-size:13px; }
+  .summary-grid div b { color:#1a3560; }
+  .footer { text-align:center; color:#888; font-size:12px; margin-top: 30px; }
+  .badge-ng { display:inline-block; padding: 2px 10px; border-radius:12px; background:#c62828; color:#fff; font-size:12px; margin-right:6px; }
+  .badge-ok { display:inline-block; padding: 2px 10px; border-radius:12px; background:#218044; color:#fff; font-size:12px; margin-right:6px; }
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260926_casa-especia_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=6800&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.95&floorArea=100.4&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=18&taxRateIncome=20&pi_price_inp=6800&pi_age_inp=18&pi_yield_inp=7.95&pi_area_inp=100.4&pi_rooms_inp=8&ik_land_area=260&ik_route_price=12.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E6%B8%AF%E5%8D%97%E5%8C%BA%E9%87%8E%E5%BA%AD%E7%94%BA242-19" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=6800&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=6.35&floorArea=100.4&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=18&taxRateIncome=20&pi_price_inp=6800&pi_age_inp=18&pi_yield_inp=6.35&pi_area_inp=100.4&pi_rooms_inp=8&ik_land_area=260&ik_route_price=12.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E6%B8%AF%E5%8D%97%E5%8C%BA%E9%87%8E%E5%BA%AD%E7%94%BA242-19" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260926_casa-especia_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20260926_casa-especia_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+<header>
+  <h1>カーサ・エスペシア（物件番号 732）精査レポート</h1>
+  <div class="meta">TC Capitals 仕入部 4名チーム精査（ハルト・リョウ・アキ・村田先生）／ 精査日: 2026年9月26日</div>
+</header>
+
+<div class="container">
+
+  <div class="alert-red">
+    <b>⚠️ チーム総合判定：見送り推奨</b><br>
+    理由（3拍子でキャプテン基準未達）：<b>築18年（築10年基準NG）／利回り7.95%（8%基準NG・実勢6.35%）／積算比率57.7%（60%届かず）</b>。加えて<b>12.55㎡狭小1R</b>による融資・出口・用途の三重苦、および満室7.95%のサブリース疑い。詳細は後述。
+  </div>
+
+  <!-- サマリー -->
+  <div class="card">
+    <h2>物件サマリー</h2>
+    <div class="summary-grid">
+      <div><b>物件名</b>：カーサ・エスペシア（No.732）</div>
+      <div><b>売価</b>：6,800万円</div>
+      <div><b>表面利回り</b>：7.95%（満室）</div>
+      <div><b>所在地</b>：横浜市港南区野庭町242-19</div>
+      <div><b>交通</b>：上永谷駅 徒歩11分</div>
+      <div><b>構造</b>：木造2階 1R×8戸</div>
+      <div><b>築年</b>：2007年（築18年）</div>
+      <div><b>地積</b>：260㎡</div>
+      <div><b>1戸面積</b>：12.55㎡〜</div>
+      <div><b>路線価(資料)</b>：12.5万円/㎡</div>
+      <div><b>積算(資料)</b>：3,250万円（土地のみ）</div>
+      <div><b>取引態様</b>：仲介（推定・要確認）</div>
+      <div><b>仲介</b>：セカンドブリュー 澤田氏</div>
+      <div><b>融資条件(資料)</b>：金利2.45〜4.45%・期間20〜35年</div>
+      <div><b>頭金条件</b>：2割〜フルローン</div>
+    </div>
+  </div>
+
+  <!-- キャプテン基準 -->
+  <div class="card h-purple">
+    <h2>キャプテン基準チェック（5項目 + IRR）</h2>
+    <table>
+      <tr><th>項目</th><th>基準</th><th>実物件</th><th>判定</th></tr>
+      <tr><td>築年</td><td>築10年以内</td><td>築18年</td><td class="ng">NG（8年超過）</td></tr>
+      <tr><td>価格</td><td>1億円以下</td><td>6,800万円</td><td class="ok">OK</td></tr>
+      <tr><td>利回り</td><td>8.0%以上（築古なら12%）</td><td>7.95%（資料）／ 6.35%（スマサテ）</td><td class="ng">NG（0.05%不足・実勢6.35%）</td></tr>
+      <tr><td>エリア</td><td>16号内側</td><td>横浜市港南区（ブルーライン沿線）</td><td class="ok">OK</td></tr>
+      <tr><td>積算比率</td><td>60%以上（土地値目安70%）</td><td>57.66%（建物込・IG+算定）</td><td class="warn">△ 50%クリアだが60%未達</td></tr>
+      <tr><td>10年目IRR</td><td>25%以上</td><td>玉川式シートで要確認</td><td class="warn">TGシート確認</td></tr>
+    </table>
+    <p style="font-size:12px;color:#666;margin-top:8px;">築18年木造は「築古区分」＝キャプテン基準では利回り12%相当を要求。7.95%は築古基準に対して大幅未達。</p>
+  </div>
+
+  <!-- 路線価・ハザード・スマサテ -->
+  <div class="card h-teal">
+    <h2>🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</h2>
+
+    <h3 style="margin:14px 0 6px;font-size:14px;">相続路線価（chikamap.jp）</h3>
+    <p><b>倍率地域（数値路線価なし・倍率表要確認）</b><br>
+    倍率表: <a href="https://scr.wagmap.jp/chikamap/BAI/R07/14/B14111.pdf" target="_blank">令和7年分 神奈川県横浜市港南区 倍率表(PDF)</a><br>
+    <span style="font-size:12px;color:#666;">※メール本文の「路線価12.5万円/㎡・積算3,250万円」は販売資料の独自試算値と推定。実際の相続税評価は「固定資産税評価額 × 倍率」方式で再計算が必要。</span></p>
+
+    <h3 style="margin:14px 0 6px;font-size:14px;">ハザードマップ（重ねるハザードマップ）</h3>
+    <div class="alert-yellow">
+      <b>⚠️ 自動取得スキップ（座標取得APIが3回連続で失敗）</b><br>
+      Nominatim/GSIジオコーダーAPIエラーのため、スクリプト自動取得はできませんでした。手動確認をお願いします。
+      <ul style="margin-top:6px;">
+        <li><b>横浜市わいわい防災マップ</b>で「野庭町242-19」を検索</li>
+        <li>重点確認: 土砂災害警戒区域（レッド/イエロー）・洪水浸水想定・急傾斜地崩壊危険区域</li>
+        <li>参考: 野庭町は野庭団地を中心とする丘陵地形。谷戸地に近いエリアは土砂・傾斜地リスクの可能性あり</li>
+      </ul>
+    </div>
+
+    <h3 style="margin:14px 0 6px;font-size:14px;">スマサテ賃料査定</h3>
+    <table>
+      <tr><th>項目</th><th>数値</th></tr>
+      <tr><td>資料想定賃料（推定）</td><td>56,320円/月/戸</td></tr>
+      <tr><td><b>スマサテ標準賃料（礼金0）</b></td><td><b>45,000円/月/戸</b></td></tr>
+      <tr><td>乖離</td><td class="ng">▲11,320円/戸（▲20.1%）</td></tr>
+      <tr><td>スマサテ考慮満室年収</td><td>432万円</td></tr>
+      <tr><td><b>スマサテ考慮利回り</b></td><td class="ng"><b>6.35%</b>（築古基準12%に対し半分程度）</td></tr>
+    </table>
+    <p style="font-size:12px;color:#666;">▲20%の乖離は「見せかけ利回り」の典型パターン。AD増額・フリーレントで満室維持している疑いあり。</p>
+
+    <p style="margin-top:10px;"><a class="btn teal" href="{survey_url}">🔍 物件調査レポート（スマサテ査定 + 路線価スクショ）</a></p>
+  </div>
+
+  <!-- ハルト -->
+  <div class="card h-orange">
+    <h2>👤 ハルト（エリア・利回り分析）</h2>
+    <p><b>エリア評価：</b>上永谷駅は横浜市営ブルーライン、横浜駅直通約23分・1日平均乗降客数約2.5万人（中規模）。港南区野庭町は野庭団地中心の高齢化ベッドタウン。人口動態は緩やかな減少トレンド。単身1R需要は上大岡・港南中央に集中しており、上永谷はファミリー・シニア実需寄り。</p>
+    <p><b>利回り評価：</b>資料7.95%は実勢6.35%との乖離▲1.6pt。築古（築18年）を織り込むと築古基準12%に対して半分。ノーマルの木造中古1棟は港南区で8〜9%が相場帯。</p>
+    <p><b>狭小12.55㎡×8戸のリスク：</b>単身社会人には敬遠されやすく、学生・外国人・生保・法人寮などのニッチ客層に依存。バス便併用エリアで狭小1Rは客付難化しやすい。空室が出ると次の入居まで長期化する構造。</p>
+    <p><b>もし継続検討する場合の次アクション：</b></p>
+    <ul>
+      <li>売主レントロールの提出依頼（現行家賃・入居時期・AD・フリーレント）</li>
+      <li>周辺競合の空室調査（SUUMO/HOME'S、上永谷徒歩10-15分、12-15㎡帯）</li>
+      <li>倍率地域→固定資産税評価額×倍率で積算再計算</li>
+      <li>指値ターゲット：実勢6.35%を8%まで戻すなら約 <b>▲1,400万円 → 5,400万円</b></li>
+    </ul>
+    <p><b>ハルトからひと言：</b>「立地は悪くないんですけど、12.55㎡×8戸は空室リスクが構造的にキツいっす。7.95%は表向きで、実勢6.35%…これは満室のマジックだと思います。見送りが吉です」</p>
+  </div>
+
+  <!-- リョウ -->
+  <div class="card h-blue">
+    <h2>👤 リョウ（DD）</h2>
+    <p><b>確認済み事項（✅）：</b></p>
+    <ul>
+      <li>新耐震基準（2007年築＝1981年6月以降）</li>
+      <li>木造・法定耐用22年、築18年→残存4年（融資期間短くなりやすい）</li>
+      <li>仲介取引（澤田氏経由）→ 諸費用7%見込み</li>
+      <li>積算3,250万円（土地のみ）→ IG+建物込みで57.7%、資料値のみだと47.8%</li>
+    </ul>
+    <p><b>リスクフラグ（🚩）：</b></p>
+    <ul>
+      <li class="ng">🚩🚩🚩 <b>狭小12.55㎡問題（最大リスク）</b>：建基法住宅の一般的下限（25㎡）を大きく下回る。「寄宿舎」判定リスク・都銀地銀プロパー融資NGの可能性大</li>
+      <li class="ng">🚩🚩 <b>積算比率57.7%</b>：フルローン絶望的、自己資金1,000〜2,000万投入 or 金利上乗せが必要</li>
+      <li class="ng">🚩🚩 <b>サブリース疑い</b>：狭小1R満室7.95%は整いすぎ→契約承継時の賃料減額通告リスク</li>
+      <li>🚩 用途地域リスク（第一種低層なら違反建築の可能性）</li>
+      <li>🚩 駅徒歩11分（単身狭小1Rには少し遠い）</li>
+      <li>🚩 出口の狭さ（個人投資家が融資付けにくい → 業者売り前提9〜10%要求）</li>
+      <li>🚩 築18年木造の外壁塗装1回目の実施状況要確認</li>
+    </ul>
+    <p><b>未確認・要入手（❓）：</b>用途地域・建蔽率・容積率／接道・私道／建築確認・検査済証／レントロール／サブリース契約書／修繕履歴／現行残債・抵当権／境界確定図／公課証明書／土地建物割合／12.55㎡の建築確認上の用途（住宅 or 寄宿舎）</p>
+    <p><a class="btn" href="{dd_url}">📋 DDチェックリスト（入力済み）</a></p>
+  </div>
+
+  <!-- アキ -->
+  <div class="card h-green">
+    <h2>👤 アキ（IG+収支計算 + 玉川式）</h2>
+
+    <p><b>収益・費用サマリー：</b>満室収入540.6万／年、空室5%控除後実収入513.57万、NOI 395.21万（NOI利回り5.81%）</p>
+
+    <table>
+      <tr><th>ローン試算</th><th>Aオリックス相当（100%/2.6%/35年）</th><th>B神奈川銀行相当（90%/2.25%/35年）</th></tr>
+      <tr><td>借入</td><td>6,800万</td><td>6,120万</td></tr>
+      <tr><td>年間返済</td><td>▲296.05万</td><td>▲253.11万</td></tr>
+      <tr><td>年間CF</td><td>99.16万（月8.26万）</td><td>142.10万（月11.84万）</td></tr>
+      <tr><td>CF率</td><td class="ng">1.46%</td><td class="ng">2.09%</td></tr>
+      <tr><td>返済比率</td><td>54.8%</td><td>46.8%</td></tr>
+      <tr><td>自己資金</td><td>476万（諸費用のみ）</td><td>1,156万</td></tr>
+      <tr><td>CCR</td><td class="ok">20.83%</td><td class="ng">12.29%</td></tr>
+    </table>
+
+    <p><b>積算評価（IG+算定）：</b>建物670.9万＋土地3,250万＝<b>3,920.9万（積算比率57.7%）</b></p>
+
+    <p><b>減価償却・デッドクロス：</b>建物価格 6,800×70%=4,760万・残存耐用7年 → 減価償却680万/年（NOI395万を上回る）→ 初年度課税所得ほぼゼロ・税額≈0。ただし<span class="ng">7〜8年目にデッドクロス到来</span>で税負担急増リスク。</p>
+
+    <p><b>キャプテン基準6項目：</b></p>
+    <table>
+      <tr><th>指標</th><th>基準</th><th>パターンA</th><th>パターンB</th></tr>
+      <tr><td>価格</td><td>≤1億</td><td class="ok">OK</td><td class="ok">OK</td></tr>
+      <tr><td>利回り</td><td>≥8.0%</td><td class="ng">NG(7.95%)</td><td class="ng">NG(7.95%)</td></tr>
+      <tr><td>CF率</td><td>≥10%</td><td class="ng">NG(1.46%)</td><td class="ng">NG(2.09%)</td></tr>
+      <tr><td>CCR</td><td>≥20%</td><td class="ok">OK(20.83%)</td><td class="ng">NG(12.29%)</td></tr>
+      <tr><td>積算</td><td>≥50%</td><td class="ok">OK(57.66%)</td><td class="ok">OK(57.66%)</td></tr>
+      <tr><td>10年目IRR</td><td>≥25%</td><td colspan="2">玉川式シートで要確認</td></tr>
+    </table>
+
+    <p style="margin-top:10px;">
+      <a class="btn green" href="{ig_url}">📊 IG+【資料賃料】収支試算</a>
+      <a class="btn green" href="{ig_sumasate_url}">📊 IG+【スマサテ賃料6.35%】収支試算</a>
+      <a class="btn green" href="{tg_url}">📈 玉川式収益試算シート</a>
+    </p>
+
+    <p><b>アキからひと言：</b>「利回り基準0.05%足りない、CCR20%はギリ、積算57.7%は60%届かず。デッドクロス7〜8年目到来リスクが大きいので、10年目IRR25%クリアできるか玉川式で確認してください。1棟目候補としては尖った長所がなく、慎重派としては見送り推奨です」</p>
+  </div>
+
+  <!-- 村田先生 -->
+  <div class="card h-brown">
+    <h2>👤 村田先生（一級建築士コメント）</h2>
+
+    <p><b>構造・築年数：</b>2007年築＝新耐震＋2000年基準クリア。ただし<b>4号特例時代の設計</b>（木造2階建は建築確認時の構造審査省略可）で、四分割法・N値計算の丁寧さは設計事務所次第。骨格自体はまだ健全な可能性が高い。</p>
+
+    <p><b>直近5年以内の修繕リスク：</b></p>
+    <ul>
+      <li>外壁シーリング打替＋塗装：<b>150〜250万円</b>（築15年で1回目タイミング既超過）</li>
+      <li>屋根塗装 or カバー工法：<b>50〜200万円</b></li>
+      <li>給湯器交換（8戸分）：<b>80〜120万円</b></li>
+      <li>ベランダ・共用階段防水：<b>30〜50万円</b></li>
+      <li><b>直近修繕引当合計：500〜700万円が最低ライン</b></li>
+    </ul>
+
+    <p><b>中期修繕（5〜10年）：</b>給排水管更新（戸あたり15〜30万）、退去毎の内装リフォーム（戸あたり15〜30万、8戸全てが2周目リノベ時期）、外壁2回目大規模修繕（築30年で200〜300万）</p>
+
+    <p><b>12.55㎡狭小1Rの設計品質：</b>約7.6畳弱。バス・トイレ・キッチンを押し込むと居室4畳前後。建築基準法上は違法ではないが、<b>横浜市の「ワンルーム形式集合住宅の建築及び管理に関する条例」では原則1戸25㎡以上</b>を要求。平成19年築時点で同条例がどう適用されていたか要確認。既存不適格なら現在合法だが、建替え時に同戸数確保困難。ファミリー・カップル完全対象外、事務所転用も厳しい、シェアハウス転用も困難。</p>
+
+    <p><b>法令適合性：</b>検査済証／用途地域（第一種中高層 or 第二種中高層想定）／準防火地域該当性（港南区野庭町は指定エリア多い）／建蔽率・容積率（消化率39%、増築余地あるが条例で戸数制限）</p>
+
+    <p><b>現地チェック必須項目：</b></p>
+    <ol>
+      <li>外壁シーリング（硬化・剥離・ひび割れ）</li>
+      <li>基礎立ち上がりのクラック（幅0.3mm以上は要診断）</li>
+      <li>屋根の状態（棟板金・スレートのズレ）</li>
+      <li>共用階段・廊下の防水と鉄部（鉄骨階段の根元サビ）</li>
+      <li>給湯器の設置年月（本体シール）</li>
+      <li>敷地境界標</li>
+      <li>上永谷駅からの実徒歩ルート（坂道次第で15分体感）</li>
+      <li>各戸内装のリフォーム履歴</li>
+    </ol>
+
+    <p><b>村田先生のひと言：</b>「現場を見ないと断言はできませんが、構造そのものは健全な可能性が高い。ただ、12.55㎡×8戸という商品性は今のニーズに対して明らかにミスマッチで、建物のリスクよりマーケットのリスクの方が大きい可能性が高い、というのが私の直感です」</p>
+  </div>
+
+  <!-- キャプテンへの確認事項 -->
+  <div class="card h-purple">
+    <h2>🙋 キャプテンへの確認事項（統合）</h2>
+    <ol>
+      <li><b>融資可否の事前打診</b>：12.55㎡×8戸の一棟でauじぶん銀行・オリックスに融資可否確認できますか？25㎡未満はNGの可能性大</li>
+      <li><b>レントロール・サブリース契約書</b>：澤田氏に「レントロール（サブリース有無・保証料率）」「賃貸借契約書8戸分」を依頼してください</li>
+      <li><b>資料アクセス</b>：Google Driveの物件資料（https://drive.google.com/drive/folders/1uRRXq6wv3wN4pyaHKhCSG3sMnv6Y9p4S）にAI側からアクセスできません。用途地域・建蔽率・容積率が判る資料をご共有いただけますか？</li>
+      <li><b>建築確認済証の写し</b>：12.55㎡が「住宅」か「寄宿舎」かの判定に必要</li>
+      <li><b>修繕履歴</b>：築18年で外壁塗装1回目未実施なら追加見積り必要</li>
+      <li><b>横浜市ワンルーム条例</b>の適用状況確認（当時 or 現在）</li>
+      <li><b>ハザードマップの手動確認</b>：スクリプト取得失敗のため、横浜市わいわい防災マップ等で野庭町242-19の土砂災害警戒区域・洪水浸水想定を手動確認願います</li>
+      <li><b>路線価の再検証</b>：メール記載12.5万/㎡は資料側試算値の可能性大。倍率地域なので固定資産税評価額×倍率で積算再計算が必要</li>
+    </ol>
+  </div>
+
+  <!-- チーム総合所見 -->
+  <div class="card h-purple">
+    <h2>🎯 チーム総合所見</h2>
+
+    <div class="alert-red">
+      <b>総合判定：❌ 見送り推奨</b><br>
+      築18年（NG）・利回り7.95%（NG）・実勢利回り6.35%（築古基準12%に対し半分）・積算比57.7%（60%届かず）・12.55㎡狭小の三重苦（融資×出口×用途）・サブリース疑い。<b>4名全員が「見送り」に賛同</b>。
+    </div>
+
+    <p><b>最大リスク：</b>12.55㎡狭小による構造的な「融資×出口×用途」の三重苦。特に融資は事前打診で答えが出るはずで、25㎡未満NGの銀行が多く、フルローン設計自体が組めない可能性が高い。</p>
+
+    <p><b>次のアクション（キャプテンご判断）：</b></p>
+    <ul>
+      <li><b>［推奨］見送りを澤田氏に返信</b>：狭小12.55㎡・利回り7.95%（実勢6.35%）ではキャプテン基準に届かない旨を伝え、次条件（築10年以内・利回り8.0%以上・16号内側・25㎡以上）を明示してリピートオファーを依頼</li>
+      <li>［継続検討する場合］レントロール・建築確認済証・用途地域を全て入手した上で、指値5,400万円（実勢利回り8%相当）で買付を検討</li>
+      <li>［並行］auじぶん・オリックスに「12.55㎡×8戸一棟」の融資可否を事前打診</li>
+    </ul>
+
+    <p style="font-size:12px;color:#888;margin-top:16px;">本レポートは物件資料（メール本文・スマサテ査定・chikamap路線価・IG+/玉川式計算）に基づく机上精査です。最終判断は現地確認・重要事項説明書精査を経てください。</p>
+  </div>
+
+  <div class="footer">TC Capitals Frontier — 仕入部チーム精査 / 2026-09-26</div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260926_casa-especia_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260926_casa-especia_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
