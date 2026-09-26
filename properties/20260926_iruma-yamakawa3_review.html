@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>チーム精査レポート — ハイツヤマカワIII</title>
+<style>
+:root {
+  --primary:#1a237e; --primary-light:#3949ab; --primary-bg:#e8eaf6;
+  --haruto:#e65100; --haruto-bg:#fff3e0;
+  --ryo:#1565c0; --ryo-bg:#e3f2fd;
+  --aki:#2e7d32; --aki-bg:#e8f5e9;
+  --murata:#4e342e; --murata-bg:#efebe9;
+  --teal:#00695c; --teal-bg:#e0f2f1;
+  --ok:#2e7d32; --ok-bg:#e8f5e9;
+  --ng:#c62828; --ng-bg:#ffebee;
+  --warn:#e65100; --warn-bg:#fff3e0;
+  --border:#dde3ee; --bg:#f5f7fa; --card:#fff; --text:#1a1a2e; --muted:#607d8b;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Hiragino Sans','Yu Gothic UI',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7;}
+.site-header{background:var(--primary);color:#fff;padding:20px 24px;border-bottom:4px solid var(--primary-light);}
+.site-header h1{font-size:20px;font-weight:700;letter-spacing:0.04em;}
+.site-header .sub{font-size:13px;opacity:0.75;margin-top:4px;}
+.site-header .meta{font-size:12px;opacity:0.6;margin-top:6px;}
+.container{max-width:960px;margin:24px auto;padding:0 16px 80px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:20px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.card-header{padding:14px 20px;font-size:15px;font-weight:700;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.card-body{padding:20px;}
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+.summary-cell{padding:14px 20px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.summary-cell:nth-child(3n){border-right:none;}
+.summary-cell:nth-last-child(-n+3){border-bottom:none;}
+.s-label{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.04em;}
+.s-val{font-size:18px;font-weight:700;}
+.s-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.criteria-table{width:100%;border-collapse:collapse;}
+.criteria-table th,.criteria-table td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);font-size:13px;}
+.criteria-table th{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;background:var(--bg);}
+.criteria-table tr:last-child td{border-bottom:none;}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:4px;}
+.badge-ok{background:var(--ok-bg);color:var(--ok);}
+.badge-ng{background:var(--ng-bg);color:var(--ng);}
+.badge-warn{background:var(--warn-bg);color:var(--warn);}
+.agent-header{padding:16px 20px;font-size:16px;font-weight:700;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(0,0,0,0.08);}
+.agent-haruto .agent-header{background:var(--haruto-bg);color:var(--haruto);border-left:5px solid var(--haruto);}
+.agent-ryo .agent-header{background:var(--ryo-bg);color:var(--ryo);border-left:5px solid var(--ryo);}
+.agent-aki .agent-header{background:var(--aki-bg);color:var(--aki);border-left:5px solid var(--aki);}
+.agent-murata .agent-header{background:var(--murata-bg);color:var(--murata);border-left:5px solid var(--murata);}
+.agent-teal .agent-header{background:var(--teal-bg);color:var(--teal);border-left:5px solid var(--teal);}
+.agent-body{padding:20px;}
+h3{font-size:14px;font-weight:700;margin:18px 0 8px;color:var(--primary);}
+h3:first-child{margin-top:0;}
+p{margin-bottom:10px;}
+ul,ol{padding-left:20px;margin-bottom:10px;}
+li{margin-bottom:4px;}
+.flag{color:var(--ng);font-weight:700;}
+.ok-text{color:var(--ok);font-weight:700;}
+.warn-text{color:var(--warn);font-weight:700;}
+.data-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:12px;}
+.data-table th{background:var(--bg);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.data-table td{padding:8px 12px;border-bottom:1px solid var(--border);}
+.data-table tr:last-child td{border-bottom:none;}
+.num{text-align:right;font-weight:700;font-family:'Consolas',monospace;}
+.risk-block{border-radius:8px;padding:12px 16px;margin:10px 0;}
+.risk-high{background:#fff3f3;border:1px solid #ffcdd2;border-left:4px solid var(--ng);}
+.risk-mid{background:#fffde7;border:1px solid #ffe082;border-left:4px solid #f9a825;}
+.risk-low{background:var(--ok-bg);border:1px solid #c8e6c9;border-left:4px solid var(--ok);}
+.risk-label{font-size:11px;font-weight:700;margin-bottom:4px;}
+.risk-high .risk-label{color:var(--ng);}
+.risk-mid .risk-label{color:#f57f17;}
+.risk-low .risk-label{color:var(--ok);}
+.confirm-box{background:#fff8e1;border:2px solid #ffd54f;border-radius:10px;padding:16px 20px;margin:10px 0;}
+.confirm-box h4{font-size:13px;font-weight:700;color:#5d4037;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.confirm-box ul{list-style:none;padding:0;}
+.confirm-box li{font-size:13px;color:#5d4037;padding:4px 0;display:flex;gap:8px;}
+.confirm-box li::before{content:"→";font-weight:700;flex-shrink:0;}
+.link-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:6px;border:2px solid;font-size:13px;font-weight:700;text-decoration:none;margin-top:8px;margin-right:8px;}
+.link-btn-ryo{background:var(--ryo-bg);color:var(--ryo);border-color:var(--ryo);}
+.link-btn-aki{background:var(--aki-bg);color:var(--aki);border-color:var(--aki);}
+.link-btn-teal{background:var(--teal-bg);color:var(--teal);border-color:var(--teal);}
+.verdict-card{background:linear-gradient(135deg,#1a237e 0%,#283593 100%);color:#fff;border-radius:12px;padding:24px;margin-top:4px;}
+.verdict-card h2{font-size:18px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.verdict-ng{display:inline-block;background:#ef9a9a;color:#b71c1c;font-size:13px;font-weight:700;padding:2px 10px;border-radius:4px;margin-left:8px;}
+.verdict-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.15);}
+.verdict-item:last-child{border-bottom:none;}
+.verdict-icon{font-size:18px;flex-shrink:0;}
+.verdict-text{font-size:13px;line-height:1.6;}
+.verdict-name{font-weight:700;font-size:14px;margin-bottom:2px;}
+.note{font-size:11px;color:var(--muted);font-style:italic;margin-top:4px;}
+@media(max-width:600px){
+  .summary-grid{grid-template-columns:1fr 1fr;}
+  .summary-cell:nth-child(2n){border-right:none;}
+  .summary-cell:nth-child(3n){border-right:1px solid var(--border);}
+}
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <div>
+    <h1>🏢 不動産仕入部 — チーム精査レポート</h1>
+    <div class="sub">ハイツヤマカワIII / 埼玉県入間市大字野田</div>
+    <div class="meta">精査日: 2026年9月26日 ｜ 担当: ハルト・リョウ・アキ・村田先生</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ===== 物件サマリー ===== -->
+<div class="card">
+  <div class="card-header" style="background:var(--primary-bg);color:var(--primary);">
+    📋 物件サマリー
+  </div>
+  <div class="summary-grid">
+    <div class="summary-cell">
+      <div class="s-label">物件価格</div>
+      <div class="s-val" style="color:var(--ok);">3,300万円</div>
+      <div class="s-sub">1棟目サイズにピッタリ</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">表面利回り</div>
+      <div class="s-val" style="color:var(--ok);">10.98%</div>
+      <div class="s-sub">スマサテ査定ベースなら11.78%</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">構造・築年</div>
+      <div class="s-val" style="color:var(--warn);">木造2階建・築30年</div>
+      <div class="s-sub">1996年8月竣工（新耐震・2000年基準前）</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">所在・交通</div>
+      <div class="s-val" style="font-size:15px;">元加治駅 徒歩5分</div>
+      <div class="s-sub">西武池袋線・埼玉県入間市大字野田</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">規模</div>
+      <div class="s-val">2DK × 6戸</div>
+      <div class="s-sub">延床261.8㎡（79.2坪）・土地310.41㎡（私道122.24㎡含む）</div>
+    </div>
+    <div class="summary-cell">
+      <div class="s-label">取引態様</div>
+      <div class="s-val">仲介（諸費用7%）</div>
+      <div class="s-sub">株式会社ライズプランニング・満室稼働</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== キャプテン基準5項目 ===== -->
+<div class="card">
+  <div class="card-header" style="background:var(--primary-bg);color:var(--primary);">
+    ⚡ キャプテン基準チェック — 5項目
+  </div>
+  <div class="card-body" style="padding:0;">
+    <table class="criteria-table">
+      <thead>
+        <tr>
+          <th>基準項目</th>
+          <th>基準値</th>
+          <th>本物件</th>
+          <th>判定</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>物件価格</td>
+          <td>1億円以下</td>
+          <td><strong>3,300万円</strong></td>
+          <td><span class="badge badge-ok">✅ OK</span></td>
+        </tr>
+        <tr>
+          <td>表面利回り</td>
+          <td>8.0%以上（築古は12%以上推奨）</td>
+          <td><strong>10.98%</strong>（スマサテ11.78%）</td>
+          <td><span class="badge badge-warn">△ 中間</span></td>
+        </tr>
+        <tr>
+          <td>築年数</td>
+          <td>10年以内</td>
+          <td><strong>築30年</strong>（1996年8月）</td>
+          <td><span class="badge badge-ng">❌ NG</span></td>
+        </tr>
+        <tr>
+          <td>エリア（16号内側）</td>
+          <td>国道16号内側</td>
+          <td><strong>入間市（16号外側・圏央道沿線）</strong></td>
+          <td><span class="badge badge-warn">△ 圏央道沿線</span></td>
+        </tr>
+        <tr>
+          <td>新耐震基準</td>
+          <td>1981年6月以降</td>
+          <td><strong>1996年竣工</strong>（新耐震だが2000年基準前）</td>
+          <td><span class="badge badge-ok">✅ OK</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="padding:12px 20px;background:#fff3f3;font-size:13px;color:var(--ng);font-weight:600;border-top:1px solid var(--border);">
+      ⚠ 5項目中 1項目NG（築年数）＋ 2項目△（利回り・エリア）— 総合判断で見送り／指値検討推奨
+    </div>
+  </div>
+</div>
+
+<!-- ===== 路線価・ハザード・スマサテ（ハルト調査） ===== -->
+<div class="card agent-teal">
+  <div class="agent-header">
+    🗺️ 路線価・ハザードマップ・スマサテ査定
+    <span style="font-size:12px;font-weight:400;margin-left:auto;">ハルト自動調査</span>
+  </div>
+  <div class="agent-body">
+
+    <h3>相続路線価（chikamap.jp 令和7年分）</h3>
+    <p><strong>6.4万円/㎡</strong>（借地権割合: <strong>E 50%</strong>・路線価地域）</p>
+    <ul>
+      <li>私道除く実質土地188㎡での土地値: 約1,203万円 → 土地値率<strong>36.5%</strong>（キャプテン基準70%大幅未達）</li>
+      <li>私道込み310.41㎡での土地値: 約1,987万円 → 土地値率60.2%（それでも70%未達）</li>
+      <li>建物積算: 木造築30年で法定耐用年数超過 → 建物積算0円扱い</li>
+      <li>総合積算: 1,200〜2,000万円 vs 販売価格3,300万円 → <strong class="flag">積算価格 < 販売価格（担保力弱）</strong></li>
+    </ul>
+
+    <h3>🗺️ 重ねるハザードマップ</h3>
+    <div class="risk-block risk-mid">
+      <div class="risk-label">⚠️ 自動取得スキップ・要手動確認</div>
+      GSI国土地理院ジオコーダーAPIが 504 Gateway Timeout で応答不可（複数回リトライ後も復旧せず）。<br>
+      <strong>入間川左岸の平坦地・洪積台地寄り</strong>のため、入間川流域の洪水浸水想定区域（1000年に一度の想定降雨740mm/3日）に一部触れる可能性あり。<br>
+      キャプテンにて重ねるハザードマップ（disaportal.gsi.go.jp）で「埼玉県入間市大字野田」を手動検索し、洪水浸水想定深・土砂災害警戒区域（レッドゾーン）の有無を必ず確認してください。
+    </div>
+
+    <h3>🏠 スマサテ賃料査定</h3>
+    <table class="data-table">
+      <thead><tr><th>項目</th><th>資料</th><th>スマサテ査定</th><th>乖離</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>月額賃料（1戸）</td>
+          <td class="num">50,333円</td>
+          <td class="num">54,000円</td>
+          <td class="num" style="color:var(--ok);">+3,667円 / +7.3%</td>
+        </tr>
+        <tr>
+          <td>単価（円/㎡）</td>
+          <td class="num">約1,154円</td>
+          <td class="num">1,242円</td>
+          <td class="num">+88円/㎡</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="risk-block risk-low">
+      <div class="risk-label">✅ 賃料は保守的（余地あり）</div>
+      <strong>資料賃料はスマサテ査定より7.3%低い</strong>ため、賃料下振れリスクは限定的。むしろリフォーム＋賃料引き上げの余地あり。スマサテ賃料ベースの利回りは<strong>11.78%</strong>まで上昇。
+    </div>
+
+    <p style="margin-top:12px;"><a href="#" class="link-btn link-btn-teal" id="survey-link">🔍 物件調査レポート（スマサテ入力・路線価スクショ）</a></p>
+
+  </div>
+</div>
+
+<!-- ===== ハルト ===== -->
+<div class="card agent-haruto">
+  <div class="agent-header">
+    🟠 ハルト（エリア・利回り分析）
+    <span style="font-size:12px;font-weight:400;margin-left:auto;">朝倉 晴斗</span>
+  </div>
+  <div class="agent-body">
+
+    <h3>エリア評価 — 元加治駅・入間市大字野田</h3>
+    <p><strong>元加治駅の駅力:</strong> 西武池袋線・急行の1駅手前（各駅停車のみ）・1日平均乗降1万人前後の小規模駅。飯能・仏子・元加治のトライアングルで賃貸需要は「安定・爆発なし」の典型郊外。</p>
+    <p><strong>入間市の人口動態:</strong> 約14.4万人（緩やかな減少局面）。工業団地（本田技研狭山→日高、埼玉三菱シューティングメーカー等）とベッドタウン需要でファミリー賃貸は底堅い。西武池袋線1本で池袋52分。</p>
+    <p><strong>大字野田エリア:</strong> 元加治駅から徒歩5分圏の閑静な住宅地。入間川左岸の平坦地。近隣に大規模スーパー・ドラッグストア・小中学校あり。</p>
+    <p><strong>賃貸需要:</strong> 2DK 43.6㎡はカップル・小家族・単身寄り。飯能・入間の職住近接ニーズ（工場勤務・介護施設勤務）と相性◎。ただし新築1LDK 43㎡の新供給と競合しやすい間取り。</p>
+
+    <h3>利回り相場感</h3>
+    <ul>
+      <li>同エリア築古（築25年〜）アパート表面利回り相場: <strong>10〜13%レンジ</strong></li>
+      <li>本物件10.98%は「相場ど真ん中」。飛び抜けて割安ではないが、割高でもない</li>
+      <li>築30年12%基準（キャプテン）には約1.0pt足りない</li>
+      <li>スマサテベース11.78%なら基準ラインに極めて肉薄</li>
+    </ul>
+
+    <h3>空室リスク評価</h3>
+    <ul>
+      <li>◎ 駅徒歩5分・満室稼働中・2DK43.6㎡はファミリー入居可能な広さ・急行停車の飯能から1駅</li>
+      <li>△ 築30年で外壁・給排水管の大規模修繕サイクル真っ只中（今後10年でCF圧迫の可能性大）</li>
+      <li>△ 2DKは1LDKへの間取り改修需要が生まれやすい（家賃維持のためのリフォーム負担）</li>
+      <li>△ 元加治駅の乗降規模が小さく、賃貸市場の厚みは限定的</li>
+      <li>△ 私道負担122.24㎡（土地の約40%）→ 出口の土地評価に響く</li>
+    </ul>
+
+    <div class="risk-block risk-mid">
+      <div class="risk-label">🟠 ハルトの率直な評価: 見送り推奨（条件次第で再検討）</div>
+      「駅徒歩5分・6戸・満室・スマサテ強め」まで揃うと一瞬グッと来ますが、<strong>積算36.5%・築30年・私道40%</strong>の3点セットは融資と出口を同時に狭めます。キャプテン1棟目としてはリスクオーバーウェイト。<br>
+      価格2,700万円台まで指値できて土地値率が私道除きでも70%に届くなら再検討の余地あり。
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== リョウ ===== -->
+<div class="card agent-ryo">
+  <div class="agent-header">
+    🔵 リョウ（DD）
+    <span style="font-size:12px;font-weight:400;margin-left:auto;">黒沢 涼</span>
+  </div>
+  <div class="agent-body">
+
+    <h3>確認済み ✅</h3>
+    <ul>
+      <li><strong>新耐震基準</strong>: 1996年8月竣工 → 新耐震（1981/6/1以降）に該当</li>
+      <li><strong>建ぺい/容積</strong>: 60% / 200%</li>
+      <li><strong>接道</strong>: 南向き4.00m私道（位置指定）に接道 → 建築基準法第42条1項5号道路と推定・再建築可能性あり</li>
+      <li><strong>取引態様</strong>: 仲介（諸費用7%想定）</li>
+      <li><strong>仲介業者</strong>: 株式会社ライズプランニング（東京都知事(4)第93356号）→ 4回更新済み・実績あり</li>
+      <li><strong>満室稼働</strong>: 6戸全戸埋まり、年間賃料362.4万円で表面利回り10.98%（数字は整合）</li>
+      <li><strong>実効宅地</strong>: 私道除き188.17㎡（有効土地60.6%）</li>
+    </ul>
+
+    <h3>リスクフラグ 🚩</h3>
+    <ul>
+      <li><strong class="flag">築30年木造</strong>: 法定耐用22年を超過 → 融資は難航必至。オリックス・auじぶんは築25年超で条件厳しい。三井住友トラストL&F、SBJ、静銀等の耐用超過対応行に絞る必要</li>
+      <li><strong class="flag">私道122.24㎡（土地の39.4%）</strong>: 位置指定道路・共有持分か単独所有かで融資影響が変わる。掘削・通行承諾書の有無要確認</li>
+      <li><strong class="flag">用途地域記載なし</strong>: 大字野田は市街化調整区域の可能性も。要即確認（調整区域なら融資NG銀行多数）</li>
+      <li><strong>大字野田の流動性</strong>: 大字表記は市街化調整区域や旧集落エリアの可能性 → 出口戦略に不安</li>
+      <li><strong>総戸数6戸×築30年</strong>: 修繕計画未提示 → 今後5〜10年で500〜800万円級の大規模修繕</li>
+      <li><strong>満室現況の中身</strong>: 賃料水準が相場か・長期入居者の退去リスク・敷金の状態が不明</li>
+      <li><strong>高利回り10.98%の裏側</strong>: 高利回りには理由がある。何かNG要素が隠れている可能性を疑う必要あり</li>
+    </ul>
+
+    <h3>最大リスクと対処</h3>
+    <div class="risk-block risk-high">
+      <div class="risk-label">🔴 最大リスク: 用途地域不明＋大字野田の立地</div>
+      <strong>仲介に用途地域を即確認</strong>。市街化調整区域なら本件はここでNG判定（融資出ない・出口取れない）。市街化区域確認できれば次のステップへ進める。
+    </div>
+
+    <p><a href="https://teruyone.github.io/tc-properties/properties/20260926_iruma-yamakawa3_DD.html" class="link-btn link-btn-ryo">📋 入力済みDDリストを開く</a></p>
+
+  </div>
+</div>
+
+<!-- ===== アキ ===== -->
+<div class="card agent-aki">
+  <div class="agent-header">
+    🟢 アキ（IG+ 収支計算・玉川式）
+    <span style="font-size:12px;font-weight:400;margin-left:auto;">三宅 亜紀</span>
+  </div>
+  <div class="agent-body">
+
+    <h3>収益・費用サマリー</h3>
+    <table class="data-table">
+      <thead><tr><th>項目</th><th class="num">金額</th></tr></thead>
+      <tbody>
+        <tr><td>満室収入</td><td class="num">362.4万円/年</td></tr>
+        <tr><td>実収入（空室5%控除）</td><td class="num">344.3万円</td></tr>
+        <tr><td>費用合計（PM17.2/BM19.0/共用4.8/保険13.1/固都税34.4/修繕21.8/原状回復19.8/AD7.6）</td><td class="num">▲137.6万円</td></tr>
+        <tr><td><strong>NOI（NOI利回り 6.26%）</strong></td><td class="num"><strong>206.7万円</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3>ローン試算</h3>
+    <table class="data-table">
+      <thead><tr><th>パターン</th><th class="num">年間返済</th><th class="num">CF</th><th class="num">CF率</th><th class="num">返済比率</th><th class="num">CCR</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>①オリックス（100%・2.6%・35年）</td>
+          <td class="num">▲143.7万</td>
+          <td class="num">63.0万</td>
+          <td class="num">1.91%</td>
+          <td class="num">41.74%</td>
+          <td class="num" style="color:var(--ok);">27.27%</td>
+        </tr>
+        <tr>
+          <td>②神奈川銀行（90%・2.25%・35年）</td>
+          <td class="num">▲122.7万</td>
+          <td class="num">84.0万</td>
+          <td class="num">2.55%</td>
+          <td class="num">35.64%</td>
+          <td class="num" style="color:var(--warn);">14.97%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>積算評価（路線価6.4万/㎡）</h3>
+    <ul>
+      <li>建物: 0円（木造築30年・法定耐用年数超過）</li>
+      <li>土地: 1,203万円（路線価6.4万 × 私道除く188㎡）</li>
+      <li><strong>積算比率: 36.5%</strong>（キャプテン基準60%NG・積算価格 < 販売価格）</li>
+    </ul>
+
+    <h3>税引後CF</h3>
+    <ul>
+      <li>残存耐用年数: 2年（築30年 > 木造22年で加速償却）</li>
+      <li>減価償却費: 1,155万円/年 → <strong>初期2年間は課税所得ゼロ・税額ゼロ</strong></li>
+      <li>4年目以降は減価償却が消え税負担が急増（<strong class="flag">デッドクロス</strong>）</li>
+    </ul>
+
+    <h3>キャプテン基準チェック</h3>
+    <table class="data-table">
+      <thead><tr><th>基準</th><th>オリックス</th><th>神奈川</th></tr></thead>
+      <tbody>
+        <tr><td>価格 ≤ 1億</td><td><span class="badge badge-ok">OK</span></td><td><span class="badge badge-ok">OK</span></td></tr>
+        <tr><td>利回り ≥ 7.1%</td><td><span class="badge badge-ok">OK 10.98%</span></td><td><span class="badge badge-ok">OK</span></td></tr>
+        <tr><td>CF率 ≥ 1%</td><td><span class="badge badge-ok">OK 1.91%</span></td><td><span class="badge badge-ok">OK 2.55%</span></td></tr>
+        <tr><td>CCR ≥ 15%</td><td><span class="badge badge-ok">OK 27.27%</span></td><td><span class="badge badge-ng">NG 14.97%</span></td></tr>
+        <tr><td>積算比率 ≥ 60%</td><td colspan="2" style="text-align:center;"><span class="badge badge-ng">両方NG 36.5%</span></td></tr>
+        <tr><td>10年目IRR ≥ 25%</td><td colspan="2" style="text-align:center;">→ 玉川式シートで要確認</td></tr>
+      </tbody>
+    </table>
+
+    <div class="risk-block risk-mid">
+      <div class="risk-label">🟢 アキの率直な評価</div>
+      表面10.98%×フルローンで<strong>CCR27%は文句なしの好数字</strong>。ただし積算36.5%と築30年木造という「銀行が嫌う二重リスク」を抱えるため、2棟目融資の伸びしろが読みにくい。1棟目単体で回すなら◎、拡張戦略の柱にするなら△。10年目IRRの結果次第で最終判断が変わる。
+    </div>
+
+    <p>
+      <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=3300&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=10.98&floorArea=261.8&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=30&taxRateIncome=20&pi_price_inp=3300&pi_age_inp=30&pi_yield_inp=10.98&pi_area_inp=261.8&pi_rooms_inp=6&ik_land_area=310.41&ik_route_price=6.4&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%9F%BC%E7%8E%89%E7%9C%8C%E5%85%A5%E9%96%93%E5%B8%82%E5%A4%A7%E5%AD%97%E9%87%8E%E7%94%B0" class="link-btn link-btn-aki">📊 IG+【資料賃料】収支試算</a>
+      <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=3300&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=11.78&floorArea=261.8&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=30&taxRateIncome=20&pi_price_inp=3300&pi_age_inp=30&pi_yield_inp=11.78&pi_area_inp=261.8&pi_rooms_inp=6&ik_land_area=310.41&ik_route_price=6.4&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%9F%BC%E7%8E%89%E7%9C%8C%E5%85%A5%E9%96%93%E5%B8%82%E5%A4%A7%E5%AD%97%E9%87%8E%E7%94%B0" class="link-btn link-btn-aki">📊 IG+【スマサテ賃料】収支試算</a>
+      <a href="tamagawa-analysis/20260926_iruma-yamakawa3_TG.html" class="link-btn link-btn-aki">📈 玉川式シート</a>
+    </p>
+
+  </div>
+</div>
+
+<!-- ===== 村田先生 ===== -->
+<div class="card agent-murata">
+  <div class="agent-header">
+    🟤 村田先生（一級建築士コメント）
+    <span style="font-size:12px;font-weight:400;margin-left:auto;">村田 誠一・35年経験</span>
+  </div>
+  <div class="agent-body">
+
+    <h3>構造・築年数の評価</h3>
+    <p>1996年8月竣工は<strong>新耐震（1981年）</strong>だが<strong>2000年基準（木造の接合金物・偏心率・地耐力調査義務化）</strong>より前の物件。1996年時点では羽子板ボルト・かすがい程度で、現在必須の「引き寄せ金物（ホールダウン）」は設計上必須ではなかった。<strong>耐震性は"中の下"</strong>と見ておくのが妥当。</p>
+    <p>救いは<strong>1995年阪神大震災の翌年竣工</strong>のため、良心的な工務店なら当時基準を超える金物を入れている可能性あり。<strong>設計図書（構造図・伏図）を必ず売主から取り寄せて確認</strong>。</p>
+
+    <h3>⚠️ 建物ボリューム検証 — 建蔽率オーバー疑義</h3>
+    <table class="data-table">
+      <thead><tr><th>項目</th><th class="num">数値</th></tr></thead>
+      <tbody>
+        <tr><td>土地面積（実効・私道除く）</td><td class="num">188.17㎡</td></tr>
+        <tr><td>建蔽率60%上限</td><td class="num">112.9㎡（1階の上限）</td></tr>
+        <tr><td>実際の1階想定（延床÷2）</td><td class="num">131㎡</td></tr>
+        <tr><td>容積率200%上限</td><td class="num">376.3㎡（OK）</td></tr>
+      </tbody>
+    </table>
+    <div class="risk-block risk-high">
+      <div class="risk-label">🔴 建蔽率オーバー＝既存不適格の疑い</div>
+      建替え時に現行法適合が必要で、<strong>同規模再建築ができない</strong>恐れがある。融資評価にも影響。<br>
+      <strong>必ず取得する書類:</strong> ①建築確認済証、②検査済証、③建築計画概要書。検査済証が無い物件は融資が付きにくい。
+    </div>
+
+    <h3>修繕リスクと費用概算</h3>
+    <p><strong>直近5年以内（合計 400〜700万円想定）</strong></p>
+    <ul>
+      <li>外壁塗装（3回目直前）: 120〜180万円（足場込み・6戸規模）</li>
+      <li>屋根塗装 or 葺き替え（カバー工法）: 60〜90万円 / <strong>150〜250万円</strong></li>
+      <li>給湯器交換（6戸分）: 6台×12万＝約72万円</li>
+      <li>外部鉄骨階段の錆・塗装: 30〜80万円</li>
+      <li>共用部シーリング・雨樋: 20〜40万円</li>
+    </ul>
+    <p><strong>中期10年で見込むべき（合計 300〜500万円）</strong></p>
+    <ul>
+      <li>給排水管更新: 亜鉛メッキ鋼管なら赤水リスク大。全面300〜500万円</li>
+      <li>室内設備（キッチン・浴室）: 退去時1戸50〜80万円</li>
+      <li>バルコニー防水（FRP）・玄関ドア・サッシ更新</li>
+    </ul>
+    <div class="risk-block risk-mid">
+      <div class="risk-label">⚠️ 修繕原資1,000万円の覚悟</div>
+      築30年木造アパートの一般則として、<strong>10年で500〜1,000万円の修繕原資</strong>を見込むのが安全。3,300万円で買って修繕1,000万円なら実質取得コスト4,300万円、利回り10.98%→8.4%程度まで落ちる計算。
+    </div>
+
+    <h3>現地確認必須項目</h3>
+    <ul>
+      <li>基礎: 幅0.3mm以上のクラック・白華現象・基礎高さ・床下換気口・傾き</li>
+      <li>外壁: チョーキング・外壁材の種類・クラック・シーリング・雨だれ/カビ</li>
+      <li>屋根: <strong class="flag">1996年築ならコロニアル（アスベスト含有の可能性）</strong>→葺き替え時の処分費が10倍違う</li>
+      <li>外部鉄骨階段: 踏板裏の錆・貫通穴・基礎沈下・手すり溶接部亀裂</li>
+      <li>室内: 給湯器の製造年シール・給水管タイプ（鋼管なら赤水リスク）・分電盤年式</li>
+      <li>私道: 舗装状態・排水桝・境界標</li>
+    </ul>
+
+    <div class="risk-block risk-mid">
+      <div class="risk-label">🟤 村田先生の総合コメント</div>
+      現場を見ないと断言はできませんが、この物件は<strong>「値段のわりに手はかかるが、直せば戦える中古アパート」</strong>という第一印象。<br>
+      <strong>判定基準:</strong> ①検査済証あり＋修繕履歴あり→3,300万円は妥当、指値200〜300万狙い / ②検査済証なし＋建蔽率オーバー確定→<strong>指値500万円以上または撤退推奨</strong> / ③屋根コロニアル（アスベスト）未葺替→修繕見積300万円以上追加。
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== キャプテンへの確認事項 ===== -->
+<div class="card">
+  <div class="card-header" style="background:#fff8e1;color:#5d4037;">
+    📢 キャプテンへの確認事項まとめ
+  </div>
+  <div class="card-body">
+
+    <div class="confirm-box">
+      <h4>🔴 最優先（融資・出口に直結）</h4>
+      <ul>
+        <li><strong>用途地域</strong>: 市街化区域か調整区域か？（記載なしのため即確認）</li>
+        <li><strong>建築確認済証・検査済証の有無</strong>（建蔽率オーバー疑義の検証）</li>
+        <li><strong>私道122.24㎡の権利関係</strong>: 共有持分か・単独所有か・第三者所有か？掘削・通行承諾書の有無</li>
+        <li><strong>ハザードマップ手動確認</strong>: 入間川流域の洪水浸水想定・土砂災害警戒区域の有無（GSI自動取得失敗のため）</li>
+      </ul>
+    </div>
+
+    <div class="confirm-box">
+      <h4>🟡 収支精度に関わる項目</h4>
+      <ul>
+        <li>レントロール（全6戸の現況賃料・契約日・契約種別・敷金・入居期間）</li>
+        <li>公課証明書または最新の納税通知書（固都税実額）</li>
+        <li>大規模修繕履歴（過去3年の外壁・屋根・給排水）</li>
+        <li>設計図書（構造図・伏図）</li>
+        <li>登記簿謄本（土地・建物・抵当権・差押）</li>
+      </ul>
+    </div>
+
+    <div class="confirm-box">
+      <h4>🟢 現地確認項目</h4>
+      <ul>
+        <li>基礎クラック・外壁チョーキング・屋根材（コロニアル/アスベスト）</li>
+        <li>外部鉄骨階段の錆・沈下</li>
+        <li>境界標の有無・越境の有無</li>
+        <li>心理的瑕疵・事故物件履歴</li>
+        <li>PM会社の有無・管理形態（自主管理か・PM委託か）</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== チーム総合所見 ===== -->
+<div class="verdict-card">
+  <h2>📊 チーム総合所見 <span class="verdict-ng">見送り or 大幅指値推奨</span></h2>
+
+  <div class="verdict-item">
+    <span class="verdict-icon">🟠</span>
+    <div>
+      <div class="verdict-name">ハルト（エリア・利回り）</div>
+      <div class="verdict-text">駅5分・満室・スマサテ強めまでは魅力的だが、<strong>積算36.5%・築30年・私道40%</strong>の3点セットが融資と出口を同時に狭める。価格2,700万円台まで指値できるなら再検討の余地あり。</div>
+    </div>
+  </div>
+
+  <div class="verdict-item">
+    <span class="verdict-icon">🔵</span>
+    <div>
+      <div class="verdict-name">リョウ（DD）</div>
+      <div class="verdict-text">用途地域・私道権利・築30年融資の3点が未解決。<strong>市街化調整区域なら即NG</strong>。まず仲介から用途地域と私道権利の2点を確認してからDD再開推奨。</div>
+    </div>
+  </div>
+
+  <div class="verdict-item">
+    <span class="verdict-icon">🟢</span>
+    <div>
+      <div class="verdict-name">アキ（IG+収支計算）</div>
+      <div class="verdict-text">CCR27%・初期2年税額ゼロは魅力。しかし積算36.5%と築古で<strong>2棟目融資の伸びしろが読みにくい</strong>。10年目IRR≥25%達成なら1棟目単体投資として成立、未達なら見送り。</div>
+    </div>
+  </div>
+
+  <div class="verdict-item">
+    <span class="verdict-icon">🟤</span>
+    <div>
+      <div class="verdict-name">村田先生（建築士）</div>
+      <div class="verdict-text"><strong>建蔽率オーバー疑義＝既存不適格リスク大</strong>。検査済証と修繕履歴があれば妥当価格、なければ指値500万円以上または撤退推奨。修繕原資1,000万円の覚悟必要。</div>
+    </div>
+  </div>
+
+  <div class="verdict-item">
+    <span class="verdict-icon">🎯</span>
+    <div>
+      <div class="verdict-name">最大リスク（4名一致）</div>
+      <div class="verdict-text">
+        ①用途地域不明（市街化調整区域なら即死）<br>
+        ②建蔽率オーバー疑義（既存不適格・融資影響）<br>
+        ③私道40%（融資・出口の目減り）<br>
+        ④築30年融資対応行の限定（オリックス・auじぶんは厳しい）
+      </div>
+    </div>
+  </div>
+
+  <div class="verdict-item">
+    <span class="verdict-icon">📌</span>
+    <div>
+      <div class="verdict-name">次のアクション</div>
+      <div class="verdict-text">
+        1. <strong>仲介に用途地域・検査済証・私道権利の3点を即確認</strong>（回答次第で即NG判定 or 前進判定）<br>
+        2. 用途地域が市街化区域確認 → 玉川式シート10年目IRRを確認（≥25%なら次段階へ）<br>
+        3. 現地内覧で村田先生チェックリスト実施（基礎・外壁・屋根・階段・給湯器）<br>
+        4. 指値目線: 検査済証あり=3,000〜3,100万円（▲200〜300万）／なし=2,700〜2,800万円（▲500〜600万）
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260926_iruma-yamakawa3_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260926_iruma-yamakawa3_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
