@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>物件精査レポート — 町田市能ヶ谷二丁目AP</title>
+<style>
+  body { font-family: "Yu Gothic","Hiragino Kaku Gothic ProN",Meiryo,sans-serif; margin: 0; padding: 0; background: #f5f6fa; color:#1c2333; line-height:1.7; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 24px; }
+  .hero { background:#1c3a6e; color:#fff; padding: 28px 32px; border-radius: 8px; margin-bottom:20px; }
+  .hero h1 { margin:0 0 4px 0; font-size: 24px; }
+  .hero .meta { opacity:0.9; font-size:14px; }
+  .alert-ng { background:#c62828; color:#fff; padding:18px 22px; border-radius:6px; font-weight:bold; font-size:16px; margin-bottom:20px; }
+  .alert-ng strong { font-size:18px; }
+  .card { background:#fff; border-radius:8px; padding:22px 26px; margin-bottom:20px; box-shadow:0 1px 2px rgba(0,0,0,0.05); }
+  .card h2 { margin-top:0; font-size:18px; padding-bottom:10px; border-bottom:2px solid #e0e4ec; }
+  .card h2.orange { color:#e67300; border-color:#f5c68a; }
+  .card h2.blue { color:#1565c0; border-color:#a8c8ec; }
+  .card h2.green { color:#2e7d32; border-color:#a5d6a7; }
+  .card h2.brown { color:#795548; border-color:#c9a891; }
+  .card h2.teal { color:#00796b; border-color:#80cbc4; }
+  table.sum { border-collapse: collapse; width:100%; margin:8px 0 16px; font-size:14px; }
+  table.sum th, table.sum td { border:1px solid #dbe0ea; padding:8px 12px; text-align:left; vertical-align: top; }
+  table.sum th { background:#f0f3f8; width:180px; font-weight:600; }
+  table.crit { border-collapse: collapse; width:100%; margin:10px 0; font-size:14px; }
+  table.crit th, table.crit td { border:1px solid #d4d8e0; padding:8px 12px; text-align:left; }
+  table.crit th { background:#eef1f6; }
+  .ok { color:#2e7d32; font-weight:bold; }
+  .ng { color:#c62828; font-weight:bold; }
+  .warn { color:#e67300; font-weight:bold; }
+  .link-list a { display:inline-block; margin:4px 12px 4px 0; padding:8px 14px; background:#f0f3f8; border-radius:4px; text-decoration:none; color:#1c3a6e; font-weight:500; }
+  .link-list a:hover { background:#dfe4ee; }
+  ul { padding-left: 20px; }
+  ul li { margin-bottom:4px; }
+  .hazard-ng { background:#fce4e4; padding:10px 14px; border-left:4px solid #c62828; margin:8px 0; }
+  .callout { background:#fff9e6; border-left:4px solid #f9a825; padding:10px 14px; margin:8px 0; font-size:13px; }
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20260928_machida-nokegaya_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=7180&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.09&floorArea=123.24&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=7180&pi_age_inp=0&pi_yield_inp=7.09&pi_area_inp=123.24&pi_rooms_inp=6&ik_land_area=171.37&ik_route_price=13.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E7%94%BA%E7%94%B0%E5%B8%82%E8%83%BD%E3%83%B6%E8%B0%B72%E4%B8%81%E7%9B%AE10-15" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=7180&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.09&floorArea=123.24&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=7180&pi_age_inp=0&pi_yield_inp=7.09&pi_area_inp=123.24&pi_rooms_inp=6&ik_land_area=171.37&ik_route_price=13.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E6%9D%B1%E4%BA%AC%E9%83%BD%E7%94%BA%E7%94%B0%E5%B8%82%E8%83%BD%E3%83%B6%E8%B0%B72%E4%B8%81%E7%9B%AE10-15" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260928_machida-nokegaya_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20260928_machida-nokegaya_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+<div class="container">
+
+  <div class="hero">
+    <h1>🔍 物件精査レポート — 町田市能ヶ谷二丁目AP</h1>
+    <div class="meta">精査日: 2026年9月28日 / 精査チーム: ハルト・リョウ・アキ・村田先生</div>
+  </div>
+
+  <div class="alert-ng">
+    ⚠️ <strong>ハザードリスクにより見送り推奨</strong> — 土砂災害特別警戒区域（レッドゾーン）該当。<br>
+    キャプテン基準で「即NG」対象。融資否認・保険料増・売却時流動性低下のトリプルリスク。
+  </div>
+
+  <!-- 物件サマリー -->
+  <div class="card">
+    <h2>📋 物件サマリー</h2>
+    <table class="sum">
+      <tr><th>物件名</th><td>町田市能ヶ谷二丁目AP（1K×6室 新築）</td></tr>
+      <tr><th>所在地</th><td>東京都町田市能ヶ谷2丁目10-15</td></tr>
+      <tr><th>交通</th><td>小田急小田原線「鶴川」駅 徒歩6分</td></tr>
+      <tr><th>販売価格</th><td>7,180万円（税込）</td></tr>
+      <tr><th>表面利回り</th><td>7.09%（スマサテ査定ベース／資料利回り記載なし）</td></tr>
+      <tr><th>構造・築年</th><td>木造2階建て / 新築（令和9年3月下旬完成予定）</td></tr>
+      <tr><th>延床面積</th><td>123.24㎡（約37.28坪）</td></tr>
+      <tr><th>土地面積</th><td>171.37㎡（約51.83坪）持分1/1 + 私道98㎡持分33/980</td></tr>
+      <tr><th>戸数・間取り</th><td>1K×6室（20.14〜21.31㎡）</td></tr>
+      <tr><th>用途地域</th><td>第一種低層住居専用地域（建蔽率40%/容積率80%）</td></tr>
+      <tr><th>接道</th><td>私道幅員4.0m・敷地接道2.2m（S B無し）</td></tr>
+      <tr><th>道路種別</th><td>位置指定道路（法第42条第1項第5号）</td></tr>
+      <tr><th>ライフライン</th><td>電気・プロパンガス・上下水道（都市ガスなし）</td></tr>
+      <tr><th>建築確認</th><td>第20265BC-昭第00841H号（劣化対策等級3）</td></tr>
+      <tr><th>取引態様</th><td>仲介（List Sotheby's International Realty）</td></tr>
+    </table>
+  </div>
+
+  <!-- キャプテン基準 -->
+  <div class="card">
+    <h2>🎯 キャプテン基準チェック</h2>
+    <table class="crit">
+      <tr><th>指標</th><th>基準</th><th>本物件</th><th>判定</th></tr>
+      <tr><td>販売価格</td><td>1億円以内</td><td>7,180万円</td><td class="ok">✅ OK</td></tr>
+      <tr><td>築年数</td><td>10年以内</td><td>新築</td><td class="ok">✅ OK</td></tr>
+      <tr><td>表面利回り</td><td>7.1%以上（新築目安）</td><td>7.09%</td><td class="ng">❌ わずかに不足（0.01%）</td></tr>
+      <tr><td>エリア</td><td>一都三県・16号内側</td><td>東京都町田市（16号外側だが小田急線）</td><td class="warn">△ 都下</td></tr>
+      <tr><td>ハザード</td><td>レッドゾーン即NG</td><td>土砂災害特別警戒区域該当</td><td class="ng">❌ 即NG</td></tr>
+      <tr><td>10年目IRR</td><td>25%以上</td><td>要玉川式確認</td><td>—</td></tr>
+    </table>
+  </div>
+
+  <!-- 路線価・ハザード・スマサテ -->
+  <div class="card">
+    <h2 class="teal">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</h2>
+
+    <h3 style="margin-top:12px; font-size:15px;">📈 相続路線価</h3>
+    <table class="sum">
+      <tr><th>路線価</th><td>13.5万円/㎡（借地権割合: D 60%）</td></tr>
+      <tr><th>出典</th><td>chikamap.jp 令和7年分</td></tr>
+    </table>
+
+    <h3 style="font-size:15px;">⚠️ ハザードマップ（重ねるハザードマップ）</h3>
+    <table class="sum">
+      <tr><th>座標</th><td>北緯35.58514° 東経139.47932°</td></tr>
+      <tr><th>洪水浸水想定</th><td class="ok">✅ 非該当</td></tr>
+      <tr><th>土砂災害警戒</th><td class="ng">❌ レッドゾーン該当（土砂災害特別警戒区域・急傾斜地の崩壊）</td></tr>
+      <tr><th>津波浸水想定</th><td class="ok">✅ 非該当</td></tr>
+      <tr><th>液状化危険度</th><td>確認不可</td></tr>
+      <tr><th>総合判定</th><td class="ng">❌ 即NG</td></tr>
+    </table>
+    <div class="hazard-ng">
+      土砂災害防止法第24条により、レッドゾーン内で居室のある建物を新築する場合、想定される衝撃力に対して構造耐力上主要な部分が損壊しないよう <strong>RC造の外壁または待受け擁壁</strong> が必要。建築確認済でも、この構造規制に本当に適合しているかを書面で確認しない限り購入不可。
+    </div>
+
+    <h3 style="font-size:15px;">🏠 スマサテ賃料査定</h3>
+    <table class="sum">
+      <tr><th>標準賃料</th><td>70,667円/室</td></tr>
+      <tr><th>戸別査定</th><td>101/201号室:71,000円 / 102/202号室:70,000円 / 103/203号室:70,000円</td></tr>
+      <tr><th>満室月額</th><td>424,000円</td></tr>
+      <tr><th>満室年額</th><td>5,088,000円</td></tr>
+      <tr><th>表面利回り</th><td>7.09%</td></tr>
+      <tr><th>資料賃料との乖離</th><td>資料に利回り記載なし（賃料設定は査定結果に準拠）</td></tr>
+    </table>
+  </div>
+
+  <!-- ハルト -->
+  <div class="card">
+    <h2 class="orange">🏘️ ハルト（エリア・利回り分析）</h2>
+    <p><strong>結論: 見送り推奨（★イチオシならず）</strong></p>
+    <ul>
+      <li><strong>鶴川駅エリア</strong>: 小田急小田原線・1日乗降客数約48,000人・新宿37分。鶴川駅前地区再整備事業（2028年完了予定）はプラス材料だが、大規模再開発は無し。人口は緩やかに減少・65歳以上比率28%超で高齢化進行。</li>
+      <li><strong>利回り7.09%の妥当性</strong>: 都下新築1Kアパートの相場は6.8〜7.8%。鶴川徒歩10分以内・新築1Kは概ね7.0〜7.5%。7.09%は下限ラインで割安感なし。むしろ相場並みかやや高値寄り。</li>
+      <li><strong>賃料70,667円の妥当性</strong>: 鶴川徒歩6〜10分・新築1K・20㎡の実勢は65,000〜75,000円。中央〜やや上寄り。新築時は妥当だが、2〜3年目の▲3〜5%下落を織り込む必要あり。</li>
+      <li><strong>空室リスク</strong>: 中程度。和光大学・玉川学園前の学生需要と単身社会人需要はあるが、鶴川駅徒歩10分圏内に新築〜築5年の1K供給20棟超で競合激化。町田市の1K空室率は8〜10%（都心5〜6%より高め）。</li>
+      <li><strong>決定打3点</strong>: ①レッドゾーン即NG、②利回り新築基準7.1%に0.01%不足、③エリア成長性頭打ち。</li>
+    </ul>
+  </div>
+
+  <!-- リョウ -->
+  <div class="card">
+    <h2 class="blue">📋 リョウ（DD精査）</h2>
+    <p><a href="https://teruyone.github.io/tc-properties/properties/20260928_machida-nokegaya_DD.html" style="color:#1565c0;">▶ 入力済みDDチェックリスト（HTML）</a></p>
+    <p><strong>総合結論: 極高リスク（実質NG）</strong></p>
+    <h3 style="font-size:14px; margin-bottom:4px;">🔴 5大リスク</h3>
+    <ol>
+      <li><strong>土砂災害特別警戒区域（レッドゾーン）</strong> — 融資否認リスク大（オリックスはほぼ不可）、保険料増、出口流動性低下、重要事項説明書に明記必須。</li>
+      <li><strong>私道29名共有（持分33/980）</strong> — 掘削承諾・補修合意の形成困難。将来の相続で共有者枝分かれリスク。「通行掘削承諾書取得予定（地番1152-6/1152-2）」は<strong>取得完了</strong>を停止条件化必須。</li>
+      <li><strong>造成中・分筆前・地番未定</strong> — 令和9年3月下旬完成予定までの資金拘束期間が長い。引渡し遅延の違約条項確認必須。既存石積み擁壁の既存不適格リスク。</li>
+      <li><strong>接道2.2m（S B無し）</strong> — 建築基準法2m接道義務は形式クリアだが極めてタイト。将来の建替え・売却で融資が付きにくい要因。</li>
+      <li><strong>プロパンガス</strong> — ランニングコスト増（都市ガス比1.5〜2倍）、女性単身層敬遠、家賃査定の下押し要因。</li>
+    </ol>
+
+    <h3 style="font-size:14px; margin:12px 0 4px;">❓ 未確認事項（キャプテン確認要）</h3>
+    <ul>
+      <li>レッドゾーン建築制限の技術資料（構造補強図面・土砂法第24条適合の証明書）</li>
+      <li>通行掘削承諾書の取得状況（現時点で「取得済み」か「これから交渉」か）</li>
+      <li>私道29名共有の現況合意状況・共有者リスト</li>
+      <li>造成工事の完成予定確定日・違約時の売主対応</li>
+      <li>分筆登記の完了予定日（決済との時系列）</li>
+      <li>既存石積み擁壁の高さ・築年・検査済証</li>
+      <li>火災保険の想定料率（レッドゾーン適用時）</li>
+      <li>予定売主のスペック（宅建業者/個人）・引渡条件・契約不適合責任範囲</li>
+    </ul>
+
+    <h3 style="font-size:14px; margin:12px 0 4px;">🛡️ 進める場合の契約停止条件（10項目）</h3>
+    <ol>
+      <li>土砂法適合構造の証明書取得</li>
+      <li>通行掘削承諾書の全数取得</li>
+      <li>分筆登記完了</li>
+      <li>造成工事完了</li>
+      <li>融資承認取得（ローン特約期日6週間以上・複数行対応可）</li>
+      <li>私道の管理協定書・共有者名簿</li>
+      <li>既存石積み擁壁の検査済証</li>
+      <li>手付金保全措置（未完成物件は宅建業法上の保全義務あり）</li>
+      <li>完了検査済証の引渡し</li>
+      <li>火災保険の見積書（レッドゾーン料率反映）</li>
+    </ol>
+  </div>
+
+  <!-- アキ -->
+  <div class="card">
+    <h2 class="green">💰 アキ（IG+収支計算 + 玉川式）</h2>
+    <p class="link-list">
+      <a href="{ig_url}">📊 IG+【資料賃料】収支試算</a>
+      <a href="{ig_sumasate_url}">📊 IG+【スマサテ賃料】収支試算</a>
+      <a href="{tg_url}">📈 玉川式収益試算シート</a>
+    </p>
+
+    <h3 style="font-size:14px;">💴 収益・費用</h3>
+    <table class="sum">
+      <tr><th>満室年収</th><td>5,088,000円（月424,000円）</td></tr>
+      <tr><th>実収入（空室5%控除）</th><td>4,833,600円</td></tr>
+      <tr><th>費用合計</th><td>▲926,000円（PM24.2万・BM8.9万・共用水光熱2.2万・保険6.2万・固都税33.8万・修繕2.1万・原状回復4.7万・募集AD10.6万）</td></tr>
+      <tr><th>NOI</th><td>3,907,000円（NOI利回り 5.44%）</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;">🏦 ローン試算</h3>
+    <table class="crit">
+      <tr><th>プラン</th><th>年間返済</th><th>年間CF</th><th>CF率</th><th>返済比率</th><th>CCR</th><th>自己資金</th></tr>
+      <tr>
+        <td>①オリックス<br>（100%・2.6%・35年）</td>
+        <td>▲3,127,000円</td>
+        <td class="ok">781,000円</td>
+        <td class="ok">1.09%</td>
+        <td>64.7%</td>
+        <td class="ok">15.53%</td>
+        <td>503万円（諸費用のみ）</td>
+      </tr>
+      <tr>
+        <td>②神奈川銀行<br>（90%・2.25%・35年）</td>
+        <td>▲2,669,000円</td>
+        <td class="ok">1,238,000円</td>
+        <td class="ok">1.72%</td>
+        <td>55.2%</td>
+        <td class="warn">10.14%</td>
+        <td>1,221万円（頭金+諸費用）</td>
+      </tr>
+    </table>
+
+    <h3 style="font-size:14px;">📊 積算評価</h3>
+    <table class="sum">
+      <tr><th>建物評価</th><td>2,588万円（延床×21万×新築100%）</td></tr>
+      <tr><th>土地評価</th><td>2,313万円（路線価13.5万×171.37㎡）</td></tr>
+      <tr><th>積算合計</th><td>4,902万円 → <strong>積算比率 68.3%</strong>（○ 基準60%以上クリア）</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;">🎯 キャプテン基準6指標</h3>
+    <table class="crit">
+      <tr><th>指標</th><th>閾値</th><th>オリックス</th><th>神奈川</th></tr>
+      <tr><td>価格</td><td>≤1億</td><td class="ok">○ 7,180万</td><td class="ok">○ 7,180万</td></tr>
+      <tr><td>利回り</td><td>≥7.1%</td><td class="warn">△ 7.09%（0.01%不足）</td><td class="warn">△ 7.09%</td></tr>
+      <tr><td>CF率</td><td>≥1%</td><td class="ok">○ 1.09%</td><td class="ok">○ 1.72%</td></tr>
+      <tr><td>CCR</td><td>≥15%</td><td class="ok">○ 15.53%</td><td class="ng">✕ 10.14%</td></tr>
+      <tr><td>積算</td><td>≥60%</td><td class="ok">○ 68.3%</td><td class="ok">○ 68.3%</td></tr>
+      <tr><td>10年目IRR</td><td>≥25%</td><td colspan="2">玉川式で要確認</td></tr>
+    </table>
+
+    <div class="callout">
+      💡 <strong>アキから一言</strong>: 表面利回り7.09%はキャプテン基準7.1%を0.01%だけ下回っています。<strong>指値7,150万まで下げれば表面7.11%クリア</strong>可能です。積算68.3%は新築木造として優秀。①オリックスは基準5指標中4つ○（利回りギリギリNG）、CCR15.53%で合格ライン。②神奈川はCCR10%台に落ちて基準割れ→<strong>①オリックスフルローン優位</strong>。<br>
+      新築のため減価償却で初年度課税所得ほぼゼロ→税引後CFがそのままCFに近い形になり、税務メリットは大きい。<br>
+      <strong>ただしレッドゾーンで総合即NG判定。収支単体は「指値で基準クリア可能な水準」</strong>。
+    </div>
+  </div>
+
+  <!-- 村田先生 -->
+  <div class="card">
+    <h2 class="brown">🏗️ 村田先生（建築士コメント）</h2>
+    <p style="font-style:italic; color:#666;">「現場を見ないと断言はできませんが」</p>
+
+    <h3 style="font-size:14px;">構造・工法・劣化等級3の評価</h3>
+    <ul>
+      <li>木造2階建て・4号建築物相当。令和9年3月竣工なら新2号建築物として構造計算が求められる可能性大。</li>
+      <li>延床123.24㎡÷6戸＝20.5㎡は共用廊下・階段込みで<strong>極めてタイト</strong>。低層住居専用地域で建築物のプランに無理をしている可能性。</li>
+      <li>劣化対策等級3は品確法の最高等級（概ね75〜90年もつ配慮）。フラット35Sや長期優良住宅の入口条件で融資・出口価格両面プラス。ただし「設計」と「施工」は別物。<strong>竣工検査で防蟻塗布・通気層・水切り施工を必ず確認</strong>。</li>
+      <li>シロアリ保証が5年間しかない点は不自然（一般は10年主流）。等級3なのに5年？と首をかしげる点。</li>
+    </ul>
+
+    <h3 style="font-size:14px;">⚠️ レッドゾーン新築の適法性（最重要）</h3>
+    <ul>
+      <li>土砂災害防止法第24条により、レッドゾーン内の居室のある建物は「想定衝撃力に対して構造耐力上主要な部分が損壊しない構造」が必須。通常は<strong>RC造の外壁または待受け擁壁</strong>が必要。</li>
+      <li>建築確認番号「第20265BC-昭第00841H号」発行済みなので<strong>形式上は適法確認済</strong>。しかし「木造2階建て」でレッドゾーン内に居室のある建物を建てるには、<strong>土砂衝突想定面がRC造でカバーされているか、あるいは待受け擁壁が別途設置される計画</strong>になっているか、必ず確認する必要あり。</li>
+      <li>資料の「既存石積み擁壁」は<strong>土砂法の待受け擁壁として認定されたRC構造物ではない可能性が高い</strong>。</li>
+      <li>現地・書類での必須確認:①土砂法第24条適合図書（安全証明書・構造計算書）、②想定衝突方向の外壁がRC造 or 待受け擁壁があるか、③急傾斜地崩壊危険区域の指定有無、④町田市建築指導課での第三者確認。</li>
+    </ul>
+
+    <h3 style="font-size:14px;">既存石積み擁壁のリスク</h3>
+    <ul>
+      <li>写真の既存擁壁は「練石積み」「空石積み」「大谷石積み」のいずれかの可能性。空石積み・大谷石積みは<strong>現行基準では認められない</strong>ため<strong>RC造・L型擁壁への打ち直し</strong>が必要（㎡あたり10〜15万円）。</li>
+      <li>販売図面に「既存石積み擁壁あり」とサラッと書かれているのが<strong>最も嫌な兆候</strong>。プロなら「築○年・種別○○・検査済証あり」と書く。書けないのは書きたくないか、書くと問題が明るみになる可能性がある。</li>
+      <li>確認必須: ①擁壁の所有区分（重要事項説明書）、②高さ・築年、③維持補修責任の帰属、④将来の再構築費用（高さ2〜3m×長さ10mで200〜400万円）。<strong>2m超で検査済証なし＝買ってはいけない</strong>。</li>
+    </ul>
+
+    <h3 style="font-size:14px;">修繕リスク・費用概算</h3>
+    <table class="sum">
+      <tr><th>直近5年</th><td>基本なし。ただし擁壁点検・補修50〜200万円の可能性。給湯器初期不良1〜2件。</td></tr>
+      <tr><th>5〜10年</th><td>外壁塗装・シーリング打替 120〜180万円 / 屋根塗替 30〜80万円 / 給湯器交換15万×台数。</td></tr>
+      <tr><th>10〜20年</th><td>大規模修繕 200〜300万円 / 給湯器一斉90万円 / FRP防水再施工60〜120万円。</td></tr>
+      <tr><th>20年〜</th><td>給排水管交換180〜300万円 / <strong>擁壁全面打ち直し300〜700万円（既存石積み旧基準なら確実発生）</strong>。</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;">村田先生の結論</h3>
+    <div class="callout" style="background:#fce4e4; border-left-color:#c62828;">
+      「<strong>土砂法適合図書</strong>」と「<strong>擁壁検査済証</strong>」の2点が書面で確認できない限り、購入は<strong>絶対に見送るべき</strong>。この2点さえクリアなら他のマイナスは価格交渉と運用でカバー可能。逆に、この2点でグレーが残るなら、いくら利回りが良く見えても手を出してはいけません。<br>
+      35年の経験で「造成中の斜面地・既存擁壁・レッドゾーン」の三点セットで実際に土砂災害・擁壁崩壊のトラブルを起こした案件を複数見てきました。<strong>建物は正直者。土地の悪さは、いつか必ず建物に現れます。</strong>
+    </div>
+  </div>
+
+  <!-- キャプテンへの確認事項 -->
+  <div class="card">
+    <h2>📞 キャプテンへの確認事項（統合）</h2>
+    <ol>
+      <li><strong>【最優先】レッドゾーン該当を認識した上で、なお検討を続ける意向ですか？</strong> TC Capitalsの投資基準では見送り推奨です。</li>
+      <li>売主から<strong>土砂法第24条適合の技術資料</strong>（構造補強図面・安全証明書）の提示を求めましたか？</li>
+      <li>既存石積み擁壁の<strong>検査済証・高さ・築年・所有区分・維持補修責任</strong>は書面確認できていますか？</li>
+      <li>通行掘削承諾書（地番1152-6/1152-2）は「取得済み」ですか、「これから交渉」ですか？</li>
+      <li>私道29名共有の<strong>共有者リスト・過去承諾実績</strong>を業者は提示できますか？</li>
+      <li>造成完了予定「令和9年3月下旬」に対し、引渡し遅延時の<strong>違約条項・手付返還条件</strong>は業者提示ありますか？</li>
+      <li>融資はどの銀行を想定していますか？（レッドゾーン+擁壁+私道共有の三重苦）</li>
+      <li>指値7,150万円で表面7.11%クリア可能ですが、価格交渉を進める意向はありますか？</li>
+      <li>固都税の実額情報（新築初年度の建物軽減考慮後）が入手できると計算精度向上します。</li>
+    </ol>
+  </div>
+
+  <!-- 総合所見 -->
+  <div class="card">
+    <h2>🎯 チーム総合所見</h2>
+    <p><strong>【4名全員一致で見送り推奨】</strong></p>
+
+    <h3 style="font-size:14px;">🚨 見送り理由</h3>
+    <ul>
+      <li><strong>土砂災害特別警戒区域（レッドゾーン）該当</strong> → キャプテン基準で即NG。融資否認・保険料増・出口流動性低下の三重苦。</li>
+      <li><strong>表面利回り7.09%が新築基準7.1%に0.01%不足</strong> → レッドゾーンリスクを取るなら8%超のプレミアム利回りが必要なところ、逆に基準割れ。</li>
+      <li><strong>私道29名共有（持分33/980）</strong> → 掘削承諾・補修合意の形成困難、相続で更に細分化リスク。</li>
+      <li><strong>既存石積み擁壁の詳細不明</strong> → 検査済証・種別・築年が資料に一切記載なし。旧基準なら300〜700万円の再構築費用発生確実。</li>
+      <li><strong>造成中・分筆前・地番未定</strong> → 引渡し遅延リスク、長期資金拘束。</li>
+      <li><strong>接道2.2m・プロパンガス</strong> → 出口価格の減価要因が積み重なる。</li>
+    </ul>
+
+    <h3 style="font-size:14px;">🔀 例外的に進める場合の条件</h3>
+    <ul>
+      <li>指値を<strong>6,000万円台前半</strong>まで下げる（表面利回り8%超確保）</li>
+      <li>DDリスト記載の<strong>停止条件10項目</strong>を全て契約に盛り込む</li>
+      <li>擁壁実績のある<strong>auじぶん銀行・神奈川銀行</strong>に事前照会し融資可否確認</li>
+      <li>土砂法適合図書・擁壁検査済証の書面取得（村田先生確認）</li>
+    </ul>
+
+    <h3 style="font-size:14px;">📌 次のアクション</h3>
+    <ul>
+      <li>本物件は<strong>見送り連絡</strong>を推奨（次条件: 一都三県16号内・木造アパート・築10年以内・利回り8%以上・レッドゾーン非該当）。</li>
+      <li>List Sotheby'sへの返信は「土砂災害特別警戒区域該当により見送り。次回はハザード非該当物件でお願いします」を丁寧に。</li>
+      <li>類似スペックで<strong>鶴川駅・玉川学園前・町田駅</strong>周辺の新築1Kアパートでレッドゾーン外の物件を継続探索（ハルト担当）。</li>
+    </ul>
+  </div>
+
+  <!-- リンク集 -->
+  <div class="card">
+    <h2>📎 関連ドキュメント</h2>
+    <p class="link-list">
+      <a href="{ig_url}">📊 IG+【資料賃料】</a>
+      <a href="{ig_sumasate_url}">📊 IG+【スマサテ賃料】</a>
+      <a href="{tg_url}">📈 玉川式収益試算シート</a>
+      <a href="https://teruyone.github.io/tc-properties/properties/20260928_machida-nokegaya_DD.html">📋 DDチェックリスト</a>
+      <a href="{survey_url}">🔍 物件調査レポート（スマサテ・路線価・ハザード）</a>
+    </p>
+  </div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260928_machida-nokegaya_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260928_machida-nokegaya_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
