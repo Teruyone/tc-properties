@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>物件精査レポート — 松戸市馬橋AP</title>
+<style>
+  body { font-family: "Yu Gothic","Hiragino Kaku Gothic ProN",Meiryo,sans-serif; margin: 0; padding: 0; background: #f5f6fa; color:#1c2333; line-height:1.7; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 24px; }
+  .hero { background:#1c3a6e; color:#fff; padding: 28px 32px; border-radius: 8px; margin-bottom:20px; }
+  .hero h1 { margin:0 0 4px 0; font-size: 24px; }
+  .hero .meta { opacity:0.9; font-size:14px; }
+  .alert-warn { background:#e65100; color:#fff; padding:18px 22px; border-radius:6px; font-weight:bold; font-size:16px; margin-bottom:20px; }
+  .alert-warn strong { font-size:18px; }
+  .card { background:#fff; border-radius:8px; padding:22px 26px; margin-bottom:20px; box-shadow:0 1px 2px rgba(0,0,0,0.05); }
+  .card h2 { margin-top:0; font-size:18px; padding-bottom:10px; border-bottom:2px solid #e0e4ec; }
+  .card h2.orange { color:#e67300; border-color:#f5c68a; }
+  .card h2.blue { color:#1565c0; border-color:#a8c8ec; }
+  .card h2.green { color:#2e7d32; border-color:#a5d6a7; }
+  .card h2.brown { color:#795548; border-color:#c9a891; }
+  .card h2.teal { color:#00796b; border-color:#80cbc4; }
+  table.sum { border-collapse: collapse; width:100%; margin:8px 0 16px; font-size:14px; }
+  table.sum th, table.sum td { border:1px solid #dbe0ea; padding:8px 12px; text-align:left; vertical-align: top; }
+  table.sum th { background:#f0f3f8; width:180px; font-weight:600; }
+  table.crit { border-collapse: collapse; width:100%; margin:10px 0; font-size:14px; }
+  table.crit th, table.crit td { border:1px solid #d4d8e0; padding:8px 12px; text-align:left; }
+  table.crit th { background:#eef1f6; }
+  .ok { color:#2e7d32; font-weight:bold; }
+  .ng { color:#c62828; font-weight:bold; }
+  .warn { color:#e67300; font-weight:bold; }
+  .link-list a { display:inline-block; margin:4px 12px 4px 0; padding:8px 14px; background:#f0f3f8; border-radius:4px; text-decoration:none; color:#1c3a6e; font-weight:500; }
+  .link-list a:hover { background:#dfe4ee; }
+  ul { padding-left: 20px; }
+  ul li { margin-bottom:4px; }
+  .hazard-warn { background:#fff3e0; padding:10px 14px; border-left:4px solid #e65100; margin:8px 0; }
+  .callout { background:#fff9e6; border-left:4px solid #f9a825; padding:10px 14px; margin:8px 0; font-size:13px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>🔍 物件精査レポート — 松戸市馬橋AP</h1>
+    <div class="meta">精査日: 2026年9月28日 / 精査チーム: ハルト・リョウ・アキ・村田先生</div>
+  </div>
+
+  <div class="alert-warn">
+    ⚠️ <strong>見送り推奨（バツ寄りのサンカク）</strong> — キャプテン基準の「価格1億円以内」「新築利回り7.1%以上」を同時に外している。<br>
+    加えてスマサテ実勢乖離▲14.1%（実力利回り6.04%）・洪水浸水想定0.5〜3.0mが被る。値引き交渉で1,000万円以上引ければ再検討可。
+  </div>
+
+  <!-- 物件サマリー -->
+  <div class="card">
+    <h2>📋 物件サマリー</h2>
+    <table class="sum">
+      <tr><th>物件名</th><td>松戸市馬橋AP（1K×9戸 新築木造3階建）</td></tr>
+      <tr><th>所在地</th><td>千葉県松戸市馬橋2520-4</td></tr>
+      <tr><th>交通</th><td>JR常磐線「馬橋」駅 徒歩5分（東京メトロ千代田線直通）</td></tr>
+      <tr><th>販売価格</th><td>109,000,000円（10,900万円）+ 水道分担金150万円</td></tr>
+      <tr><th>表面利回り</th><td>7.03%（資料）／ 6.04%（スマサテ査定ベース）</td></tr>
+      <tr><th>構造・築年</th><td>木造3階建て / 新築（2027年9月末完成予定）</td></tr>
+      <tr><th>延床面積</th><td>189.75㎡（登記予定・57.40坪）／ 238.32㎡（施工延床・72.09坪）</td></tr>
+      <tr><th>土地面積</th><td>120.52㎡（36.45坪・物件概要書記載）<br><span class="warn">※地積測量図では2520-1（108.58㎡）+2520-4（120.52㎡）=229.10㎡</span></td></tr>
+      <tr><th>戸数・間取り</th><td>1K×9戸（各戸21.02〜21.11㎡・6.5〜6.6帖）</td></tr>
+      <tr><th>用途地域</th><td>第一種住居／第一種中高層住居専用地域（建蔽率60%/容積率200%）</td></tr>
+      <tr><th>接道</th><td>東側公道 幅員約5m × 接道約12.1m（建基法42条1項道路）</td></tr>
+      <tr><th>備考</th><td>劣化対策等級3級取得 / 準防火地域 / 土建配分：土地4,700万・建物6,200万</td></tr>
+      <tr><th>取引態様</th><td>売主（株式会社リープリアルティ／担当 髙木）→ 仲介料0%</td></tr>
+      <tr><th>施工会社</th><td>入澤建設株式会社（東京都足立区舎人1-5-2）</td></tr>
+    </table>
+  </div>
+
+  <!-- キャプテン基準 -->
+  <div class="card">
+    <h2>🎯 キャプテン基準チェック</h2>
+    <table class="crit">
+      <tr><th>指標</th><th>基準</th><th>本物件</th><th>判定</th></tr>
+      <tr><td>販売価格</td><td>1億円以内</td><td>10,900万円</td><td class="ng">❌ 900万円超過</td></tr>
+      <tr><td>築年数</td><td>10年以内</td><td>新築（2027年9月完成）</td><td class="ok">✅ OK</td></tr>
+      <tr><td>表面利回り</td><td>8.0%以上（新築目安7.1%）</td><td>7.03%（資料）／6.04%（実勢）</td><td class="ng">❌ 資料でも0.07pt不足</td></tr>
+      <tr><td>エリア</td><td>一都三県・16号内側</td><td>千葉県松戸市（都心20km・16号内側）</td><td class="ok">✅ OK</td></tr>
+      <tr><td>ハザード</td><td>浸水2m以上即NG</td><td>洪水0.5〜3.0m浸水想定</td><td class="warn">⚠️ 要注意（一部3m域）</td></tr>
+      <tr><td>10年目IRR</td><td>25%以上</td><td>要玉川式確認</td><td>—</td></tr>
+    </table>
+  </div>
+
+  <!-- 路線価・ハザード・スマサテ -->
+  <div class="card">
+    <h2 class="teal">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</h2>
+
+    <h3 style="margin-top:12px; font-size:15px;">📈 相続路線価</h3>
+    <table class="sum">
+      <tr><th>判定</th><td class="warn">倍率地域（数値路線価なし・要倍率表確認）</td></tr>
+      <tr><th>倍率表PDF</th><td><a href="https://scr.wagmap.jp/chikamap/BAI/R07/12/B12207.pdf" target="_blank">令和7年分 千葉県松戸市倍率表</a></td></tr>
+      <tr><th>出典</th><td>chikamap.jp 令和7年分</td></tr>
+      <tr><th>備考</th><td>馬橋駅徒歩5分の住居系地域が倍率地域である点は違和感あり。番地の隣接検索結果の可能性。土建配分（土地4,700万）を積算土地評価に流用可能。</td></tr>
+    </table>
+
+    <h3 style="font-size:15px;">⚠️ ハザードマップ（重ねるハザードマップ）</h3>
+    <table class="sum">
+      <tr><th>座標</th><td>標高7.1m</td></tr>
+      <tr><th>洪水浸水想定</th><td class="warn">⚠️ 浸水区域内 0.5m〜3.0m（一部3m域）</td></tr>
+      <tr><th>土砂災害警戒</th><td class="ok">✅ 非該当</td></tr>
+      <tr><th>津波浸水想定</th><td class="ok">✅ 非該当</td></tr>
+      <tr><th>液状化危険度</th><td>確認不可</td></tr>
+      <tr><th>総合判定</th><td class="warn">⚠️ 要注意</td></tr>
+    </table>
+    <div class="hazard-warn">
+      坂川・新坂川に近い松戸市の内陸低地。0.5〜3.0m浸水想定は<strong>1階部分が水没する可能性</strong>の水準。<br>
+      → 火災保険の<strong>水災補償を必ず付保</strong>（年間保険料+2〜3万円想定）<br>
+      → 1階3戸の家財リスク・退去リスクを織り込む<br>
+      → 電気設備・給湯器・エアコン室外機の<strong>設置GLレベル要確認</strong>
+    </div>
+
+    <h3 style="font-size:15px;">🏠 スマサテ賃料査定</h3>
+    <table class="sum">
+      <tr><th>査定賃料（礼金0）</th><td><strong>61,000円/戸</strong>（単価3,018円/㎡・9,978円/坪）</td></tr>
+      <tr><th>資料想定賃料</th><td>71,000円/戸（月額639,000円合計）</td></tr>
+      <tr><th>乖離</th><td class="ng">▲14.1%（資料が強気設定）</td></tr>
+      <tr><th>スマサテ考慮利回り</th><td class="ng">6.04%（キャプテン基準7.1%を▲1.06pt未達）</td></tr>
+      <tr><th>査定URL</th><td><a href="https://owners.sumasate.jp/assessment_results/514195" target="_blank">スマサテ査定結果 #514195</a></td></tr>
+    </table>
+  </div>
+
+  <!-- ハルト -->
+  <div class="card">
+    <h2 class="orange">🏘️ ハルト（エリア・利回り分析）</h2>
+    <p><strong>結論: バツ寄りのサンカク（値引き交渉次第で再検討可）</strong></p>
+    <ul>
+      <li><strong>馬橋駅エリア</strong>: JR常磐線各駅停車＋東京メトロ千代田線直通で大手町28分・北千住15分。乗降客数44,351人/日（2021）で中規模駅として底堅い。松戸市人口約50万人（千葉県3位）。</li>
+      <li><strong>利回り7.03%の相場感</strong>: 松戸市新築木造APは7.0〜7.8%が主流ゾーン。同じ千葉県の柏・流山なら7.5〜8.0%が狙える中、松戸駅近新築で7.03%は<strong>プレミアム設定気味</strong>。売主リープリアルティは3〜5%（300〜500万円）の交渉余地想定。</li>
+      <li><strong>賃料71,000円の妥当性</strong>: 馬橋駅周辺1K相場は5.7万円（machizukan）。スマサテ査定61,000円が実勢に近い。資料71,000円は<strong>相場+24%の強気設定</strong>で満室想定達成が困難な可能性。</li>
+      <li><strong>空室リスク</strong>: 中程度。新築×駅徒歩5分×千代田線直通で当初5年は高稼働期待。ただし築5年目以降は競合激化・洪水リスク敬遠層あり。</li>
+      <li><strong>キャプテン基準ボーダーライン</strong>: 価格・利回りとも1割弱外れ。<strong>指値9,900万円（表面7.74%）</strong>で交渉するのが唯一の勝ち筋。通らないなら見送り。</li>
+    </ul>
+  </div>
+
+  <!-- リョウ -->
+  <div class="card">
+    <h2 class="blue">📋 リョウ（DD精査）</h2>
+    <p><a href="https://teruyone.github.io/tc-properties/properties/20260928_matsudo-mabashi_DD.html" style="color:#1565c0;">▶ 入力済みDDチェックリスト（HTML）</a></p>
+    <p><strong>総合結論: リスクレベル中〜高（書類充足次第で2棟目候補）</strong></p>
+
+    <h3 style="font-size:14px; margin-bottom:4px;">🔴 最大リスク</h3>
+    <ol>
+      <li><strong>新築完成前物件（約1年後引渡）</strong> — 2027年9月末完成予定。<strong>手付金保全措置</strong>の有無確認必須。完成遅延ペナルティ条項・違約金条項を契約に必ず入れる。売主リープリアルティの建設業許可・宅建業免許・過去実績を要調査。</li>
+      <li><strong>用途地域の跨ぎ</strong> — 第一種住居／第一種中高層住居専用地域の境界地。松戸市都市計画課で用途地域境界図を取得・按分計算の妥当性を役所と協議記録に残す。</li>
+      <li><strong>土地2筆問題</strong> — 地積測量図では2520-1（108.58㎡）＋2520-4（120.52㎡）=229.10㎡。物件概要書は2520-4のみ。<strong>売買対象範囲の最優先確認</strong>。もし両筆取得可なら将来の増築・分筆売却余地。</li>
+      <li><strong>ハザード洪水0.5〜3.0m</strong> — 水災保険必須。1階入居者リスク。将来売却時の減価要因。</li>
+      <li><strong>賃料設定リスク</strong> — 資料639,000円 vs エイブル査定603,000円（▲5.96%）／スマサテ査定549,000円（▲14.1%）。<strong>▲6%下方リスク織り込みでCF激減</strong>。</li>
+      <li><strong>水道分担金150万円別途</strong> — 総投資額11,050万円でLTV計算。</li>
+    </ol>
+
+    <h3 style="font-size:14px; margin:12px 0 4px;">❓ 未確認事項（キャプテン確認要）</h3>
+    <ul>
+      <li>建築確認済証（写・確認申請日・確認番号）</li>
+      <li>地盤調査報告書（SWS試験のN値・地盤改良の有無）</li>
+      <li>住宅瑕疵担保責任保険の加入予定証明</li>
+      <li>リープリアルティの宅建業免許番号・建設業許可番号・信用情報</li>
+      <li>登記簿謄本（現時点の土地所有者・抵当権の状況）</li>
+      <li>公図・地役権・埋設物調査</li>
+      <li>手付金の額・ローン特約期日（新築引渡2027年9月末 → 1年以上先の融資枠確保）</li>
+      <li>完成遅延時の違約金・解除条項</li>
+      <li>住宅性能評価書（設計評価書＋建設評価書）</li>
+      <li>火災保険想定料率（洪水浸水域反映）</li>
+    </ul>
+  </div>
+
+  <!-- アキ -->
+  <div class="card">
+    <h2 class="green">💰 アキ（IG+収支計算 + 玉川式）</h2>
+    <p class="link-list">
+      <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=10900&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.03&floorArea=189.75&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=10900&pi_age_inp=0&pi_yield_inp=7.03&pi_area_inp=189.75&pi_rooms_inp=9&ik_land_area=120.52&ik_route_price=0&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%8D%83%E8%91%89%E7%9C%8C%E6%9D%BE%E6%88%B8%E5%B8%82%E9%A6%AC%E6%A9%8B2520-4">📊 IG+【資料賃料】収支試算</a>
+      <a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=10900&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=6.04&floorArea=189.75&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=10900&pi_age_inp=0&pi_yield_inp=6.04&pi_area_inp=189.75&pi_rooms_inp=9&ik_land_area=120.52&ik_route_price=0&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E5%8D%83%E8%91%89%E7%9C%8C%E6%9D%BE%E6%88%B8%E5%B8%82%E9%A6%AC%E6%A9%8B2520-4">📊 IG+【スマサテ賃料】収支試算</a>
+      <a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20260928_matsudo-mabashi_TG.html" target="_blank">📈 玉川式収益試算シート</a>
+    </p>
+
+    <h3 style="font-size:14px;">💴 収益・費用（資料賃料版）</h3>
+    <table class="sum">
+      <tr><th>満室年収</th><td>7,668,000円（月639,000円）</td></tr>
+      <tr><th>実収入（空室5%控除）</th><td>7,284,600円</td></tr>
+      <tr><th>費用合計</th><td>▲1,437,000円（PM36.4万・BM13.8万・水光熱3.4万・保険11.9万・固都税51.0万・修繕4.0万・原状回復7.2万・募集AD16.0万）</td></tr>
+      <tr><th>NOI</th><td>5,847,600円（NOI利回り 5.37%）</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;">🏦 ローン試算</h3>
+    <table class="crit">
+      <tr><th>プラン</th><th>年間返済</th><th>年間CF</th><th>CF率</th><th>返済比率</th><th>CCR</th><th>自己資金</th></tr>
+      <tr>
+        <td>①オリックス<br>（100%・2.6%・35年）</td>
+        <td>▲4,691,000円</td>
+        <td class="ok">1,157,000円</td>
+        <td class="ok">1.06%</td>
+        <td>61.2%</td>
+        <td class="ok">26.5%</td>
+        <td>436万円（諸費用のみ）</td>
+      </tr>
+      <tr>
+        <td>②神奈川銀行<br>（90%・2.25%・35年）</td>
+        <td>▲4,048,000円</td>
+        <td class="ok">1,800,000円</td>
+        <td class="ok">1.65%</td>
+        <td>52.8%</td>
+        <td class="ng">11.8%</td>
+        <td>1,526万円（頭金+諸費用）</td>
+      </tr>
+    </table>
+
+    <h3 style="font-size:14px;">📊 スマサテ賃料版・参考</h3>
+    <table class="sum">
+      <tr><th>満室年収</th><td>6,588,000円（61,000円×9戸×12ヶ月）</td></tr>
+      <tr><th>実収入</th><td>6,258,600円</td></tr>
+      <tr><th>NOI</th><td>約460〜470万</td></tr>
+      <tr><th>CF（オリックス）</th><td class="ng">▲0〜▲10万（ほぼゼロ〜微赤字）</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;">📐 積算評価</h3>
+    <table class="sum">
+      <tr><th>建物評価</th><td>4,554万円（延床189.75㎡×24万×等級3・築0年）</td></tr>
+      <tr><th>土地評価</th><td>0円（倍率地域・IG+では計算不可）</td></tr>
+      <tr><th>積算合計（IG+表示）</th><td class="ng">4,554万円 → 積算比率 41.8%（基準60%未達）</td></tr>
+      <tr><th>参考（土建配分土地4,700万加算）</th><td class="ok">9,254万円 → 積算比率 84.9%（要倍率表確認）</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;">🎯 キャプテン基準6指標</h3>
+    <table class="crit">
+      <tr><th>指標</th><th>閾値</th><th>オリックス</th><th>神奈川</th></tr>
+      <tr><td>価格</td><td>≤1億</td><td class="ng">✕ 10,900万</td><td class="ng">✕ 10,900万</td></tr>
+      <tr><td>利回り</td><td>≥7.1%（新築）</td><td class="ng">✕ 7.03%</td><td class="ng">✕ 7.03%</td></tr>
+      <tr><td>CF率</td><td>≥1%</td><td class="ok">○ 1.06%</td><td class="ok">○ 1.65%</td></tr>
+      <tr><td>CCR</td><td>≥15%</td><td class="ok">○ 26.5%</td><td class="ng">✕ 11.8%</td></tr>
+      <tr><td>積算</td><td>≥60%</td><td class="ng">✕ 41.8%（IG+）</td><td class="ng">✕ 41.8%</td></tr>
+      <tr><td>10年目IRR</td><td>≥25%</td><td colspan="2">玉川式で要確認</td></tr>
+    </table>
+
+    <div class="callout">
+      💡 <strong>アキから一言</strong>: <strong>オリックスとの相性はバツグン</strong>。フルローン前提で自己資金436万・CCR26.5%は美味しい。ただし価格・利回り・積算（IG+）で基準割れが同時発生。<strong>スマサテ乖離▲14%が最大の急所</strong>で、資料賃料が3年後に維持できないとCFが吹き飛ぶ。<br>
+      減価償却で初年度課税所得ほぼゼロ → 税務メリットは大きい。<br>
+      <strong>指値9,900万まで下げれば表面7.74%・実勢6.58%クリア可能</strong>。売主リープリアルティの応諾がキーです。
+    </div>
+  </div>
+
+  <!-- 村田先生 -->
+  <div class="card">
+    <h2 class="brown">🏗️ 村田先生（建築士コメント）</h2>
+    <p style="font-style:italic; color:#666;">「現場を見ないと断言はできませんが」</p>
+
+    <h3 style="font-size:14px;">構造・工法・劣化等級3の評価</h3>
+    <ul>
+      <li>木造3階建・劣化等級3級は<strong>新築木造アパートとして最上位クラス</strong>。3世代（75〜90年）まで大規模改修不要の措置。フラット35S・長期優良住宅認定の入口条件。</li>
+      <li>耐震等級は資料に明記なし。耐震2級以上なら地震保険料50%割引。<strong>認定書の有無を要確認</strong>。</li>
+      <li>省エネ性能・BELS評価書・省エネ基準適合の有無を売主に照会。</li>
+    </ul>
+
+    <h3 style="font-size:14px;">法令適合性（面積・建蔽・容積）</h3>
+    <table class="sum">
+      <tr><th>建蔽率</th><td>上限60% / 計画57.11%（建築面積68.83㎡）→ ✅ 適合・約2%余裕</td></tr>
+      <tr><th>容積率</th><td>上限200%（241.04㎡）/ 計画157.44%（189.75㎡）→ ✅ 適合・約42%余裕</td></tr>
+      <tr><th>共用面積</th><td>施工延床238.32 - 登記床189.75 = 48.57㎡（外階段・共用廊下・バルコニー）</td></tr>
+      <tr><th>準防火地域</th><td>木造3階建は準耐火建築物必須。<strong>省令準耐火認定なら火災保険大幅割引</strong>。</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;">木造3階建の必須確認書類</h3>
+    <ul>
+      <li>建築確認済証・検査済証（融資審査で必須）</li>
+      <li>構造計算書（許容応力度計算・法6条1項2号建築物）</li>
+      <li><strong>地盤調査報告書（松戸市馬橋は低地・沖積層で軟弱地盤リスク）</strong></li>
+      <li>基礎伏図・構造伏図・軸組図</li>
+      <li>防火地域22（準防火）の適合図書（外壁・軒裏の防火構造）</li>
+      <li>住宅瑕疵担保責任保険付保証明書（10年義務）</li>
+      <li>住宅性能評価書（設計評価書＋建設評価書）</li>
+    </ul>
+
+    <h3 style="font-size:14px;">⚠️ 洪水浸水想定0.5〜3.0mエリアの建築的対策</h3>
+    <ul>
+      <li><strong>基礎立ち上がり高さ</strong>: 通常GL+400mm、浸水想定エリアではGL+600〜1000mmが望ましい。1FLと道路面GLの差を要確認。</li>
+      <li><strong>電気設備位置</strong>: 分電盤・電力量計・給湯器・エアコン室外機はGL+600mm以上、理想はGL+1500mm以上。</li>
+      <li><strong>1階3戸のリスク</strong>: 浸水時全滅の可能性 → 水災特約必須（年間保険料+20〜30%）。</li>
+      <li><strong>投資判断としての捉え方</strong>: 即NGではないが、将来売却時に融資評価減額・買主敬遠のディスカウント要因。松戸市の内水氾濫マップも別途確認要。</li>
+    </ul>
+
+    <h3 style="font-size:14px;">修繕リスク・費用概算（9戸）</h3>
+    <table class="sum">
+      <tr><th>3〜5年目</th><td>給湯器・エアコン初期不具合・シーリング部分打替 → 20〜40万</td></tr>
+      <tr><th>5〜7年目</th><td>外部シーリング・鉄部塗装・防蟻再処理 → 50〜80万</td></tr>
+      <tr><th>10年目大規模</th><td>外壁塗装・屋根塗装・バルコニー防水・シーリング全面・給湯器順次 → <strong>200〜300万</strong></td></tr>
+      <tr><th>12〜15年目</th><td>給湯器9台・エアコン交換・室内リフォーム → 90〜135万</td></tr>
+      <tr><th>20年目大規模</th><td>外壁塗装2回目・屋根葺替検討・給排水管点検 → <strong>300〜400万</strong></td></tr>
+      <tr><th>25〜30年目</th><td>給排水管更新・屋根葺替・防蟻本格処理 → 200〜300万</td></tr>
+    </table>
+
+    <h3 style="font-size:14px;">村田先生の結論</h3>
+    <div class="callout">
+      現場を見ないと断言はできませんが、資料ベースでは<strong>「建物は合格ライン、立地の水害リスクだけが唯一の懸念」</strong>。図面欄外の数値は整合しており、確認申請段階で大きな問題は起きていないと推察。<br>
+      建物単体でNG要素は見当たらない。①地盤調査書・確認済証・性能評価書・瑕疵担保保険付保証明のフルセット、②水害リスクの保険と設計高さ、③売買対象範囲と施工会社の信頼性 — この3点が明確になれば建築的には前向きに検討して良い物件。<br>
+      <strong>新築で劣化等級3を取っている物件は少なく、長期保有目線なら悪くありません。</strong>
+    </div>
+  </div>
+
+  <!-- キャプテンへの確認事項 -->
+  <div class="card">
+    <h2>📞 キャプテンへの確認事項（統合）</h2>
+    <ol>
+      <li><strong>【最優先】売買対象範囲</strong> — 地積測量図では2520-1（108.58㎡）＋2520-4（120.52㎡）＝229.10㎡ですが、物件概要書は2520-4のみ記載。<strong>2筆両方か、2520-4のみか</strong>を売主に確認してください。</li>
+      <li><strong>指値交渉</strong> — 9,900万円（表面7.74%）まで下げれば実勢基準クリア。売主リープリアルティにキャプテンから直接価格交渉しますか？</li>
+      <li><strong>新築完成前物件の融資枠先渡し</strong> — 引渡が約1年後（2027年9月末）。オリックス／auじぶん銀行に新築先渡し対応の可否を事前確認していますか？</li>
+      <li><strong>手付金設定</strong> — 5%以下＋手付金保全措置（保証委託または保証保険）を要求します。ご希望はありますか？</li>
+      <li><strong>売主リープリアルティの信用</strong> — 過去取引経験・業界内評判をご存知ですか？</li>
+      <li><strong>建物比率交渉</strong> — 現在56.9%（土地4,700万/建物6,200万）。60〜65%まで交渉すれば減価償却メリット拡大。</li>
+      <li><strong>水道分担金150万込みの総投資額11,050万円</strong>で融資申込みしますか？</li>
+      <li><strong>現地確認</strong> — 西側50mに用水路。ハザード影響を目視確認したい。基礎立ち上げ高さ・電気設備位置もチェックポイントです。</li>
+      <li><strong>倍率表確認</strong> — B12207.pdf（松戸市倍率表）で土地評価を確定。土建配分の4,700万が固定資産税評価額ベースなら積算土地4,700万として計算可。</li>
+      <li><strong>神奈川銀行はCCR11.8%で基準割れ</strong>。1棟目はオリックスフルローンで確定でよろしいですか？</li>
+      <li><strong>玉川式10年目税引後IRR</strong> — シートをブラウザで開いて25%以上か確認してください（キャプテン基準の最終関門）。</li>
+    </ol>
+  </div>
+
+  <!-- 総合所見 -->
+  <div class="card">
+    <h2>🎯 チーム総合所見</h2>
+    <p><strong>【4名合議：バツ寄りのサンカク・値引き交渉次第で再検討可】</strong></p>
+
+    <h3 style="font-size:14px;">🚨 見送り側の理由</h3>
+    <ul>
+      <li>キャプテン基準「価格1億円以内」「新築利回り7.1%以上」を<strong>同時に外している</strong>（1割弱）</li>
+      <li>スマサテ実勢乖離▲14.1% → 実力利回り6.04%まで下振れ</li>
+      <li>洪水浸水想定0.5〜3.0mで1階リスク・保険料増・出口ディスカウント要因</li>
+      <li>新築完成前物件（1年後引渡）で手付保全・建築確認済証・地盤調査書が未入手</li>
+      <li>土地2筆問題（229.10㎡ vs 120.52㎡）で売買対象範囲が未確定</li>
+    </ul>
+
+    <h3 style="font-size:14px;">✨ 例外的に進める場合の条件</h3>
+    <ul>
+      <li><strong>指値9,900万円まで下げる</strong>（表面7.74%・実勢6.58%）</li>
+      <li>建築確認済証・地盤調査書・住宅瑕疵担保保険・性能評価書のフルセット取得</li>
+      <li>売買対象範囲を書面で明確化（2筆 or 2520-4のみ）</li>
+      <li>手付金5%以下＋保全措置＋完成遅延ペナルティ条項</li>
+      <li>火災保険水災特約付帯（1階3戸の水害リスク補填）</li>
+      <li>オリックスの新築先渡し融資枠事前確保</li>
+    </ul>
+
+    <h3 style="font-size:14px;">🌟 評価すべきポイント</h3>
+    <ul>
+      <li>馬橋駅徒歩5分・千代田線直通で<strong>通勤利便性トップクラス</strong>（大手町28分）</li>
+      <li>木造3階建×劣化等級3級は<strong>新築木造APとして最上位クラス</strong>（フラット35S・長期優良住宅対応可）</li>
+      <li>売主取引で仲介料ゼロ（327万円節約）</li>
+      <li>専有21㎡は最近の狭小1Kより広め、居住満足度は高い</li>
+      <li>16号内側で融資戦略にハマる立地</li>
+      <li>建蔽率57.11%・容積率157.44%と法令的にゆとりある設計</li>
+    </ul>
+
+    <h3 style="font-size:14px;">📌 次のアクション</h3>
+    <ul>
+      <li>キャプテンが売主リープリアルティ髙木担当（[電話番号]）に<strong>指値9,900万＋書類フルセット要求</strong>で価格交渉開始</li>
+      <li>並行して<strong>類似スペックで表面7.5%超の物件</strong>を松戸市周辺で探索継続（ハルト担当）</li>
+      <li>売買対象範囲（2520-1の扱い）を書面で明確化</li>
+      <li>オリックスに新築先渡し融資枠の事前照会（ケンジ担当）</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20260928_matsudo-mabashi_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20260928_matsudo-mabashi_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
