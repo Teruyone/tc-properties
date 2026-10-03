@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Gold Lagoon 六浦東2丁目AP 精査レポート — TC Capitals</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", sans-serif; margin: 0; background: #f5f7fa; color: #1a1a1a; line-height: 1.7; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 24px; }
+  header { background: #1a237e; color: #fff; padding: 28px 32px; border-radius: 10px 10px 0 0; }
+  header h1 { margin: 0 0 6px 0; font-size: 24px; }
+  header .meta { font-size: 13px; opacity: 0.85; }
+  .alert-red { background: #ffebee; border-left: 6px solid #c62828; color: #b71c1c; padding: 14px 18px; margin: 16px 0; border-radius: 4px; font-weight: 700; font-size: 15px; }
+  .card { background: #fff; border-radius: 8px; padding: 22px 26px; margin: 16px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .card h2 { margin: 0 0 14px 0; padding-bottom: 10px; font-size: 18px; border-bottom: 2px solid; }
+  .sec-haruto h2 { color: #e65100; border-color: #e65100; }
+  .sec-ryo h2 { color: #0d47a1; border-color: #0d47a1; }
+  .sec-aki h2 { color: #2e7d32; border-color: #2e7d32; }
+  .sec-murata h2 { color: #5d4037; border-color: #5d4037; }
+  .sec-criteria h2 { color: #1a237e; border-color: #1a237e; }
+  .sec-area h2 { color: #00695c; border-color: #00695c; }
+  .sec-captain h2 { color: #4527a0; border-color: #4527a0; }
+  .sec-team h2 { color: #212121; border-color: #212121; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13.5px; }
+  th, td { padding: 8px 12px; border: 1px solid #e0e0e0; text-align: left; }
+  th { background: #eceff1; font-weight: 600; }
+  .ok { color: #2e7d32; font-weight: 700; }
+  .ng { color: #c62828; font-weight: 700; }
+  .warn { color: #ef6c00; font-weight: 700; }
+  .link-btn { display: inline-block; background: #1a237e; color: #fff !important; padding: 8px 16px; border-radius: 6px; text-decoration: none; margin: 4px 6px 4px 0; font-size: 13px; font-weight: 600; }
+  .link-btn.green { background: #2e7d32; }
+  .link-btn.orange { background: #e65100; }
+  .link-btn.teal { background: #00695c; }
+  .link-btn.purple { background: #6a1b9a; }
+  pre, .narrative { background: #fafafa; padding: 12px 14px; border-left: 3px solid #90a4ae; margin: 10px 0; white-space: pre-wrap; font-family: inherit; font-size: 13.5px; line-height: 1.75; }
+  .mini { font-size: 12px; color: #666; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🏢 Gold Lagoon 六浦東2丁目AP — 仕入部チーム精査レポート</h1>
+    <div class="meta">精査日: 2026-10-03 / チーム: ハルト・リョウ・アキ・村田先生 / 依頼: 山口輝大キャプテン</div>
+  </header>
+
+  <div class="alert-red">
+    ⚠️ 【チーム結論: 見送り推奨】浸水50cm〜3m想定（標高1.8m・東京湾沿岸）＋ 日産追浜工場2027年撤退 ＋ 価格1.6億（キャプテン基準1億オーバー）の三重苦。詳細は下記「チーム総合所見」参照。
+  </div>
+
+  <div class="card">
+    <h2 style="color:#1a237e;border-color:#1a237e;">📋 物件サマリー</h2>
+    <table>
+      <tr><th style="width:28%;">物件名</th><td>Gold Lagoon 六浦東2丁目AP（トラストライフ株式会社）</td></tr>
+      <tr><th>所在地</th><td>神奈川県横浜市金沢区六浦東2丁目3-28</td></tr>
+      <tr><th>交通</th><td>京急本線「追浜」駅徒歩10分</td></tr>
+      <tr><th>価格</th><td>16,150万円（土地6,790万 + 建物9,360万）</td></tr>
+      <tr><th>表面利回り</th><td>7.2%（スマサテ標準では 7.47%）</td></tr>
+      <tr><th>構造・築年</th><td>木造3階建・築0年（2026年10月完成新築）/ 劣化対策等級3級（★★★）</td></tr>
+      <tr><th>土地・延床</th><td>土地 182.81㎡ / 延床 333.24㎡（約100.80坪）</td></tr>
+      <tr><th>戸数</th><td>15戸（1R×6戸 + 1K×9戸・平均 約22.2㎡/戸）</td></tr>
+      <tr><th>平均賃料・年間</th><td>平均 6.46万円/戸 / 年間 1,162.8万円</td></tr>
+      <tr><th>取引態様</th><td>売主（仲介手数料0%・諸費用4%）</td></tr>
+    </table>
+  </div>
+
+  <div class="card sec-criteria">
+    <h2>✅ キャプテン基準v5 照合</h2>
+    <table>
+      <tr><th>項目</th><th>基準</th><th>本物件</th><th>判定</th></tr>
+      <tr><td>エリア</td><td>16号内側（一都三県）</td><td>神奈川県横浜市金沢区（16号沿い）</td><td><span class="warn">△ ギリ内側</span></td></tr>
+      <tr><td>築年</td><td>築10年以内</td><td>新築（築0年）</td><td><span class="ok">◎</span></td></tr>
+      <tr><td>利回り</td><td>新築7.1%（or 8.0% v5厳格）</td><td>7.2%（資料）/ 7.47%（スマサテ）</td><td><span class="warn">△ 下限</span></td></tr>
+      <tr><td>価格</td><td>1億円以下（1棟目シナリオ）</td><td>1.615億円</td><td><span class="ng">❌ 超過</span></td></tr>
+      <tr><td>CF率</td><td>≥ 1.0%</td><td>オリックス 1.06% / 神奈川 1.76%</td><td><span class="ok">○</span></td></tr>
+      <tr><td>CCR</td><td>≥ 15%</td><td>オリックス 26.5% / 神奈川 12.6%</td><td><span class="warn">銀行次第</span></td></tr>
+      <tr><td>積算比率</td><td>≥ 60%</td><td>63.1%</td><td><span class="ok">○</span></td></tr>
+      <tr><td>10年目税引後IRR</td><td>≥ 25%</td><td>玉川式シート要確認</td><td><span class="warn">要確認</span></td></tr>
+      <tr><td>ハザード</td><td>浸水2m未満・レッドゾーン外</td><td>最悪3m浸水想定・標高1.8m</td><td><span class="ng">❌ NG可能性大</span></td></tr>
+    </table>
+  </div>
+
+  <div class="card sec-area">
+    <h2>🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト自動調査）</h2>
+    <table>
+      <tr><th style="width:28%;">相続路線価</th><td><strong>12万円/㎡</strong>（借地権割合: D 60%・chikamap.jp 令和7年分）</td></tr>
+      <tr><th>標高</th><td>1.8m（データソース: DEM1A・国土地理院）</td></tr>
+      <tr><th>洪水浸水想定（最大規模）</th><td><span class="ng">⚠️ 50cm〜3m浸水想定（最悪ケース2m超・2m以上は即NG基準抵触の可能性）</span></td></tr>
+      <tr><th>津波浸水想定（最大規模）</th><td><span class="ng">⚠️ 50cm〜3m浸水想定（同上）</span></td></tr>
+      <tr><th>高潮浸水想定</th><td><span class="ng">⚠️ 洪水と合わせて3mまで想定</span></td></tr>
+      <tr><th>土砂災害警戒区域</th><td><span class="ok">✅ 非該当（スクリプト判定）</span></td></tr>
+      <tr><th>液状化危険度</th><td>確認不可（沿岸埋立由来の可能性・地盤調査報告書で要確認）</td></tr>
+      <tr><th>総合ハザード判定</th><td><span class="ng">❌ 要注意（最悪3m浸水想定・融資行の評価減リスク大）</span></td></tr>
+    </table>
+    <table style="margin-top:14px;">
+      <tr><th style="width:28%;">スマサテ賃料査定</th><td>標準 66,500円/戸（1R 20㎡=64,000円 / 1K 24㎡=69,000円）</td></tr>
+      <tr><th>資料記載賃料</th><td>平均 64,600円/戸</td></tr>
+      <tr><th>乖離</th><td><span class="ok">+2.9%（適正圏内・資料賃料は堅め）</span></td></tr>
+      <tr><th>スマサテ基準利回り</th><td>7.47%（1R×6×64,000円×12 + 1K×9×69,000円×12 = 1,206万円 / 1.615億）</td></tr>
+    </table>
+    <p class="mini">📸 ハザードマップスクショ: knowledge/hazardmap-debug/gold-lagoon-mutsuura_hazard_popup.png / _zoom50m.png</p>
+    <p><a class="link-btn teal" href="../../acquisition/pipeline/20261003_gold-lagoon-mutsuura_survey.html">🔍 物件調査レポート（スマサテ入力・ハザード・路線価）</a></p>
+  </div>
+
+  <div class="card sec-haruto">
+    <h2>🧢 ハルト（朝倉 晴斗）— エリア・利回り分析</h2>
+    <div class="narrative">
+<strong>1. キャプテン基準v5照合</strong>
+エリア16号内側ギリ・築0年◎・利回り7.2%△ギリ・<strong>価格1.615億は1億基準超過❌</strong>。1棟目auじぶん95%でも頭金800万＋諸費用で約1,200万必要。
+
+<strong>2. エリア将来性</strong>
+追浜駅=横須賀市（金沢区ではない）。乗降客数約38,784人（2024・京急12位）で安定。
+<strong>日産追浜工場2027年生産終了が最大のマイナス材料。</strong>160人分の機能は残るが、数千人規模の雇用が失われる。横須賀市は再開発に動くが数年〜10年スパン。単身賃貸需要の中核が揺らぐ。
+金沢区自体は人口減少局面（横浜市内でも減少率上位）。横浜市大・関東学院大学の学生需要は金沢八景寄りで、追浜徒歩10分は競合層が薄い。
+
+<strong>3. 利回り相場感</strong>
+金沢区1K新築アパート利回り相場は7.0〜7.8%。<strong>7.2%はレンジ下限</strong>。売主取引で仲介手数料0なのを差し引いても強気価格設定。
+スマサテ標準6.65万円で乖離+2.9%適正だが、裏返せば上振れ余地ほぼゼロ。
+
+<strong>4. 空室リスク</strong>
+15戸単身特化は追浜/六浦エリアで大型。1R18〜20㎡×6戸は日産工場閉鎖で直撃層。
+競合: 追浜〜六浦の築浅1K新築アパートが30件以上供給中。礼ゼロフリーレント化圧力大。
+<strong>想定稼働率90%で逆算すると実質利回り6.5%</strong>。危険域。
+
+<strong>5. 浸水3m想定の評価</strong>
+<strong>ここが致命傷。</strong>標高1.8m・東京湾沿岸・金沢区六浦東=慶長型津波想定で浸水2〜3m。
+1F部分は津波・高潮・内水のトリプル被災想定。保険料大幅増（水災特約必須・年15〜25万円アップ）。
+<strong>出口戦略で融資評価が削られる</strong>（買手銀行が水災エリアに消極的）。液状化判定も沿岸埋立由来で中〜高リスク。
+
+<strong>6. ハルトの率直評価</strong>
+<strong>⚡ 見送り推奨。</strong>新築7.2%・売主・保証内容は綺麗だが、(1)1.6億オーバー (2)日産撤退で賃貸需要の屋台骨崩壊 (3)浸水3m想定で出口・保険・融資すべてに傷。トリプルパンチ。
+千三つ万八でこれを拾う価値はない。<strong>同じ金沢区なら金沢八景駅徒歩圏・標高5m以上</strong>を狙うべき。1棟目には重すぎる。
+    </div>
+  </div>
+
+  <div class="card sec-ryo">
+    <h2>🕵️ リョウ（黒沢 涼）— デューデリジェンス</h2>
+    <div class="narrative">
+<strong>【確認済み ✅】</strong>
+・取引態様: 売主（トラストライフ）→ 仲介手数料ゼロ、建物消費税の仕入税額控除余地あり
+・新築木造3F・築0年（2026年10月完成）／15戸（1R×6+1K×9）／延床333.24㎡
+・劣化対策等級3級取得見込み（営業資料記載）→ 法定耐用年数×1.5＝30年融資射程
+・建物単価: 9,360万÷333.24㎡＝約28万円/㎡（坪約93万）。建物割合57.9%は妥当
+・スマサテ乖離+2.9%→賃料想定は適正圏内
+
+<strong>【リスクフラグ 🚩】</strong>
+🔴 <strong>ハザード</strong>: 洪水・津波とも50cm〜3m浸水想定・標高1.8m。融資行（オリックス・auじぶん）で評価減または謝絶リスク大
+🟡 <strong>建売業者信用力</strong>: トラストライフの資本金・施工実績・アフター体制が未確認。倒産時は契約不適合責任が実質無効化
+🟡 <strong>契約不適合責任の期間・範囲が未確認</strong>（新築は品確法で構造・雨漏り10年必須だが特約で短縮されるケースあり）
+🟡 <strong>サブリース/一括借上げの有無・条件が未確認</strong>（建売業者系はサブリース抱き合わせが多い）
+
+<strong>【最大リスク3点と対処】</strong>
+1. <strong>浸水ハザード（津波・洪水3m）</strong> → オリックス事前打診で融資可否を即確認。NGなら本件は見送り。可の場合も火災保険＋水災特約必須、1F住戸の長期空室リスクを収支に織込み
+2. <strong>建売業者の信用力・瑕疵担保の実効性</strong> → 住宅瑕疵担保責任保険の付保証明を必ず取得（倒産しても保険法人から直接補償）。帝国データバンクで与信確認
+3. <strong>サブリース縛り</strong> → 契約前に全条項確認。賃料減額条項・30年縛り・原状回復負担がある場合は解除交渉。解除不可なら実質利回りが大幅毀損
+
+<strong>【総合判定】</strong>
+リスクレベル: <strong>高</strong>
+利回り7.2%・新築・劣化等級3級・売主取引と表面スペックは良好だが、浸水ハザードが致命的に重い。融資可否が最大の分水嶺で、ここをクリアできなければ他条件が良くても撤退推奨。クリアできる場合でも、サブリース・瑕疵担保保険・業者与信の3点を書面で押さえない限り買付NG。
+    </div>
+    <p><a class="link-btn" href="https://teruyone.github.io/tc-properties/properties/20261003_gold-lagoon-mutsuura_DD.html">📋 DDチェックリスト（入力済み）</a></p>
+  </div>
+
+  <div class="card sec-aki">
+    <h2>📊 アキ（三宅 亜紀）— IG+ 収支計算 ＆ 玉川式シート</h2>
+    <table>
+      <tr><th>指標</th><th>オリックス銀行（100%・2.6%・35年）</th><th>神奈川銀行（90%・2.25%・35年）</th></tr>
+      <tr><td>年返済額</td><td>▲711.9万円</td><td>▲598.3万円</td></tr>
+      <tr><td>年間CF</td><td><strong>170.9万円</strong></td><td><strong>284.6万円</strong></td></tr>
+      <tr><td>CF率</td><td>1.06% <span class="warn">（Cギリ）</span></td><td>1.76% <span class="ok">（B）</span></td></tr>
+      <tr><td>返済比率</td><td>64.4%</td><td>54.2%</td></tr>
+      <tr><td>自己資金</td><td>646万円（諸費用4%）</td><td>2,261万円（頭金1,615万+諸費用646万）</td></tr>
+      <tr><td>CCR</td><td><span class="ok">26.5%</span></td><td><span class="ng">12.6%</span></td></tr>
+      <tr><td>積算比率</td><td colspan="2"><span class="ok">63.1%</span>（建物7,998万+土地2,194万=1.019億）</td></tr>
+      <tr><td>NOI利回り</td><td colspan="2">5.47%（NOI 882.86万円）</td></tr>
+      <tr><td>税引後CF（1年目目安）</td><td>約147万円</td><td>約243万円</td></tr>
+      <tr><td>10年目税引後IRR</td><td colspan="2"><span class="warn">要玉川式シート確認（基準≥25%）</span></td></tr>
+    </table>
+    <div class="narrative">
+<strong>【アキからひとこと】</strong>
+価格が1.615億円で1億基準をオーバーしている点が最大の論点です。ただし木造新築・劣化等級3・積算63%・売主取引（諸費用4%）という「仕入れ条件の良さ」で押せる物件。CF率はオリックスで1.06%とギリギリC評価ですが、神奈川銀行だと1.76%でBレンジに乗ります。スマサテ基準でも7.47%と資料利回りを上回っており、賃料評価はむしろ堅め。NOI利回り5.47%は新築木造15戸としては妥当水準。追浜徒歩10分の単身需要次第ですが、1棟目の規模としては資金拘束が重い割にCCR26%取れるのはオリックス一択ロジック。神奈川銀行はCCR未達なのでフルローンで入るのが筋。
+    </div>
+    <p>
+      <a class="link-btn green" href="https://teruyone.github.io/tc-properties/ig-sheet/?price=16150&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.2&floorArea=333.24&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=16150&pi_age_inp=0&pi_yield_inp=7.2&pi_area_inp=333.24&pi_rooms_inp=15&ik_land_area=182.81&ik_route_price=12&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%87%91%E6%B2%A2%E5%8C%BA%E5%85%AD%E6%B5%A6%E6%9D%B12%E4%B8%81%E7%9B%AE3-28">📊 IG+【資料賃料】収支試算</a>
+      <a class="link-btn green" href="https://teruyone.github.io/tc-properties/ig-sheet/?price=16150&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.47&floorArea=333.24&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=16150&pi_age_inp=0&pi_yield_inp=7.47&pi_area_inp=333.24&pi_rooms_inp=15&ik_land_area=182.81&ik_route_price=12&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%87%91%E6%B2%A2%E5%8C%BA%E5%85%AD%E6%B5%A6%E6%9D%B12%E4%B8%81%E7%9B%AE3-28">📊 IG+【スマサテ賃料7.47%】</a>
+      <a class="link-btn orange" href="../../knowledge/tamagawa-analysis/20261003_gold-lagoon-mutsuura_TG.html">📈 玉川式収益試算シート（10年目IRR確認）</a>
+    </p>
+  </div>
+
+  <div class="card sec-murata">
+    <h2>🏗️ 村田先生（村田 誠一・一級建築士35年）— 建築士コメント</h2>
+    <div class="narrative">
+※現場を見ないと断言はできませんが、資料から読み取れる範囲でお伝えします。
+
+<strong>【構造】</strong>木造3階建15戸は準耐火建築物（省令準耐火相当）必須。構造計算（許容応力度計算）義務化領域。耐震等級の記載なければ1相当と見るのが堅い。<strong>壁量計算書・N値計算書・金物リスト</strong>の有無要確認。
+
+<strong>【劣化対策等級3級の実質メリット】</strong>「3世代（75〜90年）」想定の最高等級。<strong>設計評価書の原本</strong>を必ず入手。法定耐用年数22年を超えて長期融資に応じやすい材料になる。
+
+<strong>【10年目までの修繕】</strong>
+・給湯器15台（10〜12年）：約180万円
+・外壁シーリング（7〜10年）：60〜90万円
+・鉄部塗装（海沿いで5〜7年前倒し）：40〜70万円
+・バルコニー防水トップコート（10年目）：30〜50万円
+
+<strong>【15-20年目大規模修繕】</strong>外壁塗装一式250〜350万、屋根80〜150万 → <strong>合計400〜600万を積立前提</strong>
+
+<strong>【塩害・液状化・津波リスク】</strong>標高1.8m・東京湾沿岸は<strong>要警戒ゾーン</strong>。
+・塩害：海岸2km圏は鉄部3〜5年で発錆。年1回水洗い指示レベル
+・液状化：旧海岸埋立地なら中〜高リスク。<strong>地盤改良工法と支持層深度を地盤調査報告書で必ず確認</strong>
+・津波：横浜市ハザードマップで浸水想定0.3〜1m（スクリプト解析では3m）の可能性
+
+<strong>【建物価格の妥当性】</strong>28万円/㎡（坪94万）は、準耐火＋等級3仕様としては<strong>標準〜やや高め</strong>。相場感は坪85〜100万。<strong>ぼったくりではない。</strong>トラストライフさんがアパート専業で量産できている分、割高感は抑えられています。
+
+<strong>【村田の率直な所感】</strong>
+正直、<strong>建物自体は堅実な作り</strong>だと見ています。等級3取得＋水回りグレードUPは、15年後の競争力維持を意識した設計で、建売業者としては良心的な部類。
+ただし、<strong>立地由来の建物リスクは別物</strong>。標高1.8m・海沿い・塩害環境はメンテ頻度2割増し。鉄部塗装5年サイクル・外壁洗浄年1回を管理会社と契約時に明文化すべき。
+
+<strong>【判断材料として欲しい4点】</strong>
+① 地盤調査報告書（支持層深度・改良工法）
+② 構造計算書（壁量・N値）
+③ 検査済証
+④ 劣化対策等級3級の設計評価書
+この4点が揃えば建物面の不安は8割解消。現地で擁壁と排水だけ自分の目で見れば、建築面のGOサインは出せる物件です。
+    </div>
+  </div>
+
+  <div class="card sec-captain">
+    <h2>❓ キャプテンへの確認事項（リョウ・アキ・村田先生から集約）</h2>
+    <ol>
+      <li><strong>サブリース・家賃保証の有無</strong>／あれば賃料・改定条項・解約可否</li>
+      <li><strong>契約不適合責任の期間・免責範囲</strong>（特約で短縮されていないか・品確法10年の遵守）</li>
+      <li>引渡し時期と遅延違約金条項</li>
+      <li>設備保証（給湯・エアコン等）の年数・メーカー保証書引継ぎ</li>
+      <li><strong>トラストライフの資本金・年間供給棟数・既往クレーム有無</strong>（帝国データバンクで与信確認）</li>
+      <li>建築確認済証・検査済証の交付見込み時期</li>
+      <li>前面道路幅員・接道状況（再建築可否）</li>
+      <li><strong>オリックス銀行への事前打診（浸水ハザードエリアでの融資可否）</strong>— 最優先</li>
+      <li>住宅瑕疵担保責任保険の付保証明の取得</li>
+      <li><strong>地盤調査報告書・構造計算書・検査済証・劣化対策等級3級設計評価書</strong>の4点（村田先生指定）</li>
+      <li>1億円超の規模感はFIRE v5シナリオCで3棟一気買いなら許容範囲か（アキ確認）</li>
+      <li>玉川式シートの10年目税引後IRRが25%基準をクリアするか（要ブラウザ確認）</li>
+    </ol>
+  </div>
+
+  <div class="card sec-team">
+    <h2>🏁 チーム総合所見</h2>
+    <div class="narrative">
+<strong>【総合判断】見送り推奨（4名一致）</strong>
+
+<strong>最大リスク3点（優先度順）</strong>:
+1. <strong>浸水ハザード 50cm〜3m想定</strong>（標高1.8m・東京湾沿岸）— キャプテン基準の浸水2m以上即NGに抵触する可能性。融資行（オリックス・auじぶん）の評価減・謝絶リスク大。出口戦略でも買手銀行が水災エリアに消極的。
+2. <strong>日産追浜工場2027年生産終了</strong> — 単身賃貸需要の屋台骨が揺らぐ。15戸単身特化（1R×6+1K×9）がダイレクトに直撃。
+3. <strong>価格1.615億円（キャプテン基準1億オーバー）</strong> — 利回り7.2%もレンジ下限で上振れ余地なし。1棟目には資金拘束・ハザードリスクともに重い。
+
+<strong>推されるポイント（公平を期して）</strong>:
+・建物スペック: 木造3F準耐火・劣化対策等級3級・水回りグレードUP → 村田先生「堅実な作り」評価
+・財務指標: CCR 26.5%（オリックス）・積算63.1%・CF率1.06-1.76% → アキ「仕入れ条件は良い」
+・取引態様: 売主（仲介料ゼロ・諸費用4%）
+・賃料評価: スマサテ乖離+2.9%で適正圏（上振れ余地はないが堅め）
+
+<strong>次のアクション（キャプテン判断後）</strong>:
+A. <strong>見送り</strong>（推奨） → 同じトラストライフの一覧表25物件から再スクリーニング。候補: ⑥South Lagoon六ツ川1丁目 1.092億/7.0%/★★★、⑮Sun Lagoon笹野台 1.158億/7.0%/★★★ など内陸・標高高い物件
+B. <strong>続行検討</strong> → まずオリックス銀行に浸水エリアでの融資可否を事前打診（NGなら即終了）、OKならトラストライフに「上記12項目」を書面回答請求。並行して現地訪問で擁壁・排水・海からの距離感を体感確認
+    </div>
+  </div>
+
+  <p class="mini" style="text-align:center;margin-top:30px;">
+    TC Capitals 不動産仕入部 © 2026 / Report by ハルト・リョウ・アキ・村田 誠一 一級建築士
+  </p>
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20261003_gold-lagoon-mutsuura_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20261003_gold-lagoon-mutsuura_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
