@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Ocean Hills 北矢名 — チーム精査レポート</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Hiragino Sans','Yu Gothic',Meiryo,sans-serif;background:#f4f6f9;color:#2d3748;line-height:1.6}
+.container{max-width:1100px;margin:0 auto;padding:30px 20px}
+header{background:#1e3a5f;color:#fff;padding:30px;border-radius:8px;margin-bottom:30px;box-shadow:0 4px 12px rgba(0,0,0,0.08)}
+header h1{font-size:28px;margin-bottom:8px}
+header .meta{color:#cbd5e0;font-size:14px}
+.alert-ng{background:#dc2626;color:#fff;padding:14px 18px;border-radius:6px;margin:20px 0;font-weight:bold}
+.alert-caution{background:#f59e0b;color:#fff;padding:14px 18px;border-radius:6px;margin:20px 0;font-weight:bold}
+.card{background:#fff;border-radius:8px;padding:24px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.card h2{font-size:20px;margin-bottom:16px;padding-bottom:10px;border-bottom:3px solid}
+.h-sum{border-color:#1e3a5f;color:#1e3a5f}
+.h-criteria{border-color:#1e3a5f;color:#1e3a5f}
+.h-haruto{border-color:#f97316;color:#f97316}
+.h-ryo{border-color:#2563eb;color:#2563eb}
+.h-aki{border-color:#059669;color:#059669}
+.h-murata{border-color:#7c2d12;color:#7c2d12}
+.h-survey{border-color:#0d9488;color:#0d9488}
+.h-captain{border-color:#9333ea;color:#9333ea}
+.h-overall{border-color:#1e3a5f;color:#1e3a5f}
+table{width:100%;border-collapse:collapse;margin:12px 0}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #e2e8f0;font-size:14px}
+th{background:#f7fafc;font-weight:600;color:#4a5568}
+.ok{color:#059669;font-weight:bold}
+.ng{color:#dc2626;font-weight:bold}
+.warn{color:#d97706;font-weight:bold}
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.summary-grid div{background:#f7fafc;padding:12px;border-radius:6px}
+.summary-grid .label{font-size:12px;color:#718096}
+.summary-grid .value{font-size:16px;font-weight:bold;margin-top:4px}
+.btn-link{display:inline-block;background:#1e3a5f;color:#fff;padding:10px 18px;border-radius:5px;text-decoration:none;margin:6px 4px 6px 0;font-size:14px}
+.btn-link:hover{background:#2d5a8c}
+ul{margin:10px 0 10px 22px}
+ul li{margin-bottom:6px;font-size:14px}
+.sub{color:#718096;font-size:13px}
+pre{background:#f7fafc;padding:12px;border-radius:5px;font-size:12px;overflow-x:auto;white-space:pre-wrap}
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20261006_ocean-hills-kitayana_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=13700&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.04&floorArea=317.85&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=13700&pi_age_inp=0&pi_yield_inp=7.04&pi_area_inp=317.85&pi_rooms_inp=12&ik_land_area=365.89&ik_route_price=5.8&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E7%A7%A6%E9%87%8E%E5%B8%82%E5%8C%97%E7%9F%A2%E5%90%8D1285-5" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=13700&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.08&floorArea=317.85&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=13700&pi_age_inp=0&pi_yield_inp=7.08&pi_area_inp=317.85&pi_rooms_inp=12&ik_land_area=365.89&ik_route_price=5.8&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E7%A7%A6%E9%87%8E%E5%B8%82%E5%8C%97%E7%9F%A2%E5%90%8D1285-5" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20261006_ocean-hills-kitayana_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20261006_ocean-hills-kitayana_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+
+<div class="container">
+<header>
+<h1>🏠 Ocean Hills 北矢名 — チーム精査レポート</h1>
+<div class="meta">精査日: 2026年10月6日 ｜ 不動産仕入部4名チーム: ハルト・リョウ・アキ・村田先生</div>
+</header>
+
+<div class="alert-caution">⚠️ キャプテン基準3項目NG（価格・利回り・積算）＋学生街1本足リスクにつき見送り推奨</div>
+
+<div class="card">
+<h2 class="h-sum">📋 物件サマリー</h2>
+<div class="summary-grid">
+<div><div class="label">価格</div><div class="value">1億3,700万円（税込）</div></div>
+<div><div class="label">満室想定表面利回り</div><div class="value">7.04%</div></div>
+<div><div class="label">構造・築年</div><div class="value">木造2×4 3階建 新築(R7年9月)</div></div>
+<div><div class="label">所在地</div><div class="value" style="font-size:14px">神奈川県秦野市北矢名1285-5</div></div>
+<div><div class="label">交通</div><div class="value" style="font-size:14px">小田急小田原線「東海大学前駅」徒歩10分</div></div>
+<div><div class="label">取引態様</div><div class="value">媒介（IPA不動産・森）</div></div>
+<div><div class="label">土地 / 延床</div><div class="value" style="font-size:14px">365.89㎡ / 317.85㎡</div></div>
+<div><div class="label">間取り・戸数</div><div class="value" style="font-size:14px">1K(25.49㎡)×12戸・全戸入居中</div></div>
+<div><div class="label">月額収入(満室)</div><div class="value" style="font-size:14px">804,000円(賃料744,000+共益60,000)</div></div>
+</div>
+<p class="sub">用途地域: 第一種中高層住居専用地域／準防火地域／日影規制あり／建蔽60%・容積200%／権利: 所有権／耐震等級3・設計住宅性能評価取得／契約不適合責任2年付／建築確認番号: 第AI建築確認00-2400446号／設備: Wi-Fi無料・オートロック・バストイレ別・セコム防犯カメラ・エアコン1台・駐輪場・二口電気コンロ／東海大学湘南キャンパス徒歩23分・ファミマ徒歩2分</p>
+</div>
+
+<div class="card">
+<h2 class="h-criteria">🎯 キャプテン基準チェック</h2>
+<table>
+<tr><th>項目</th><th>基準</th><th>本物件</th><th>判定</th></tr>
+<tr><td>価格</td><td>1億円以下</td><td>1億3,700万円</td><td class="ng">❌ NG(+3,700万)</td></tr>
+<tr><td>利回り</td><td>新築7.1%以上</td><td>7.04%(資料)/7.08%(スマサテ)</td><td class="ng">❌ NG(資料ベース-0.06pt)</td></tr>
+<tr><td>築年</td><td>築10年以内</td><td>新築(令和7年9月)</td><td class="ok">✅ OK</td></tr>
+<tr><td>エリア</td><td>一都三県・16号内側</td><td>神奈川県秦野市(16号外側・丹沢麓)</td><td class="ng">❌ NG(16号外)</td></tr>
+<tr><td>構造</td><td>木造優先</td><td>木造2×4・耐震等級3</td><td class="ok">✅ OK(優等)</td></tr>
+<tr><td>CF率</td><td>1.0%以上</td><td>0.93%(オリックス)/1.57%(神奈川)</td><td class="warn">⚠️ 融資次第</td></tr>
+<tr><td>CCR</td><td>15%以上</td><td>13.3%(オリックス)/9.2%(神奈川)</td><td class="ng">❌ NG</td></tr>
+<tr><td>積算</td><td>80%以上</td><td>約50.3%(路線価5.8万ベース)</td><td class="ng">❌ NG</td></tr>
+<tr><td>戸数</td><td>6〜8戸前後</td><td>12戸</td><td class="warn">⚠️ オーバー</td></tr>
+<tr><td>ハザード</td><td>問題なし</td><td>洪水・土砂・津波 全て非該当</td><td class="ok">✅ OK</td></tr>
+</table>
+<p class="sub" style="margin-top:10px"><strong>総判定: 10項目中4項目NG + 2項目要注意</strong>（10年目税引後IRRは玉川式TGで確認）</p>
+</div>
+
+<div class="card">
+<h2 class="h-survey">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</h2>
+<table>
+<tr><th>項目</th><th>結果</th></tr>
+<tr><td><strong>相続路線価</strong></td><td><strong>5.8万円/㎡（借地権割合: D 60%・chikamap.jp 令和7年分）</strong> → 土地値推計 5.8万×365.89㎡= 2,122万円（販売価格比15.5%・<span class="ng">底値圏</span>）</td></tr>
+<tr><td>洪水浸水想定</td><td class="ok">✅ 非該当</td></tr>
+<tr><td>土砂災害警戒区域</td><td class="ok">✅ 非該当</td></tr>
+<tr><td>津波浸水想定</td><td class="ok">✅ 非該当</td></tr>
+<tr><td>液状化危険度</td><td>確認不可</td></tr>
+<tr><td>標高</td><td>30.2m（内陸・丘陵エリア）</td></tr>
+<tr><td><strong>総合ハザード判定</strong></td><td class="ok"><strong>問題なし</strong></td></tr>
+</table>
+
+<table style="margin-top:16px">
+<tr><th>スマサテ賃料査定（階別）</th><th>資料賃料</th><th>スマサテ査定(礼0)</th><th>乖離</th><th>評価</th></tr>
+<tr><td>1F（101-104・4戸）</td><td>59,000円</td><td>65,000円</td><td>+6,000円</td><td>強気余力あり</td></tr>
+<tr><td>2F（201-204・4戸）</td><td>63,000円</td><td>68,000円</td><td>+5,000円</td><td>強気余力あり</td></tr>
+<tr><td>3F（301-304・4戸）</td><td>64,000円</td><td>69,000円</td><td>+5,000円</td><td>強気余力あり</td></tr>
+<tr><td><strong>平均/合計</strong></td><td>62,000円</td><td>67,333円</td><td><strong>+8.6%</strong></td><td>スマサテ強気評価</td></tr>
+</table>
+<p class="sub" style="margin-top:8px">スマサテ査定は資料賃料より+8.6%高く、<strong>退去時の家賃維持余力は十分</strong>。スマサテベース(賃料のみ)で利回り再計算すると7.08%、共益費込みなら7.60%。ただし資料ベースではキャプテン基準7.1%に0.06pt届かず。</p>
+
+<p style="margin-top:16px"><a href="./20261006_ocean-hills-kitayana_survey.html" class="btn-link">🔍 物件調査レポート（スマサテ・路線価・ハザードマップ）</a></p>
+</div>
+
+<div class="card">
+<h2 class="h-haruto">🔎 ハルト（朝倉 晴斗）— エリア・利回り分析</h2>
+<p><strong>エリア評価</strong>:</p>
+<ul>
+<li><strong>プラス</strong>: 東海大学湘南キャンパス徒歩23分で学生需要（キャンパス学生数19,100名）。主要文系学部は湘南に残留で向こう5-10年の需要維持見込み。小田急小田原線で新宿直通可。周辺に大学直系の生活利便施設あり。</li>
+<li><strong>マイナス</strong>: 秦野市人口は2010年ピーク(170,417人)から159,811人へ減少。2045年予測125,209人(-22%)で<strong>学生以外の需要が極めて細い</strong>。駅徒歩10分は学生需要の中位（徒歩3-5分の競合に劣る）。1K 25.49㎡はやや広く学生単身にはミスマッチ気味。</li>
+</ul>
+<p style="margin-top:12px"><strong>利回り相場感</strong>:</p>
+<ul>
+<li>東海大学前駅1K家賃相場 平均4.3-6.3万円（新築駅近で上位6.3万円）→ 本物件59,000-64,000円は上位帯だが設備考えると妥当。</li>
+<li>資料利回り7.04%は新築基準7.1%に0.06pt未達。スマサテ(共益費込み)なら7.60%で通過するが、共益費を利回り算定に含めるかは要相談。</li>
+</ul>
+<p style="margin-top:12px"><strong>空室リスク</strong>: 設計性能評価・耐震等級3・Wi-Fi無料・セコム・オートロック → 学生の親受けバッチリ。ただし<strong>学生街1本足</strong>で2027-2030年の学部再編リスクを要継続監視。満室稼働中は好材料だが、同時竣工12戸のため新築プレミアム剥落(築3-5年)の下落率が全戸に効く。</p>
+<p style="margin-top:12px"><strong>ハルト率直評価</strong>: <span class="warn">△（商品性○・基準NG）</span>。1.37億×学生街×16号外は<strong>リスク分散的に悪手</strong>。同じ資金なら都内16号内側で築浅＋利回り7.5%級の方が優位。IPA不動産は新築アパートのパイプを持つ可能性大 → 業者コンタクトはキープ。</p>
+</div>
+
+<div class="card">
+<h2 class="h-ryo">📋 リョウ（黒沢 涼）— DD精査</h2>
+<p><strong>✅ 確認済み（物件品質面）</strong>:</p>
+<ul>
+<li>新耐震基準・<strong>耐震等級3＋設計住宅性能評価取得</strong>（最強カード）</li>
+<li>建築確認番号: 第AI建築確認00-2400446号／再建築可／用途地域合法建築（容積消化87%）</li>
+<li>準防火地域で2×4は準耐火構造適合／日影規制クリア</li>
+<li>レントロール: 全12戸満室稼働中・階ごとに自然な価格勾配</li>
+<li>契約不適合責任<strong>2年付</strong>（宅建業法要求1年を上回る）</li>
+</ul>
+<p style="margin-top:12px"><strong>🚩 大リスク1: 立地の「学生街1本足」依存</strong>: 東海大学前駅＋湘南キャンパス至近で学生需要が収益の軸。学部再編リスクを継続監視必要。社会人需要・卒業時期(2027年3月)の退去波を要確認。</p>
+<p><strong>🚩 大リスク2: 新築プレミアム剥落リスク</strong>: 現賃料は新築プレミアム込み。3-5年後の2回転目で5-10%下落が通常。感応度分析必須。</p>
+<p><strong>🚩 大リスク3: 媒介業者の情報開示レベル</strong>: IPA不動産・東京都知事(3)で宅建業歴11年前後。TEL携帯のみ（固定なし）→ 会社所在地・固定電話・反社チェック必須。本物件の媒介経緯も要確認。</p>
+<p><strong>🚩 中リスク1: サブリース・一括借上契約の有無不明</strong>: 新築AP×12戸満室稼働の背景にサブリース（マスターリース）が隠れていないか要確認。</p>
+<p><strong>🚩 中リスク2: 利回り7.04%の相対評価</strong>: キャプテン基準8.0%未達（-0.96pt）。指値1億2,500-1億3,000万円（表面7.4-7.7%）を狙う余地あり。</p>
+<p style="margin-top:12px"><strong>総合判定リスクレベル</strong>: <span class="warn">中</span>。物件スペックは一級品。価格・利回り2軸がネック。サブリース確認とレントロール原本精査が終わるまでは買付出さない方針を推奨。</p>
+<p style="margin-top:12px"><a href="https://teruyone.github.io/tc-properties/properties/20261006_ocean-hills-kitayana_DD.html" class="btn-link">📋 入力済みDDチェックリスト</a></p>
+</div>
+
+<div class="card">
+<h2 class="h-aki">💰 アキ（三宅 亜紀）— IG+ 収支計算 ＋ 玉川式</h2>
+<table>
+<tr><th>指標</th><th>オリックス銀行(100%/2.6%/35y)</th><th>神奈川銀行(90%/2.25%/35y)</th></tr>
+<tr><td>借入額</td><td>13,700万円</td><td>12,330万円</td></tr>
+<tr><td>年間返済額</td><td>▲596.6万円</td><td>▲509.3万円</td></tr>
+<tr><td>税引前CF</td><td>+127.9万円</td><td>+215.1万円</td></tr>
+<tr><td>CF率</td><td class="ng">0.93%</td><td class="ok">1.57%</td></tr>
+<tr><td>返済比率</td><td>65.1%</td><td>55.6%</td></tr>
+<tr><td>CCR</td><td class="ng">13.3%</td><td class="ng">9.2%</td></tr>
+<tr><td>自己資金</td><td>959万円(諸費用のみ)</td><td>2,329万円(頭金1,370万+諸費用959万)</td></tr>
+</table>
+
+<p style="margin-top:12px"><strong>NOI</strong>: 724.5万円（NOI利回り5.29%）</p>
+<p><strong>諸費用</strong>: 仲介取引のため物件価格の7%（959万円・仲介料含む）</p>
+<p><strong>積算評価</strong>: 建物7,628.4万(等級3・24万/㎡×317.85㎡) + 土地2,122万(5.8万×365.89㎡) = 9,750万 → <strong>積算比率約71%（更新後）</strong></p>
+<p><strong>税引後CF</strong>: 建物価格95,900,000円÷22年=435.9万/年の減価償却。初年度は課税所得≒0 → ①オリックス税引後CF 127.9万、②神奈川 212.4万</p>
+
+<p style="margin-top:12px"><strong>キャプテン基準6指標</strong>:</p>
+<table>
+<tr><td>価格≤1億</td><td class="ng">❌</td><td>利回り≥8.0%</td><td class="ng">❌</td></tr>
+<tr><td>CF率≥1.0%</td><td class="warn">△(オリ❌/神❌→✅)</td><td>CCR≥15%</td><td class="ng">❌</td></tr>
+<tr><td>積算≥80%</td><td class="warn">△(71%)</td><td>10年目IRR≥25%</td><td>→玉川式で確認</td></tr>
+</table>
+
+<p style="margin-top:12px"><strong>アキからひとこと</strong>: 新築・耐震等級3・設計性能評価の"優等生物件"ですが、キャプテン基準で見ると価格1億超・利回り8%未達の時点で初手で引っかかります。神奈川銀行90%ならCF率1.57%とギリ合格ラインを超えますが、CCR9.2%は資金効率として弱い。1棟目でこの効率だと2棟目買い増しの原資が溜まりません。オリックス100%なら自己資金959万で手が出せるのが魅力ですが、CF率0.93%で返済比率65%。デッドクロス（築9年目に減価償却完了）後の税負担増でCF悪化は要注意。</p>
+
+<p style="margin-top:12px">
+<a href="{ig_url}" class="btn-link">📊 IG+【資料賃料】</a>
+<a href="{ig_sumasate_url}" class="btn-link">📊 IG+【スマサテ賃料】</a>
+<a href="{tg_url}" class="btn-link">📈 玉川式シート(10年目IRR確認)</a>
+</p>
+<p class="sub">※上記ボタンは公開後URLに自動差し替えされます</p>
+</div>
+
+<div class="card">
+<h2 class="h-murata">🏗️ 村田先生（村田 誠一）— 建築士コメント</h2>
+<p class="sub">※現場を見ないと断言はできませんが、資料から読み取れることをお伝えします。</p>
+
+<p style="margin-top:10px"><strong>構造・工法評価</strong>: 木造2×4（枠組壁工法）3階建 延床317.85㎡。<strong>面構造で地震力を分散</strong> → 耐震等級3との相性が良い。耐火性・気密性・断熱性に優れ、1K物件の光熱費訴求に有利。施工品質のバラツキが少ない工法。ただし<strong>リフォーム制約（耐力壁の位置変更不可）</strong>と<strong>気密高ゆえの通気層・防湿層の施工品質で結露リスクが変動</strong>する点に留意。</p>
+
+<p style="margin-top:10px"><strong>耐震等級3・設計性能評価</strong>: 消防署・警察署クラスの耐震性能。地震保険50%割引。<strong>★要確認: 「設計住宅性能評価」だけでなく「建設住宅性能評価」（施工段階の検査済）まで取っているか</strong>。設計評価だけだと「図面上は等級3」であって、実際の施工が等級3通りに行われた保証はない。</p>
+
+<p style="margin-top:10px"><strong>修繕リスク予測</strong>:</p>
+<ul>
+<li>直近5年: 給湯器点検・共用部LED・シーリング初期チェック（軽微）</li>
+<li>5-10年: 外壁シーリング打替80-120万・給湯器初回交換120-180万・バルコニー防水30-50万</li>
+<li>10-15年: 外壁塗装200-300万・屋根防水100-200万・エアコン12台一斉交換100-150万</li>
+<li>20-30年: 給排水管更新360-600万（2×4は壁内配管経路が決まっているため解体費も発生）</li>
+<li>修繕積立目安: 月1戸3,000-5,000円 = 年44-72万円を確保</li>
+</ul>
+
+<p style="margin-top:10px"><strong>法令・規制上の留意点</strong>:</p>
+<ul>
+<li>★<strong>検査済証の確認（最重要）</strong>: 「建物完成済・即引渡可」とあるが、完了検査済かは別。未交付だと将来の売却時に金融機関融資NG・既存不適格リスク。原本（またはコピー）を必ず入手</li>
+<li>建築確認番号「第AI建築確認00-2400446号」の民間確認機関の実在確認</li>
+<li>準防火地域の木造3階建 → 45分/60分準耐火必須。開口部（窓）が防火設備（網入り等）か要現物確認</li>
+<li>第一種中高層住居専用地域で共同住宅は適合用途</li>
+<li>日影規制適合（新築で確認済）</li>
+</ul>
+
+<p style="margin-top:10px"><strong>現地必須確認</strong>:</p>
+<ul>
+<li><strong>検査済証と建設住宅性能評価書の「原本」確認</strong></li>
+<li>外壁・屋根の仕上げ品質とシーリング施工精度（2×4は通気層施工が命）</li>
+<li>建具の建付け・床のレベル・壁の鉛直（新築1年の初期不良時期）</li>
+<li>防蟻処理の記録（保証書・5年or10年延長）</li>
+<li>排水の勾配・バルコニー排水口</li>
+<li>構造図・意匠図・設備図の原本一式（将来の修繕・売却時に必須）</li>
+<li>長期修繕計画書 + 住宅瑕疵担保責任保険の保険証券</li>
+<li>近隣境界標の目視確認</li>
+</ul>
+
+<p style="margin-top:10px"><strong>総合所感</strong>: 建築士評価は<strong>★★★★☆</strong>。2×4工法3階建で耐震等級3は構造的に理にかなった組合せ。新築のため直近10年の大規模修繕リスクが極小。<strong>検査済証・建設住宅性能評価書・瑕疵担保責任保険証券の3点が揃っていれば、建築的には買っていい物件</strong>。ただし2×4は面構造ゆえにリフォーム制約が強く、築30-40年を見据えると1K需要の継続性が鍵。「建物は正直者。」この物件は資料上は正直に見えます。</p>
+</div>
+
+<div class="card">
+<h2 class="h-captain">❓ キャプテンへの確認事項まとめ</h2>
+<ol style="margin-left:22px">
+<li><strong>キャプテン基準との整合</strong>: 価格1.37億（基準1億超過）・利回り7.04%（新築基準7.1%未達・-0.06pt）・エリア16号外・12戸（基準6-8戸超過）の4項目外しを許容するか？</li>
+<li><strong>媒介業者IPA不動産の過去取引実績</strong>・紹介ルートはご存じですか？反社DD＋信頼性の目線合わせ。</li>
+<li><strong>入居者12戸は全員東海大生ですか？それとも社会人混在</strong>ですか？学生なら卒業時期(2027年3月)の退去リスクを織り込む必要あり。</li>
+<li><strong>サブリース契約の有無</strong>を仲介に確認いただけますか？「満室稼働中」が通常賃貸か一括借上かで評価が全く変わります。</li>
+<li><strong>土地建物割合の売主提示</strong>はありますか？新築なので建物比率65-70%で取れれば減価償却が効きます。</li>
+<li><strong>融資打診銀行</strong>はどこを想定？新築・性能評価付でオリックス・住信SBI・地銀フラット35の選択肢あり。</li>
+<li><strong>指値戦略</strong>: 利回り7.04%は基準7.1%未達ですが融資条件が良ければゴー？それとも1.30億（利回り7.42%）まで指値？</li>
+<li><strong>検査済証・建設住宅性能評価書・瑕疵担保責任保険証券</strong>の3点入手を仲介に要求</li>
+<li><strong>現地調査の日程</strong>（擁壁・前面道路幅員・2×4通気層施工品質の目視）を押さえますか？</li>
+</ol>
+</div>
+
+<div class="card">
+<h2 class="h-overall">🏁 チーム総合所見</h2>
+<p><strong>判断</strong>: <span class="warn">見送り推奨（商品性○・基準NG）</span></p>
+<p style="margin-top:10px"><strong>最大リスク</strong>:</p>
+<ul>
+<li>価格1.37億円がキャプテン上限を37%オーバー → 資金効率CCR13.3%(オリックス)/9.2%(神奈川)で弱い</li>
+<li>土地値率15.5%（路線価5.8万/㎡）は底値圏 → 15年後の出口が描きにくい</li>
+<li>秦野市人口減（2045年に22%減予測）＋学生街1本足で、学部再編時のダウンサイドが大きい</li>
+</ul>
+<p style="margin-top:10px"><strong>光る点</strong>:</p>
+<ul>
+<li>新築・耐震等級3・設計性能評価・2×4で建築的には最強スペック</li>
+<li>スマサテ査定が資料賃料より+8.6%強気 → 退去時の家賃維持余力あり</li>
+<li>ハザードゼロ（洪水・土砂・津波全て非該当）・満室稼働中でDD通過性は高い</li>
+<li>契約不適合責任2年付＋耐震等級3で融資行アピール最強</li>
+</ul>
+<p style="margin-top:10px"><strong>次アクション</strong>:</p>
+<ol style="margin-left:22px">
+<li><strong>本件は見送り推奨</strong>（キャプテン基準の価格・利回り2軸で未達、土地値率15.5%もリスク）</li>
+<li>IPA不動産（取扱業者）は新築アパートのパイプを持つ可能性大 → <strong>業者コンタクトはキープ</strong></li>
+<li>東海大学前エリアは「築浅・8%超・1億以内」なら再検討の価値あり → <strong>ウォッチリストに追加</strong></li>
+<li>キャプテンに<strong>この見送り理由を記録</strong>して、今後の神奈川郊外×大学需要案件の判定軸を確立</li>
+<li>攻めるなら<strong>指値1.30億円（利回り7.42%）＋融資条件満額</strong>が条件</li>
+</ol>
+</div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20261006_ocean-hills-kitayana_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20261006_ocean-hills-kitayana_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
