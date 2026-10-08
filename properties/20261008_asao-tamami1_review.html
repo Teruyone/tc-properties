@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>川崎市麻生区多摩美1丁目新築共同住宅 — 仕入部チーム精査レポート</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Noto Sans JP','Hiragino Sans','Yu Gothic UI',sans-serif; margin:0; padding:0; background:#f0f2f5; color:#333; line-height:1.7; }
+  .container { max-width:980px; margin:0 auto; padding:28px 20px 60px; }
+  header { background:linear-gradient(135deg,#1e3a5f 0%,#2b5a8f 100%); color:#fff; padding:28px 32px; border-radius:10px 10px 0 0; }
+  header h1 { margin:0 0 8px; font-size:22px; }
+  header .meta { font-size:13px; opacity:.9; }
+  .card { background:#fff; border-radius:8px; padding:22px 26px; margin:16px 0; box-shadow:0 2px 6px rgba(0,0,0,.06); }
+  h2 { font-size:17px; margin:0 0 14px; padding:8px 12px; border-left:5px solid; border-radius:3px; }
+  h2.haruto { border-color:#ff8c00; background:#fff7eb; color:#8a4f00; }
+  h2.ryo { border-color:#1976d2; background:#e9f2fc; color:#0d47a1; }
+  h2.aki { border-color:#2e7d32; background:#eaf6eb; color:#1b5e20; }
+  h2.murata { border-color:#795548; background:#f4eee9; color:#4e342e; }
+  h2.survey { border-color:#00897b; background:#e0f3f0; color:#004d40; }
+  h2.summary { border-color:#1e3a5f; background:#e8edf3; color:#1e3a5f; }
+  h2.criteria { border-color:#c62828; background:#fdecea; color:#b71c1c; }
+  table { width:100%; border-collapse:collapse; margin:10px 0; font-size:14px; }
+  table th, table td { border:1px solid #d6d6d6; padding:7px 10px; text-align:left; }
+  table th { background:#f5f6f8; font-weight:600; }
+  .ok { color:#2e7d32; font-weight:700; }
+  .ng { color:#c62828; font-weight:700; }
+  .warn { color:#ef6c00; font-weight:700; }
+  ul { margin:6px 0 10px 20px; padding:0; }
+  li { margin:3px 0; }
+  .highlight { background:#fff8e1; padding:10px 14px; border-left:4px solid #f9a825; margin:10px 0; border-radius:3px; }
+  .alert { background:#fdecea; padding:10px 14px; border-left:4px solid #c62828; margin:10px 0; border-radius:3px; }
+  a { color:#1976d2; text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .btn { display:inline-block; padding:10px 18px; background:#1976d2; color:#fff; border-radius:5px; margin:4px 6px 4px 0; }
+  .btn:hover { background:#1565c0; text-decoration:none; }
+  .btn.green { background:#2e7d32; } .btn.green:hover { background:#1b5e20; }
+  .btn.blue { background:#1976d2; } .btn.red { background:#c62828; } .btn.red:hover { background:#b71c1c; }
+  .btn.teal { background:#00897b; } .btn.teal:hover { background:#004d40; }
+  pre { white-space:pre-wrap; }
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20261008_asao-tamami1_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=9737&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.45&floorArea=188.94&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=3.3&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=9737&pi_age_inp=0&pi_yield_inp=7.000&pi_area_inp=188.94&pi_rooms_inp=8&ik_land_area=190.05&ik_route_price=12&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=9737&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.45&floorArea=188.94&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=3.3&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=9737&pi_age_inp=0&pi_yield_inp=7.394&pi_area_inp=188.94&pi_rooms_inp=8&ik_land_area=190.05&ik_route_price=12&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20261008_asao-tamami1_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20261008_asao-tamami1_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+<div class="container">
+
+<header>
+  <h1>🏢 川崎市麻生区多摩美1丁目新築共同住宅 — 仕入部チーム精査レポート</h1>
+  <div class="meta">精査日: 2026-10-08 ／ チーム: ハルト・リョウ・アキ・村田先生 ／ 売主: ㈱テイクアンドフォー（吉原氏）</div>
+</header>
+
+<div class="card">
+  <h2 class="summary">📋 物件サマリー</h2>
+  <table>
+    <tr><th>価格</th><td>9,737万円（消費税込・水道加入金別途1,485,000円）</td></tr>
+    <tr><th>表面利回り</th><td>7.00%（満室想定賃料6,816,000円/年）</td></tr>
+    <tr><th>構造・階数</th><td>木造2階建・8戸（全1K）</td></tr>
+    <tr><th>築年月</th><td>令和9年5月（予定・新築）／劣化対策等級3級取得</td></tr>
+    <tr><th>所在地</th><td>神奈川県川崎市麻生区多摩美1-16-11</td></tr>
+    <tr><th>交通</th><td>小田急小田原線「読売ランド前」駅徒歩10分、「百合ヶ丘」駅徒歩16分</td></tr>
+    <tr><th>土地・延床</th><td>土地190.05㎡・延床188.94㎡（57.15坪）</td></tr>
+    <tr><th>用途地域</th><td>第1種低層住居専用地域（建蔽率50%/容積率100%）</td></tr>
+    <tr><th>取引態様</th><td>売主（仲介手数料0円）</td></tr>
+    <tr><th>設備</th><td>オートロック（外構）・宅配ボックス完備</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2 class="criteria">✅ キャプテン基準 — 判定一覧</h2>
+  <table>
+    <tr><th>項目</th><th>基準</th><th>本物件</th><th>判定</th></tr>
+    <tr><td>価格</td><td>≤ 1億円</td><td>9,737万円</td><td class="ok">OK</td></tr>
+    <tr><td>利回り（旧7.1%）</td><td>≥ 7.1%</td><td>7.00%（資料）／ 7.39%（スマサテ）</td><td class="warn">△（スマサテならOK）</td></tr>
+    <tr><td>利回り（v5最新 8.0%）</td><td>≥ 8.0%</td><td>7.00% / 7.39%</td><td class="ng">NG</td></tr>
+    <tr><td>築年数</td><td>≤ 10年</td><td>新築0年</td><td class="ok">OK</td></tr>
+    <tr><td>エリア</td><td>16号内側</td><td>川崎市麻生区</td><td class="ok">OK</td></tr>
+    <tr><td>積算比率</td><td>≥ 60%</td><td>70.0%</td><td class="ok">OK</td></tr>
+    <tr><td>CF率</td><td>≥ 1.0%</td><td>0.97%（資料・オリックス）／ 1.30%（スマサテ）</td><td class="warn">△</td></tr>
+    <tr><td>CCR</td><td>≥ 15%</td><td>17.6%（資料）／ 23.4%（スマサテ）</td><td class="ok">OK</td></tr>
+    <tr><td>10年目税引後IRR</td><td>≥ 25%</td><td>TGファイル要確認</td><td>→ TG確認</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2 class="survey">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</h2>
+  <table>
+    <tr><th>相続路線価</th><td><strong>12万円/㎡</strong>（借地権割合: D 60%・chikamap.jp 令和7年分）</td></tr>
+    <tr><th>洪水浸水想定</th><td><span class="ok">✅ 非該当</span></td></tr>
+    <tr><th>土砂災害警戒区域</th><td><span class="ok">✅ 非該当</span></td></tr>
+    <tr><th>津波浸水想定</th><td><span class="ok">✅ 非該当</span></td></tr>
+    <tr><th>液状化危険度</th><td>確認不可</td></tr>
+    <tr><th>総合ハザード判定</th><td><strong class="ok">問題なし</strong></td></tr>
+    <tr><th>スマサテ賃料査定</th>
+      <td>1階1K: <strong>74,000円/月</strong>（資料69,000円・+7.2%）<br>
+      2階1K: <strong>76,000円/月</strong>（資料73,000円・+4.1%）<br>
+      年収換算: <strong>7,200,000円</strong>（表面利回り 7.39%）／ 乖離は±10%以内で<strong class="ok">賃料設定適正・やや余地あり</strong></td></tr>
+  </table>
+  <p><a class="btn teal" href="20261008_asao-tamami1_survey.html">🔍 物件調査レポート（スマサテ・路線価・ハザード）</a></p>
+</div>
+
+<div class="card">
+  <h2 class="haruto">🏃 ハルト（エリア・利回り分析）</h2>
+  <h3 style="color:#8a4f00;margin-top:8px;">エリア評価</h3>
+  <ul>
+    <li><strong>読売ランド前駅</strong>: 小田急線で約1.6万人/日（緩やかな減少・安定圏）。新宿まで乗継約25分</li>
+    <li><strong>麻生区</strong>: 人口約18万人で微増維持。神奈川県内では人口維持優等生エリア</li>
+    <li>日本女子大・明治大生田キャンパス近く → <strong>社会人+学生の二層需要</strong>は強い</li>
+    <li>弱み: 駅前は小規模商店街のみ・生活利便は百合ヶ丘/新百合ヶ丘に依存</li>
+  </ul>
+  <h3 style="color:#8a4f00;">利回り相場感</h3>
+  <ul>
+    <li>読売ランド前・百合ヶ丘エリアの新築木造1Kアパート相場: <strong>表面6.5〜7.2%</strong></li>
+    <li>本物件7.00%は<strong>相場レンジのど真ん中</strong>・売主取引で仲手ゼロ=実質7.1%相当</li>
+    <li>土地値率23%は新築ゆえ低い（当然）</li>
+  </ul>
+  <h3 style="color:#8a4f00;">空室リスク</h3>
+  <ul>
+    <li>徒歩10分=ギリギリ許容圏（学生は徒歩圏重視で弱含み）</li>
+    <li>1K 23.65㎡+ロフト（2階）はオートロック・宅配BOXで差別化できている</li>
+    <li>スマサテ余地+5〜7% → 2巡目以降で賃料改善の可能性</li>
+  </ul>
+  <div class="highlight">
+    <strong>ハルトの総合評価: 基準スレスレだが"注目候補"</strong><br>
+    新築基準7.1%にわずかに届かないが、売主物件で仲手ゼロ・スマサテ余地7.39%なら実質基準クリア。長期保有前提なら十分検討対象。v5基準8%は未達。
+  </div>
+</div>
+
+<div class="card">
+  <h2 class="ryo">📋 リョウ（DD精査）</h2>
+  <p><a class="btn blue" href="https://teruyone.github.io/tc-properties/properties/20261008_asao-tamami1_DD.html">📋 入力済みDDチェックリストを開く</a></p>
+  <h3 style="color:#0d47a1;">確認済み項目 ✅</h3>
+  <ul>
+    <li>新耐震以降・2000年基準・現行基準適合（新築）</li>
+    <li>劣化対策等級3取得（融資・税制上の優位性）</li>
+    <li>二方向接道（北・東）／容積率99.37%（制限内）／売主取引（仲介手数料320万円カット）</li>
+  </ul>
+  <h3 style="color:#0d47a1;">🚩 最大リスク</h3>
+  <div class="alert">
+    <strong>建築未完成売買＋法規未確定（建蔽率53.66%・隅切り市取扱）のダブル不確実性</strong><br>
+    竣工まで約1年半。この間に建築確認NG・隅切り判断NG・工期遅延等のリスクあり。
+  </div>
+  <h3 style="color:#0d47a1;">主なリスクフラグ</h3>
+  <ul>
+    <li>🔴 <strong>建蔽率オーバー疑義</strong>（53.66% vs 50%）→ 角地緩和(+10%)で合法の可能性大だが要書面確認</li>
+    <li>🔴 <strong>建築確認「取得予定」の状態</strong>→ 検査済証取得前の引渡しNG・契約書に特約必須</li>
+    <li>🟡 42条1項5号道路（位置指定）→ 道路所有者・持分・通行掘削承諾書要確認</li>
+    <li>🟡 大谷石地盤→地盤改良杭費用の内訳確認・地盤保証10年の有無</li>
+    <li>🟡 跳ね出し構造→15〜20年後の防水再施工を長期修繕計画に織込み</li>
+    <li>🟡 無窓階判定（2階）→ 消防設備点検費が通常の1.5倍（年15〜20万円）</li>
+    <li>🟡 外構オートロック→屋外設置ゆえ故障頻度高（10年で30〜50万円）</li>
+    <li>🟡 第1種低層＝将来の増改築不可</li>
+    <li>🟡 隅切り二等辺三角形でない→市の取扱確認結果待ち（NGなら設計変更）</li>
+  </ul>
+  <h3 style="color:#0d47a1;">契約時の必須条項5箇条</h3>
+  <ol>
+    <li>引渡し条件: 建築確認済証・検査済証・住宅性能評価書すべて取得後</li>
+    <li>融資特約: 竣工予定の2ヶ月前まで有効（期日延長条項付き）</li>
+    <li>違約金条項: 竣工遅延3ヶ月以上で手付金倍返しまたは解除可</li>
+    <li>手付金保全: 新築未完成売買は保全措置を宅建業法で義務化。保全証書提示</li>
+    <li>瑕疵担保: 品確法10年＋住宅瑕疵担保保険の加入証明</li>
+  </ol>
+</div>
+
+<div class="card">
+  <h2 class="aki">💰 アキ（IG+収支計算 + 玉川式）</h2>
+  <p>
+    <a class="btn green" href="20261008_asao-tamami1_IG.html">📊 IG+【資料賃料】収支試算</a>
+    <a class="btn green" href="20261008_asao-tamami1_IG_sumasate.html">📊 IG+【スマサテ賃料】収支試算</a>
+    <a class="btn green" href="20261008_asao-tamami1_TG.html">📈 玉川式収益試算シート（35年CF・IRR）</a>
+  </p>
+
+  <h3 style="color:#1b5e20;">シナリオA: 資料賃料ベース（年収 681.6万円・表面7.00%）</h3>
+  <table>
+    <tr><th>項目</th><th>オリックス（100%・2.6%・35年）</th><th>神奈川銀行（90%・2.25%・35年）</th></tr>
+    <tr><td>自己資金</td><td>538万円（諸費用4%+水道加入金）</td><td>1,512万円</td></tr>
+    <tr><td>年返済額</td><td>424.0万円</td><td>362.0万円</td></tr>
+    <tr><td>CF（税引前）</td><td><strong>94.8万円</strong></td><td><strong>156.8万円</strong></td></tr>
+    <tr><td>CF率</td><td class="warn">0.97%</td><td class="ok">1.61%</td></tr>
+    <tr><td>CCR</td><td class="ok">17.61%</td><td>10.37%</td></tr>
+    <tr><td>返済比率</td><td>62.2%</td><td>53.1%</td></tr>
+    <tr><td>NOI利回り</td><td>5.33%</td><td>5.33%</td></tr>
+  </table>
+
+  <h3 style="color:#1b5e20;">シナリオB: スマサテ賃料ベース（年収 720.0万円・表面7.39%）</h3>
+  <table>
+    <tr><th>項目</th><th>オリックス（100%・2.6%・35年）</th><th>神奈川銀行（90%・2.25%・35年）</th></tr>
+    <tr><td>自己資金</td><td>538万円</td><td>1,512万円</td></tr>
+    <tr><td>年返済額</td><td>424.0万円</td><td>362.0万円</td></tr>
+    <tr><td>CF（税引前）</td><td><strong>126.1万円</strong></td><td><strong>188.1万円</strong></td></tr>
+    <tr><td>CF率</td><td class="ok">1.30%</td><td class="ok">1.93%</td></tr>
+    <tr><td>CCR</td><td class="ok">23.43%</td><td>12.44%</td></tr>
+    <tr><td>返済比率</td><td>58.9%</td><td>50.3%</td></tr>
+  </table>
+
+  <h3 style="color:#1b5e20;">積算評価</h3>
+  <ul>
+    <li>土地: 190.05㎡ × 12万円 = <strong>2,281万円</strong></li>
+    <li>建物: 188.94㎡ × 24万円（等級3）× 100%（新築）= <strong>4,535万円</strong></li>
+    <li>積算合計: <strong>6,815万円</strong>／価格比 <strong class="ok">70.0%</strong></li>
+  </ul>
+
+  <div class="highlight">
+    <strong>アキのコメント:</strong> 資料賃料ベースはキャプテン基準ギリギリ未達（CF率0.97%）。
+    スマサテ査定どおりに客付けできるなら両行とも1%超え、オリックスフルローンならCCR23.4%と高水準。
+    積算70%・新築・等級3・売主取引は◎。鍵は「スマサテ賃料で即客付けできるか」と「10年目税引後IRR≥25%」。
+    v5の利回り8%基準には届かないため、「3棟一気買いシナリオC」での位置付け要判断。
+  </div>
+</div>
+
+<div class="card">
+  <h2 class="murata">🏗️ 村田先生（建築士コメント）</h2>
+  <p>※現場を見ないと断言はできませんが、資料から読み取れることをお伝えします。</p>
+
+  <h3 style="color:#4e342e;">構造・築年数の評価</h3>
+  <ul>
+    <li>劣化対策等級3級取得は大きなPR材料（3世代75〜90年の耐久性想定）</li>
+    <li>2000年基準準拠の新築木造・45分準耐火＝耐震・防火とも現行最高水準</li>
+    <li>ただし等級は「設計上の仕様」。施工品質が伴って初めて効く → 設計者T-Three Design実績の確認推奨</li>
+  </ul>
+
+  <h3 style="color:#4e342e;">修繕リスク概算</h3>
+  <table>
+    <tr><th>時期</th><th>項目</th><th>費用感</th></tr>
+    <tr><td>築10〜12年</td><td>外壁塗装・シーリング打替</td><td>160〜200万円</td></tr>
+    <tr><td>築10〜15年</td><td>屋根防水・金物点検</td><td>100〜150万円</td></tr>
+    <tr><td>築10〜15年</td><td>給湯器交換（8台）</td><td>80〜120万円</td></tr>
+    <tr><td>築15〜20年</td><td>バルコニー防水・共用部設備</td><td>100〜150万円</td></tr>
+  </table>
+  <ul>
+    <li><strong>跳ね出し構造</strong>: 片持ち梁は撓み・振動が蓄積。10年ごとに梁下目視+水平チェック推奨</li>
+    <li><strong>大谷石+地盤改良杭</strong>: 杭が効いていれば問題なし。5年スパンで不同沈下の初期兆候（建具・外壁クラック）確認</li>
+  </ul>
+
+  <h3 style="color:#4e342e;">法令適合性</h3>
+  <ul>
+    <li>建蔽率53.66%→<strong>角地緩和(+10%)でほぼ確実にクリア</strong>のはず。隅切り市取扱待ちは融資特約推奨</li>
+    <li>第1種低層での共同住宅: 高さ10m・5m以下、各種斜線制限クリアが前提</li>
+    <li>42条1項5号道路: 既にセットバック完了済み多いが、将来の持分負担要確認</li>
+  </ul>
+
+  <h3 style="color:#4e342e;">現地で必ず確認してほしいこと</h3>
+  <ol>
+    <li>2階の無窓階判定の消防対応（避難器具・自火報の設置状況）</li>
+    <li>外構オートロックの実物（跳ね出し構造ゆえの苦肉の策・防犯性能）</li>
+    <li>位置指定道路の持分と現況舗装</li>
+    <li>隅切り部分の市取扱の結論</li>
+    <li>跳ね出し部の下から見上げての梁せい・金物意匠</li>
+  </ol>
+
+  <h3 style="color:#4e342e;">プロパンガス（重要）</h3>
+  <div class="highlight">
+    無償貸与契約の有無が最重要。業者がオーナー設備（給湯器）を無償設置する代わりにガス単価上乗せ→入居者負担が重く退去理由になるケース多数。<strong>契約書を必ず入手し、縛り期間・解約金・単価を確認</strong>。可能なら「入居者負担・単価相場並み」が理想。
+  </div>
+
+  <div class="highlight">
+    <strong>村田先生の総合所感:</strong>
+    設計スペックは新築木造としてトップクラス。心配の種は「跳ね出し構造の長期挙動」「無窓階の消防コスト」「プロパン契約条件」の3点。資料上は良物件だが、この3点の実態確認が条件付きGO。
+  </div>
+</div>
+
+<div class="card">
+  <h2 class="summary">🙋 キャプテンへの確認事項（統合）</h2>
+  <h3>吉原氏（売主担当）に一括質問</h3>
+  <ol>
+    <li>建蔽率53.66%の根拠は<strong>角地緩和(+10%)</strong>適用か？書面でご提示を</li>
+    <li>建築確認申請の予定日・取得見込時期は？</li>
+    <li><strong>隅切りの市取扱確認</strong>は現在どの段階か？NG時の対応は？</li>
+    <li>前面道路（42条1項5号）の所有者・持分・通行掘削承諾の状況</li>
+    <li>地盤調査報告書・杭基礎設計書・地盤保証10年の有無</li>
+    <li>跳ね出し部分の長期修繕計画（15〜20年後の防水再施工）の売主提案</li>
+    <li>引渡し条件に「<strong>検査済証取得後</strong>」明記可能か？</li>
+    <li>住宅性能評価書・瑕疵担保保険の加入状況</li>
+    <li>竣工遅延時の違約金・解除条項の内容</li>
+    <li>手付金の額と保全措置（新築未完成なので必須）</li>
+    <li>想定賃料6,816千円の積算根拠（近隣類似物件の成約事例）</li>
+    <li>想定管理会社・管理手数料率・AD設定の提案</li>
+    <li><strong>水道加入金148.5万円の売主負担交渉</strong>（売主取引ゆえ余地あり）</li>
+    <li>プロパンガス無償貸与契約の有無・単価・縛り期間</li>
+    <li>外構オートロックの保守契約・故障時対応</li>
+  </ol>
+
+  <h3>キャプテンの判断ポイント</h3>
+  <ul>
+    <li>スマサテ査定74,000円／76,000円で即客付けできる現実性（地元客付会社ヒアリング要）</li>
+    <li>玉川式TGシートで10年目税引後IRRが25%以上出るか</li>
+    <li>v5基準（利回り8%）未達のため、「3棟一気買いシナリオC」内の位置付け</li>
+    <li>オリックス実際の金利（2.6%想定）・神奈川90%の実条件</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2 class="summary">🎯 チーム総合所見</h2>
+
+  <h3>総合判断: 条件付き検討候補（★★★☆☆）</h3>
+  <ul>
+    <li><strong>GOサイン材料</strong>: 新築・劣化等級3・積算70%・CCR17〜23%・売主取引・ハザード問題なし・読売ランド前の安定需要</li>
+    <li><strong>見送り材料</strong>: v5利回り基準8%未達（7.00%）・CF率ギリ・建蔽率オーバー疑義・水道加入金149万円の別途負担</li>
+    <li><strong>条件付き材料</strong>: スマサテ賃料で客付けできれば利回り7.39%・CF率1.30%で基準クリア / 10年目IRR未確認</li>
+  </ul>
+
+  <h3>最大リスク</h3>
+  <div class="alert">
+    <strong>建築未完成売買＋法規未確定（建蔽率・隅切り）＋v5利回り基準未達の三重苦。</strong><br>
+    竣工まで約1年半あり、この間の不確実性を契約条項で封じ切れるかが勝負。利回りも相場レンジ中央で妥協的。
+  </div>
+
+  <h3>次のアクション提案</h3>
+  <ol>
+    <li>吉原氏に<strong>確認事項15項目をメール送付</strong>（即日）</li>
+    <li>特に「建蔽率53.66%の角地緩和根拠」と「隅切り市取扱結論」を最優先確認</li>
+    <li><strong>価格交渉</strong>: 9,737万円→9,000万円（利回り7.57%）または<strong>水道加入金の売主負担</strong>交渉</li>
+    <li>玉川式TGシートで10年目税引後IRR確認（ブラウザで開く）</li>
+    <li>スマサテ賃料での客付け可能性を地元客付会社に打診</li>
+    <li>回答揃い次第、再度チーム精査→GO/見送り最終判断</li>
+  </ol>
+</div>
+
+<div class="card" style="text-align:center;font-size:12px;color:#888;">
+  精査日: 2026-10-08 ／ 仕入部: ハルト・リョウ・アキ・村田先生<br>
+  TC Capitals Property Review Team
+</div>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20261008_asao-tamami1_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20261008_asao-tamami1_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
