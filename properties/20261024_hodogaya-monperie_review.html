@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>モンペリエ 精査レポート | TC Capitals 仕入部</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif; background: #f4f6f8; color: #1a1f2b; line-height: 1.65; padding: 24px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  header { background: #1e3a5f; color: #fff; padding: 24px 28px; border-radius: 8px 8px 0 0; }
+  header h1 { font-size: 22px; margin-bottom: 6px; }
+  header .meta { font-size: 13px; opacity: 0.85; }
+  .alert-red { background: #c0392b; color: #fff; padding: 16px 22px; margin-top: 2px; font-weight: bold; font-size: 15px; border-left: 6px solid #7b1b14; }
+  .alert-red small { display: block; font-weight: normal; font-size: 12px; margin-top: 4px; opacity: 0.9; }
+  .card { background: #fff; padding: 22px 26px; margin-bottom: 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  h2 { font-size: 17px; padding: 10px 14px; margin: -22px -26px 16px -26px; border-radius: 6px 6px 0 0; color: #fff; }
+  .h-area { background: #e67e22; }
+  .h-dd { background: #2980b9; }
+  .h-ig { background: #27ae60; }
+  .h-arch { background: #8e5a3b; }
+  .h-info { background: #16a085; }
+  .h-summary { background: #34495e; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 10px 0; }
+  th, td { border: 1px solid #d9e0e6; padding: 7px 10px; text-align: left; }
+  th { background: #ecf0f3; font-weight: 600; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .ok { color: #27ae60; font-weight: bold; }
+  .ng { color: #c0392b; font-weight: bold; }
+  .warn { color: #e67e22; font-weight: bold; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 12px; font-weight: bold; color: #fff; }
+  .b-ng { background: #c0392b; }
+  .b-warn { background: #e67e22; }
+  .b-ok { background: #27ae60; }
+  .b-info { background: #16a085; }
+  ul, ol { padding-left: 22px; margin: 8px 0; }
+  li { margin-bottom: 4px; }
+  .link-btn { display: inline-block; background: #27ae60; color: #fff; padding: 10px 18px; border-radius: 4px; text-decoration: none; margin: 6px 8px 6px 0; font-size: 14px; font-weight: 500; }
+  .link-btn:hover { background: #1e8449; }
+  .link-btn.ig { background: #27ae60; }
+  .link-btn.ig-s { background: #16a085; }
+  .link-btn.tg { background: #d35400; }
+  .link-btn.dd { background: #2980b9; }
+  .link-btn.survey { background: #8e44ad; }
+  .section-note { background: #fdf6ec; border-left: 4px solid #e67e22; padding: 10px 14px; margin: 10px 0; font-size: 13px; }
+  .section-note.red { background: #fdecea; border-left-color: #c0392b; }
+  .verdict-box { background: #2c3e50; color: #fff; padding: 20px 26px; margin-top: 18px; border-radius: 6px; }
+  .verdict-box h3 { font-size: 18px; margin-bottom: 10px; color: #ecf0f1; }
+  .persona-tag { display: inline-block; background: #ecf0f3; color: #555; padding: 1px 8px; border-radius: 3px; font-size: 11px; margin-left: 6px; }
+  footer { text-align: center; font-size: 12px; color: #7f8c8d; margin-top: 24px; padding: 16px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20261024_hodogaya-monperie_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=11000&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.47&floorArea=199.98&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=3.3&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=8&taxRateIncome=20&pi_price_inp=11000&pi_age_inp=8&pi_yield_inp=7.47&pi_area_inp=199.98&pi_rooms_inp=12&ik_land_area=243.58&ik_route_price=24.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=11000&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.47&floorArea=199.98&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=3.3&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=10&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=8&taxRateIncome=20&pi_price_inp=11000&pi_age_inp=8&pi_yield_inp=7.47&pi_area_inp=199.98&pi_rooms_inp=12&ik_land_area=243.58&ik_route_price=24.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20261024_hodogaya-monperie_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a>
+</div>
+<div style="margin-top:48px;">
+
+<div class="container">
+
+<header>
+  <h1>モンペリエ 物件精査レポート</h1>
+  <div class="meta">横浜市保土ケ谷区宮田町3丁目317-1 ／ 木造12戸 ／ 築8年 ／ 1億1,000万円・7.47%</div>
+  <div class="meta">精査日: 2026-10-24 ／ チーム: ハルト・リョウ・アキ・村田先生</div>
+</header>
+
+<div class="alert-red">
+  ⚠️ 土砂災害特別警戒区域（レッドゾーン）該当につき【見送り推奨】
+  <small>融資NG・出口詰み・構造規制あり。4名全員一致で見送り判断です。</small>
+</div>
+
+<!-- 物件サマリー -->
+<div class="card">
+  <h2 class="h-info">📋 物件サマリー</h2>
+  <table>
+    <tr><th style="width:160px">物件名</th><td>モンペリエ</td><th style="width:160px">売主/媒介</th><td>媒介（IPA不動産・森氏）</td></tr>
+    <tr><th>所在地</th><td colspan="3">神奈川県横浜市保土ケ谷区宮田町3丁目317-1（地番: 宮田町317-1）</td></tr>
+    <tr><th>交通</th><td colspan="3">相鉄線「天王町」駅徒歩12分・相鉄線「星川」駅徒歩12分</td></tr>
+    <tr><th>価格</th><td>1億1,000万円</td><th>表面利回り</th><td>7.47%</td></tr>
+    <tr><th>満室想定年収</th><td>8,215,200円</td><th>月収</th><td>684,600円</td></tr>
+    <tr><th>構造</th><td>木造2階建</td><th>築年</th><td>2018年7月（築8年）</td></tr>
+    <tr><th>戸数</th><td>12戸（全1Rロフト付・16-17㎡）</td><th>種類</th><td>共同住宅</td></tr>
+    <tr><th>延床</th><td>199.98㎡</td><th>土地</th><td>243.58㎡（公簿）・所有権</td></tr>
+    <tr><th>用途地域</th><td>第一種低層住居専用地域</td><th>その他</th><td>市街化区域・準防火地域</td></tr>
+    <tr><th>建蔽/容積</th><td>60% / 100%</td><th>道路</th><td>南側私道 幅員4.7m・接道6.79m</td></tr>
+    <tr><th>設備</th><td>公営水道・本下水</td><th>ガス</th><td>プロパン</td></tr>
+    <tr><th>仲介料</th><td>3%+6万円+消費税（約3,366,000円）</td><th>備考</th><td>2階ロフト付</td></tr>
+  </table>
+</div>
+
+<!-- キャプテン基準 -->
+<div class="card">
+  <h2 class="h-info">🎯 キャプテン基準（v5）判定</h2>
+  <table>
+    <tr><th>基準項目</th><th>閾値</th><th>本物件</th><th>判定</th></tr>
+    <tr><td>価格</td><td>≤ 1億円</td><td class="num">1億1,000万円</td><td><span class="badge b-ng">❌ NG</span> +1,000万円超過</td></tr>
+    <tr><td>表面利回り</td><td>≥ 8.0%</td><td class="num">7.47%</td><td><span class="badge b-ng">❌ NG</span> ▲0.53pt</td></tr>
+    <tr><td>築年</td><td>築10年以内</td><td class="num">築8年</td><td><span class="badge b-ok">✅ OK</span></td></tr>
+    <tr><td>エリア</td><td>16号内側</td><td>横浜市保土ケ谷区</td><td><span class="badge b-ok">✅ OK</span></td></tr>
+    <tr><td>ハザード</td><td>レッドゾーン除外</td><td>土砂災害特別警戒区域</td><td><span class="badge b-ng">❌ 即NG</span></td></tr>
+    <tr><td>CF率（オリックス）</td><td>≥ 1.0%</td><td class="num">0.94%</td><td><span class="badge b-ng">❌ NG</span></td></tr>
+    <tr><td>CCR（オリックス）</td><td>≥ 15%</td><td class="num">13.4%</td><td><span class="badge b-ng">❌ NG</span></td></tr>
+    <tr><td>積算比率</td><td>≥ 60%</td><td class="num">78.5%</td><td><span class="badge b-ok">✅ OK</span></td></tr>
+    <tr><td>10年目税引後IRR</td><td>≥ 25%</td><td>玉川式シートで確認要</td><td><span class="badge b-warn">⚠️ 要確認</span></td></tr>
+  </table>
+</div>
+
+<!-- 路線価・ハザード -->
+<div class="card">
+  <h2 class="h-info">🗺️ 路線価・ハザードマップ・スマサテ査定</h2>
+
+  <h3 style="font-size:14px;margin:10px 0 6px;">相続路線価</h3>
+  <table>
+    <tr><th style="width:200px">路線価</th><td><strong>24.5万円/㎡</strong>（245千円/㎡）</td></tr>
+    <tr><th>借地権割合</th><td>D 60%</td></tr>
+    <tr><th>出典</th><td>chikamap.jp 令和7年分（6回検出で確定）</td></tr>
+    <tr><th>土地評価額（積算）</th><td class="num">243.58㎡ × 24.5万円 = 約5,967.7万円</td></tr>
+  </table>
+
+  <h3 style="font-size:14px;margin:16px 0 6px;">重ねるハザードマップ</h3>
+  <div class="section-note red">
+    <strong>⚠️ 土砂災害特別警戒区域（レッドゾーン）該当 — 即NG判定</strong><br>
+    急傾斜地の崩壊に関する土砂災害特別警戒区域（指定済）。建築構造の補強義務・融資NG・出口詰みの三重苦。
+  </div>
+  <table>
+    <tr><th style="width:200px">座標</th><td>北緯 35.459618° 東経 139.601181°（標高 22.1m）</td></tr>
+    <tr><th>洪水浸水想定</th><td><span class="ok">✅ 非該当</span></td></tr>
+    <tr><th>土砂災害警戒</th><td><span class="ng">❌ レッドゾーン該当（急傾斜地の崩壊・土砂災害特別警戒区域）</span></td></tr>
+    <tr><th>津波浸水想定</th><td><span class="ok">✅ 非該当</span></td></tr>
+    <tr><th>液状化危険度</th><td>確認不可</td></tr>
+    <tr><th>総合判定</th><td><strong class="ng">❌ 即NG</strong></td></tr>
+    <tr><th>スクショ</th><td>knowledge/hazardmap-debug/hodogaya-monperie_hazard_popup.png<br>knowledge/hazardmap-debug/hodogaya-monperie_hazard_zoom50m.png</td></tr>
+    <tr><th>出典</th><td>国土交通省・国土地理院「重ねるハザードマップ」</td></tr>
+  </table>
+
+  <h3 style="font-size:14px;margin:16px 0 6px;">スマサテ賃料査定</h3>
+  <div class="section-note">
+    <strong>⚠️ スマサテ: 実行スキップ（ログイン失敗）</strong><br>
+    自動ログインが2回とも失敗。手動確認が必要です。<br>
+    資料記載賃料ベースの平均は約57,000円/戸・月（1R 16-17㎡）。相鉄線天王町/星川徒歩12分・築8年・プロパンの立地で妥当水準と推定。<br>
+    なお、survey.html は生成されていません（スマサテ失敗のため全体不整備）。
+  </div>
+</div>
+
+<!-- ハルト -->
+<div class="card">
+  <h2 class="h-area">🔎 ハルト<span class="persona-tag">エリア・利回り・需要分析</span></h2>
+
+  <h3 style="font-size:14px;margin-bottom:6px;">エリア総評</h3>
+  <ul>
+    <li><strong>相鉄線JR直通（2019年）・東急直通（2023年）</strong>で沿線価値は長期的に上昇基調。横浜駅各停3駅・約5分という都心近接性は強い。</li>
+    <li><strong>星川駅</strong>は駅前再開発完了済（星川プロムナード・星川SFビル）で保土ケ谷区の中心駅。</li>
+    <li><strong>天王町駅</strong>は商店街が残る昔ながらのエリアで単身者受け皿として安定需要。</li>
+    <li>宮田町3丁目は<strong>両駅徒歩12分の中間地点</strong>で距離感が微妙。高低差のある地形がレッドゾーン指定の原因。</li>
+  </ul>
+
+  <h3 style="font-size:14px;margin:14px 0 6px;">利回りの相場感</h3>
+  <ul>
+    <li>築8年木造・横浜市内・駅徒歩12分の相場 = <strong>7.5〜8.0%</strong>。本物件7.47%は<strong>相場通りだがお得感なし</strong>。</li>
+    <li>価格1億円まで指値できれば8.22%でキャプテン基準到達も、媒介で業者売主なら10%指値は困難。</li>
+    <li>レッドゾーンなら<strong>本来8.5〜9%ついていないと割に合わない</strong>水準。</li>
+  </ul>
+
+  <h3 style="font-size:14px;margin:14px 0 6px;">空室リスク</h3>
+  <ul>
+    <li>全戸16〜17㎡の狭小1R設計。<strong>ハルト基準「18㎡以下NG」に抵触</strong>。</li>
+    <li>入居者は20代前半社会人・学生中心。退去サイクル2〜3年で<strong>原状回復・AD負担が重い</strong>。</li>
+    <li>プロパンガスは入居者ネガ要素（都市ガスより月3,000〜5,000円高い）。</li>
+    <li>10年後に賃料下落圧力あり（51,000円→48,000円想定）。</li>
+  </ul>
+
+  <h3 style="font-size:14px;margin:14px 0 6px;">レッドゾーンの投資判断インパクト</h3>
+  <ol>
+    <li><strong>融資面</strong>: オリックス・SBJ・auじぶん・静岡銀行等でレッドゾーンNGまたは掛け目厳格化。フルローン・オーバーローンほぼ不可能。</li>
+    <li><strong>出口面</strong>: 購入者も融資NG → 売却時の買い手が極端に限定・流動性リスク大。</li>
+    <li><strong>保険面</strong>: 火災保険の水災特約で引受制限・保険料上昇の可能性。</li>
+    <li><strong>倫理面</strong>: 重要事項説明で入居者に警告必要。入居付けのネガ要素。</li>
+  </ol>
+
+  <div class="section-note red" style="margin-top:14px;"><strong>ハルトの最終判定: 見送り（投資不可）</strong>　IPA不動産には丁寧に見送り返信。相鉄線沿線の他物件（天王町・星川・和田町・西谷の築浅）を継続紹介いただく方向で関係維持。</div>
+</div>
+
+<!-- リョウ -->
+<div class="card">
+  <h2 class="h-dd">🔍 リョウ<span class="persona-tag">DD・リスク精査</span></h2>
+
+  <h3 style="font-size:14px;margin-bottom:6px;">🔴 即見送りレベル</h3>
+  <ol>
+    <li><strong>土砂災害レッドゾーン</strong>: 融資行ほぼ全滅。建基法施行令80条の3で構造規制あり。2018年築ゆえ既存不適格扱いにならず、構造計算書での対応確認必須。</li>
+    <li><strong>第一種低層住居専用地域で12戸共同住宅の適法性</strong>: 建基法上は可能だが、横浜市中高層条例の200㎡の壁をギリギリ回避した設計（延床199.98㎡）が意図的。</li>
+    <li><strong>容積率超過の疑い</strong>: 延床199.98÷土地243.58=82.1%で表面上はOKだが、<strong>ロフトが床面積算入される場合は容積率オーバー</strong>のリスクあり。</li>
+  </ol>
+
+  <h3 style="font-size:14px;margin:14px 0 6px;">🟠 要確認レベル</h3>
+  <ol start="4">
+    <li>準防火地域での木造12戸の防火構造・特殊建築物の定期報告義務</li>
+    <li><strong>私道（南側4.7m）の権利関係</strong>: 位置指定道路/2項道路/単なる通路の別。「単なる通路」なら再建築不可で融資NG。持分・掘削承諾・通行承諾の継承性も確認。</li>
+    <li>建築確認済証・検査済証の原本コピー入手（紛失なら台帳記載事項証明書）</li>
+    <li><strong>擁壁の有無・築造年・検査済証</strong>: レッドゾーン=がけ地なので擁壁ある可能性大。無確認擁壁なら将来の建替えで1,000〜3,000万円の追加費用リスク。</li>
+  </ol>
+
+  <h3 style="font-size:14px;margin:14px 0 6px;">🟡 軽微</h3>
+  <ul>
+    <li>プロパンガス無償貸与契約の有無・解約ペナルティ</li>
+    <li>サブリース・身内入居の偽装リスク（全戸満室が怪しい）→ 全戸賃貸借契約書・直近12ヶ月通帳の照合必須</li>
+    <li>AD慣例: 保土ケ谷区相鉄線沿線は1〜2ヶ月</li>
+  </ul>
+
+  <h3 style="font-size:14px;margin:14px 0 6px;">🟢 問題なし（現時点で）</h3>
+  <ul>
+    <li>築年（2018年築・新耐震・2000年基準クリア）</li>
+    <li>所有権・宅地・公営水道・本下水</li>
+  </ul>
+
+  <div class="section-note red" style="margin-top:14px;"><strong>リョウの判定: 🔴 即見送り推奨</strong>　融資がつかない物件は机上の利回りに意味なし。IPA不動産（森氏）には「レッドゾーンのため融資承認困難で見送り」と丁寧に伝え、将来の情報源として関係維持。</div>
+
+  <p style="margin-top:12px;"><a class="link-btn dd" href="{dd_url}">📋 DDチェックリスト（入力済み）</a></p>
+</div>
+
+<!-- アキ -->
+<div class="card">
+  <h2 class="h-ig">💰 アキ<span class="persona-tag">IG+・玉川式・税引後CF</span></h2>
+
+  <h3 style="font-size:14px;margin-bottom:6px;">収益と費用</h3>
+  <div class="grid2">
+    <table>
+      <tr><th>項目</th><th>金額</th></tr>
+      <tr><td>満室想定年収</td><td class="num">8,215,200円</td></tr>
+      <tr><td>実収入（空室5%控除）</td><td class="num">7,804,440円</td></tr>
+      <tr><td>平均月額/戸</td><td class="num">約57,000円</td></tr>
+      <tr><td>NOI（費用控除後）</td><td class="num">約582.4万円</td></tr>
+      <tr><td>NOI利回り</td><td class="num">5.29%</td></tr>
+    </table>
+    <table>
+      <tr><th>費用内訳</th><th>金額</th></tr>
+      <tr><td>賃貸管理費5%</td><td class="num">390,308</td></tr>
+      <tr><td>BM（坪200円×12）</td><td class="num">145,185</td></tr>
+      <tr><td>共用水光熱</td><td class="num">36,296</td></tr>
+      <tr><td>火災保険（建築費×0.3%）</td><td class="num">99,815</td></tr>
+      <tr><td>固都税（年収×10%推計）</td><td class="num">821,700</td></tr>
+      <tr><td>修繕費（建築費×0.5%）</td><td class="num">166,358</td></tr>
+      <tr><td>原状回復</td><td class="num">151,235</td></tr>
+      <tr><td>募集AD</td><td class="num">171,188</td></tr>
+      <tr><td>費用合計</td><td class="num">▲約198.2万円</td></tr>
+    </table>
+  </div>
+
+  <h3 style="font-size:14px;margin:14px 0 6px;">融資2パターン</h3>
+  <table>
+    <tr><th>項目</th><th>①オリックス（100%・2.6%・35年）</th><th>②神奈川銀行（90%・2.25%・35年）</th></tr>
+    <tr><td>年返済額</td><td class="num">▲479.0万円</td><td class="num">▲409.0万円</td></tr>
+    <tr><td>CF</td><td class="num">+103.4万円</td><td class="num">+173.5万円</td></tr>
+    <tr><td>CF率</td><td class="num ng">0.94%</td><td class="num ok">1.58%</td></tr>
+    <tr><td>返済比率</td><td class="num">61.4%</td><td class="num">52.4%</td></tr>
+    <tr><td>自己資金</td><td class="num">770万円（諸費用のみ）</td><td class="num">1,870万円（頭金10%+諸費用）</td></tr>
+    <tr><td>CCR</td><td class="num ng">13.4%</td><td class="num ng">9.3%</td></tr>
+    <tr><td>税引後CF</td><td class="num">約103.4万円（減価償却でほぼ非課税）</td><td class="num">約173.5万円</td></tr>
+  </table>
+
+  <h3 style="font-size:14px;margin:14px 0 6px;">積算評価</h3>
+  <table>
+    <tr><td>建物評価（延床199.98×21万×残存率63.6%）</td><td class="num">2,672.5万円</td></tr>
+    <tr><td>土地評価（243.58×24.5万）</td><td class="num">5,967.7万円</td></tr>
+    <tr><td><strong>積算合計</strong></td><td class="num"><strong>8,640.2万円</strong></td></tr>
+    <tr><td><strong>積算比率</strong></td><td class="num ok"><strong>78.5%</strong></td></tr>
+  </table>
+
+  <div class="section-note red" style="margin-top:14px;">
+    <strong>アキの判定: 見送り推奨</strong><br>
+    数字だけなら神奈川銀行②でギリギリ回るが、①オリックスは<strong>CF率0.94%・CCR13.4%でキャプテン基準未達</strong>。価格1.1億・利回り7.47%・レッドゾーンの三重苦。<br>
+    特にレッドゾーンは「出口が死ぬ」→ FIRE計画の総負債削減ステップで詰む。10年目IRRが25%出てもレッドゾーンでは売れない。
+  </div>
+
+  <p style="margin-top:12px;">
+    <a class="link-btn ig" href="{ig_url}">📊 IG+【資料賃料】</a>
+    <a class="link-btn ig-s" href="{ig_sumasate_url}">📊 IG+【スマサテ賃料】</a>
+    <a class="link-btn tg" href="{tg_url}">📈 玉川式シート</a>
+  </p>
+  <p style="font-size:12px;color:#777;">※ スマサテ賃料版はスマサテ実行失敗のため資料賃料と同数値で生成しています。</p>
+</div>
+
+<!-- 村田先生 -->
+<div class="card">
+  <h2 class="h-arch">🏗️ 村田先生<span class="persona-tag">一級建築士・35年キャリア</span></h2>
+
+  <p style="font-style:italic;color:#555;margin-bottom:10px;">「現場を見ないと断言はできませんが、資料だけでも相当気になる物件です。」</p>
+
+  <h3 style="font-size:14px;margin:10px 0 6px;">1. 構造評価（木造2018年築）</h3>
+  <ul>
+    <li>2000年基準の新耐震（軸組工法想定）・準防火地域仕様（省令準耐火想定）・ベタ基礎が主流</li>
+    <li>築8年は「初期施工不良が顕在化し始める時期」。外壁コーキング切れ・バルコニー防水端部・サッシ廻りシーリング・ユニットバス周りに注意</li>
+    <li>延床199.98㎡で12戸・1R16㎡ロフト付は「シェアハウス崩れの投資用アパート」規格（2016-2020量産型）。品質はピンキリ</li>
+  </ul>
+
+  <h3 style="font-size:14px;margin:14px 0 6px;">2. 第一種低層住居専用地域での12戸共同住宅</h3>
+  <ul>
+    <li>容積率82.1%で17.9%余裕（ロフト扱い次第）。建蔽率60%は要図面確認（1F面積146㎡以下か）</li>
+    <li>絶対高さ制限10mまたは12m → 木造2階ならクリア。ロフトが軒高算入される場合注意</li>
+    <li>延床199.98㎡は<strong>横浜市中高層条例の200㎡ギリギリを意図的に回避した設計</strong>。「法令をフルに使い切る設計者が入っている」ことは念頭に</li>
+    <li>横浜市は最低専有面積の明文規定なし → 16.67㎡の1Rは法的に問題なし。ただし低層住宅街に12世帯単身者で地域コンフリクト潜在リスク</li>
+  </ul>
+
+  <h3 style="font-size:14px;margin:14px 0 6px;">3. 【最重要】レッドゾーンでの建築構造要件</h3>
+  <ul>
+    <li>建基法施行令第80条の3: 土石衝撃力10〜50kN/㎡に耐える構造が必須</li>
+    <li>土砂側壁をRC補強するか、擁壁で守るかの<strong>どちらかが必要</strong></li>
+    <li>2018年築であれば指定後の確認申請の可能性大 → <strong>構造計算書に土砂災害対策壁の計算が含まれるか必須確認</strong></li>
+    <li>擁壁がある場合: 構造種別・築造年・検査済証・クラック・水抜き穴の詰まり・膨らみ・傾きを全てチェック。2m超は宅造法規制対象</li>
+    <li>無確認擁壁は将来の建替えで1,000〜3,000万円の追加費用=出口戦略で致命傷</li>
+    <li>地震保険・火災保険の引受制限・特約料2〜3倍の可能性</li>
+  </ul>
+
+  <h3 style="font-size:14px;margin:14px 0 6px;">4. ロフト付1Rの設計論点</h3>
+  <ul>
+    <li>床面積不算入条件: 天井高1.4m以下・直下階床面積の1/2未満・用途は物置</li>
+    <li>横浜市は固定階段OKだが、天井高1.4m超は「3階扱い」で確認申請・構造計算が変わる</li>
+    <li>現地でロフト天井高実測必須（巻尺持参）</li>
+  </ul>
+
+  <h3 style="font-size:14px;margin:14px 0 6px;">5. 長期修繕計画（築8〜30年で約900〜1,400万円）</h3>
+  <table>
+    <tr><th>時期</th><th>項目</th><th>概算</th></tr>
+    <tr><td>築10-12年</td><td>外壁コーキング打替え</td><td class="num">80-120万円</td></tr>
+    <tr><td>築12-15年</td><td>外壁再塗装</td><td class="num">150-250万円</td></tr>
+    <tr><td>築12-15年</td><td>バルコニー・外部階段防水</td><td class="num">80-150万円</td></tr>
+    <tr><td>築10-15年</td><td>給湯器12台更新（オーナー所有の場合）</td><td class="num">240万円</td></tr>
+    <tr><td>築15-20年</td><td>屋根塗装・葺替え</td><td class="num">100-250万円</td></tr>
+    <tr><td>築20-25年</td><td>サッシ・網戸・ドア更新</td><td class="num">240-360万円</td></tr>
+    <tr><td>築25-30年</td><td>外壁張替え検討</td><td class="num">400-700万円</td></tr>
+    <tr><td colspan="2">レッドゾーン特有: 擁壁点検・水抜き穴清掃・警報設備</td><td class="num">追加</td></tr>
+  </table>
+
+  <div class="section-note red" style="margin-top:14px;">
+    <strong>村田先生の判定: △〜×寄り（書類精査の結果次第で潔く見送る覚悟で臨むべき）</strong><br>
+    レッドゾーンに対して7.47%は見合わない（本来8.5〜9%は必要）。<br>
+    書類（構造計算書・擁壁性能証明・検査済証・瑕疵保険）が揃わなければこの時点で見送り判断でOK。
+  </div>
+</div>
+
+<!-- キャプテンへの確認事項 -->
+<div class="card">
+  <h2 class="h-summary">📝 キャプテンへの確認事項（集約）</h2>
+  <ol>
+    <li><strong>建築確認済証・検査済証</strong>: 原本コピーを売主から入手できるか</li>
+    <li><strong>構造計算書</strong>: 土砂災害対策壁（RC補強）の構造計算が含まれるか</li>
+    <li><strong>擁壁の詳細</strong>: 構造種別・築造年・検査済証・現状のクラック/水抜き穴/膨らみ/傾き</li>
+    <li><strong>私道の種別</strong>: 位置指定道路か、2項道路か、単なる通路か（役所建築指導課で確認）</li>
+    <li><strong>私道の持分・掘削承諾・通行承諾</strong>の継承性</li>
+    <li><strong>融資打診結果</strong>: 既にどこかの銀行に打診済みか？レッドゾーンでNG回答が出ていれば即判定確定</li>
+    <li><strong>ロフトの実寸天井高</strong>と床面積算定表（ロフト扱いか3階扱いか）</li>
+    <li><strong>全戸賃貸借契約書・直近12ヶ月の入出金通帳</strong>（レントロールとの照合・サブリース有無）</li>
+    <li><strong>プロパンガス機器の所有者</strong>（ガス会社無償貸与かオーナー所有か・解約ペナルティ）</li>
+    <li><strong>瑕疵保険の加入状況</strong>（新築時10年保証、2028年7月で切れる）</li>
+    <li><strong>IPA不動産（森氏）との関係</strong>: 初回取引か、知人紹介経由か</li>
+    <li><strong>現地未訪問の擁壁・がけ・建物位置とレッドゾーン区域の重なり</strong>の目視確認</li>
+  </ol>
+</div>
+
+<!-- 総合所見 -->
+<div class="verdict-box">
+  <h3>🏁 チーム総合所見</h3>
+  <p><strong>判定: 🔴 見送り推奨（4名全員一致）</strong></p>
+  <p style="margin-top:10px;">相鉄線JR直通効果・築8年・木造12戸・積算78.5%など光る要素はあるが、<strong>土砂災害特別警戒区域（レッドゾーン）該当</strong>が決定打。</p>
+  <p style="margin-top:8px;"><strong>最大リスク:</strong> ① 融資が極端に絞られる（オリックス・SBJ・auじぶん・静岡銀行等でNGまたは掛け目厳格化） ② 出口（売却）で買い手が極端に限定され流動性詰み ③ 建基法施行令80条の3の構造規制・擁壁の無確認リスク ④ 保険料上昇・入居者告知義務</p>
+  <p style="margin-top:8px;">加えて、価格1.1億（基準オーバー）・利回り7.47%（新基準8.0%未達）・全戸16-17㎡（ハルト基準18㎡以下NG）・CF率0.94%（キャプテン基準1.0%未達）など<strong>キャプテン基準を複数項目でNG</strong>。</p>
+  <p style="margin-top:10px;"><strong>次アクション:</strong></p>
+  <ul style="margin-top:4px;">
+    <li>IPA不動産（森氏）には「レッドゾーンのため融資承認困難で見送り」と丁寧に返信</li>
+    <li>相鉄線沿線（天王町・星川・和田町・西谷の築浅・レッドゾーン外）の案件があれば継続紹介希望を伝え、将来の情報源として関係維持</li>
+    <li>brokers.mdにIPA不動産を初回取引業者として登録（相鉄線沿線に強い業者）</li>
+    <li>FIRE v5の「流動資産/総負債≥10%」ルールと「出口の自由度」を守るためにも潔く見送る</li>
+  </ul>
+</div>
+
+<footer>
+  TC Capitals 不動産仕入部 ／ 精査担当: ハルト（朝倉晴斗）・リョウ（黒沢涼）・アキ（三宅亜紀）・村田 誠一先生<br>
+  本レポートは資料ベースの机上査定であり、現地調査・書類原本確認・融資打診を実施した上で最終判断を下してください。
+</footer>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20261024_hodogaya-monperie_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20261024_hodogaya-monperie_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
