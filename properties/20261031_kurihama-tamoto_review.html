@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>久里浜2丁目新築アパート 精査レポート | TC Capitals 仕入部</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif; background: #f4f6f8; color: #1a1f2b; line-height: 1.65; padding: 24px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  header { background: #1e3a5f; color: #fff; padding: 24px 28px; border-radius: 8px 8px 0 0; }
+  header h1 { font-size: 22px; margin-bottom: 6px; }
+  header .meta { font-size: 13px; opacity: 0.85; }
+  .alert-red { background: #c0392b; color: #fff; padding: 16px 22px; margin-top: 2px; font-weight: bold; font-size: 15px; border-left: 6px solid #7b1b14; }
+  .alert-red small { display: block; font-weight: normal; font-size: 12px; margin-top: 4px; opacity: 0.9; }
+  .card { background: #fff; padding: 22px 26px; margin-bottom: 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  h2 { font-size: 17px; padding: 10px 14px; margin: -22px -26px 16px -26px; border-radius: 6px 6px 0 0; color: #fff; }
+  .h-area { background: #e67e22; }
+  .h-dd { background: #2980b9; }
+  .h-ig { background: #27ae60; }
+  .h-arch { background: #8e5a3b; }
+  .h-info { background: #16a085; }
+  .h-summary { background: #34495e; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 10px 0; }
+  th, td { border: 1px solid #d9e0e6; padding: 7px 10px; text-align: left; }
+  th { background: #ecf0f3; font-weight: 600; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .ok { color: #27ae60; font-weight: bold; }
+  .ng { color: #c0392b; font-weight: bold; }
+  .warn { color: #e67e22; font-weight: bold; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 12px; font-weight: bold; color: #fff; }
+  .b-ng { background: #c0392b; }
+  .b-warn { background: #e67e22; }
+  .b-ok { background: #27ae60; }
+  .b-info { background: #16a085; }
+  ul, ol { padding-left: 22px; margin: 8px 0; }
+  li { margin-bottom: 4px; }
+  .link-btn { display: inline-block; background: #27ae60; color: #fff; padding: 10px 18px; border-radius: 4px; text-decoration: none; margin: 6px 8px 6px 0; font-size: 14px; font-weight: 500; }
+  .link-btn:hover { background: #1e8449; }
+  .link-btn.ig { background: #27ae60; }
+  .link-btn.ig-s { background: #16a085; }
+  .link-btn.tg { background: #d35400; }
+  .link-btn.dd { background: #2980b9; }
+  .link-btn.survey { background: #8e44ad; }
+  .section-note { background: #fdf6ec; border-left: 4px solid #e67e22; padding: 10px 14px; margin: 10px 0; font-size: 13px; }
+  .section-note.red { background: #fdecea; border-left-color: #c0392b; }
+  .verdict-box { background: #2c3e50; color: #fff; padding: 20px 26px; margin-top: 18px; border-radius: 6px; }
+  .verdict-box h3 { font-size: 18px; margin-bottom: 10px; color: #ecf0f1; }
+  .persona-tag { display: inline-block; background: #ecf0f3; color: #555; padding: 1px 8px; border-radius: 3px; font-size: 11px; margin-left: 6px; }
+  footer { text-align: center; font-size: 12px; color: #7f8c8d; margin-top: 24px; padding: 16px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20261031_kurihama-tamoto_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=10210&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.3&floorArea=198.00&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=10210&pi_age_inp=0&pi_yield_inp=7.3&pi_area_inp=198.00&pi_rooms_inp=9&ik_land_area=150.17&ik_route_price=11.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E9%A0%88%E8%B3%80%E5%B8%82%E4%B9%85%E9%87%8C%E6%B5%9C2%E4%B8%81%E7%9B%AE" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=10210&ltvInput=100&ltvRatio=100&costsRate=7&loanTerm=35&intRate=2.6&grossYield=7.62&floorArea=198.00&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.1&restoreUnit=5000&turnover=25&adMonths=1&otherExpense=0&buildAge=0&taxRateIncome=20&pi_price_inp=10210&pi_age_inp=0&pi_yield_inp=7.62&pi_area_inp=198.00&pi_rooms_inp=9&ik_land_area=150.17&ik_route_price=11.5&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&ik_deteri_grade=3&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89&_addr=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E9%A0%88%E8%B3%80%E5%B8%82%E4%B9%85%E9%87%8C%E6%B5%9C2%E4%B8%81%E7%9B%AE" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20261031_kurihama-tamoto_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/20261031_kurihama-tamoto_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+
+<div class="container">
+
+<header>
+  <h1>久里浜2丁目新築アパート 物件精査レポート</h1>
+  <div class="meta">神奈川県横須賀市久里浜2丁目 ／ 木造新築1K×9戸 ／ 1億210万円・7.3%</div>
+  <div class="meta">精査日: 2026-10-31 ／ チーム: ハルト・リョウ・アキ・村田先生</div>
+</header>
+
+<div class="alert-red">
+  ⚠️ ハザードマップ『洪水3m・津波3m』想定区域につき【見送り推奨】
+  <small>キャプテン基準「浸水2m以上即NG」に抵触する可能性が極めて高い。加えて価格1億210万・利回り7.3%ともv5基準未達。</small>
+</div>
+
+<!-- 物件サマリー -->
+<div class="card">
+  <h2 class="h-info">📋 物件サマリー</h2>
+  <table>
+    <tr><th style="width:160px">物件名</th><td>久里浜2丁目新築1K×9戸</td><th style="width:160px">売主/媒介</th><td>仲介（たもとサポート株式会社・齋藤様）</td></tr>
+    <tr><th>所在地</th><td colspan="3">神奈川県横須賀市久里浜2丁目</td></tr>
+    <tr><th>交通</th><td colspan="3">京急久里浜線「京急久里浜」駅徒歩6分（乗降約3.8万人）／ JR横須賀線「久里浜」駅徒歩9分（乗降約2.6万人）</td></tr>
+    <tr><th>価格</th><td>1億210万円</td><th>表面利回り</th><td>7.3%（資料賃料ベース）／ 7.62%（スマサテ査定ベース）</td></tr>
+    <tr><th>構造・築年</th><td>木造・新築（2027年1月末完成予定）</td><th>劣化等級</th><td>3級予定（★要性能評価書確認）</td></tr>
+    <tr><th>間取り・戸数</th><td>1K × 9戸（22.01〜22.32㎡）</td><th>延床面積</th><td>198.00㎡予定</td></tr>
+    <tr><th>土地</th><td>150.17㎡（所有権）</td><th>用途地域</th><td>近隣商業地域／建蔽率80%／容積率300%</td></tr>
+    <tr><th>接道</th><td colspan="3">北側約10m公道に<span class="warn">約2.3m接道</span>／南東側約4m私道に約4m接道</td></tr>
+    <tr><th>情報源</th><td colspan="3">たもとサポート株式会社 齋藤様（[メールアドレス]・[電話番号]）</td></tr>
+  </table>
+</div>
+
+<!-- キャプテン基準 -->
+<div class="card">
+  <h2 class="h-info">✅ キャプテン基準 判定（v5）</h2>
+  <table>
+    <tr><th>基準</th><th>閾値</th><th>本物件</th><th>判定</th></tr>
+    <tr><td>エリア</td><td>一都三県</td><td>神奈川県横須賀市（16号外側）</td><td><span class="badge b-ok">OK</span></td></tr>
+    <tr><td>築年数</td><td>築10年以内</td><td>新築（築0年）</td><td><span class="badge b-ok">OK</span></td></tr>
+    <tr><td>価格</td><td>1億円以内</td><td>1億210万円</td><td><span class="badge b-ng">NG</span>（+210万）</td></tr>
+    <tr><td>表面利回り</td><td>8.0%以上（v5）</td><td>7.3%（資料）／7.62%（スマサテ）</td><td><span class="badge b-ng">NG</span></td></tr>
+    <tr><td>構造</td><td>木造優先</td><td>木造・劣化等級3予定</td><td><span class="badge b-ok">OK</span></td></tr>
+    <tr><td>CF率</td><td>≥1.0%</td><td>1.21%（オリックス）／1.86%（神奈川銀）</td><td><span class="badge b-ok">OK</span></td></tr>
+    <tr><td>CCR</td><td>≥15%</td><td>17.3%（オリックス）／11.5%（神奈川銀）</td><td><span class="badge b-warn">△</span>（銀行次第）</td></tr>
+    <tr><td>積算比率</td><td>≥80%</td><td>路線価11.5万で約77%</td><td><span class="badge b-ng">NG</span></td></tr>
+    <tr><td>ハザード</td><td>浸水2m以上NG</td><td>洪水3m・津波3m想定</td><td><span class="badge b-ng">NG</span></td></tr>
+  </table>
+  <div class="section-note red">
+    v5の6指標中、価格・利回り・積算の3指標でNG確定。加えて<strong>ハザードの即NG条件に抵触の可能性が極めて高い</strong>。
+  </div>
+</div>
+
+<!-- 路線価・ハザード・スマサテ -->
+<div class="card">
+  <h2 class="h-info">🗺️ 路線価・ハザードマップ・スマサテ査定（ハルト調査）</h2>
+
+  <h3 style="font-size:14px;margin:8px 0 6px;color:#16a085;">■ 相続路線価（chikamap.jp 令和7年分）</h3>
+  <table>
+    <tr><th style="width:160px">種別</th><td>路線価地域</td></tr>
+    <tr><th>路線価</th><td><strong>11.5万円/㎡</strong>（検出票 110〜115で揺れ・保守値11.0万）</td></tr>
+    <tr><th>借地権割合</th><td>D 60%</td></tr>
+    <tr><th>土地値試算</th><td>11.0万×150.17㎡ ≈ 1,652万円（土地値率16.2%）</td></tr>
+  </table>
+
+  <h3 style="font-size:14px;margin:16px 0 6px;color:#16a085;">■ ハザードマップ（重ねるハザードマップ）</h3>
+  <table>
+    <tr><th style="width:200px">洪水浸水想定</th><td><span class="ng">❌ 浸水50cm〜3m（床上浸水）想定</span>・<strong>キャプテン基準抵触</strong></td></tr>
+    <tr><th>土砂災害警戒区域</th><td><span class="ok">✅ 非該当</span>（物件は平地側）</td></tr>
+    <tr><th>津波浸水想定</th><td><span class="ng">❌ 浸水50cm〜3m 想定</span>・久里浜港至近・標高2.8m</td></tr>
+    <tr><th>液状化危険度</th><td><span class="warn">⚠️ 湾岸低地のためリスクあり想定（確認要）</span></td></tr>
+    <tr><th>総合判定</th><td><span class="ng">❌ 即NG候補</span>（浸水2m以上に抵触する可能性極めて高い）</td></tr>
+  </table>
+  <div class="section-note red">
+    hazardmap_check.js のスクリプト出力は「問題なし」だが、popupテキストと目視で浸水3m想定を確認。<strong>キャプテン直視判断を推奨</strong>。<br>
+    出典: 国土交通省・国土地理院「重ねるハザードマップ」／ 添付調査レポートの zoom50m スクショ参照
+  </div>
+
+  <h3 style="font-size:14px;margin:16px 0 6px;color:#16a085;">■ スマサテ賃料査定</h3>
+  <table>
+    <tr><th style="width:200px">査定賃料（礼金0）</th><td>72,000円/月・戸</td></tr>
+    <tr><th>査定賃料（礼金1）</th><td>69,000円/月・戸</td></tr>
+    <tr><th>資料賃料</th><td>69,000円/月・戸（想定）</td></tr>
+    <tr><th>乖離</th><td><span class="ok">適正〜上振れ余地あり</span>（礼金0査定で+4.3%）</td></tr>
+    <tr><th>スマサテ賃料ベース利回り</th><td>7.62%（礼金0採用の場合）</td></tr>
+  </table>
+</div>
+
+<!-- ハルト -->
+<div class="card">
+  <h2 class="h-area">🔍 ハルト — エリア・利回り分析<span class="persona-tag">朝倉 晴斗</span></h2>
+
+  <h3 style="font-size:14px;margin:8px 0 6px;color:#e67e22;">■ ポジティブ要素</h3>
+  <ul>
+    <li>京急久里浜徒歩6分＋JR久里浜徒歩9分のダブルアクセス。京急乗降3.8万人は横須賀市内主要駅クラス</li>
+    <li>横須賀市「京急久里浜駅周辺地区市街地総合再生計画」(2022策定) が進行中。長期的な街の底上げ期待</li>
+    <li>2026年度に京急久里浜駅ホームドア設置予定で乗降環境改善</li>
+    <li>SUUMO相場: 久里浜駅・新築駅徒歩5分以内1Kで7.3万円。スマサテ72,000円は相場通り〜やや上振れ余地</li>
+  </ul>
+
+  <h3 style="font-size:14px;margin:16px 0 6px;color:#e67e22;">■ ネガティブ要素</h3>
+  <ul>
+    <li><strong>京急久里浜線の複線化計画が2026年5月に正式凍結</strong>（京急が減損20億円計上）。京急自身が「乗客減少で輸送力増強不要」と判断した重大シグナル</li>
+    <li>横須賀市全体の人口減少トレンドが継続（三浦半島全体）</li>
+    <li>新築時の家賃は取れても、<strong>出口（売却時）と中長期の賃料下落リスク</strong>が通常の湾岸エリアより高い</li>
+    <li>新築9戸同時供給の初期募集で、最初の満室までの期間に注意（周辺1K新築競合次第）</li>
+  </ul>
+
+  <h3 style="font-size:14px;margin:16px 0 6px;color:#e67e22;">■ ハルト率直評価: ★★☆☆☆（2/5）</h3>
+  <div class="section-note red">
+    <strong>一次判断: 見送り推奨</strong>。ハザードリスクが基準に抵触し、京急が複線化を凍結した事実はエリアの中長期人口減少を公式に認めた象徴的事象。15年後の出口戦略が描きにくい。
+  </div>
+</div>
+
+<!-- リョウ -->
+<div class="card">
+  <h2 class="h-dd">🔍 リョウ — デューデリジェンス<span class="persona-tag">黒沢 涼</span></h2>
+
+  <h3 style="font-size:14px;margin:8px 0 6px;color:#2980b9;">■ 確認済み項目</h3>
+  <ul>
+    <li>新耐震基準・新築（2027年1月末完成予定）・劣化等級3級予定</li>
+    <li>土地所有権150.17㎡・用途地域適法（近商・建蔽率80%・容積率300%で延床198㎡は適法範囲）</li>
+    <li>戸あたり22㎡台 → ワンルーム条例の20㎡超クリア</li>
+    <li>仲介物件（たもとサポート齋藤様）→ 仲介手数料3%+6万 発生</li>
+  </ul>
+
+  <h3 style="font-size:14px;margin:16px 0 6px;color:#2980b9;">■ リスクフラグ（優先度順）</h3>
+  <table>
+    <tr><th style="width:60px">優先</th><th>項目</th><th>内容</th></tr>
+    <tr><td><span class="badge b-ng">最高</span></td><td>接道2.3m</td><td>北側公道2.3m接道は建基法2m要件辛うじてクリア。将来再建築時の制約・金融機関判定・出口時の次の買い手の融資付けリスク</td></tr>
+    <tr><td><span class="badge b-ng">最高</span></td><td>南東側私道の権利</td><td>持分割合・掘削承諾書・通行承諾書・私道種別（42条2項/位置指定）要確認。持分なしなら将来の建替え・配管工事で詰む</td></tr>
+    <tr><td><span class="badge b-ng">高</span></td><td>津波リスク</td><td>久里浜港から約1km圏内・海抜2.8m。神奈川県の津波浸水想定で3m浸水想定区域内</td></tr>
+    <tr><td><span class="badge b-warn">中</span></td><td>完成前売買</td><td>手付金保全措置（宅建業法41条）、工期遅延リスク、ローン特約期限</td></tr>
+    <tr><td><span class="badge b-warn">中</span></td><td>施工会社の信頼性</td><td>たもとサポートは仲介のみの可能性大。元請施工会社の実績・財務・瑕疵保険加入が未開示</td></tr>
+    <tr><td><span class="badge b-warn">中</span></td><td>1K×9戸の空室リスク</td><td>久里浜はファミリー寄り。新築プレミアム剥落後の家賃下落耐性</td></tr>
+  </table>
+
+  <h3 style="font-size:14px;margin:16px 0 6px;color:#2980b9;">■ 最大リスク</h3>
+  <div class="section-note red">
+    「接道2.3m + 南東側私道の権利関係」の複合リスク。建基法上は適法でも、<strong>融資行の判定で詰む可能性</strong>があり、出口時の次の買い手の融資付けも難しくなる。
+  </div>
+</div>
+
+<!-- アキ -->
+<div class="card">
+  <h2 class="h-ig">🔍 アキ — IG+ 収支計算 + 玉川式<span class="persona-tag">三宅 亜紀</span></h2>
+
+  <h3 style="font-size:14px;margin:8px 0 6px;color:#27ae60;">■ 収益と費用</h3>
+  <table>
+    <tr><th style="width:200px">満室年収</th><td>745.3万円</td></tr>
+    <tr><th>実収入（空室5%控除）</th><td>708.1万円</td></tr>
+    <tr><th>総経費</th><td>▲139.1万円（PM35.4 / BM14.4 / 水光熱3.6 / 保険9.9 / 固都税49.6 / 修繕3.3 / 原状回復7.5 / 募集AD15.5）</td></tr>
+    <tr><th>NOI</th><td><strong>568.9万円</strong>（NOI利回り 5.57%）</td></tr>
+  </table>
+
+  <h3 style="font-size:14px;margin:16px 0 6px;color:#27ae60;">■ ローン試算</h3>
+  <table>
+    <tr><th>融資行</th><th>条件</th><th>年返済額</th><th>CF</th><th>CF率</th><th>返済比率</th><th>CCR</th></tr>
+    <tr><td>オリックス銀行</td><td>100%・2.6%・35年</td><td>▲445.2万</td><td>123.7万</td><td class="ok">1.21%</td><td>59.7%</td><td class="ok">17.3%</td></tr>
+    <tr><td>神奈川銀行</td><td>90%・2.25%・35年</td><td>▲379.1万</td><td>189.9万</td><td class="ok">1.86%</td><td>50.9%</td><td class="ng">11.5%</td></tr>
+  </table>
+
+  <h3 style="font-size:14px;margin:16px 0 6px;color:#27ae60;">■ 積算評価</h3>
+  <table>
+    <tr><th style="width:200px">建物（劣化等級3・24万/㎡・新築）</th><td>4,752万円</td></tr>
+    <tr><th>土地（路線価11.5万円/㎡）</th><td>約2,480万円</td></tr>
+    <tr><th>積算合計</th><td>約7,232万円 → <span class="ng">積算比率 約70.8%（基準80%未達）</span></td></tr>
+  </table>
+
+  <h3 style="font-size:14px;margin:16px 0 6px;color:#27ae60;">■ 税引後CF（オリックス）</h3>
+  <table>
+    <tr><th style="width:200px">減価償却費</th><td>232万円（建物5,105万÷22年）</td></tr>
+    <tr><th>課税所得</th><td>71.5万円 → 税額(20%): 14.3万</td></tr>
+    <tr><th>税引後CF</th><td><strong>約109.4万円</strong></td></tr>
+  </table>
+
+  <h3 style="font-size:14px;margin:16px 0 6px;color:#27ae60;">■ アキ率直コメント</h3>
+  <div class="section-note">
+    利回り7.3%は現行v5基準8.0%に0.7pt足りない。価格1.021億も1億円ラインを210万オーバー。<strong>指値で9,316万円（利回り8%相当）まで下げられるか</strong>が最大の論点。新築1K・固定費低でCCR17%は健闘だが、積算比率は路線価11.5万で約71%止まり。<strong>10年目税引後IRR≥25%はTGファイルで要確認</strong>。
+  </div>
+</div>
+
+<!-- 村田先生 -->
+<div class="card">
+  <h2 class="h-arch">🔍 村田先生 — 建築士コメント<span class="persona-tag">村田 誠一（一級建築士）</span></h2>
+
+  <h3 style="font-size:14px;margin:8px 0 6px;color:#8e5a3b;">■ 構造・工法の評価</h3>
+  <ul>
+    <li>延床198㎡÷建築面積上限120㎡/階 ≈ 1.65 → <strong>木造2階建てが本線</strong>（外階段・外廊下方式）</li>
+    <li>1K22㎡は単身向け最小ラインで、15〜18㎡のワンルームより1ランク上の競争力</li>
+    <li>劣化対策等級3級=「3世代（75〜90年）」耐久設計。フラット35S Aプラン適用可の性能水準</li>
+    <li>耐震等級との関係は別物。<strong>耐震等級の確認が必要</strong></li>
+  </ul>
+
+  <h3 style="font-size:14px;margin:16px 0 6px;color:#8e5a3b;">■ 法令適合性</h3>
+  <ul>
+    <li>建蔽率・容積率ともに余裕（容積率ベースで最大450㎡まで建設可能）</li>
+    <li>近隣商業地域は原則準防火地域指定が多い。木造2階建てなら準防火構造で対応可</li>
+    <li>接道2.3mは建基法43条をギリギリクリア。<strong>横須賀市条例の「敷地内通路幅」上乗せ要件は要確認</strong></li>
+    <li>南東側私道4m接道が実質的な出入口・敷地内通路になっている設計の可能性大</li>
+  </ul>
+
+  <h3 style="font-size:14px;margin:16px 0 6px;color:#8e5a3b;">■ 修繕リスクと中長期費用</h3>
+  <table>
+    <tr><th style="width:120px">時期</th><th>修繕内容</th><th>概算費用</th></tr>
+    <tr><td>築10〜12年</td><td>外壁塗装・屋根塗装（1回目）</td><td>120〜180万円</td></tr>
+    <tr><td>築10年</td><td>給湯器交換（1回目）</td><td>90〜135万円（9戸）</td></tr>
+    <tr><td>築15年</td><td>バルコニー防水・鉄部塗装</td><td>50〜80万円</td></tr>
+    <tr><td>築20年</td><td>外壁塗装・屋根塗装（2回目）+給湯器</td><td>200〜300万円</td></tr>
+    <tr><td>築25〜30年</td><td>給排水管・UB更新検討</td><td>戸あたり50〜80万円</td></tr>
+  </table>
+  <div class="section-note">年間修繕積立の目安: 1戸あたり年2〜3万円（9戸で年18〜27万円）</div>
+
+  <h3 style="font-size:14px;margin:16px 0 6px;color:#8e5a3b;">■ 現地必須確認事項（優先）</h3>
+  <ol>
+    <li>建築確認通知書・設計図書一式・性能評価書（劣化等級3級の裏付け）</li>
+    <li>住宅瑕疵担保責任保険の加入予定証明・耐震等級</li>
+    <li><strong>接道2.3m部分の実測確認</strong>（2.0m未満だと建築不可で致命傷）</li>
+    <li><strong>南東側私道の持分・掘削承諾書・通行承諾書</strong></li>
+    <li>施工中なら「構造見学会」依頼・使用建材リスト</li>
+    <li>上下水道本管との接続経路・口径・ガス種別</li>
+  </ol>
+
+  <h3 style="font-size:14px;margin:16px 0 6px;color:#8e5a3b;">■ 村田先生の率直コメント</h3>
+  <div class="section-note">
+    現場を見ないと断言はできませんが、建物スペック自体は木造新築1Kとして上位クラスの耐久設計です。ただし<strong>「接道2.3mの実測」と「劣化等級3級の裏付け書類」の2点がクリアされれば、建築面では問題なしの候補</strong>。この2点の確認結果が出るまで、建築士としての最終判断は保留とさせてください。
+  </div>
+</div>
+
+<!-- キャプテンへの確認事項 -->
+<div class="card">
+  <h2 class="h-info">❓ キャプテンへの確認事項（まとめ）</h2>
+  <ol>
+    <li><strong>ハザードマップ：浸水3m想定区域の受容</strong> — 洪水3m・津波3mを承知で検討継続するか。popup画面と浸水想定区域図をキャプテン直視で明示的判断を要する</li>
+    <li><strong>指値交渉の可否</strong> — 1億円以内 or 利回り8%ライン（9,316万）まで下げられる見込みは？</li>
+    <li><strong>接道2.3mと南東側私道の権利関係</strong> — 齋藤様に建築確認済証・公図・測量図・私道持分・掘削承諾書を書面請求</li>
+    <li><strong>劣化等級3級の裏付け</strong> — 性能評価書の発行予定時期、「予定」が「確定」になるのはいつか</li>
+    <li><strong>施工会社・瑕疵保険・手付金保全</strong> — 元請施工会社名、瑕疵担保責任保険、手付金保全措置の内容</li>
+    <li><strong>完成遅延時の違約条項・ローン特約期限</strong> — 2027年1月末完成の確度と遅延リスク</li>
+    <li><strong>融資行事前照会</strong> — オリックス・神奈川銀行・auじぶん銀行で接道2.3m+私道案件の可否打診</li>
+  </ol>
+</div>
+
+<!-- チーム総合所見 -->
+<div class="verdict-box">
+  <h3>🎯 チーム総合所見</h3>
+  <p><strong>総合判定：見送り推奨（4名一致）</strong></p>
+  <p style="margin-top:10px;">建物スペック（新築・劣化等級3）、ダブル駅アクセス、スマサテ賃料の相場適正は加点要素だが、以下3点が致命的に重い：</p>
+  <ul style="margin-top:8px;">
+    <li><strong>①ハザードリスク</strong>: 洪水3m・津波3m想定でキャプテン基準「浸水2m以上即NG」に抵触する可能性極めて高い</li>
+    <li><strong>②キャプテン基準未達</strong>: 価格1.021億（基準1億）・利回り7.3%（基準8%）・積算約71%（基準80%）の3指標でNG確定</li>
+    <li><strong>③出口戦略の難易度</strong>: 京急複線化凍結で中長期の人口減少が確定的。接道2.3m+私道で次の買い手の融資付けも困難</li>
+  </ul>
+  <p style="margin-top:12px;"><strong>次アクション：</strong>キャプテンの直接判断を仰ぎたい。久里浜という場所柄、水害想定を受け入れた上での投資かどうかはキャプテンの判断領域。検討継続の場合は、たもとサポート齋藤様にハザードマップ・保険料見積・初期募集期間実績・接道・私道関連書類を一括請求。</p>
+</div>
+
+<footer>
+  TC Capitals 仕入部 — ハルト・リョウ・アキ・村田先生 ／ 精査日: 2026-10-31<br>
+  本レポートは資料ベースの一次分析であり、最終判断は現地調査・融資事前照会・書類確認後に行うこと。
+</footer>
+
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20261031_kurihama-tamoto_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20261031_kurihama-tamoto_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
