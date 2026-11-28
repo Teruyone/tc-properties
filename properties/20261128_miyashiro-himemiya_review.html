@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>宮代町姫宮駅7分_築2年木造4戸 チーム精査レポート</title>
+<style>
+  body { font-family: "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif; background:#f3f4f6; color:#1f2937; margin:0; padding:24px; line-height:1.7;}
+  .wrap { max-width:1000px; margin:0 auto; }
+  header.main { background:#1e3a5f; color:#fff; padding:28px 32px; border-radius:12px 12px 0 0;}
+  header.main h1 { margin:0; font-size:22px; }
+  header.main .meta { color:#cbd5e1; font-size:13px; margin-top:6px;}
+  .card { background:#fff; padding:24px 32px; border-bottom:1px solid #e5e7eb;}
+  .card:last-child { border-radius:0 0 12px 12px;}
+  .card h2 { margin-top:0; padding-bottom:8px; border-bottom:3px solid; font-size:18px;}
+  .haruto h2 { color:#ea580c; border-color:#ea580c;}
+  .ryo h2 { color:#2563eb; border-color:#2563eb;}
+  .aki h2 { color:#16a34a; border-color:#16a34a;}
+  .murata h2 { color:#92400e; border-color:#92400e;}
+  .teal h2 { color:#0f766e; border-color:#0f766e;}
+  table { width:100%; border-collapse:collapse; margin:10px 0;}
+  th, td { padding:8px 10px; border:1px solid #d1d5db; text-align:left; font-size:14px;}
+  th { background:#f3f4f6;}
+  .ok { color:#16a34a; font-weight:bold;}
+  .ng { color:#dc2626; font-weight:bold;}
+  .warn { color:#d97706; font-weight:bold;}
+  .summary-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:10px;}
+  .summary-grid .kv { background:#f9fafb; padding:10px 12px; border-left:4px solid #1e3a5f; font-size:13px;}
+  .summary-grid .kv span { display:block; color:#6b7280; font-size:11px; margin-bottom:2px;}
+  a { color:#1e3a5f; font-weight:600;}
+  .alert-red { background:#fee2e2; color:#991b1b; padding:10px 14px; border-radius:6px; margin:10px 0; font-weight:bold;}
+  .alert-yellow { background:#fef3c7; color:#92400e; padding:10px 14px; border-radius:6px; margin:10px 0;}
+  .alert-green { background:#dcfce7; color:#166534; padding:10px 14px; border-radius:6px; margin:10px 0;}
+  ul, ol { padding-left:22px;}
+  li { margin-bottom:4px;}
+  .doc-link { display:inline-block; padding:8px 14px; background:#1e3a5f; color:#fff !important; text-decoration:none; border-radius:6px; margin:4px 4px 4px 0; font-size:13px;}
+  .doc-link:hover { background:#273a56;}
+</style>
+</head>
+<body>
+<!-- TC Link Bar -->
+<div id="tc-link-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#1a237e;color:#fff;display:flex;gap:8px;padding:8px 16px;box-shadow:0 2px 6px rgba(0,0,0,0.2);flex-wrap:wrap;">
+<a href="https://teruyone.github.io/tc-properties/properties/20261128_miyashiro-himemiya_DD.html" target="_blank" style="background:#fff;color:#1a237e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;">📋 DDリスト</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=4000&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.05&floorArea=112.8&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=2&taxRateIncome=20&pi_price_inp=4000&pi_age_inp=2&pi_yield_inp=7.05&pi_area_inp=112.8&pi_rooms_inp=4&ik_land_area=200&ik_route_price=0&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&pi_struct_sel=%E6%9C%A8%E9%80%A0&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89" target="_blank" style="background:#e8f5e9;color:#2e7d32;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【資料賃料】</a><a href="https://teruyone.github.io/tc-properties/ig-sheet/?price=4000&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=9.48&floorArea=112.8&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=2&taxRateIncome=20&pi_price_inp=4000&pi_age_inp=2&pi_yield_inp=9.48&pi_area_inp=112.8&pi_rooms_inp=4&ik_land_area=200&ik_route_price=0&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&pi_struct_sel=%E6%9C%A8%E9%80%A0&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89" target="_blank" style="background:#f1f8e9;color:#33691e;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📊 IG+【スマサテ賃料】</a><a href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20261128_miyashiro-himemiya_TG.html" target="_blank" style="background:#fff3e0;color:#e65100;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">📈 玉川式</a><a href="https://teruyone.github.io/tc-properties/properties/bk_b5081afa3c_survey.html" target="_blank" style="background:#e3f2fd;color:#0d47a1;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-left:4px;">🔍 物件調査</a>
+</div>
+<div style="margin-top:48px;">
+
+<div class="wrap">
+<header class="main">
+  <h1>宮代町姫宮駅7分_築2年木造4戸 — チーム精査レポート</h1>
+  <div class="meta">精査日: 2026-11-28 | チーム: ハルト・リョウ・アキ・村田先生 | 売主: （株）ライフラリ 根本様</div>
+</header>
+
+<div class="card">
+<div class="alert-red">⚠️ ハザードリスク（洪水浸水3〜5m）と16号外側につき、キャプテン基準に照らして見送り寄りの結論。最終判断はキャプテンにお任せします。</div>
+<h2>📋 物件サマリー</h2>
+<div class="summary-grid">
+  <div class="kv"><span>所在</span>埼玉県南埼玉郡宮代町（番地未確定）</div>
+  <div class="kv"><span>価格</span>4,000万円</div>
+  <div class="kv"><span>表面利回り</span>資料7.05% / スマサテ9.48%</div>
+  <div class="kv"><span>構造・築年</span>木造・築2年（2024年築）</div>
+  <div class="kv"><span>戸数・間取</span>1K×4戸（28.2㎡/戸・延床112.8㎡）</div>
+  <div class="kv"><span>交通</span>東武スカイツリーライン「姫宮」駅 徒歩7分</div>
+  <div class="kv"><span>取引態様</span>売主（諸費用4%）</div>
+  <div class="kv"><span>融資</span>オリックス銀行フルローン評価済み</div>
+  <div class="kv"><span>仲介/売主</span>（株）ライフラリ 根本様（[メールアドレス]）</div>
+</div>
+</div>
+
+<div class="card">
+<h2>🎯 キャプテン基準チェック</h2>
+<table>
+<tr><th>項目</th><th>基準</th><th>本物件</th><th>判定</th></tr>
+<tr><td>価格</td><td>≤ 1億円</td><td>4,000万円</td><td class="ok">✅ OK</td></tr>
+<tr><td>表面利回り（資料）</td><td>築10年以内 ≥ 8.0%</td><td>7.05%</td><td class="ng">❌ NG（▲0.95pt）</td></tr>
+<tr><td>表面利回り（スマサテ）</td><td>築10年以内 ≥ 8.0%</td><td>9.48%</td><td class="ok">✅ OK（+1.48pt）</td></tr>
+<tr><td>CF率（資料・オリックス）</td><td>≥ 1.0%</td><td>0.55%</td><td class="ng">❌ NG</td></tr>
+<tr><td>CF率（スマサテ・オリックス）</td><td>≥ 1.0%</td><td>2.53%</td><td class="ok">✅ OK</td></tr>
+<tr><td>CCR（資料・オリックス）</td><td>≥ 15.0%</td><td>13.7%</td><td class="warn">⚠️ やや不足</td></tr>
+<tr><td>CCR（スマサテ・オリックス）</td><td>≥ 15.0%</td><td>63.2%</td><td class="ok">✅ OK</td></tr>
+<tr><td>積算比率</td><td>≥ 60%</td><td>53.8%（路線価未反映・倍率地域）</td><td class="warn">⚠️ 要確認</td></tr>
+<tr><td>築年</td><td>≤ 10年</td><td>築2年</td><td class="ok">✅ OK</td></tr>
+<tr><td>エリア（16号内側）</td><td>一都三県・16号内側</td><td>埼玉県宮代町（16号完全外側）</td><td class="ng">❌ NG</td></tr>
+<tr><td>10年目税引後IRR（資料）</td><td>≥ 25%</td><td>12.84%</td><td class="ng">❌ NG</td></tr>
+<tr><td>10年目税引後IRR（スマサテ）</td><td>≥ 25%</td><td>58.72%</td><td class="ok">✅ OK</td></tr>
+</table>
+<div class="alert-yellow">★資料賃料ベースではキャプテン基準6指標中1勝5敗。スマサテ賃料ベースでは5勝1敗（残り1敗=16号外側）。<br>勝負の分かれ目は「現況家賃がどちらに近いか」。レントロール入手必須。</div>
+</div>
+
+<div class="card teal">
+<h2>🗺️ 路線価・ハザード・スマサテ査定（ハルト調査）</h2>
+<table>
+<tr><th>項目</th><th>結果</th><th>判定</th></tr>
+<tr><td>相続路線価</td><td>倍率地域（路線価設定なし・chikamap.jp 令和7年分）<br><a href="https://scr.wagmap.jp/chikamap/BAI/R08/11/B11442.pdf" target="_blank">宮代町倍率表PDF</a></td><td class="warn">⚠️ 要倍率表確認（固定資産税評価×倍率で算出）</td></tr>
+<tr><td>洪水浸水想定</td><td>浸水3.0〜5.0m（想定最大規模・大落古利根川水系）</td><td class="ng">❌ 要注意（2階床上浸水レベル）</td></tr>
+<tr><td>土砂災害警戒区域</td><td>非該当</td><td class="ok">✅ 問題なし</td></tr>
+<tr><td>津波浸水想定</td><td>非該当</td><td class="ok">✅ 問題なし</td></tr>
+<tr><td>液状化危険度</td><td>確認不可</td><td class="warn">⚠️ 要確認</td></tr>
+<tr><td>内水浸水</td><td>非該当</td><td class="ok">✅ 問題なし</td></tr>
+<tr><td>標高</td><td>6.2m</td><td>—</td></tr>
+<tr><td>総合ハザード判定</td><td><b>要注意</b></td><td class="ng">⚠️ 浸水3〜5mは深刻レベル。木造1階は壊滅的被害想定。</td></tr>
+<tr><td>スマサテ賃料査定</td><td>査定79,000円 / 資料58,750円 / 乖離+34.5%</td><td class="warn">⚠️ 上振れ懸念・現況家賃要確認</td></tr>
+</table>
+<p>📸 ハザードスクショ: <code>knowledge/hazardmap-debug/miyashiro-himemiya_hazard_popup.png</code> / <code>knowledge/hazardmap-debug/miyashiro-himemiya_hazard_zoom50m.png</code></p>
+<p>🔍 既存スマサテ精査レポート: <a href="https://teruyone.github.io/tc-properties/properties/bk_b5081afa3c_survey.html" target="_blank">物件調査レポート</a></p>
+</div>
+
+<div class="card haruto">
+<h2>🔍 ハルト — エリア・利回り分析</h2>
+<h3>姫宮駅・東武動物公園線の将来性</h3>
+<ul>
+<li>姫宮駅 1日平均乗降人員: 約4,723人（令和7年度）→ 各停中心の小駅ポジション</li>
+<li>隣駅「東武動物公園」で宮代版スーパーシティ構想（旧杉戸工場跡地5ha再開発検討中・東武鉄道×良品計画×日本工業大学）進行中。ただし姫宮駅は再開発の中心ではなく恩恵は限定的</li>
+<li>北千住まで東武線直通で約50〜55分。都心通勤はきつい</li>
+</ul>
+<h3>宮代町の人口動態（マイナス材料）</h3>
+<ul>
+<li>2025年人口: 33,542人（2020年比 ▲1.8%）/ 高齢化率32.14%（県平均超）</li>
+<li>2060年推計: 29,614人（現在比 ▲10%）→ 10年後▲10%の明確な減少トレンド</li>
+<li>長期の賃貸需要は右肩下がり前提</li>
+</ul>
+<h3>資料賃料58,750円 vs スマサテ79,000円の乖離評価</h3>
+<p>乖離 +20,250円/戸（+34.5%）・年額97.2万円/棟差。スマサテがここまで強気なのは珍しい。</p>
+<ul>
+<li>実勢相場は 6.5〜7万円台が妥当（要SUUMO/HOME'S実査）</li>
+<li>日本工業大学の学生需要があるが学生賃料は抑え気味</li>
+<li>資料賃料58,750円は保守値として現実的</li>
+<li>スマサテ値を鵜呑みにせず「実質7.0〜7.5%」の保守評価が妥当</li>
+</ul>
+<h3>ハルト所見</h3>
+<div class="alert-red">
+<b>ハルト率直評価: 見送り寄り（40/100点）・★イチオシではない</b>
+<p>光る点: スマサテ考慮9.48%・価格4,000万で軽い・築2年・オリックスフルローン評価済み</p>
+<p>懸念: 16号完全外側（キャプテン基準即NG論点）/ 浸水3〜5m（ハザード要注意）/ 人口減&高齢化 / スマサテ+34.5%乖離の上振れリスク / 倍率地域（担保評価弱め）/ 4戸小規模（空室インパクト大）</p>
+<p>進めるなら: 3,500万以下の指値で「出口=地元の実需向け売却」前提+水災特約フル加入</p>
+</div>
+</div>
+
+<div class="card ryo">
+<h2>🔎 リョウ — DD精査</h2>
+<p><a class="doc-link" href="https://teruyone.github.io/tc-properties/properties/20261128_miyashiro-himemiya_DD.html" target="_blank">📋 入力済みDDリストを開く</a></p>
+<h3>最大リスク: 資料賃料とスマサテ査定の34%乖離</h3>
+<ul>
+<li>想定A（楽観）: 売主が新築時に相場より安く埋めただけ → リフィル時79,000円実現</li>
+<li>想定B（悲観）: 現況家賃が58,750円より低い or AD/フリーレント水増し表示</li>
+<li>想定C（構造）: 郊外駅で実需薄く、スマサテのアルゴ（都心寄り比較事例）が過大評価</li>
+</ul>
+<h3>その他リスクフラグ</h3>
+<ol>
+<li>築2年プレミアム剥落リスク（3-5年後に5,000〜8,000円/戸下落想定）</li>
+<li>4戸の小規模（1戸空室で▲25%の空室率インパクト）</li>
+<li>郊外立地・需要特性（日本工業大学の学生依存・競合供給過多懸念）</li>
+<li>売主物件特有のリスク（契約不適合責任免責になりがち・レインズ非登載）</li>
+<li>業者資料未入手で判断材料ゼロに近い</li>
+</ol>
+<h3>最優先取り寄せ資料（根本様へ依頼）</h3>
+<ol>
+<li>レントロール（4戸全ての現況賃料・敷礼・契約開始日・更新日・契約形態）</li>
+<li>各戸の賃貸借契約書コピー（氏名マスク可）</li>
+<li>登記簿謄本（土地建物・所有権移転履歴・抵当権）</li>
+<li>公課証明書または納税通知書（固都税実額）</li>
+<li>建築確認済証・検査済証</li>
+<li>建物図面（配置図・平面図・求積図）</li>
+<li>前面道路幅員・接道状況（再建築可否）</li>
+<li>土地建物価格割合（建物比率を交渉で最大化）</li>
+<li>オリックス銀行の評価書（融資額・金利・期間の具体数字）</li>
+<li>広告料（AD）・フリーレント実績</li>
+</ol>
+<div class="alert-yellow"><b>リョウ判定: 中リスク（資料未入手のため暫定）</b><br>レントロール＋契約書コピー入手までは買付価格の交渉カード化を保留。シナリオA確認できれば積極検討に切替可能。</div>
+</div>
+
+<div class="card aki">
+<h2>📊 アキ — IG+収支計算＋玉川式</h2>
+<p>
+<a class="doc-link" href="https://teruyone.github.io/tc-properties/ig-sheet/?price=4000&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=7.05&floorArea=112.8&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=2&taxRateIncome=20&pi_price_inp=4000&pi_age_inp=2&pi_yield_inp=7.05&pi_area_inp=112.8&pi_rooms_inp=4&ik_land_area=200&ik_route_price=0&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&pi_struct_sel=%E6%9C%A8%E9%80%A0&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89" target="_blank">📊 IG+【資料賃料】</a>
+<a class="doc-link" href="https://teruyone.github.io/tc-properties/ig-sheet/?price=4000&ltvInput=100&ltvRatio=100&costsRate=4&loanTerm=35&intRate=2.6&grossYield=9.48&floorArea=112.8&effectRate=100&vacancyRate=5&parkVacancy=5&parkingUnit=0&parkingCnt=0&otherIncome=0&rentDecline=1&mgmtRate=5&bmUnit=200&utilUnit=50&buildUnit=550000&insurRate=0.3&taxRate=7&repairRate=0.5&restoreUnit=10000&turnover=25&adMonths=1&otherExpense=0&buildAge=2&taxRateIncome=20&pi_price_inp=4000&pi_age_inp=2&pi_yield_inp=9.48&pi_area_inp=112.8&pi_rooms_inp=4&ik_land_area=200&ik_route_price=0&ik_correction=1.00&ik_multiplier=1.00&ik_land_direct=0&ik_build_direct=0&buildRatio=70&pi_struct_sel=%E6%9C%A8%E9%80%A0&_repayMode=%E5%85%83%E5%88%A9%E5%9D%87%E7%AD%89" target="_blank">📊 IG+【スマサテ賃料】</a>
+<a class="doc-link" href="https://teruyone.github.io/tc-properties/tamagawa-analysis/20261128_miyashiro-himemiya_TG.html" target="_blank">📈 玉川式シート</a>
+</p>
+<h3>A. 資料賃料ベース（表面7.05%）</h3>
+<table>
+<tr><th>項目</th><th>オリックス（100%・2.6%・35年）</th><th>神奈川銀行（90%・2.25%・35年）</th></tr>
+<tr><td>実収入（空室5%後）</td><td>2,679,000円</td><td>2,679,000円</td></tr>
+<tr><td>NOI</td><td>1,960,963円（NOI利回り 4.90%）</td><td>同上</td></tr>
+<tr><td>年間返済</td><td>▲1,741,812円</td><td>▲1,487,102円</td></tr>
+<tr><td>CF</td><td>219,151円</td><td>473,861円</td></tr>
+<tr><td>CF率</td><td class="ng">0.55%</td><td class="ok">1.18%</td></tr>
+<tr><td>返済比率</td><td>65.0%</td><td>55.5%</td></tr>
+<tr><td>CCR</td><td class="warn">13.7%（自己1,600,000）</td><td class="ng">8.5%（自己5,600,000）</td></tr>
+</table>
+<h3>B. スマサテ賃料ベース（表面9.48%）</h3>
+<table>
+<tr><th>項目</th><th>オリックス（100%・2.6%・35年）</th><th>神奈川銀行（90%・2.25%・35年）</th></tr>
+<tr><td>実収入（空室5%後）</td><td>3,602,400円</td><td>3,602,400円</td></tr>
+<tr><td>NOI</td><td>2,753,305円（NOI利回り 6.88%）</td><td>同上</td></tr>
+<tr><td>CF</td><td>1,011,493円</td><td>1,266,203円</td></tr>
+<tr><td>CF率</td><td class="ok">2.53%</td><td class="ok">3.17%</td></tr>
+<tr><td>CCR</td><td class="ok">63.2%（自己1,600,000）</td><td class="ok">22.6%（自己5,600,000）</td></tr>
+</table>
+<h3>積算評価＆10年目IRR</h3>
+<table>
+<tr><th>項目</th><th>内容</th></tr>
+<tr><td>建物積算</td><td>21,534,545円（112.8㎡×210,000×20/22）</td></tr>
+<tr><td>土地積算</td><td>0円（路線価未反映・倍率地域）</td></tr>
+<tr><td>積算合計</td><td>21,534,545円（積算比率53.8%）※路線価×倍率を反映すれば60%越えの可能性</td></tr>
+<tr><td>減価償却費</td><td>1,400,000円/年（残存耐用20年・建物簿価2,800万）</td></tr>
+<tr><td>10年目税引後IRR（資料賃料・オリックス）</td><td class="ng">12.84%（基準25%未達）</td></tr>
+<tr><td>10年目税引後IRR（スマサテ・オリックス）</td><td class="ok">58.72%（基準25%大幅クリア）</td></tr>
+</table>
+<div class="alert-yellow">
+<b>アキひとこと:</b> 現況家賃58,750円と査定79,000円の差額▲20,250円/戸・月が「埋められるか」が勝負。資料賃料のままならオリックスCF率0.55%・CCR13.7%で黄色信号。スマサテ賃料実現なら一気にCCR63%の優等生物件に化ける。鍵は「入居率・現況家賃・リノベ可否」の三点セット。
+</div>
+</div>
+
+<div class="card murata">
+<h2>🏗️ 村田先生 — 建築士コメント</h2>
+<p><i>「現場を見ないと断言はできませんが——」</i></p>
+<h3>構造・築年数の評価</h3>
+<ul>
+<li>築2年・木造4戸1K（28.2㎡×4戸）は地方圏の新築アパートビルダーの標準プロトコル。ビルダー系の典型プラン</li>
+<li>想定工法: 軸組工法+構造用合板による耐力面材／ベタ基礎／窯業系サイディング16mm／ガルバ or スレート</li>
+<li>2024年築なら2000年基準＋2022年省エネ基準適合義務化直後の設計。金物接合・耐力壁バランス計算入っているはず</li>
+</ul>
+<h3>劣化対策等級・性能評価書の期待値</h3>
+<ul>
+<li>築2年・売主物件・4戸1Kで劣化対策等級3取得の可能性: 50〜60%</li>
+<li>大手ビルダー（シノケン・アイケン等）系は等級3標準、地場ビルダーは取得コストで見送りがち</li>
+<li>★根本様に最優先で確認する書類: <b>建設住宅性能評価書</b>（これに等級3の記載があるかが核心）</li>
+</ul>
+<h3>直近・中期修繕リスク</h3>
+<table>
+<tr><th>時期</th><th>修繕内容</th><th>目安費用</th></tr>
+<tr><td>築2-5年</td><td>設備初期不良対応のみ</td><td>年20-30万円</td></tr>
+<tr><td>築5-7年</td><td>初回入退去サイクル・クロスCF張替</td><td>年20-30万円</td></tr>
+<tr><td>築7-10年</td><td>給湯器+エアコン1回目交換</td><td>累計100万円</td></tr>
+<tr><td>築10-13年</td><td>1回目外壁大規模修繕（シーリング・部分塗装）+ 屋根塗装</td><td>150-250万円</td></tr>
+<tr><td>築13-15年</td><td>2回目設備更新サイクル</td><td>累計120万円</td></tr>
+</table>
+<p><b>築10-13年の壁:</b> 外壁200万+給湯器60万+エアコン40万+プレミアム剥落で賃料▲15-20%が同時襲来。これを織り込んだ資金計画が必要。IG+の修繕費率は「年間賃料収入の7〜10%」推奨（新築ビルダー営業資料の3-5%は甘すぎ）。</p>
+<h3>法令適合性チェックポイント</h3>
+<ul>
+<li>姫宮駅周辺の用途地域推定: 「第一種中高層住居専用地域」または「第一種住居地域」（要宮代町都計図確認）</li>
+<li>検査済証は必ず現物確認。2024年築で検査済証なしは赤信号（既存不適格・無確認増築のリスク）</li>
+<li>市街化区域内か（市街化調整区域なら要確認）</li>
+</ul>
+<h3>現地で必ず確認すべき6点</h3>
+<ol>
+<li>外壁サイディング縦目地・横目地のシーリング白化/肉やせ/剥離</li>
+<li>給湯器裏の外壁雨染み・配管貫通部のコーキング均一性</li>
+<li>共用部（階段ササラ桁下部・踏板裏の錆、廊下FRP防水の浮き・ひび）</li>
+<li>木造2階建てか3階建てか（防耐火要件が大幅に変わる）</li>
+<li>基礎立ち上がり高さ400mm以上（等級3の要件）</li>
+<li>軒天換気口・棟換気の有無（木造寿命を左右）</li>
+</ol>
+<div class="alert-yellow"><b>村田先生の提言:</b><br>① 建設住宅性能評価書の有無を最優先確認<br>② 検査済証は必ず現物確認（ない物件は見送りが基本）<br>③ IG+修繕費率は年間賃料の7〜10%推奨<br>建物自体は典型レベルだが、築10-13年の壁の資金計画が勝負。</div>
+</div>
+
+<div class="card">
+<h2>❓ キャプテンへの確認事項</h2>
+<ol>
+<li>オリックス銀行のフルローン評価は「口頭感触」か「評価書発行済み」か（金利・期間の確定状況）</li>
+<li>根本様（ライフラリ）には業者資料を依頼済みか</li>
+<li>新築時の販売実績（分譲or一棟売り）、過去のオーナーチェンジ履歴</li>
+<li>根本様は売主本人か売主代理か（代理なら売主の素性も確認）</li>
+<li>宮代町姫宮は「16号完全外側」。キャプテンのFIRE戦略v5で許容範囲か？</li>
+<li>土地面積・建蔽率・容積率（現在デフォルト200㎡仮置き）</li>
+<li>国道16号内側判定（地図上では完全外側）</li>
+<li>建設住宅性能評価書・劣化対策等級の確認（村田先生最優先項目）</li>
+</ol>
+</div>
+
+<div class="card">
+<h2>🏁 チーム総合所見</h2>
+<table>
+<tr><th>担当</th><th>判定</th><th>コメント</th></tr>
+<tr><td>ハルト</td><td class="ng">見送り寄り（40/100）</td><td>16号外側・浸水3-5m・人口減・倍率地域が重なる</td></tr>
+<tr><td>リョウ</td><td class="warn">中リスク（暫定）</td><td>レントロール入手まで判断保留</td></tr>
+<tr><td>アキ</td><td class="warn">分岐判定</td><td>資料賃料=見送り / スマサテ賃料=買い / 現況家賃次第</td></tr>
+<tr><td>村田</td><td class="warn">建物は標準</td><td>築10-13年の壁の資金計画が必要</td></tr>
+</table>
+<div class="alert-red">
+<b>チーム総合判定: 「基準外・情報収集枠」として共有。キャプテン判断に委ねる。</b>
+<p><b>最大リスク:</b> 洪水浸水3-5mのハザード（過去NG事例と同格の除外ルールに該当する恐れ）＋16号完全外側（キャプテン厳格基準では即NG論点）</p>
+<p><b>次のアクション候補:</b></p>
+<ul>
+<li>A. 即見送り（キャプテン基準重視）</li>
+<li>B. レントロール・業者資料一括取り寄せ→現況家賃判明後に再評価</li>
+<li>C. 3,500万以下の指値（利回り8%超・水災特約フル加入前提で握れるライン）</li>
+</ul>
+<p>★ハルトの「スマサテ考慮9.48%」の数字だけで突っ込むには、浸水3-5mのリスクが重すぎる。慎重運用を推奨。</p>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- TC Share Bar: https://teruyone.github.io/tc-properties/properties/20261128_miyashiro-himemiya_review.html -->
+<style>
+#tc-share-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a237e;color:#fff;display:flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,0.25);}
+#tc-share-url{flex:1;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:4px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;outline:none;}
+#tc-copy-btn{flex-shrink:0;padding:7px 14px;background:#fff;color:#1a237e;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+#tc-copy-btn:hover{background:#e8eaf6;}
+</style>
+<div id="tc-share-bar">
+  <span style="font-size:11px;white-space:nowrap;flex-shrink:0;opacity:0.8;">📤 共有URL</span>
+  <input id="tc-share-url" type="text" value="https://teruyone.github.io/tc-properties/properties/20261128_miyashiro-himemiya_review.html" readonly>
+  <button id="tc-copy-btn" onclick="tcCopy()">📋 コピー</button>
+</div>
+<script>
+function tcCopy(){
+  var u=document.getElementById('tc-share-url').value;
+  var b=document.getElementById('tc-copy-btn');
+  function done(){b.textContent='✅ コピー済み';setTimeout(function(){b.textContent='📋 コピー';},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(u).then(done).catch(function(){
+      var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+    });
+  } else {
+    var i=document.getElementById('tc-share-url');i.select();i.setSelectionRange(0,99999);document.execCommand('copy');done();
+  }
+}
+</script>
+</body>
+</html>
